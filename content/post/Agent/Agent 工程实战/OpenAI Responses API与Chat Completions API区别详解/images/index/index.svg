@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a1f2e"/>
+      <stop offset="100%" stop-color="#2b3450"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5b87bf"/>
+      <stop offset="100%" stop-color="#7b6bc9"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="0" y="580" width="1200" height="4" fill="url(#accent)"/>
+  <rect x="80" y="80" width="4" height="120" fill="url(#accent)" rx="2"/>
+  <text x="110" y="120" fill="#8b9dc3" font-family="sans-serif" font-size="22" letter-spacing="4">OPENAI API</text>
+  <text x="110" y="170" fill="#ffffff" font-family="sans-serif" font-size="48" font-weight="bold">Responses API vs</text>
+  <text x="110" y="225" fill="#ffffff" font-family="sans-serif" font-size="48" font-weight="bold">Chat Completions API</text>
+  <text x="110" y="270" fill="#8b9dc3" font-family="sans-serif" font-size="24">协议区别 · 能力边界 · 选型建议</text>
+  <rect x="760" y="380" width="360" height="140" rx="12" fill="#2d3a55" stroke="#5b87bf" stroke-width="1.5"/>
+  <text x="790" y="425" fill="#5b87bf" font-family="sans-serif" font-size="18" font-weight="bold">/v1/responses</text>
+  <text x="790" y="460" fill="#8b9dc3" font-family="sans-serif" font-size="14">Agent Loop · Built-in Tools</text>
+  <text x="790" y="485" fill="#8b9dc3" font-family="sans-serif" font-size="14">State Management</text>
+  <rect x="80" y="380" width="360" height="140" rx="12" fill="#2d3a55" stroke="#8b9dc3" stroke-width="1.5"/>
+  <text x="110" y="425" fill="#a8c5e8" font-family="sans-serif" font-size="18" font-weight="bold">/v1/chat/completions</text>
+  <text x="110" y="460" fill="#8b9dc3" font-family="sans-serif" font-size="14">Messages · Stateless</text>
+  <text x="110" y="485" fill="#8b9dc3" font-family="sans-serif" font-size="14">Universal Compatibility</text>
+  <line x1="440" y1="450" x2="760" y2="450" stroke="#5b87bf" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <polygon points="760,450 748,444 748,456" fill="#5b87bf"/>
+  <text x="560" y="440" fill="#8b9dc3" font-family="sans-serif" font-size="13" text-anchor="middle">vs</text>
+  <text x="110" y="560" fill="#4a5568" font-family="sans-serif" font-size="13">zata.cc · 2026</text>
+</svg>

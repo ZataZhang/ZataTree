@@ -55,7 +55,26 @@ response = client.messages.create(
 )
 ```
 
-OpenAI 和 Gemini 形态类似：`tools` 里声明一个类型，其余交给平台。没有客户端实现、没有 key 管理、引用自动带回，模型对这类原生工具的使用意愿也最强——不需要你教它什么时候搜。
+阿里云百炼也是这个形态，但接口协议有个容易踩的坑：联网搜索要走 **OpenAI-compatible Responses API**，而不是 Chat Completions。在 Chat Completions 里传 `enable_search` 这类参数，请求不会报错，但厂商侧搜索可能根本没触发——我就先在这里卡了一次：模型照样回答，正文看起来很专业，响应里却没有任何搜索来源。正确的接法是 `tools` 声明：
+
+```python
+client = OpenAI(api_key=key, base_url="https://{WorkspaceId}.cn-beijing.maas.aliyuncs.com/compatible-mode/v1")
+response = client.responses.create(
+    model="qwen3.7-flash",
+    input="今天的 GitHub trending",
+    tools=[
+        {"type": "web_search"},      # 搜索
+        {"type": "web_extractor"},   # 抓取正文，效果更完整但更慢
+    ],
+    stream=True,
+)
+```
+
+来源也不混在正文里，而在 `response.output` 里 `type == "web_search_call"` 的元素中，`action.sources` 就是链接列表。流式事件同样能拿到：`response.web_search_call.searching` / `completed` 表示搜索阶段，`response.output_text.delta` 才是正文增量。
+
+两个实测数字（同一问题「今天的 GitHub trending」，qwen3.7-flash）：只开 `web_search` 约 14 秒；`web_search + web_extractor` 约 46–67 秒。`web_extractor` 的定位就是搜索工具里的 fetch——它让模型读正文，代价是会触发多轮抓取。还有一个体验细节：阿里云的 SSE 事件有批量下发的情况，`in_progress` / `searching` 可能到搜索快结束时才一起到达，客户端如果要展示「正在搜索」，最好在请求发出时先本地打印一行。
+
+OpenAI 和 Gemini 形态类似：`tools` 里声明一个类型，其余交给平台。没有客户端实现、没有 key 管理、引用自动带回，模型对这类原生工具的使用意愿也最强——不需要你教它什么时候搜。要注意的是这类参数是厂商扩展：换厂商就得换参数名和协议，自建 vLLM 不认识它们。
 
 代价有三个：
 
@@ -98,14 +117,22 @@ from langchain_core.tools import tool
 from tavily import TavilyClient
 
 client = TavilyClient()  # 读 TAVILY_API_KEY 环境变量
+from datetime import datetime
+TODAY = datetime.now().astimezone()
 
 @tool
 def web_search(query: str) -> str:
     """搜索互联网，返回最相关的网页标题、链接与内容摘录。
-    当问题涉及训练数据之后的信息（新版本、新闻、当前价格）时调用。"""
-    result = client.search(query=query, max_results=5)
+当问题涉及训练数据之后的信息（新版本、新闻、当前价格）时调用。"""
+    result = client.search(
+        query=f"{query} (current date: {TODAY:%Y-%m-%d})",
+        max_results=5,
+        time_range="week",
+    )
     return "\n\n".join(
-        f"[{r['title']}]({r['url']})\n{r['content']}" for r in result["results"]
+        f"[{r['title']}]({r['url']})\n{r['content']}"
+        f"\npublished: {r.get('published_date') or 'unknown'}"
+        for r in result["results"]
     )
 ```
 
@@ -129,6 +156,7 @@ def fetch_url(url: str) -> str:
 三条工程经验：
 
 - **搜索和抓取分成两个工具。**合并成一个「搜了顺便读」的工具，模型的调用意愿和结果质量都会下降，排查问题也更难。
+- **时效性是检索约束，不是模型自觉。**我踩过一个很典型的坑：用 Tavily 搜「今天的 GitHub trending」，Tavily 返回的混合了旧博客、旧榜单和缓存页，模型把结果里的「2025」当成了当前年份，最后一本正经地回答「今天是 2025 年」。修法是把时间边界从模型手里拿走：system prompt 注入本机当前日期，搜索查询附带 `current date`，检索强制 `time_range="week"`，结果逐条带 `published` 字段。不要把 `time_range` 作为可选参数交给模型决定——它连今天几号都不确定。
 - **弱模型要强指令。**qwen 级别的开源模型对「何时该搜」并不敏感，光给工具不够，还要在 system prompt 里写明「问题涉及训练截止后的信息时，必须先调用 web_search，再回答」这类硬规则。
 - **网络环境要提前想好。**国内网络下 Tavily 等域名走代理即可；要求直连就选博查或智谱。
 
@@ -233,6 +261,7 @@ SearXNG 是开源的元搜索引擎：自己不索引网页，把查询转发给
 1. **搜索和抓取永远是两个工具**，一个查链接，一个读全文。
 2. **触发条件写进工具描述和 system prompt**，弱模型尤其需要硬规则，否则工具躺在那里没人调。
 3. **搜索结果对 context 的消耗很可观**：一次搜索五条结果就是一到两千 token，深度调研任务给独立的 researcher 子 Agent，让它搜完、读完、综合完再带回结论，别让原始搜索结果塞满主循环。
+4. **永远区分「厂商侧搜索生效了没有」。**请求不报错不代表搜索被触发：响应里没有 `web_search_call` / 来源字段，模型就是在拿参数化记忆演戏。把来源列表当作搜索类回答的最低验收标准，没有来源就不要采信。
 
 ## 总结
 

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#101826"/>
+  <circle cx="1010" cy="120" r="220" fill="#5b87bf" opacity=".18"/>
+  <circle cx="170" cy="520" r="180" fill="#7c9fca" opacity=".14"/>
+  <rect x="90" y="140" width="1020" height="350" rx="24" fill="#182334"/>
+  <rect x="90" y="140" width="1020" height="10" rx="5" fill="#5b87bf"/>
+  <text x="150" y="238" fill="#e8eef6" font-family="sans-serif" font-size="58" font-weight="700">Agent Run 流式输出协议</text>
+  <text x="150" y="300" fill="#9fb3c8" font-family="sans-serif" font-size="28">事件溯源 · Canonical Event · SSE 投影</text>
+  <g font-family="sans-serif" font-size="24" fill="#dce7f3">
+    <rect x="150" y="350" width="220" height="68" rx="12" fill="#24344a"/>
+    <text x="182" y="391">Runtime Event</text>
+    <rect x="420" y="350" width="290" height="68" rx="12" fill="#2d4b6b"/>
+    <text x="458" y="391">Canonical Event Store</text>
+    <rect x="760" y="350" width="210" height="68" rx="12" fill="#1f5b54"/>
+    <text x="797" y="391">SSE Stream</text>
+  </g>
+  <text x="150" y="550" fill="#7d92a8" font-family="sans-serif" font-size="22">Zata · Agent 工程实战</text>
+</svg>
