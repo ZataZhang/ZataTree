@@ -221,20 +221,15 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [metaGPT](../metaGPT/)
 
 ### LangChain
-- [langchain使用教程教程_langchainv0.3](../langchain使用教程教程_langchainv0.3/)
-- [langchain_v0.3_API](../langchain_v0.3_API/)
-- [langchain_core](../langchain_core/)
-- [Langgraph使用教程](../Langgraph使用教程/)
-- [Langchain的简易教程](../Langchain的简易教程/)
-- [Langchain-Graph实战教程](../Langchain-Graph实战教程/)
-- [LangSmith使用教程](../LangSmith使用教程/)
-- [LangChain调用不同平台api](../LangChain调用不同平台api/)
-- [LangChain-实战-Tools使用教程](../LangChain-实战-Tools使用教程/)
+- [LangChain模型接入指南](../LangChain模型接入指南/)
+- [langchain_core组件详解](../langchain_core组件详解/)
+- [LangGraph实战教程](../LangGraph实战教程/)
 - [LangChain-RAG实战教程](../LangChain-RAG实战教程/)
-- [提示词工程应用实践](../提示词工程应用实践/)
-- [使用LangChain构建订阅内容更新总结智能代理](../使用 LangChain 构建订阅内容更新总结智能代理/)
-- [08-内容分块(chunking)和记忆机制(memory)处理超出LLM-Token限制的长文本](../08-内容分块 (chunking) 和记忆机制 (memory) 处理超出 LLM Token 限制的长文本/)
-- [07-envents-事件和回调用](../07-envents-事件和回调用/)
+- [LangChain与MCP极简教程](../LangChain与MCP极简教程/)
+- [LangSmith使用教程](../LangSmith使用教程/)
+- [LangChain常见报错与排查](../LangChain常见报错与排查/)
+- [订阅摘要Agent实战](../订阅摘要Agent实战/)
+- [DeepAgents完全指南](../DeepAgents完全指南/)
 
 ### 其他Agent相关
 - [Agent开发中遇到的问题](../Agent开发中遇到的问题/)
