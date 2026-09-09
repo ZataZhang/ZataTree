@@ -107,12 +107,14 @@ Every published article must have a cover image referenced from its frontmatter 
 
 1. Check whether `images/index/index.png` (or `.svg`, `.jpg`, `.webp`) already exists in the article directory.
 2. If it exists → leave it alone, just confirm the frontmatter `image:` field points to it.
-3. If it is **missing**, do **not** search the web for a stock image. Instead, **generate an SVG cover**:
+3. If it is **missing**, do **not** search the web for a stock image. Instead, **generate an SVG cover** — preferably with the repo's generator:
+   - **Preferred**: `python3 tools/cover.py content/post/<path>/index.md` (or `python3 tools/cover.py` for all articles). It reads title/tags/category from frontmatter and renders the house style (1200×400, safe-zone layout, per-category accent colors and motif). Run it after the frontmatter is written.
    - File path: `{article-dir}/images/index/index.svg`
    - Canvas: **1200×400 (3:1), with `width`/`height` attributes on the `<svg>` root** (not just `viewBox` — without them browsers report `naturalWidth = 0` and the image collapses).
    - Why 3:1: the homepage/list cards crop covers to a fixed-height full-width strip (≈845×250, ~3.4:1 on desktop, `object-fit: cover` center-crop); 1200×630 covers lose ~44% of their height there. The article page hero shows the image at its natural ratio.
-   - Safe-zone layout: keep the title (font-size ≥72px), tag words, and any diagram inside the central band y∈[80, 320] with ≥100px side margins. Background gradients/decoration may bleed to the edges; anything placed at the edges will be cropped on the homepage.
-   - Style: minimal, geometric, with the article title and (optionally) 1–2 tag words. Use the `hugo-theme-stack` accent palette (primary `#5b87bf`, accent tones of blue / purple / teal). Avoid stock-photo clichés.
+   - Safe-zone layout: keep the title, tag chips, and any diagram inside the central band y∈[80, 320] with ≥100px side margins. Background gradients/decoration may bleed to the edges; anything placed at the edges will be cropped on the homepage.
+   - House style (keep site-wide consistent, mirrors `tools/cover.py`): deep-navy `#0B1220` background with subtle dot grid, 6px accent edge bar on the left, white `#F8FAFC` left-aligned title (auto-sized 72→44px, wraps to ≤2 lines), 112×6 rounded accent bar under the title, tag words as rounded chips (mono font, `#9FB3D1`) instead of bare text, `zata.cc` mono watermark top-right, stroke-based geometric motif on the right confined to x∈[760, 1120], y∈[120, 280].
+   - Palette: `hugo-theme-stack` accents (primary `#5b87bf`, blue / purple / teal tones). Per-category accent pairs live in `tools/cover.py` (`CATEGORY_STYLE`) — reuse them rather than inventing new ones.
    - Format: inline SVG, no external assets, no remote fonts (use generic `sans-serif` / `serif`). Keep file size small (< 20 KB ideal).
 4. After generating, add or update the frontmatter:
    ```yaml

@@ -74,15 +74,28 @@ content/post/{category}/{tag}/{title}/
 
 旧规范按 1200×630（OG 比例 1.9:1）画，首页长条只会显示中间约 56% 高度，上下各裁掉 ~22%，标题和示意图经常被切掉——这就是「页面上的封面是一条细长条且构图不对」的根因。
 
-**生成规范：**
+**首选：用仓库自带的生成脚本**（2026-09 起，全部现役封面由它产出，风格统一）：
+
+```bash
+python3 tools/cover.py                                # 重刷所有引用 index.svg 的文章封面
+python3 tools/cover.py content/post/<路径>/index.md   # 只重生成某一篇
+```
+
+脚本从 frontmatter 读标题/tags/分类，自动完成：1200×400 画布、标题字号与两行折行、
+tag 胶囊、按分类映射的配色与图形母题（Agent→graph、Engineering→terminal、
+Platforms_Tools→layers、Library→doc、Vibe-Coding→flow……）。新文章写完 frontmatter
+后跑一次即可，不要手写 SVG。
+
+**手写 SVG 时的底线规范**（脚本覆盖不了的特殊构图才手写）：
 
 - 画布 **1200×400（3:1）**，`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400" viewBox="0 0 1200 400">`。**width/height 属性必须写**（只写 viewBox 时浏览器 naturalWidth=0，渲染塌陷）。
 - **安全区构图**：标题、tag 词、示意图全部放在中央安全带——垂直方向 y∈[80, 320]（中间 60%），水平方向两侧各留 ≥100px 边距。背景渐变、装饰纹理可以满幅出血，但放边缘的内容默认会被裁掉。
-- 内容元素：文章标题（主视觉，字号 ≥72px）+ 1~2 个 tag 词 + 一个极简示意图（能画「问题 vs 修复后」对比最好）。
+- **视觉基调**（与 tools/cover.py 一致，保持全站封面统一）：深海军蓝底 `#0B1220` + 低透明度点阵纹理；左侧 6px 强调色竖条；标题白色 `#F8FAFC`、font-weight 700、左对齐 x=96，按长度自动降档（72→44px，过长折两行）；标题下 112×6 圆角强调条；tag 用**圆角胶囊**（底 `#152238`、描边 `#2c3a58`、等宽字体 `#9FB3D1`），不要裸文本；右上角 `zata.cc` 等宽小字水印；右侧图形母题限位 x∈[760,1120]、y∈[120,280]，线框风格 stroke 2.5、`fill:none` 为主，重用标题区不重叠。
 - 无外部资源、无远程字体，只用 `sans-serif` / `monospace` 泛型字体；文件 < 20KB。
-- 配色用主题色 `#5b87bf` 及蓝/紫/青系（深色底 `#0f172a`→`#1e293b` 渐变 + 亮色强调是现有封面的成熟套路）。
+- 配色用主题色 `#5b87bf` 及蓝/紫/青系（每个分类一对固定强调色，见 `tools/cover.py` 的 `CATEGORY_STYLE`，不要临场发挥新配色）。
 - frontmatter 指向它：`image: images/index/index.svg`。
 - 没有现成封面时**不要搜网络图**，一律生成 SVG。
+- 改完用浏览器或 `qlmanage -t -s 1200 -o /tmp images/index/index.svg` 过一眼，重点检查：标题是否被折行截断、母题与文字是否重叠、裁切后四边是否有内容贴边。
 
 ## 第三步：写法——叙事博客，不是工程报告
 
