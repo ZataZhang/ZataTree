@@ -1,40 +1,34 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400" viewBox="0 0 1200 400" role="img" aria-label="阿里云百炼联网搜索：三种入口，三种结果，我全都踩了一遍">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0a1828"/>
-      <stop offset="100%" stop-color="#1e3a5f"/>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#7C9CF5"/>
+      <stop offset="100%" stop-color="#A78BFA"/>
     </linearGradient>
-    <linearGradient id="cardA" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#0d1e35"/>
-      <stop offset="100%" stop-color="#14283f"/>
-    </linearGradient>
-    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
-      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.3" fill="#26324a"/>
     </pattern>
   </defs>
-  <rect width="1200" height="630" fill="url(#bg)"/>
-  <rect width="1200" height="630" fill="url(#grid)"/>
-
-  <text x="80" y="110" font-family="PingFang SC, Hiragino Sans GB, sans-serif" font-size="26" fill="#7ea8d8" font-weight="600">AGENT 工程实战 · EP.06</text>
-  <text x="80" y="190" font-family="PingFang SC, Hiragino Sans GB, sans-serif" font-size="56" fill="#ffffff" font-weight="700">阿里云百炼联网搜索</text>
-  <text x="80" y="250" font-family="PingFang SC, Hiragino Sans GB, sans-serif" font-size="34" fill="#9db8d6">三种入口，三种结果，我全都踩了一遍</text>
-
-  <g font-family="PingFang SC, Hiragino Sans GB, sans-serif">
-    <rect x="80" y="310" width="320" height="180" rx="14" fill="url(#cardA)" stroke="#2a4a6e" stroke-width="1.5"/>
-    <text x="110" y="360" font-size="22" fill="#5fc8a8" font-weight="600">① Chat Completions</text>
-    <text x="110" y="400" font-size="18" fill="#c3d4e6">enable_search 参数</text>
-    <text x="110" y="440" font-size="18" fill="#e2837f" font-weight="600">静默失败 ✗</text>
-
-    <rect x="440" y="310" width="320" height="180" rx="14" fill="url(#cardA)" stroke="#2a4a6e" stroke-width="1.5"/>
-    <text x="470" y="360" font-size="22" fill="#5fc8a8" font-weight="600">② Responses API</text>
-    <text x="470" y="400" font-size="18" fill="#c3d4e6">tools 声明 web_search</text>
-    <text x="470" y="440" font-size="18" fill="#5fc8a8" font-weight="600">来源可提取 ✓</text>
-
-    <rect x="800" y="310" width="320" height="180" rx="14" fill="url(#cardA)" stroke="#2a4a6e" stroke-width="1.5"/>
-    <text x="830" y="360" font-size="22" fill="#5fc8a8" font-weight="600">③ 搜索 MCP</text>
-    <text x="830" y="400" font-size="18" fill="#c3d4e6">独立服务与计费</text>
-    <text x="830" y="440" font-size="18" fill="#e8c46a" font-weight="600">前 2000 次免费</text>
-  </g>
-
-  <text x="80" y="560" font-family="PingFang SC, Hiragino Sans GB, sans-serif" font-size="20" fill="#7ea8d8">没有来源列表的回答，不能采信</text>
+  <rect width="1200" height="400" fill="#0B1220"/>
+  <rect width="1200" height="400" fill="url(#dots)" opacity="0.55"/>
+  <rect x="0" y="0" width="6" height="400" fill="url(#accent)"/>
+  <text x="1104" y="64" text-anchor="end" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="20" fill="#64748B">zata.cc</text>
+  <circle cx="940" cy="200" r="128" fill="none" stroke="#1c2a44" stroke-width="1.5"/>
+    <line x1="806" y1="148" x2="1074" y2="148" stroke="#2c3a58" stroke-width="2"/>
+    <line x1="806" y1="148" x2="858" y2="256" stroke="#2c3a58" stroke-width="2"/>
+    <line x1="1074" y1="148" x2="1022" y2="256" stroke="#2c3a58" stroke-width="2"/>
+    <line x1="858" y1="256" x2="1022" y2="256" stroke="#2c3a58" stroke-width="2"/>
+    <line x1="806" y1="148" x2="1022" y2="256" stroke="#2c3a58" stroke-width="2"/>
+    <circle cx="806" cy="148" r="26" fill="#0e1730" stroke="url(#accent)" stroke-width="2.5"/>
+    <circle cx="806" cy="148" r="16" fill="#7C9CF5" opacity="0.75"/>
+    <circle cx="1074" cy="148" r="18" fill="#0e1730" stroke="#3b4a68" stroke-width="2.5"/>
+    <circle cx="1074" cy="148" r="8" fill="#7C9CF5" opacity="0.25"/>
+    <circle cx="858" cy="256" r="18" fill="#0e1730" stroke="#3b4a68" stroke-width="2.5"/>
+    <circle cx="858" cy="256" r="8" fill="#7C9CF5" opacity="0.25"/>
+    <circle cx="1022" cy="256" r="18" fill="#0e1730" stroke="#3b4a68" stroke-width="2.5"/>
+    <circle cx="1022" cy="256" r="8" fill="#7C9CF5" opacity="0.25"/>
+    <text x="96" y="166" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="40" font-weight="700" fill="#F8FAFC">阿里云百炼联网搜索：三种入口，</text>
+  <text x="96" y="238" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="40" font-weight="700" fill="#F8FAFC">三种结果，我全都踩了一遍</text>
+  <rect x="96" y="264" width="112" height="6" rx="3" fill="url(#accent)"/>
+  <rect x="96" y="296" width="186" height="42" rx="21" fill="#152238" stroke="#2c3a58" stroke-width="1.5"/>
+  <text x="114" y="324" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="21" fill="#9FB3D1">Agent 工程实战</text>
 </svg>

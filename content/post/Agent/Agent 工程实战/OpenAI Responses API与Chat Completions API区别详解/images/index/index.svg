@@ -1,31 +1,34 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400" viewBox="0 0 1200 400" role="img" aria-label="OpenAI Responses API与Chat Completions API区别详解">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#1a1f2e"/>
-      <stop offset="100%" stop-color="#2b3450"/>
-    </linearGradient>
     <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#5b87bf"/>
-      <stop offset="100%" stop-color="#7b6bc9"/>
+      <stop offset="0%" stop-color="#7C9CF5"/>
+      <stop offset="100%" stop-color="#A78BFA"/>
     </linearGradient>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.3" fill="#26324a"/>
+    </pattern>
   </defs>
-  <rect width="1200" height="630" fill="url(#bg)"/>
-  <rect x="0" y="580" width="1200" height="4" fill="url(#accent)"/>
-  <rect x="80" y="80" width="4" height="120" fill="url(#accent)" rx="2"/>
-  <text x="110" y="120" fill="#8b9dc3" font-family="sans-serif" font-size="22" letter-spacing="4">OPENAI API</text>
-  <text x="110" y="170" fill="#ffffff" font-family="sans-serif" font-size="48" font-weight="bold">Responses API vs</text>
-  <text x="110" y="225" fill="#ffffff" font-family="sans-serif" font-size="48" font-weight="bold">Chat Completions API</text>
-  <text x="110" y="270" fill="#8b9dc3" font-family="sans-serif" font-size="24">协议区别 · 能力边界 · 选型建议</text>
-  <rect x="760" y="380" width="360" height="140" rx="12" fill="#2d3a55" stroke="#5b87bf" stroke-width="1.5"/>
-  <text x="790" y="425" fill="#5b87bf" font-family="sans-serif" font-size="18" font-weight="bold">/v1/responses</text>
-  <text x="790" y="460" fill="#8b9dc3" font-family="sans-serif" font-size="14">Agent Loop · Built-in Tools</text>
-  <text x="790" y="485" fill="#8b9dc3" font-family="sans-serif" font-size="14">State Management</text>
-  <rect x="80" y="380" width="360" height="140" rx="12" fill="#2d3a55" stroke="#8b9dc3" stroke-width="1.5"/>
-  <text x="110" y="425" fill="#a8c5e8" font-family="sans-serif" font-size="18" font-weight="bold">/v1/chat/completions</text>
-  <text x="110" y="460" fill="#8b9dc3" font-family="sans-serif" font-size="14">Messages · Stateless</text>
-  <text x="110" y="485" fill="#8b9dc3" font-family="sans-serif" font-size="14">Universal Compatibility</text>
-  <line x1="440" y1="450" x2="760" y2="450" stroke="#5b87bf" stroke-width="1.5" stroke-dasharray="6,4"/>
-  <polygon points="760,450 748,444 748,456" fill="#5b87bf"/>
-  <text x="560" y="440" fill="#8b9dc3" font-family="sans-serif" font-size="13" text-anchor="middle">vs</text>
-  <text x="110" y="560" fill="#4a5568" font-family="sans-serif" font-size="13">zata.cc · 2026</text>
+  <rect width="1200" height="400" fill="#0B1220"/>
+  <rect width="1200" height="400" fill="url(#dots)" opacity="0.55"/>
+  <rect x="0" y="0" width="6" height="400" fill="url(#accent)"/>
+  <text x="1104" y="64" text-anchor="end" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="20" fill="#64748B">zata.cc</text>
+  <circle cx="940" cy="200" r="128" fill="none" stroke="#1c2a44" stroke-width="1.5"/>
+    <line x1="806" y1="148" x2="1074" y2="148" stroke="#2c3a58" stroke-width="2"/>
+    <line x1="806" y1="148" x2="858" y2="256" stroke="#2c3a58" stroke-width="2"/>
+    <line x1="1074" y1="148" x2="1022" y2="256" stroke="#2c3a58" stroke-width="2"/>
+    <line x1="858" y1="256" x2="1022" y2="256" stroke="#2c3a58" stroke-width="2"/>
+    <line x1="806" y1="148" x2="1022" y2="256" stroke="#2c3a58" stroke-width="2"/>
+    <circle cx="806" cy="148" r="26" fill="#0e1730" stroke="url(#accent)" stroke-width="2.5"/>
+    <circle cx="806" cy="148" r="16" fill="#7C9CF5" opacity="0.75"/>
+    <circle cx="1074" cy="148" r="18" fill="#0e1730" stroke="#3b4a68" stroke-width="2.5"/>
+    <circle cx="1074" cy="148" r="8" fill="#7C9CF5" opacity="0.25"/>
+    <circle cx="858" cy="256" r="18" fill="#0e1730" stroke="#3b4a68" stroke-width="2.5"/>
+    <circle cx="858" cy="256" r="8" fill="#7C9CF5" opacity="0.25"/>
+    <circle cx="1022" cy="256" r="18" fill="#0e1730" stroke="#3b4a68" stroke-width="2.5"/>
+    <circle cx="1022" cy="256" r="8" fill="#7C9CF5" opacity="0.25"/>
+    <text x="96" y="166" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="44" font-weight="700" fill="#F8FAFC">OpenAI Responses API与Chat</text>
+  <text x="96" y="238" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="44" font-weight="700" fill="#F8FAFC">Completions API区别详解</text>
+  <rect x="96" y="264" width="112" height="6" rx="3" fill="url(#accent)"/>
+  <rect x="96" y="296" width="149" height="42" rx="21" fill="#152238" stroke="#2c3a58" stroke-width="1.5"/>
+  <text x="114" y="324" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="21" fill="#9FB3D1">OpenAI API</text>
 </svg>

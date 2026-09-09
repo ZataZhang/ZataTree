@@ -1,28 +1,33 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400" viewBox="0 0 1200 400" role="img" aria-label="企业AI工具平台架构设计：拥抱快速变化的AI生态">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0f172a"/>
-      <stop offset="100%" stop-color="#1e293b"/>
-    </linearGradient>
     <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#5b87bf"/>
-      <stop offset="100%" stop-color="#00bfa5"/>
+      <stop offset="0%" stop-color="#5B87BF"/>
+      <stop offset="100%" stop-color="#22D3EE"/>
     </linearGradient>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.3" fill="#26324a"/>
+    </pattern>
   </defs>
-  <rect width="1200" height="630" fill="url(#bg)"/>
-  <polygon points="993.5307674910184,253.99995863462362 900.0001432938489,307.99999999990496 806.4693758030501,254.0002068267235 806.4690892155718,146.0002895578565 899.9995701184534,92.00000000085555 993.530480902223,145.99954498155685" fill="none" stroke="#5b87bf" stroke-width="2" opacity="0.16999999999999998"/>
-<polygon points="1028.6048053001502,274.2499431226075 900.0001970290422,348.49999999986926 771.3953917291938,274.25028438674485 771.3949976714113,125.75039814205267 899.9994089128735,51.500000001176375 1028.6044112405566,125.74937434964066" fill="none" stroke="#4a6fa5" stroke-width="2" opacity="0.15"/>
-<polygon points="1063.678843109282,294.4999276105913 900.0002507642355,388.9999999998337 736.3214076553376,294.50036194676613 736.3209061272507,105.50050672624886 899.9992477072935,11.000000001497227 1063.6783415788902,105.49920371772448" fill="none" stroke="#7c4dff" stroke-width="2" opacity="0.13"/>
-<polygon points="1098.7528809184141,314.7499120985752 900.0003044994288,429.499999999798 701.2474235814813,314.7504395067874 701.2468145830902,85.25061531044506 899.9990865017136,-29.49999999818195 1098.7522719172239,85.2490330858083" fill="none" stroke="#00bfa5" stroke-width="2" opacity="0.11"/>
-  <rect x="60" y="420" width="120" height="6" rx="3" fill="url(#accent)"/>
-  <text x="80" y="160" font-family="PingFang SC, Microsoft YaHei, Hiragino Sans GB, sans-serif" font-size="56" fill="#f8fafc">
-    <tspan x="80" dy="66" font-weight="700">企业AI工具平台架构设计</tspan>
-  </text>
-  <text x="80" y="240" font-family="PingFang SC, Microsoft YaHei, Hiragino Sans GB, sans-serif" font-size="28" fill="#94a3b8">
-    <tspan x="80" dy="40" font-weight="400">拥抱快速变化的AI生态</tspan>
-  </text>
-  <text x="80" y="580" font-family="PingFang SC, Microsoft YaHei, Hiragino Sans GB, sans-serif" font-size="22" fill="#5b87bf">
-    Architecture · AI Platform
-  </text>
+  <rect width="1200" height="400" fill="#0B1220"/>
+  <rect width="1200" height="400" fill="url(#dots)" opacity="0.55"/>
+  <rect x="0" y="0" width="6" height="400" fill="url(#accent)"/>
+  <text x="1104" y="64" text-anchor="end" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="20" fill="#64748B">zata.cc</text>
+  <circle cx="930" cy="200" r="128" fill="none" stroke="#1c2a44" stroke-width="1.5"/>
+  <rect x="780" y="122" width="300" height="168" rx="14" fill="#101a2e" stroke="url(#accent)" stroke-width="2.5"/>
+  <line x1="780" y1="154" x2="1080" y2="154" stroke="#26324a" stroke-width="1.5"/>
+  <circle cx="802" cy="138" r="5" fill="#5B87BF"/>
+  <circle cx="822" cy="138" r="5" fill="#22D3EE" opacity="0.7"/>
+  <circle cx="842" cy="138" r="5" fill="#334155"/>
+  <rect x="802" y="176" width="180" height="11" rx="5.5" fill="#334155"/>
+  <rect x="802" y="200" width="126" height="11" rx="5.5" fill="#5B87BF" opacity="0.65"/>
+  <rect x="802" y="224" width="152" height="11" rx="5.5" fill="#26324a"/>
+  <path d="M802 258 l12 8 -12 8" fill="none" stroke="#22D3EE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="826" y="261" width="70" height="9" rx="4.5" fill="#334155"/>
+    <text x="96" y="166" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="48" font-weight="700" fill="#F8FAFC">企业AI工具平台架构设计：</text>
+  <text x="96" y="238" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="48" font-weight="700" fill="#F8FAFC">拥抱快速变化的AI生态</text>
+  <rect x="96" y="264" width="112" height="6" rx="3" fill="url(#accent)"/>
+  <rect x="96" y="296" width="177" height="42" rx="21" fill="#152238" stroke="#2c3a58" stroke-width="1.5"/>
+  <text x="114" y="324" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="21" fill="#9FB3D1">Architecture</text>
+  <rect x="287" y="296" width="161" height="42" rx="21" fill="#152238" stroke="#2c3a58" stroke-width="1.5"/>
+  <text x="305" y="324" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="21" fill="#9FB3D1">AI Platform</text>
 </svg>

@@ -1,39 +1,36 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
-  <title id="title">Agent 能跑代码之后，最危险的事才刚刚开始</title>
-  <desc id="desc">Agent 沙箱全景与选型指南封面</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400" viewBox="0 0 1200 400" role="img" aria-label="Agent 能跑代码之后，最危险的事才刚刚开始">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#101827"/>
-      <stop offset="0.58" stop-color="#1d3457"/>
-      <stop offset="1" stop-color="#392c62"/>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#7C9CF5"/>
+      <stop offset="100%" stop-color="#A78BFA"/>
     </linearGradient>
-    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#78b7db" stop-opacity="0.35"/>
-      <stop offset="1" stop-color="#8d72c7" stop-opacity="0.18"/>
-    </linearGradient>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.3" fill="#26324a"/>
+    </pattern>
   </defs>
-  <rect width="1200" height="630" fill="url(#bg)"/>
-  <circle cx="1070" cy="90" r="220" fill="#5b87bf" opacity="0.11"/>
-  <circle cx="100" cy="590" r="260" fill="#6d56a4" opacity="0.13"/>
-  <g opacity="0.3" stroke="#86b9d6" fill="none">
-    <path d="M0 102H1200M0 528H1200"/>
-    <path d="M95 0V630M1105 0V630"/>
-  </g>
-  <g transform="translate(760 128)">
-    <rect x="0" y="0" width="300" height="330" rx="32" fill="url(#glass)" stroke="#7eb4d6" stroke-width="3"/>
-    <rect x="42" y="57" width="216" height="156" rx="15" fill="#0c1422" stroke="#79a9cb" stroke-width="2"/>
-    <circle cx="70" cy="82" r="5" fill="#56c9bc"/>
-    <circle cx="89" cy="82" r="5" fill="#c189dc"/>
-    <circle cx="108" cy="82" r="5" fill="#5b87bf"/>
-    <path d="M75 122l28 22-28 22M120 169h70" stroke="#a7d5e8" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M150 245v-19M103 245v-19M197 245v-19" stroke="#78b7db" stroke-width="5" stroke-linecap="round"/>
-    <rect x="62" y="245" width="176" height="43" rx="12" fill="#5b87bf" opacity="0.78"/>
-    <path d="M118 0V-32h64V0" stroke="#9dc9df" stroke-width="10" stroke-linecap="round"/>
-  </g>
-  <text x="96" y="164" fill="#77c6bd" font-family="sans-serif" font-size="26" letter-spacing="5">AGENT SANDBOX</text>
-  <text x="94" y="245" fill="#f5f8fc" font-family="sans-serif" font-size="58" font-weight="700">Agent 能跑代码之后</text>
-  <text x="94" y="326" fill="#f5f8fc" font-family="sans-serif" font-size="58" font-weight="700">最危险的事才刚刚开始</text>
-  <rect x="96" y="382" width="550" height="2" fill="#76a8cb" opacity="0.8"/>
-  <text x="96" y="432" fill="#b9cce0" font-family="sans-serif" font-size="27">从执行代码，到真正隔离风险</text>
-  <text x="96" y="486" fill="#8fa9c4" font-family="sans-serif" font-size="22">Docker · E2B · Daytona · Modal · Runloop · Deno · AgentCore</text>
+  <rect width="1200" height="400" fill="#0B1220"/>
+  <rect width="1200" height="400" fill="url(#dots)" opacity="0.55"/>
+  <rect x="0" y="0" width="6" height="400" fill="url(#accent)"/>
+  <text x="1104" y="64" text-anchor="end" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="20" fill="#64748B">zata.cc</text>
+  <circle cx="940" cy="200" r="128" fill="none" stroke="#1c2a44" stroke-width="1.5"/>
+    <line x1="806" y1="148" x2="1074" y2="148" stroke="#2c3a58" stroke-width="2"/>
+    <line x1="806" y1="148" x2="858" y2="256" stroke="#2c3a58" stroke-width="2"/>
+    <line x1="1074" y1="148" x2="1022" y2="256" stroke="#2c3a58" stroke-width="2"/>
+    <line x1="858" y1="256" x2="1022" y2="256" stroke="#2c3a58" stroke-width="2"/>
+    <line x1="806" y1="148" x2="1022" y2="256" stroke="#2c3a58" stroke-width="2"/>
+    <circle cx="806" cy="148" r="26" fill="#0e1730" stroke="url(#accent)" stroke-width="2.5"/>
+    <circle cx="806" cy="148" r="16" fill="#7C9CF5" opacity="0.75"/>
+    <circle cx="1074" cy="148" r="18" fill="#0e1730" stroke="#3b4a68" stroke-width="2.5"/>
+    <circle cx="1074" cy="148" r="8" fill="#7C9CF5" opacity="0.25"/>
+    <circle cx="858" cy="256" r="18" fill="#0e1730" stroke="#3b4a68" stroke-width="2.5"/>
+    <circle cx="858" cy="256" r="8" fill="#7C9CF5" opacity="0.25"/>
+    <circle cx="1022" cy="256" r="18" fill="#0e1730" stroke="#3b4a68" stroke-width="2.5"/>
+    <circle cx="1022" cy="256" r="8" fill="#7C9CF5" opacity="0.25"/>
+    <text x="96" y="166" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="56" font-weight="700" fill="#F8FAFC">Agent 能跑代码之后，</text>
+  <text x="96" y="238" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="56" font-weight="700" fill="#F8FAFC">最危险的事才刚刚开始</text>
+  <rect x="96" y="264" width="112" height="6" rx="3" fill="url(#accent)"/>
+  <rect x="96" y="296" width="141" height="42" rx="21" fill="#152238" stroke="#2c3a58" stroke-width="1.5"/>
+  <text x="114" y="324" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="21" fill="#9FB3D1">智能体编排</text>
+  <rect x="251" y="296" width="95" height="42" rx="21" fill="#152238" stroke="#2c3a58" stroke-width="1.5"/>
+  <text x="269" y="324" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="21" fill="#9FB3D1">Agent</text>
 </svg>

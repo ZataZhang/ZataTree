@@ -1,100 +1,34 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400" viewBox="0 0 1200 400" role="img" aria-label="给 Agent 接入 Web Search：四种做法，和一条我试过之后放弃的路">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0a1828"/>
-      <stop offset="100%" stop-color="#1e3a5f"/>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#7C9CF5"/>
+      <stop offset="100%" stop-color="#A78BFA"/>
     </linearGradient>
-    <linearGradient id="cardA" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#0d1e35"/>
-      <stop offset="100%" stop-color="#14283f"/>
-    </linearGradient>
-    <linearGradient id="cardB" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#1f3a6b"/>
-      <stop offset="100%" stop-color="#2a4d8a"/>
-    </linearGradient>
-    <linearGradient id="reject" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#2a1a1f"/>
-      <stop offset="100%" stop-color="#3a2428"/>
-    </linearGradient>
-    <linearGradient id="strike" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#ff9a3c"/>
-      <stop offset="100%" stop-color="#ff6b6b"/>
-    </linearGradient>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.3" fill="#26324a"/>
+    </pattern>
   </defs>
-
-  <!-- background -->
-  <rect width="1200" height="630" fill="url(#bg)"/>
-
-  <!-- subtle grid -->
-  <g stroke="#1c3559" stroke-width="1" opacity="0.5">
-    <line x1="0" y1="105" x2="1200" y2="105"/>
-    <line x1="0" y1="210" x2="1200" y2="210"/>
-    <line x1="0" y1="315" x2="1200" y2="315"/>
-    <line x1="0" y1="420" x2="1200" y2="420"/>
-    <line x1="0" y1="525" x2="1200" y2="525"/>
-    <line x1="240" y1="0" x2="240" y2="630"/>
-    <line x1="480" y1="0" x2="480" y2="630"/>
-    <line x1="720" y1="0" x2="720" y2="630"/>
-    <line x1="960" y1="0" x2="960" y2="630"/>
-  </g>
-
-  <!-- title -->
-  <text x="600" y="80" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="36" font-weight="bold">给 Agent 接入 Web Search</text>
-  <text x="600" y="118" text-anchor="middle" fill="#a8c5e8" font-family="Arial, sans-serif" font-size="18">四种做法，和一条我试过之后放弃的路 · Agent 工程实战</text>
-
-  <!-- card 1: 厂商内置 -->
-  <rect x="45" y="150" width="255" height="200" rx="14" fill="url(#cardA)" stroke="#4f9eff" stroke-width="2" opacity="0.95"/>
-  <text x="65" y="182" fill="#7fb3ff" font-family="monospace" font-size="14">01 · 方式一</text>
-  <text x="65" y="216" fill="#dce8ff" font-family="Arial, sans-serif" font-size="20" font-weight="bold">厂商内置工具</text>
-  <text x="65" y="252" fill="#a8d0ff" font-family="monospace" font-size="13">tools=[{"type":</text>
-  <text x="65" y="274" fill="#a8d0ff" font-family="monospace" font-size="13"> "web_search"}]</text>
-  <text x="65" y="318" fill="#5d7ba0" font-family="Arial, sans-serif" font-size="12">官方 API · 零实现 · 按次计费</text>
-
-  <!-- card 2: 搜索 API -->
-  <rect x="330" y="150" width="255" height="200" rx="14" fill="url(#cardB)" stroke="#4f9eff" stroke-width="2" opacity="0.95"/>
-  <text x="350" y="182" fill="#7fb3ff" font-family="monospace" font-size="14">02 · 方式二</text>
-  <text x="350" y="216" fill="#dce8ff" font-family="Arial, sans-serif" font-size="20" font-weight="bold">搜索 API + Tool</text>
-  <text x="350" y="252" fill="#c5d8ff" font-family="monospace" font-size="13">@tool web_search(q)</text>
-  <text x="350" y="274" fill="#c5d8ff" font-family="monospace" font-size="13">Tavily / Exa / 博查</text>
-  <text x="350" y="318" fill="#7fe0d0" font-family="Arial, sans-serif" font-size="12">模型无关 · 自建端点首选</text>
-
-  <!-- card 3: MCP -->
-  <rect x="615" y="150" width="255" height="200" rx="14" fill="url(#cardA)" stroke="#7c5cff" stroke-width="2" opacity="0.95"/>
-  <text x="635" y="182" fill="#b8a5ff" font-family="monospace" font-size="14">03 · 方式三</text>
-  <text x="635" y="216" fill="#dce8ff" font-family="Arial, sans-serif" font-size="20" font-weight="bold">MCP Server</text>
-  <text x="635" y="252" fill="#a8d0ff" font-family="monospace" font-size="13">npx tavily-mcp</text>
-  <text x="635" y="274" fill="#a8d0ff" font-family="monospace" font-size="13">uvx mcp-server-fetch</text>
-  <text x="635" y="318" fill="#5d7ba0" font-family="Arial, sans-serif" font-size="12">工具解耦 · 生态复用</text>
-
-  <!-- card 4: CLI + Skill -->
-  <rect x="900" y="150" width="255" height="200" rx="14" fill="url(#cardB)" stroke="#7c5cff" stroke-width="2" opacity="0.95"/>
-  <text x="920" y="182" fill="#b8a5ff" font-family="monospace" font-size="14">04 · 方式四</text>
-  <text x="920" y="216" fill="#dce8ff" font-family="Arial, sans-serif" font-size="20" font-weight="bold">CLI + Skill</text>
-  <text x="920" y="252" fill="#c5d8ff" font-family="monospace" font-size="13">python search.py "q"</text>
-  <text x="920" y="274" fill="#c5d8ff" font-family="monospace" font-size="13">skills/web-search/</text>
-  <text x="920" y="318" fill="#5d7ba0" font-family="Arial, sans-serif" font-size="12">透明可调试 · 需沙箱</text>
-
-  <!-- rejected bar: SearXNG -->
-  <rect x="45" y="375" width="1110" height="95" rx="14" fill="url(#reject)" stroke="#ff6b6b" stroke-width="2" opacity="0.95"/>
-  <text x="85" y="415" fill="#ffb0b0" font-family="monospace" font-size="14">05 · 方式五</text>
-  <text x="85" y="448" fill="#ffcccc" font-family="Arial, sans-serif" font-size="22" font-weight="bold">自托管 SearXNG</text>
-  <line x1="80" y1="443" x2="290" y2="443" stroke="url(#strike)" stroke-width="4"/>
-  <text x="360" y="420" fill="#e8b0b0" font-family="Arial, sans-serif" font-size="15">聚合并未解决上游不稳定：无头出口被上游风控重点照顾，</text>
-  <text x="360" y="444" fill="#e8b0b0" font-family="Arial, sans-serif" font-size="15">结果质量抖动直接传导成 Agent 行为抖动 —— 实测后放弃</text>
-  <circle cx="1090" cy="422" r="22" fill="none" stroke="#ff6b6b" stroke-width="3"/>
-  <line x1="1075" y1="407" x2="1105" y2="437" stroke="#ff6b6b" stroke-width="3"/>
-  <line x1="1105" y1="407" x2="1075" y2="437" stroke="#ff6b6b" stroke-width="3"/>
-
-  <!-- footer takeaway chips -->
-  <g font-family="Arial, sans-serif" font-size="13" fill="#a8c5e8">
-    <rect x="150" y="510" width="230" height="28" rx="4" fill="#1e3a5f" stroke="#4f9eff"/>
-    <text x="265" y="529" text-anchor="middle">search + fetch 成对出现</text>
-    <rect x="405" y="510" width="250" height="28" rx="4" fill="#1e3a5f" stroke="#4f9eff"/>
-    <text x="530" y="529" text-anchor="middle">触发条件写进工具描述</text>
-    <rect x="680" y="510" width="250" height="28" rx="4" fill="#1e3a5f" stroke="#4f9eff"/>
-    <text x="805" y="529" text-anchor="middle">重调研走 researcher 子 Agent</text>
-  </g>
-
-  <!-- footer brand -->
-  <text x="600" y="595" text-anchor="middle" fill="#5d7ba0" font-family="Arial, sans-serif" font-size="14" letter-spacing="2">AGENT ENGINEERING IN PRACTICE · EP.05</text>
+  <rect width="1200" height="400" fill="#0B1220"/>
+  <rect width="1200" height="400" fill="url(#dots)" opacity="0.55"/>
+  <rect x="0" y="0" width="6" height="400" fill="url(#accent)"/>
+  <text x="1104" y="64" text-anchor="end" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="20" fill="#64748B">zata.cc</text>
+  <circle cx="940" cy="200" r="128" fill="none" stroke="#1c2a44" stroke-width="1.5"/>
+    <line x1="806" y1="148" x2="1074" y2="148" stroke="#2c3a58" stroke-width="2"/>
+    <line x1="806" y1="148" x2="858" y2="256" stroke="#2c3a58" stroke-width="2"/>
+    <line x1="1074" y1="148" x2="1022" y2="256" stroke="#2c3a58" stroke-width="2"/>
+    <line x1="858" y1="256" x2="1022" y2="256" stroke="#2c3a58" stroke-width="2"/>
+    <line x1="806" y1="148" x2="1022" y2="256" stroke="#2c3a58" stroke-width="2"/>
+    <circle cx="806" cy="148" r="26" fill="#0e1730" stroke="url(#accent)" stroke-width="2.5"/>
+    <circle cx="806" cy="148" r="16" fill="#7C9CF5" opacity="0.75"/>
+    <circle cx="1074" cy="148" r="18" fill="#0e1730" stroke="#3b4a68" stroke-width="2.5"/>
+    <circle cx="1074" cy="148" r="8" fill="#7C9CF5" opacity="0.25"/>
+    <circle cx="858" cy="256" r="18" fill="#0e1730" stroke="#3b4a68" stroke-width="2.5"/>
+    <circle cx="858" cy="256" r="8" fill="#7C9CF5" opacity="0.25"/>
+    <circle cx="1022" cy="256" r="18" fill="#0e1730" stroke="#3b4a68" stroke-width="2.5"/>
+    <circle cx="1022" cy="256" r="8" fill="#7C9CF5" opacity="0.25"/>
+    <text x="96" y="166" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="36" font-weight="700" fill="#F8FAFC">给 Agent 接入 Web Search：</text>
+  <text x="96" y="238" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="36" font-weight="700" fill="#F8FAFC">四种做法，和一条我试过之后放弃的路</text>
+  <rect x="96" y="264" width="112" height="6" rx="3" fill="url(#accent)"/>
+  <rect x="96" y="296" width="186" height="42" rx="21" fill="#152238" stroke="#2c3a58" stroke-width="1.5"/>
+  <text x="114" y="324" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="21" fill="#9FB3D1">Agent 工程实战</text>
 </svg>

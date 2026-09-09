@@ -109,7 +109,9 @@ Every published article must have a cover image referenced from its frontmatter 
 2. If it exists → leave it alone, just confirm the frontmatter `image:` field points to it.
 3. If it is **missing**, do **not** search the web for a stock image. Instead, **generate an SVG cover**:
    - File path: `{article-dir}/images/index/index.svg`
-   - Recommended canvas: **1200×630** (matches Open Graph / Twitter card aspect).
+   - Canvas: **1200×400 (3:1), with `width`/`height` attributes on the `<svg>` root** (not just `viewBox` — without them browsers report `naturalWidth = 0` and the image collapses).
+   - Why 3:1: the homepage/list cards crop covers to a fixed-height full-width strip (≈845×250, ~3.4:1 on desktop, `object-fit: cover` center-crop); 1200×630 covers lose ~44% of their height there. The article page hero shows the image at its natural ratio.
+   - Safe-zone layout: keep the title (font-size ≥72px), tag words, and any diagram inside the central band y∈[80, 320] with ≥100px side margins. Background gradients/decoration may bleed to the edges; anything placed at the edges will be cropped on the homepage.
    - Style: minimal, geometric, with the article title and (optionally) 1–2 tag words. Use the `hugo-theme-stack` accent palette (primary `#5b87bf`, accent tones of blue / purple / teal). Avoid stock-photo clichés.
    - Format: inline SVG, no external assets, no remote fonts (use generic `sans-serif` / `serif`). Keep file size small (< 20 KB ideal).
 4. After generating, add or update the frontmatter:

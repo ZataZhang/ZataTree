@@ -1,73 +1,34 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400" viewBox="0 0 1200 400" role="img" aria-label="数据库初始化与迁移：从创建那一刻就要钉死的三件事">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0a1828"/>
-      <stop offset="100%" stop-color="#1e3a5f"/>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#7C9CF5"/>
+      <stop offset="100%" stop-color="#A78BFA"/>
     </linearGradient>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.3" fill="#26324a"/>
+    </pattern>
   </defs>
-
-  <rect width="1200" height="630" fill="url(#bg)"/>
-
-  <!-- title block -->
-  <text x="600" y="80" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="36" font-weight="bold">从 CREATE 那一刻就要钉死的三件事</text>
-  <text x="600" y="115" text-anchor="middle" fill="#a8c5e8" font-family="Arial, sans-serif" font-size="16">数据库初始化与迁移 · Agent 工程实战</text>
-
-  <!-- left: 3 pillars -->
-  <g>
-    <rect x="80" y="170" width="240" height="80" rx="10" fill="#0d2540" stroke="#4f9eff" stroke-width="2"/>
-    <text x="200" y="200" text-anchor="middle" fill="#4f9eff" font-family="Arial, sans-serif" font-size="18" font-weight="bold">VERSION</text>
-    <text x="200" y="225" text-anchor="middle" fill="#7fb3ff" font-family="monospace" font-size="13">5.7 → 8.0 → PG16</text>
-
-    <rect x="80" y="260" width="240" height="80" rx="10" fill="#0d2540" stroke="#7c5cff" stroke-width="2"/>
-    <text x="200" y="290" text-anchor="middle" fill="#7c5cff" font-family="Arial, sans-serif" font-size="18" font-weight="bold">CHARSET</text>
-    <text x="200" y="315" text-anchor="middle" fill="#b8a5ff" font-family="monospace" font-size="13">latin1 → utf8mb4</text>
-
-    <rect x="80" y="350" width="240" height="80" rx="10" fill="#0d2540" stroke="#ff9a3c" stroke-width="2"/>
-    <text x="200" y="380" text-anchor="middle" fill="#ff9a3c" font-family="Arial, sans-serif" font-size="18" font-weight="bold">COLLATION</text>
-    <text x="200" y="405" text-anchor="middle" fill="#ffd29a" font-family="monospace" font-size="13">_ci → _ai_ci</text>
-  </g>
-
-  <!-- arrow -->
-  <g stroke="#ff6b6b" stroke-width="3" fill="none">
-    <line x1="335" y1="300" x2="395" y2="300"/>
-    <polygon points="395,290 410,300 395,310" fill="#ff6b6b"/>
-  </g>
-
-  <!-- right: migration error scenarios -->
-  <g>
-    <rect x="430" y="170" width="690" height="260" rx="14" fill="#0d2540" stroke="#2a4a78" stroke-width="1.5"/>
-
-    <text x="450" y="200" fill="#ff6b6b" font-family="Arial, sans-serif" font-size="16" font-weight="bold">🔴  迁移时 90% 报错来自这三个不一致</text>
-
-    <!-- emoji failure row -->
-    <rect x="450" y="220" width="660" height="40" rx="6" fill="#1a2540"/>
-    <text x="465" y="245" fill="#dce8ff" font-family="monospace" font-size="13">INSERT INTO users VALUES ('😀')</text>
-    <text x="1000" y="245" fill="#ff6b6b" font-family="monospace" font-size="13">→ ERROR 1366</text>
-
-    <!-- collation row -->
-    <rect x="450" y="270" width="660" height="40" rx="6" fill="#1a2540"/>
-    <text x="465" y="295" fill="#dce8ff" font-family="monospace" font-size="13">WHERE name='café' — 命中行数变了</text>
-    <text x="1000" y="295" fill="#ff9a3c" font-family="monospace" font-size="13">→ _ai_ci 更激进</text>
-
-    <!-- sql_mode row -->
-    <rect x="450" y="320" width="660" height="40" rx="6" fill="#1a2540"/>
-    <text x="465" y="345" fill="#dce8ff" font-family="monospace" font-size="13">INSERT 截断字符串 — 应用雪崩</text>
-    <text x="1000" y="345" fill="#ff9a3c" font-family="monospace" font-size="13">→ STRICT_TRANS_TABLES</text>
-
-    <!-- auth plugin row -->
-    <rect x="450" y="370" width="660" height="40" rx="6" fill="#1a2540"/>
-    <text x="465" y="395" fill="#dce8ff" font-family="monospace" font-size="13">App 启动失败 — 连不上 MySQL 8</text>
-    <text x="1000" y="395" fill="#ff9a3c" font-family="monospace" font-size="13">→ caching_sha2_password</text>
-  </g>
-
-  <!-- footer check list -->
-  <g>
-    <rect x="80" y="460" width="1040" height="120" rx="14" fill="#0d2540" stroke="#4f9eff" stroke-width="1.5"/>
-    <text x="110" y="495" fill="#fff" font-family="Arial, sans-serif" font-size="16" font-weight="bold">✅  创建数据库时的标准动作</text>
-    <text x="110" y="525" fill="#dce8ff" font-family="monospace" font-size="13">CREATE DATABASE my_app DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_0900_ai_ci;</text>
-    <text x="110" y="555" fill="#5d7ba0" font-family="Arial, sans-serif" font-size="12">+ 表级显式 CHARSET / Collation  +  JDBC 连接串显式 UTF-8  +  迁移前跑 5 分钟检查 SQL</text>
-  </g>
-
-  <!-- footer brand -->
-  <text x="600" y="610" text-anchor="middle" fill="#5d7ba0" font-family="Arial, sans-serif" font-size="11" letter-spacing="2">AGENT ENGINEERING IN PRACTICE · EP.02</text>
+  <rect width="1200" height="400" fill="#0B1220"/>
+  <rect width="1200" height="400" fill="url(#dots)" opacity="0.55"/>
+  <rect x="0" y="0" width="6" height="400" fill="url(#accent)"/>
+  <text x="1104" y="64" text-anchor="end" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="20" fill="#64748B">zata.cc</text>
+  <circle cx="940" cy="200" r="128" fill="none" stroke="#1c2a44" stroke-width="1.5"/>
+    <line x1="806" y1="148" x2="1074" y2="148" stroke="#2c3a58" stroke-width="2"/>
+    <line x1="806" y1="148" x2="858" y2="256" stroke="#2c3a58" stroke-width="2"/>
+    <line x1="1074" y1="148" x2="1022" y2="256" stroke="#2c3a58" stroke-width="2"/>
+    <line x1="858" y1="256" x2="1022" y2="256" stroke="#2c3a58" stroke-width="2"/>
+    <line x1="806" y1="148" x2="1022" y2="256" stroke="#2c3a58" stroke-width="2"/>
+    <circle cx="806" cy="148" r="26" fill="#0e1730" stroke="url(#accent)" stroke-width="2.5"/>
+    <circle cx="806" cy="148" r="16" fill="#7C9CF5" opacity="0.75"/>
+    <circle cx="1074" cy="148" r="18" fill="#0e1730" stroke="#3b4a68" stroke-width="2.5"/>
+    <circle cx="1074" cy="148" r="8" fill="#7C9CF5" opacity="0.25"/>
+    <circle cx="858" cy="256" r="18" fill="#0e1730" stroke="#3b4a68" stroke-width="2.5"/>
+    <circle cx="858" cy="256" r="8" fill="#7C9CF5" opacity="0.25"/>
+    <circle cx="1022" cy="256" r="18" fill="#0e1730" stroke="#3b4a68" stroke-width="2.5"/>
+    <circle cx="1022" cy="256" r="8" fill="#7C9CF5" opacity="0.25"/>
+    <text x="96" y="166" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="44" font-weight="700" fill="#F8FAFC">数据库初始化与迁移：</text>
+  <text x="96" y="238" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="44" font-weight="700" fill="#F8FAFC">从创建那一刻就要钉死的三件事</text>
+  <rect x="96" y="264" width="112" height="6" rx="3" fill="url(#accent)"/>
+  <rect x="96" y="296" width="186" height="42" rx="21" fill="#152238" stroke="#2c3a58" stroke-width="1.5"/>
+  <text x="114" y="324" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="21" fill="#9FB3D1">Agent 工程实战</text>
 </svg>

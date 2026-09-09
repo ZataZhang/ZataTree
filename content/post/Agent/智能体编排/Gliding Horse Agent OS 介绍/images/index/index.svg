@@ -1,145 +1,36 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Gliding Horse Agent OS 总览">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400" viewBox="0 0 1200 400" role="img" aria-label="Gliding Horse Agent OS 介绍：Rust 构建的工业级 AI Agent 操作系统">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#0f1c2e"/>
-      <stop offset="100%" stop-color="#1d3557"/>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#7C9CF5"/>
+      <stop offset="100%" stop-color="#A78BFA"/>
     </linearGradient>
-    <linearGradient id="rust" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#ce422b"/>
-      <stop offset="100%" stop-color="#f78c40"/>
-    </linearGradient>
-    <linearGradient id="mem" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#7c3aed"/>
-      <stop offset="100%" stop-color="#2563eb"/>
-    </linearGradient>
-    <linearGradient id="bus" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#10b981"/>
-      <stop offset="100%" stop-color="#22d3ee"/>
-    </linearGradient>
-    <linearGradient id="app" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#f59e0b"/>
-      <stop offset="100%" stop-color="#ef4444"/>
-    </linearGradient>
-    <filter id="soft" x="-10%" y="-10%" width="120%" height="120%">
-      <feGaussianBlur stdDeviation="2"/>
-    </filter>
-    <style>
-      .t { font-family: -apple-system, "PingFang SC", "Segoe UI", Helvetica, Arial, sans-serif; fill: #fff; }
-      .ts { font-family: -apple-system, "PingFang SC", "Segoe UI", Helvetica, Arial, sans-serif; fill: #cbd5e1; }
-      .tL { font-weight: 700; }
-    </style>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.3" fill="#26324a"/>
+    </pattern>
   </defs>
-
-  <rect width="1200" height="630" fill="url(#bg)"/>
-
-  <!-- 装饰:星点 -->
-  <g fill="#475569" opacity="0.35">
-    <circle cx="120" cy="80" r="1.5"/>
-    <circle cx="240" cy="50" r="1.2"/>
-    <circle cx="380" cy="110" r="1.6"/>
-    <circle cx="980" cy="60" r="1.4"/>
-    <circle cx="1100" cy="120" r="1.3"/>
-    <circle cx="60" cy="560" r="1.4"/>
-    <circle cx="1140" cy="500" r="1.2"/>
-  </g>
-
-  <!-- 标题区 -->
-  <g>
-    <text x="60" y="80" class="t tL" font-size="42">Gliding Horse Agent OS</text>
-    <text x="60" y="118" class="ts" font-size="20">工业级多智能体编排框架 · Rust · MIT · v0.1.2.preview</text>
-    <text x="60" y="148" class="ts" font-size="16" opacity="0.75">Inspired by 诸葛亮的「木牛流马」— Ancient Ingenuity Meets Modern AI</text>
-  </g>
-
-  <!-- 中央:Core Coordination 层 -->
-  <g transform="translate(420,200)">
-    <rect x="0" y="0" width="360" height="90" rx="14" fill="url(#rust)" opacity="0.95"/>
-    <text x="180" y="36" text-anchor="middle" class="t tL" font-size="20">Core Coordination · Rust</text>
-    <text x="180" y="62" text-anchor="middle" class="t" font-size="14" opacity="0.95">PDCA cycle · 5W2H ontology · EventBus</text>
-    <text x="180" y="80" text-anchor="middle" class="ts" font-size="12">7-Level Adaptive Execution (L0 → L6)</text>
-  </g>
-
-  <!-- Memory System 左侧 -->
-  <g transform="translate(60,200)">
-    <rect x="0" y="0" width="340" height="220" rx="14" fill="url(#mem)" opacity="0.92"/>
-    <text x="170" y="32" text-anchor="middle" class="t tL" font-size="18">Memory · 4-Layer + MESI</text>
-
-    <g transform="translate(20,52)">
-      <rect width="300" height="28" rx="6" fill="#fff" opacity="0.16"/>
-      <text x="14" y="19" class="t" font-size="13">L0 · Sled + Qdrant  (KV + Vector)</text>
-    </g>
-    <g transform="translate(20,86)">
-      <rect width="300" height="28" rx="6" fill="#fff" opacity="0.16"/>
-      <text x="14" y="19" class="t" font-size="13">L1 · Context Window</text>
-    </g>
-    <g transform="translate(20,120)">
-      <rect width="300" height="28" rx="6" fill="#fff" opacity="0.22"/>
-      <text x="14" y="19" class="t" font-size="13">L2 · Oxigraph RDF Triples</text>
-    </g>
-    <g transform="translate(20,154)">
-      <rect width="300" height="28" rx="6" fill="#fff" opacity="0.16"/>
-      <text x="14" y="19" class="t" font-size="13">L3 · SPARQL Projection</text>
-    </g>
-    <text x="170" y="200" text-anchor="middle" class="ts" font-size="12">↑ Spreading-Activation Prefetch · 90% latency↓</text>
-  </g>
-
-  <!-- Knowledge Graph + Skill Graph 右侧 -->
-  <g transform="translate(800,200)">
-    <rect x="0" y="0" width="340" height="220" rx="14" fill="#0e7490" opacity="0.92"/>
-    <text x="170" y="32" text-anchor="middle" class="t tL" font-size="18">Knowledge / Skill Graph</text>
-
-    <g transform="translate(20,52)">
-      <rect width="300" height="60" rx="8" fill="#fff" opacity="0.16"/>
-      <text x="14" y="22" class="t" font-size="13" font-weight="600">Universal KG · Oxigraph RDF</text>
-      <text x="14" y="44" class="ts" font-size="11">Code AST (tree-sitter) → RDF Triples</text>
-    </g>
-
-    <g transform="translate(20,124)">
-      <rect width="300" height="60" rx="8" fill="#fff" opacity="0.16"/>
-      <text x="14" y="22" class="t" font-size="13" font-weight="600">Skill Graph · 7.5k+ LOC</text>
-      <text x="14" y="44" class="ts" font-size="11">Self-evolving · 6 semantic link types</text>
-    </g>
-
-    <text x="170" y="200" text-anchor="middle" class="ts" font-size="12">/learn · /reduce · Single @id cross-graph</text>
-  </g>
-
-  <!-- JSON-LD 数据总线 -->
-  <g transform="translate(60,455)">
-    <rect x="0" y="0" width="1080" height="64" rx="14" fill="url(#bus)" opacity="0.9"/>
-    <text x="540" y="32" text-anchor="middle" class="t tL" font-size="18">JSON-LD 1.1 Universal Data Bus</text>
-    <text x="540" y="54" text-anchor="middle" class="t" font-size="13" opacity="0.95">@context · @id · @graph (Named Graphs) — duck-typing, zero-cost entity merge, conflict-free parallel writes</text>
-  </g>
-
-  <!-- Gateway + Apps -->
-  <g transform="translate(60,540)">
-    <rect x="0" y="0" width="540" height="64" rx="12" fill="#1f2937"/>
-    <text x="20" y="28" class="t" font-size="14" font-weight="600">Gateway</text>
-    <text x="20" y="50" class="ts" font-size="12">gRPC  ·  OpenAI-compatible HTTP  ·  MCP  ·  10 感知触发器</text>
-  </g>
-
-  <g transform="translate(620,540)">
-    <rect x="0" y="0" width="520" height="64" rx="12" fill="url(#app)" opacity="0.9"/>
-    <text x="20" y="28" class="t" font-size="14" font-weight="700">Apps</text>
-    <text x="20" y="50" class="t" font-size="12">Software Engineering Team · Center (Go+Temporal) + Edge (Rust) · Gliding Code (13.9 MB)</text>
-  </g>
-
-  <!-- 连线:Memory → Core -->
-  <g stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 4" fill="none" opacity="0.7">
-    <path d="M 400,310 C 420,310 420,245 420,245"/>
-    <path d="M 600,245 C 620,245 620,310 800,310"/>
-  </g>
-
-  <!-- 连线:Core → Bus -->
-  <g stroke="#cbd5e1" stroke-width="1.5" fill="none" opacity="0.6">
-    <path d="M 600,290 C 600,420 600,420 600,455"/>
-  </g>
-
-  <!-- 连线:Bus → Gateway & Apps -->
-  <g stroke="#cbd5e1" stroke-width="1.5" fill="none" opacity="0.55">
-    <path d="M 330,519 C 330,535 330,535 330,540"/>
-    <path d="M 870,519 C 870,535 870,535 870,540"/>
-  </g>
-
-  <!-- 角落图标/标题 -->
-  <text x="1140" y="80" class="ts" font-size="12" text-anchor="end" opacity="0.7">github.com/doiito/gliding_horse</text>
+  <rect width="1200" height="400" fill="#0B1220"/>
+  <rect width="1200" height="400" fill="url(#dots)" opacity="0.55"/>
+  <rect x="0" y="0" width="6" height="400" fill="url(#accent)"/>
+  <text x="1104" y="64" text-anchor="end" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="20" fill="#64748B">zata.cc</text>
+  <circle cx="940" cy="200" r="128" fill="none" stroke="#1c2a44" stroke-width="1.5"/>
+    <line x1="806" y1="148" x2="1074" y2="148" stroke="#2c3a58" stroke-width="2"/>
+    <line x1="806" y1="148" x2="858" y2="256" stroke="#2c3a58" stroke-width="2"/>
+    <line x1="1074" y1="148" x2="1022" y2="256" stroke="#2c3a58" stroke-width="2"/>
+    <line x1="858" y1="256" x2="1022" y2="256" stroke="#2c3a58" stroke-width="2"/>
+    <line x1="806" y1="148" x2="1022" y2="256" stroke="#2c3a58" stroke-width="2"/>
+    <circle cx="806" cy="148" r="26" fill="#0e1730" stroke="url(#accent)" stroke-width="2.5"/>
+    <circle cx="806" cy="148" r="16" fill="#7C9CF5" opacity="0.75"/>
+    <circle cx="1074" cy="148" r="18" fill="#0e1730" stroke="#3b4a68" stroke-width="2.5"/>
+    <circle cx="1074" cy="148" r="8" fill="#7C9CF5" opacity="0.25"/>
+    <circle cx="858" cy="256" r="18" fill="#0e1730" stroke="#3b4a68" stroke-width="2.5"/>
+    <circle cx="858" cy="256" r="8" fill="#7C9CF5" opacity="0.25"/>
+    <circle cx="1022" cy="256" r="18" fill="#0e1730" stroke="#3b4a68" stroke-width="2.5"/>
+    <circle cx="1022" cy="256" r="8" fill="#7C9CF5" opacity="0.25"/>
+    <text x="96" y="166" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="36" font-weight="700" fill="#F8FAFC">Gliding Horse Agent OS 介绍：</text>
+  <text x="96" y="238" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="36" font-weight="700" fill="#F8FAFC">Rust 构建的工业级 AI Agent 操作系统</text>
+  <rect x="96" y="264" width="112" height="6" rx="3" fill="url(#accent)"/>
+  <rect x="96" y="296" width="141" height="42" rx="21" fill="#152238" stroke="#2c3a58" stroke-width="1.5"/>
+  <text x="114" y="324" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="21" fill="#9FB3D1">智能体编排</text>
+  <rect x="251" y="296" width="83" height="42" rx="21" fill="#152238" stroke="#2c3a58" stroke-width="1.5"/>
+  <text x="269" y="324" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="21" fill="#9FB3D1">Rust</text>
 </svg>

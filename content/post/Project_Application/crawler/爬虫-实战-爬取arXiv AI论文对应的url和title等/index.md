@@ -21,7 +21,7 @@ tags:
 |---|
 |[爬虫代码](images/index/deepcrawler.py) |
 |[json输出](images/index/arxiv_papers.json) |
-|[html示例](<images/index/Artificial Intelligence.html>)|
+|[html示例](/files/arxiv-ai-papers-sample.html)|
 
 在本教程中，您将学习如何使用 Python 从 arXiv（一个流行的研究论文库）爬取最新的人工智能（AI）论文，并将结果保存为 JSON 文件。我们将逐步拆解代码，解释其功能，并告诉您如何根据需要进行修改。
 
