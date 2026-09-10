@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#1a1a2e"/><stop offset="100%" style="stop-color:#16213e"/></linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.3"/></filter>
+  </defs>
+
+  <rect width="900" height="620" rx="16" fill="url(#bg)"/>
+  <rect x="0" y="0" width="900" height="60" rx="16" fill="#0f0f23"/>
+  <rect x="0" y="40" width="900" height="20" fill="#0f0f23"/>
+  <text x="450" y="38" text-anchor="middle" fill="#e2e8f0" font-size="20" font-weight="bold">事件流是唯一事实源:信封 + 分类</text>
+
+  <!-- envelope -->
+  <rect x="50" y="90" width="380" height="180" rx="12" fill="#2d3748" stroke="#667eea" stroke-width="2"/>
+  <text x="70" y="120" fill="#a78bfa" font-size="14" font-weight="bold">BaseEvent 信封(所有事件共有)</text>
+  <text x="70" y="150" fill="#cbd5e0" font-size="13" font-family="ui-monospace,Menlo,monospace">type:       EventType</text>
+  <text x="70" y="176" fill="#cbd5e0" font-size="13" font-family="ui-monospace,Menlo,monospace">timestamp?: int</text>
+  <text x="70" y="202" fill="#cbd5e0" font-size="13" font-family="ui-monospace,Menlo,monospace">rawEvent?:  Any</text>
+  <text x="70" y="228" fill="#cbd5e0" font-size="13" font-family="ui-monospace,Menlo,monospace">metadata?:  dict</text>
+  <text x="70" y="254" fill="#7f8ea8" font-size="11">可选字段为 None 时整个键省略,不写 null</text>
+
+  <!-- event categories grid -->
+  <text x="470" y="120" fill="#e2e8f0" font-size="15" font-weight="bold">36 个枚举成员,八个在用的功能组</text>
+
+  <g font-size="12">
+    <rect x="470" y="140" width="180" height="42" rx="8" fill="#2d3748" stroke="#667eea" stroke-width="1.5"/>
+    <text x="484" y="166" fill="#cbd5e0" font-weight="bold">生命周期 <tspan fill="#a0aec0" font-weight="normal">RUN_* STEP_*</tspan></text>
+
+    <rect x="670" y="140" width="180" height="42" rx="8" fill="#2d3748" stroke="#f5576c" stroke-width="1.5"/>
+    <text x="684" y="166" fill="#cbd5e0" font-weight="bold">文本消息 <tspan fill="#a0aec0" font-weight="normal">TEXT_MESSAGE_*</tspan></text>
+
+    <rect x="470" y="192" width="180" height="42" rx="8" fill="#2d3748" stroke="#f093fb" stroke-width="1.5"/>
+    <text x="484" y="218" fill="#cbd5e0" font-weight="bold">工具调用 <tspan fill="#a0aec0" font-weight="normal">TOOL_CALL_*</tspan></text>
+
+    <rect x="670" y="192" width="180" height="42" rx="8" fill="#2d3748" stroke="#43e97b" stroke-width="1.5"/>
+    <text x="684" y="218" fill="#cbd5e0" font-weight="bold">共享状态 <tspan fill="#a0aec0" font-weight="normal">STATE_*</tspan></text>
+
+    <rect x="470" y="244" width="180" height="42" rx="8" fill="#2d3748" stroke="#4facfe" stroke-width="1.5"/>
+    <text x="484" y="270" fill="#cbd5e0" font-weight="bold">活动消息 <tspan fill="#a0aec0" font-weight="normal">ACTIVITY_*</tspan></text>
+
+    <rect x="670" y="244" width="180" height="42" rx="8" fill="#2d3748" stroke="#fbbf24" stroke-width="1.5"/>
+    <text x="684" y="270" fill="#cbd5e0" font-weight="bold">推理 <tspan fill="#a0aec0" font-weight="normal">REASONING_*</tspan></text>
+
+    <rect x="470" y="296" width="180" height="42" rx="8" fill="#2d3748" stroke="#a78bfa" stroke-width="1.5"/>
+    <text x="484" y="322" fill="#cbd5e0" font-weight="bold">子代理 <tspan fill="#a0aec0" font-weight="normal">SUBAGENT_*</tspan></text>
+
+    <rect x="670" y="296" width="180" height="42" rx="8" fill="#2d3748" stroke="#9fb3d1" stroke-width="1.5"/>
+    <text x="684" y="322" fill="#cbd5e0" font-weight="bold">特殊 <tspan fill="#a0aec0" font-weight="normal">RAW / CUSTOM</tspan></text>
+  </g>
+
+  <!-- stream spool -->
+  <text x="70" y="330" fill="#e2e8f0" font-size="14" font-weight="bold">一次运行 = 一条有序流</text>
+  <g font-family="ui-monospace,Menlo,monospace" font-size="11">
+    <rect x="50" y="350" width="380" height="40" rx="6" fill="#0e1730" stroke="#667eea" stroke-width="1.5"/>
+    <text x="66" y="375" fill="#7C9CF5">RUN_STARTED</text>
+    <text x="240" y="375" fill="#5a6b8a">↓ 前端逐条归约</text>
+    <rect x="50" y="398" width="380" height="40" rx="6" fill="#0e1730" stroke="#f5576c" stroke-width="1.5"/>
+    <text x="66" y="423" fill="#f093fb">TEXT_MESSAGE_CONTENT(delta)</text>
+    <rect x="50" y="446" width="380" height="40" rx="6" fill="#0e1730" stroke="#f093fb" stroke-width="1.5"/>
+    <text x="66" y="471" fill="#f093fb">TOOL_CALL_START / ARGS / END</text>
+    <rect x="50" y="494" width="380" height="40" rx="6" fill="#0e1730" stroke="#43e97b" stroke-width="1.5"/>
+    <text x="66" y="519" fill="#43e97b">STATE_DELTA(JSON Patch 增量)</text>
+    <rect x="50" y="542" width="380" height="40" rx="6" fill="#0e1730" stroke="#667eea" stroke-width="1.5"/>
+    <text x="66" y="567" fill="#7C9CF5">RUN_FINISHED(success | interrupt)</text>
+  </g>
+
+  <text x="470" y="380" fill="#e2e8f0" font-size="14" font-weight="bold">关键取舍</text>
+  <text x="470" y="410" fill="#a0aec0" font-size="12">• 客户端生成 threadId / runId</text>
+  <text x="470" y="438" fill="#a0aec0" font-size="12">• messageId / toolCallId 做配对</text>
+  <text x="470" y="466" fill="#a0aec0" font-size="12">• CHUNK 快捷形式 ↔ 三段式可互转</text>
+  <text x="470" y="494" fill="#a0aec0" font-size="12">• RUN_FINISHED.outcome 可挂起等输入</text>
+  <text x="470" y="522" fill="#a0aec0" font-size="12">• metadata 保留 "ag-ui" 键</text>
+  <text x="470" y="550" fill="#a0aec0" font-size="12">• 无 REST 查询,断线靠重放</text>
+</svg>

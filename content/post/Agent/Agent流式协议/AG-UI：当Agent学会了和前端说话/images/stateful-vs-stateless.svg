@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#1a1a2e"/><stop offset="100%" style="stop-color:#16213e"/></linearGradient>
+    <linearGradient id="ui" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#43e97b"/><stop offset="100%" style="stop-color:#38f9d7"/></linearGradient>
+    <linearGradient id="rt" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#667eea"/><stop offset="100%" style="stop-color:#764ba2"/></linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.3"/></filter>
+    <marker id="arrow" markerWidth="12" markerHeight="10" refX="11" refY="5" orient="auto"><path d="M0,0 L12,5 L0,10 Z" fill="#cbd5e0"/></marker>
+    <marker id="arrow-back" markerWidth="12" markerHeight="10" refX="11" refY="5" orient="auto"><path d="M0,0 L12,5 L0,10 Z" fill="#fbbf24"/></marker>
+  </defs>
+
+  <rect width="900" height="480" rx="16" fill="url(#bg)"/>
+  <rect x="0" y="0" width="900" height="60" rx="16" fill="#0f0f23"/>
+  <rect x="0" y="40" width="900" height="20" fill="#0f0f23"/>
+  <text x="450" y="38" text-anchor="middle" fill="#e2e8f0" font-size="20" font-weight="bold">两种会话范式:无状态 vs 有状态</text>
+
+  <!-- left: stateless AG-UI -->
+  <rect x="50" y="100" width="360" height="300" rx="14" fill="#141d33" stroke="#43e97b" stroke-width="1.5"/>
+  <text x="230" y="132" text-anchor="middle" fill="#43e97b" font-size="15" font-weight="bold">AG-UI:无状态服务器模型</text>
+
+  <rect x="90" y="160" width="130" height="60" rx="10" fill="url(#ui)" filter="url(#shadow)"/>
+  <text x="155" y="188" text-anchor="middle" fill="#0b1220" font-size="14" font-weight="bold">前端</text>
+  <text x="155" y="207" text-anchor="middle" fill="#0b1220" font-size="10">持有全部历史</text>
+
+  <rect x="250" y="160" width="130" height="60" rx="10" fill="#2d3748" stroke="#43e97b" stroke-width="2"/>
+  <text x="315" y="188" text-anchor="middle" fill="#cbd5e0" font-size="14" font-weight="bold">Agent 后端</text>
+  <text x="315" y="207" text-anchor="middle" fill="#a0aec0" font-size="10">不留对话状态</text>
+
+  <text x="230" y="262" text-anchor="middle" fill="#a0aec0" font-size="11">每轮请求携带 messages: [全量历史]</text>
+  <text x="230" y="284" text-anchor="middle" fill="#a0aec0" font-size="11">服务器好扩展 / 好重放 / 好调试</text>
+  <text x="230" y="306" text-anchor="middle" fill="#a0aec0" font-size="11">代价:请求变大,长对话靠客户端裁剪</text>
+  <text x="230" y="345" text-anchor="middle" fill="#7f8ea8" font-size="11">run_id 客户端生成,服务端回显</text>
+  <text x="230" y="370" text-anchor="middle" fill="#7f8ea8" font-size="11">记忆在客户端手里</text>
+
+  <!-- right: stateful runtime -->
+  <rect x="490" y="100" width="360" height="300" rx="14" fill="#141d33" stroke="#667eea" stroke-width="1.5"/>
+  <text x="670" y="132" text-anchor="middle" fill="#a78bfa" font-size="15" font-weight="bold">Canonical Runtime:有状态模型</text>
+
+  <rect x="530" y="160" width="130" height="60" rx="10" fill="#2d3748" stroke="#7C9CF5" stroke-width="2"/>
+  <text x="595" y="188" text-anchor="middle" fill="#cbd5e0" font-size="14" font-weight="bold">前端</text>
+  <text x="595" y="207" text-anchor="middle" fill="#a0aec0" font-size="10">只发最新问题</text>
+
+  <rect x="690" y="160" width="130" height="60" rx="10" fill="url(#rt)" filter="url(#shadow)"/>
+  <text x="755" y="188" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">Runtime</text>
+  <text x="755" y="207" text-anchor="middle" fill="#fff" font-size="10" opacity="0.9">SQLite checkpointer</text>
+
+  <!-- memory cylinder -->
+  <ellipse cx="755" cy="272" rx="52" ry="14" fill="#0e1730" stroke="#7C9CF5" stroke-width="2"/>
+  <rect x="703" y="272" width="104" height="46" fill="#0e1730" stroke="#7C9CF5" stroke-width="2"/>
+  <ellipse cx="755" cy="318" rx="52" ry="14" fill="#0e1730" stroke="#7C9CF5" stroke-width="2"/>
+  <text x="755" y="300" text-anchor="middle" fill="#9fb3d1" font-size="11">session 记忆</text>
+
+  <text x="670" y="360" text-anchor="middle" fill="#a0aec0" font-size="11">记忆按 session_id 存在服务端</text>
+  <text x="670" y="382" text-anchor="middle" fill="#a0aec0" font-size="11">run_id 上游定,事件流即恢复依据</text>
+
+  <!-- middle: adapter -->
+  <path d="M 610 240 L 640 240" stroke="#fbbf24" stroke-width="2" marker-end="url(#arrow-back)"/>
+  <text x="450" y="440" text-anchor="middle" fill="#fbbf24" font-size="12">适配层 = 两种会话范式之间的翻译:入站取最后一条 user 消息,出站把 Runtime 事件投影成 AG-UI 事件</text>
+</svg>

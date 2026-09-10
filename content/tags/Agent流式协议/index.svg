@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f1e35"/>
+      <stop offset="100%" stop-color="#1e3a5f"/>
+    </linearGradient>
+    <linearGradient id="agent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4f9eff"/>
+      <stop offset="100%" stop-color="#7c5cff"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#bg)"/>
+
+  <!-- grid background -->
+  <g stroke="#2a4a78" stroke-width="1" opacity="0.4">
+    <line x1="0" y1="100" x2="800" y2="100"/>
+    <line x1="0" y1="200" x2="800" y2="200"/>
+    <line x1="0" y1="300" x2="800" y2="300"/>
+    <line x1="0" y1="400" x2="800" y2="400"/>
+    <line x1="0" y1="500" x2="800" y2="500"/>
+    <line x1="160" y1="0" x2="160" y2="600"/>
+    <line x1="320" y1="0" x2="320" y2="600"/>
+    <line x1="480" y1="0" x2="480" y2="600"/>
+    <line x1="640" y1="0" x2="640" y2="600"/>
+  </g>
+
+  <!-- central agent node -->
+  <circle cx="400" cy="300" r="80" fill="url(#agent)" opacity="0.95"/>
+  <circle cx="400" cy="300" r="80" fill="none" stroke="#fff" stroke-width="2"/>
+  <text x="400" y="305" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="24" font-weight="bold">Agent</text>
+
+  <!-- surrounding satellite nodes -->
+  <g>
+    <circle cx="200" cy="180" r="36" fill="#1e3a5f" stroke="#4f9eff" stroke-width="2"/>
+    <text x="200" y="186" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="14">Tools</text>
+  </g>
+  <g>
+    <circle cx="600" cy="180" r="36" fill="#1e3a5f" stroke="#4f9eff" stroke-width="2"/>
+    <text x="600" y="186" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="14">Memory</text>
+  </g>
+  <g>
+    <circle cx="200" cy="420" r="36" fill="#1e3a5f" stroke="#7c5cff" stroke-width="2"/>
+    <text x="200" y="426" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="14">Eval</text>
+  </g>
+  <g>
+    <circle cx="600" cy="420" r="36" fill="#1e3a5f" stroke="#7c5cff" stroke-width="2"/>
+    <text x="600" y="426" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="14">Obs.</text>
+  </g>
+  <g>
+    <circle cx="400" cy="120" r="32" fill="#1e3a5f" stroke="#4f9eff" stroke-width="2"/>
+    <text x="400" y="126" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="13">LLM</text>
+  </g>
+  <g>
+    <circle cx="400" cy="480" r="32" fill="#1e3a5f" stroke="#7c5cff" stroke-width="2"/>
+    <text x="400" y="486" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="13">Guard</text>
+  </g>
+
+  <!-- connecting lines -->
+  <g stroke="#4f9eff" stroke-width="1.5" opacity="0.6">
+    <line x1="400" y1="220" x2="400" y2="152"/>
+    <line x1="350" y1="248" x2="230" y2="200"/>
+    <line x1="450" y1="248" x2="570" y2="200"/>
+    <line x1="350" y1="352" x2="230" y2="400"/>
+    <line x1="450" y1="352" x2="570" y2="400"/>
+    <line x1="400" y1="380" x2="400" y2="448"/>
+  </g>
+
+  <text x="400" y="540" text-anchor="middle" fill="#a8c5e8" font-family="Arial, sans-serif" font-size="20" font-weight="bold" letter-spacing="3">AGENT ENGINEERING IN PRACTICE</text>
+</svg>

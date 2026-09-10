@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#1a1a2e"/><stop offset="100%" style="stop-color:#16213e"/></linearGradient>
+    <linearGradient id="agent" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#667eea"/><stop offset="100%" style="stop-color:#764ba2"/></linearGradient>
+    <linearGradient id="mcp" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#43e97b"/><stop offset="100%" style="stop-color:#38f9d7"/></linearGradient>
+    <linearGradient id="a2a" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#4facfe"/><stop offset="100%" style="stop-color:#00f2fe"/></linearGradient>
+    <linearGradient id="agui" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#f093fb"/><stop offset="100%" style="stop-color:#f5576c"/></linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.3"/></filter>
+    <marker id="arrow" markerWidth="12" markerHeight="10" refX="11" refY="5" orient="auto"><path d="M0,0 L12,5 L0,10 Z" fill="#cbd5e0"/></marker>
+  </defs>
+
+  <rect width="900" height="560" rx="16" fill="url(#bg)"/>
+  <rect x="0" y="0" width="900" height="60" rx="16" fill="#0f0f23"/>
+  <rect x="0" y="40" width="900" height="20" fill="#0f0f23"/>
+  <text x="450" y="38" text-anchor="middle" fill="#e2e8f0" font-size="20" font-weight="bold">三层 Agent 协议:各管一个边界</text>
+
+  <!-- Center: agent -->
+  <rect x="350" y="230" width="200" height="100" rx="14" fill="url(#agent)" filter="url(#shadow)"/>
+  <text x="450" y="272" text-anchor="middle" fill="#fff" font-size="19" font-weight="bold">🤖 Agent</text>
+  <text x="450" y="298" text-anchor="middle" fill="#fff" font-size="12" opacity="0.9">LLM + 循环 + 工具</text>
+  <text x="450" y="316" text-anchor="middle" fill="#fff" font-size="11" opacity="0.75">一次运行的执行主体</text>
+
+  <!-- MCP: left -->
+  <rect x="50" y="240" width="180" height="80" rx="12" fill="url(#mcp)" filter="url(#shadow)" opacity="0.95"/>
+  <text x="140" y="276" text-anchor="middle" fill="#fff" font-size="17" font-weight="bold">🔧 MCP</text>
+  <text x="140" y="300" text-anchor="middle" fill="#fff" font-size="12" opacity="0.92">agent ↔ 工具</text>
+
+  <!-- A2A: top -->
+  <rect x="360" y="100" width="180" height="80" rx="12" fill="url(#a2a)" filter="url(#shadow)" opacity="0.95"/>
+  <text x="450" y="136" text-anchor="middle" fill="#fff" font-size="17" font-weight="bold">🤝 A2A</text>
+  <text x="450" y="160" text-anchor="middle" fill="#fff" font-size="12" opacity="0.92">agent ↔ agent</text>
+
+  <!-- AG-UI: right -->
+  <rect x="670" y="240" width="180" height="80" rx="12" fill="url(#agui)" filter="url(#shadow)" opacity="0.95"/>
+  <text x="760" y="276" text-anchor="middle" fill="#fff" font-size="17" font-weight="bold">💬 AG-UI</text>
+  <text x="760" y="300" text-anchor="middle" fill="#fff" font-size="12" opacity="0.92">agent ↔ 前端</text>
+
+  <!-- Arrows -->
+  <line x1="230" y1="280" x2="348" y2="280" stroke="#cbd5e0" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="348" y1="280" x2="230" y2="280" stroke="#cbd5e0" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="450" y1="180" x2="450" y2="228" stroke="#cbd5e0" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="450" y1="228" x2="450" y2="180" stroke="#cbd5e0" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="552" y1="280" x2="668" y2="280" stroke="#cbd5e0" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="668" y1="280" x2="552" y2="280" stroke="#cbd5e0" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- footnote -->
+  <text x="140" y="360" text-anchor="middle" fill="#7f8ea8" font-size="11">Anthropic 提出</text>
+  <text x="565" y="128" text-anchor="start" fill="#7f8ea8" font-size="11">Google 提出</text>
+  <text x="760" y="360" text-anchor="middle" fill="#7f8ea8" font-size="11">CopilotKit 提出</text>
+
+  <text x="450" y="440" text-anchor="middle" fill="#cbd5e0" font-size="14">在三个边界上说标准语言的 agent,</text>
+  <text x="450" y="466" text-anchor="middle" fill="#cbd5e0" font-size="14">同时获得被所有前端渲染、被所有 agent 编排、被所有工具增强的资格</text>
+
+  <text x="450" y="525" text-anchor="middle" fill="#5a6b8a" font-size="11" font-family="ui-monospace,Menlo,monospace">MCP = Model Context Protocol · A2A = Agent2Agent · AG-UI = Agent-User Interaction</text>
+</svg>
