@@ -1291,6 +1291,12 @@ dcode
 
 dcode 使用任何支持 tool calling 的 LLM 作为后端。对于想先"用"再"编"的用户，建议先试 dcode 感受 harness 行为，再用 `create_deep_agent` 定制自己的流程。
 
+dcode 迭代很快（几乎每周发版），近期（0.1.67 / 0.1.68）值得关注的更新：
+
+- **工作区隔离增强**：项目策略按 workspace 解析、dotenv 按 workspace 作用域隔离、LangSmith 认证与 tracing 隔离；跨工作区切换时复用 server 并在重启前请求确认。
+- **模型支持**：新增 Fireworks GLM-5.3 / GLM-5.3 Flash 的用量计价，推荐模型列表纳入 GLM 5.3 系列。
+- **subagent 行为**：general-purpose 子智能体默认以 fork 模式运行（继承完整上下文），并支持 fresh subagent 与按任务选择工具。
+
 官方文档：<https://docs.langchain.com/deepagents-code>
 
 ### 12.1 DeepAgents 的模型协议
@@ -1406,7 +1412,7 @@ GitHub 仓库的 [examples/](https://github.com/langchain-ai/deepagents/tree/mai
 | 包 | 本文基准版本 | 发布日期 | 备注 |
 |---|---|---|---|
 | `deepagents`（Python） | 0.7.13 | 2026-09-02 | 核心库，本文主体内容 |
-| `deepagents-code`（dcode） | 0.1.66 | 2026-09-03 | 终端编码智能体，见 12.0 节 |
+| `deepagents-code`（dcode） | 0.1.68 | 2026-09-10 | 终端编码智能体，见 12.0 节 |
 | `deepagents-talon` | 0.0.7 | 2026-09-07 | 独立发布，本文未覆盖 |
 | `langchain-quickjs` | 0.3.7 | 2026-09-06 | JS 运行时，本文未覆盖 |
 | `deepagents.js`（JS/TS） | — | — | 独立仓库，见附录 C |
