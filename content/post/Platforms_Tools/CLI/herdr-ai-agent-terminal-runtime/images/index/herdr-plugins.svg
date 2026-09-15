@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-label="Herdr 插件模型：插件目录 + manifest 声明五类挂载点，宿主执行命令并注入上下文，插件通过 HERDR_BIN_PATH 回调">
+  <defs>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5B87BF"/>
+      <stop offset="100%" stop-color="#8B5CF6"/>
+    </linearGradient>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.3" fill="#26324a"/>
+    </pattern>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="720" fill="#0B1220"/>
+  <rect width="1200" height="720" fill="url(#dots)" opacity="0.5"/>
+  <text x="1160" y="36" text-anchor="end" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="15" fill="#475569">zata.cc</text>
+
+  <!-- ===================== PLUGIN DIRECTORY ===================== -->
+  <rect x="48" y="140" width="252" height="380" rx="14" fill="#0e1730" stroke="#3b4a68" stroke-width="2"/>
+  <text x="64" y="176" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="17" font-weight="700" fill="#F8FAFC">plugin 目录（你自己写）</text>
+  <text x="64" y="200" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12.5" fill="#9FB3D1">语言随意：脚本、Node、Lua、二进制</text>
+
+  <rect x="64" y="220" width="220" height="180" rx="10" fill="#101a30" stroke="#2c3a58" stroke-width="1.5"/>
+  <text x="78" y="246" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="12.5" fill="#e2e8f0">herdr-plugin.toml</text>
+  <text x="78" y="272" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="12" fill="#9FB3D1">index.js / peek.sh / …</text>
+  <text x="78" y="298" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="11.5" fill="#9FB3D1">[[build]] 只在 install 跑</text>
+  <text x="78" y="320" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="11.5" fill="#9FB3D1">[[startup]] 恢复后跑一次</text>
+  <line x1="76" y1="338" x2="272" y2="338" stroke="#24314e" stroke-width="1.5"/>
+  <text x="78" y="360" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="11.5" fill="#cbd5e1">CONFIG_DIR → 用户配置</text>
+  <text x="78" y="384" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="11.5" fill="#cbd5e1">STATE_DIR → 运行时状态</text>
+
+  <rect x="64" y="418" width="220" height="88" rx="10" fill="#0f1a33" stroke="#3b4a68" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="78" y="442" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#cbd5e1">v1 还没有的</text>
+  <text x="78" y="464" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="11.5" fill="#9FB3D1">运行时注册 action</text>
+  <text x="78" y="484" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="11.5" fill="#9FB3D1">原生非终端 UI · 托管存储</text>
+
+  <!-- plugin -> host -->
+  <line x1="300" y1="250" x2="372" y2="250" stroke="#64748b" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="336" y="238" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="11" fill="#9FB3D1">声明</text>
+  <text x="336" y="272" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="10.5" fill="#64748b">宿主启动命令</text>
+
+  <!-- ===================== HOST SURFACE ===================== -->
+  <rect x="372" y="88" width="456" height="548" rx="16" fill="#0d1526" stroke="url(#accent)" stroke-width="2.5"/>
+  <text x="392" y="124" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="18" font-weight="700" fill="#F8FAFC">herdr 宿主：五类挂载点</text>
+  <text x="392" y="148" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12.5" fill="#9FB3D1">安装 · 校验 · 键位 · 窗格 · 事件 · 日志 · 上下文注入</text>
+
+  <rect x="392" y="168" width="416" height="82" rx="10" fill="#101a30" stroke="#2c3a58" stroke-width="1.5"/>
+  <text x="408" y="192" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#e2e8f0">[[actions]]　动作</text>
+  <text x="408" y="216" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="12" fill="#cbd5e1">绑定: type = "plugin_action"</text>
+  <text x="408" y="238" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="11" fill="#64748b">本地 id 撞名时要写限定名 插件id.action</text>
+
+  <rect x="392" y="262" width="416" height="82" rx="10" fill="#101a30" stroke="#2c3a58" stroke-width="1.5"/>
+  <text x="408" y="286" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#e2e8f0">[[panes]]　终端窗格</text>
+  <text x="408" y="310" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="12" fill="#cbd5e1">overlay · popup · split · tab · zoomed</text>
+  <text x="408" y="332" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="11" fill="#64748b">popup 不是 pane：无 pane ID，不进布局/持久化</text>
+
+  <rect x="392" y="356" width="416" height="82" rx="10" fill="#101a30" stroke="#2c3a58" stroke-width="1.5"/>
+  <text x="408" y="380" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#e2e8f0">[[events]]　事件钩子</text>
+  <text x="408" y="404" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="12" fill="#cbd5e1">on = "worktree.created" 等</text>
+  <text x="408" y="426" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="11" fill="#64748b">事件 JSON 通过 HERDR_PLUGIN_EVENT_JSON 传入</text>
+
+  <rect x="392" y="450" width="416" height="82" rx="10" fill="#101a30" stroke="#2c3a58" stroke-width="1.5"/>
+  <text x="408" y="474" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#e2e8f0">[[link_handlers]]　链接处理</text>
+  <text x="408" y="498" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="12" fill="#cbd5e1">Ctrl+点击 URL → 同插件的 action</text>
+  <text x="408" y="520" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="11" fill="#64748b">pattern 是 Rust 正则，按 manifest 顺序检查</text>
+
+  <rect x="392" y="544" width="416" height="82" rx="10" fill="#101a30" stroke="#2c3a58" stroke-width="1.5"/>
+  <text x="408" y="568" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#e2e8f0">[[startup]]　启动钩子</text>
+  <text x="408" y="592" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="12" fill="#cbd5e1">会话恢复 / live handoff 后各一次</text>
+  <text x="408" y="614" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="11" fill="#64748b">一次性初始化，不是守护进程</text>
+
+  <!-- host <-> callback -->
+  <line x1="828" y1="250" x2="872" y2="250" stroke="#64748b" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="850" y="238" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="11" fill="#9FB3D1">启动</text>
+  <line x1="872" y1="392" x2="828" y2="392" stroke="#64748b" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="850" y="380" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="11" fill="#9FB3D1">回调</text>
+
+  <!-- ===================== CALLBACK ===================== -->
+  <rect x="872" y="140" width="280" height="360" rx="14" fill="#0e1730" stroke="#2c3a58" stroke-width="2"/>
+  <text x="888" y="172" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="17" font-weight="700" fill="#F8FAFC">回调用整个 CLI</text>
+  <text x="888" y="194" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="11.5" fill="#9FB3D1">HERDR_BIN_PATH 优先</text>
+  <text x="888" y="224" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="12" fill="#cbd5e1">herdr pane split / run</text>
+  <text x="888" y="248" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="12" fill="#cbd5e1">herdr pane read / wait-output</text>
+  <text x="888" y="272" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="12" fill="#cbd5e1">herdr agent prompt --wait</text>
+  <text x="888" y="296" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="12" fill="#cbd5e1">herdr pane report-metadata</text>
+  <text x="888" y="320" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="12" fill="#cbd5e1">herdr workspace list</text>
+  <line x1="888" y1="340" x2="1136" y2="340" stroke="#24314e" stroke-width="1.5"/>
+  <text x="888" y="368" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#cbd5e1">注入的上下文（节选）：</text>
+  <text x="888" y="392" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="11.5" fill="#cbd5e1">HERDR_PLUGIN_ID / ROOT</text>
+  <text x="888" y="414" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="11.5" fill="#cbd5e1">HERDR_PLUGIN_CONFIG_DIR</text>
+  <text x="888" y="436" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="11.5" fill="#cbd5e1">HERDR_PLUGIN_STATE_DIR</text>
+  <text x="888" y="458" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="11.5" fill="#cbd5e1">HERDR_PLUGIN_CONTEXT_JSON</text>
+
+  <!-- ===================== BOTTOM NOTE ===================== -->
+  <text x="56" y="668" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="13" fill="#9FB3D1">窗格摆放：</text>
+  <text x="140" y="668" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="13" fill="#cbd5e1">overlay · popup · split · tab · zoomed</text>
+  <text x="640" y="668" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12.5" fill="#64748b">0.9.0 的 --help 少列了 popup 和 --width/--height，以文档为准</text>
+</svg>
