@@ -5,7 +5,6 @@ date: 2026-06-04T10:00:00+08:00
 image: images/index/index.png
 categories:
     - Knowledge
-    - others
 tags:
     - agent
     - 文档结构化

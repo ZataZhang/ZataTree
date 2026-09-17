@@ -5,7 +5,6 @@ date: 2026-06-04T12:00:00+08:00
 image: images/index/index.png
 categories:
     - Knowledge
-    - others
 tags:
     - 文档结构化
     - Python

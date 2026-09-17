@@ -1,0 +1,14 @@
+{{- /*
+    自托管 IBM Plex Sans 的预加载提示。
+
+    字体定义（@font-face）在 assets/scss/custom.scss 里，字体文件在
+    static/fonts/。这里只做 preload，让字体和首屏 CSS 并行下载，避免
+    font-display: swap 造成的字形闪烁。
+
+    背景：主题默认从 fonts.googleapis.com 加载 Lato，检测器判为
+    overused-font，且大陆网络访问不到会静默失效 —— 大部分读者实际看到的
+    是系统字体。自托管后这一份 40KB 的变量字体覆盖 400–700 全部字重。
+    字体授权 SIL OFL 1.1。
+*/ -}}
+<link rel="preload" href="/fonts/ibm-plex-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/caveat-mark.woff2" as="font" type="font/woff2" crossorigin>

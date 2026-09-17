@@ -37,7 +37,7 @@ date: {datetime.now().strftime("%Y-%m-%dT%H:%M:%S+08:00")}
 slug: "{category}"
 image: "{image_name}"
 style:
-    background: "#2a9d8f"
+    background: "#238377"
     color: "#fff"
 ---
 """)
@@ -87,7 +87,7 @@ date: {datetime.now().strftime("%Y-%m-%dT%H:%M:%S+08:00")}
 slug: "{tag}"
 image: "{image_name}"
 style:
-    background: "#2a9d8f"
+    background: "#238377"
     color: "#fff"
 ---
 """)

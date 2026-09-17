@@ -8,12 +8,12 @@ categories:
     # - Chart
     # - Python
     # - LLM
-    - Project&Application
     # - Library
     # - PaperReading
     # - Study
     # - Other
     # - Knowledge points
+    - Project_Application
 tags:
     - git&github
     - 爬虫

@@ -6,8 +6,7 @@ image: images/index/index.png
 slug: scipy/index.md
 # image: helena-hertz-wWZzXlDpMog-unsplash.jpg
 categories:
-    - Python-Library
-    - library
+    - Library
 ---
 
 # SCiPY

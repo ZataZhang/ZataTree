@@ -4,6 +4,6 @@ description: "Browser automation: Playwright, Puppeteer, CDP, Chrome Extension R
 slug: "Browser-Automation"
 image: "index.svg"
 style:
-    background: "#3a7bd5"
+    background: "#3074d3"
     color: "#fff"
 ---

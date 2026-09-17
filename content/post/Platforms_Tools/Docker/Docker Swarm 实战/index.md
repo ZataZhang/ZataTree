@@ -5,7 +5,7 @@ date: 2026-04-12T10:00:00+08:00
 image: images/index/index.png
 slug: docker-swarm-guide
 categories:
-    - Platforms&Tools
+    - Platforms_Tools
 tags:
     - Docker
 draft: false

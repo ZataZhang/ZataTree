@@ -4,7 +4,7 @@ description: ""
 date: 2025-03-18T15:48:18+08:00
 image: images/index/index.png
 categories:
-    - Platforms&Tools
+    - Platforms_Tools
 tags:
     - Docker
 ---

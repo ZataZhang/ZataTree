@@ -1,0 +1,9 @@
+{{- /*
+    空文件，故意覆盖主题的 footer/components/custom-font.html。
+
+    主题那个版本用 JS 往 <head> 里插 fonts.googleapis.com 的 Lato 样式表。
+    字体已经换成自托管的 IBM Plex Sans（见 layouts/partials/head/custom.html），
+    不覆盖的话每次访问仍会白下载一份用不到的 Lato，在大陆还会拖慢首屏。
+
+    想改回主题字体，删掉这个文件即可。
+*/ -}}

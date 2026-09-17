@@ -5,7 +5,7 @@ date: 2025-02-24
 slug: python程序打包exe/index.md ### 必填，文件夹名/index.md
 image: image/python程序打包exe/python程序打包exe.png
 categories:
-    - Project&Application
+    - Project_Application
 tags:
     - PythonGUI
 ---

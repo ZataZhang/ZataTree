@@ -1,0 +1,22 @@
+{{- /*
+    覆盖主题的 widget/search.html。
+
+    设计稿里搜索框右侧有个 ⌘K 提示。这里加一个视觉提示元素，
+    并在 footer 的 custom.html 里绑快捷键（focus 搜索框）。
+*/ -}}
+{{- $query := first 1 (where .Context.Site.Pages "Layout" "==" "search") -}}
+{{- if $query -}}
+    {{- $searchPage := index $query 0 -}}
+    <form action="{{ $searchPage.RelPermalink }}" class="search-form widget" {{ with .OutputFormats.Get "json" -}}data-json="{{ .Permalink }}" {{- end }}>
+        <label class="search-form__label">{{ T "search.title" }}</label>
+        <div class="search-form__box">
+            <span class="search-form__icon" aria-hidden="true">{{ partial "helper/icon" "search" }}</span>
+            <input name="keyword" required placeholder="{{ T `search.placeholder` }}"
+                   aria-label="{{ T `search.title` }}" />
+            <kbd class="search-form__kbd" aria-hidden="true">⌘K</kbd>
+            <button title="{{ T `search.title` }}" aria-label="{{ T `search.title` }}"></button>
+        </div>
+    </form>
+{{- else -}}
+    {{- warnf "Search page not found. Create a page with layout: search." -}}
+{{- end -}}

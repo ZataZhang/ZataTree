@@ -1,0 +1,84 @@
+{{- /*
+    覆盖主题的 article/components/details.html。
+
+    唯一改动在第 5 行：分类胶囊原来把颜色写成行内
+        style="background-color: X; color: Y"
+    行内样式优先级最高，CSS 盖不住，所以毛玻璃效果没法生效。
+    改成只写一个自定义属性 style="--chip-raw: X"，颜色交给 CSS 去算。
+    变量名带 -raw 是因为行内优先级最高、CSS 改不了它；CSS 拿 --chip-raw 做
+    压暗后再赋给 --chip（见 assets/scss/custom.scss 第 2 节）。
+    不这么做的话，frontmatter 里偏亮的颜色（Agent #238377 在白封面上只有
+    3.24:1）配白字过不了 AA。
+
+    其余保持主题原样。
+*/ -}}
+<div class="article-details">
+    {{ if .Params.categories }}
+    <header class="article-category">
+        {{ range (.GetTerms "categories") }}
+            <a href="{{ .RelPermalink }}" {{ with .Params.style }}style="--chip-raw: {{ .background }};"{{ end }}>
+                {{ .LinkTitle }}
+            </a>
+        {{ end }}
+    </header>
+    {{ end }}
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="{{ .RelPermalink }}">
+                {{- .Title -}}
+            </a>
+        </h2>
+    
+        {{ with .Params.description }}
+        <h3 class="article-subtitle">
+            {{ . }}
+        </h3>
+        {{ end }}
+    </div>
+
+    {{ $showReadingTime := .Params.readingTime | default (.Site.Params.article.readingTime) }}
+    {{ $showDate := not .Date.IsZero }}
+    {{ $showFooter := or $showDate $showReadingTime }}
+    {{ if $showFooter }}
+    <footer class="article-time">
+        {{ if $showDate }}
+            <div>
+                {{ partial "helper/icon" "date" }}
+                <time class="article-time--published">
+                    {{- .Date | time.Format (or .Site.Params.dateFormat.published "Jan 02, 2006") -}}
+                </time>
+            </div>
+        {{ end }}
+
+        {{- if ne .Lastmod .Date -}}
+        <div>
+            {{ partial "helper/icon" "clock" }}
+            <time class="article-time--published">
+                {{ T "article.lastUpdatedOn" }} {{ .Lastmod | time.Format ( or .Site.Params.dateFormat.lastUpdated "Jan 02, 2006 15:04 MST" ) }}
+            </time>
+        </div>
+        {{- end -}}
+
+        {{ if $showReadingTime }}
+            <div>
+                {{ partial "helper/icon" "clock" }}
+                <time class="article-time--reading">
+                    {{ T "article.readingTime" .ReadingTime }}
+                </time>
+            </div>
+        {{ end }}
+    </footer>
+    {{ end }}
+
+    {{ if .IsTranslated }}
+        <footer class="article-translations">
+            {{ partial "helper/icon" "language" }}
+            <div>
+                {{ range .Translations }}
+                    <a href="{{ .Permalink }}" class="link">{{ .Language.LanguageName }}</a>
+                {{ end }}
+            </div>
+        </footer>
+    {{ end }}
+</div>

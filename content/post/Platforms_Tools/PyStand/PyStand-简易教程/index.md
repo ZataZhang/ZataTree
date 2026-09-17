@@ -5,7 +5,7 @@ draft: true
 date: 2025-04-28T10:07:02+08:00
 image: images/index/index.png
 categories:
-    - Platforms&Tools
+    - Platforms_Tools
 tags:
     - PyStand
 ---

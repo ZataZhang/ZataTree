@@ -4,7 +4,7 @@ description: "一个 React 元框架，让你的后台界面由 API 结构自动
 date: 2025-06-05T10:00:00+08:00
 image: images/index/index.png
 categories:
-    - 前端架构
+    - Library
 tags:
     - React
     - Meta-Framework

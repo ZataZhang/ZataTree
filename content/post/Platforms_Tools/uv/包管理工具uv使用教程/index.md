@@ -3,7 +3,7 @@ title: 包管理工具uv使用教程
 date: 2025-05-11
 image: images/index/index.png
 categories:
-    - Platforms&Tools
+    - Platforms_Tools
 tags:
     - uv
 

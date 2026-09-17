@@ -5,9 +5,7 @@ date: 2025-02-28
 slug: git&github/index.md ### 必填，文件夹名/index.md
 image: image/index/index.png
 categories:
-
-    - Project&Application
-
+    - Project_Application
 tags: ["git&github","教程"]
 
 ---

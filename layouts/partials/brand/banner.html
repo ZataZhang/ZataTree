@@ -1,0 +1,25 @@
+{{- /*
+    顶部品牌横幅。
+
+    背景插画：static/img/banner-mountains.webp（AI 生成的水墨山峦，1536×934）。
+    横幅比例约 12:1，用 background-size:cover 会裁掉绝大部分高度，所以靠
+    background-position 取山脊那一条带，再叠一层从左到右的白色渐变，
+    让 logo 所在的上半部落在干净底上 —— 和设计稿一致。
+
+    文案全部走 hugo.yaml 的 params.brand.*，改字不用动模板。
+*/ -}}
+{{- $b := .Site.Params.brand -}}
+<div class="brand-banner">
+    <div class="brand-banner__left">
+        <a class="brand-mark" href="{{ .Site.BaseURL | relLangURL }}">{{ $b.logo | default .Site.Title }}</a>
+        <span class="brand-rule" aria-hidden="true"></span>
+        <span class="brand-tagline">{{ $b.tagline }}</span>
+    </div>
+    <div class="brand-banner__right">
+        {{- range $b.mottos }}
+        <p class="brand-motto">
+            {{- range .lines }}<span>{{ . }}</span>{{ end -}}
+        </p>
+        {{- end }}
+    </div>
+</div>

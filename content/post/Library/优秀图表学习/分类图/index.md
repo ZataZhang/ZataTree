@@ -6,7 +6,7 @@ image: images/index/index.png
 # slug: 数据流图/建模图/功能图/数据流图.md.
 # image: helena-hertz-wWZzXlDpMog-unsplash.jpg
 categories:
-    - Chart
+    - Design
 ---
 
 # 混淆矩阵

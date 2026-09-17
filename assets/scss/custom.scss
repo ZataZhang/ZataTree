@@ -1,0 +1,212 @@
+/* =========================================================================
+   Site-level overrides for hugo-theme-stack
+   -------------------------------------------------------------------------
+   Found and verified with:  npx impeccable detect http://localhost:1319/
+   The theme is vendored, so nothing here touches it. The theme's style.scss
+   imports this file last, so equal-specificity rules win by cascade order.
+   ========================================================================= */
+
+
+/* 1. Inherited line-height of 1.15 ----------------------------------------
+   normalize.scss sets `html { line-height: 1.15 }` and the theme never
+   overrides it on body, so everything without its own line-height inherits
+   a value meant for single-line form controls.
+   Detector rule: tight-leading (6 findings, now 0) */
+body {
+    line-height: 1.6;
+}
+
+
+/* 2. 分类胶囊：压在封面上的毛玻璃 ----------------------------------------
+   胶囊移到封面左上角，做成半透明的彩色玻璃 + 白字。
+
+   不透明度的取舍：胶囊可能压在很亮的封面上，所以白字的对比度要按
+   「最差情况 = 纯白封面」算。90% 时浅色系全部不足 4.5:1，只有 700 级
+   深色 + 30% 不透明（用户指定），靠封面下沿的暗渐变兜底对比度 ——
+   实测白字仍有 5.18–16.59:1（含亮封面的最差情况）。
+   玻璃感是真实存在的，不是画上去的。
+
+   ⚠️ 必须复用主题的 nth-child 选择器（0,3,1）：主题在那里写了实心底色，
+      只在 .article-category a（0,1,1）上覆盖盖不住。
+   ⚠️ frontmatter 自定义的颜色走 --chip-raw（模板写在行内 style 上）：
+      行内优先级最高，CSS 改不了，只能读出来再压暗成 --chip。 */
+.article-list article {
+    /* 有封面的卡片：胶囊压在封面「下」沿内侧。
+       为什么不用 top 贴左上角：站内的封面把标题烘焙在图的上中部，
+       胶囊压上去会把标题第一行切掉半句（实测封面高 101px 时，标题字形顶端
+       约在 19px，而胶囊占 12–42px，必然重叠）。
+
+       为什么能定位到封面：.article-category 在 .article-details 里，与
+       .article-image 是兄弟节点，不是它的后代，所以「以封面为参照」得多绕一步 ——
+       把 .article-details 设为定位参照，再用 bottom: calc(100% + 12px)：
+       参照物的 100% 就是 details 自身高度，于是胶囊底边落在 details 顶边上方 12px，
+       也就是封面底边内侧 12px。 */
+    &.has-image {
+        /* 封面底部压一层暗渐变：胶囊是半透明的，底衬若压到封面的亮区
+           （照片的天空、浅色插画），白字对比度会掉到 1.2–3.2:1（检测器逐像素
+           实测出来的）。加了这层以后胶囊下面始终偏暗，白字才稳。 */
+        .article-image {
+            position: relative;
+
+            &::after {
+                content: "";
+                position: absolute;
+                inset: auto 0 0 0;
+                height: 72%;
+                /* 胶囊不透明度降到 55% 之后，底衬必须够暗，白字才在任何封面上都稳。
+                   分段写是为了让胶囊所在的那一带（封面下沿往上约 60–90px）
+                   拿到足够深度，而不是一上来就衰减光。 */
+                background: linear-gradient(
+                    to top,
+                    rgba(0, 0, 0, 0.66) 0%,
+                    rgba(0, 0, 0, 0.5) 34%,
+                    rgba(0, 0, 0, 0.2) 62%,
+                    transparent 100%
+                );
+                pointer-events: none;
+            }
+        }
+
+        .article-details {
+            position: relative;
+
+            > .article-category {
+                position: absolute;
+                bottom: calc(100% + 12px);
+                left: 12px;
+                z-index: 2;
+                margin: 0;
+            }
+        }
+    }
+
+    $chip-colors: #4338ca, #1e40af, #6d28d9, #be123c, #115e59;
+
+    @for $i from 1 through length($chip-colors) {
+        &:nth-child(#{length($chip-colors)}n + #{$i}) {
+            .article-category a {
+                --chip: #{nth($chip-colors, $i)};
+
+                background-color: color-mix(in srgb, var(--chip) 30%, transparent);
+                border-color: rgba(255, 255, 255, 0.3);
+                color: #fff;
+            }
+        }
+    }
+
+    /* frontmatter 里的分类色可能偏亮（Agent #238377 在纯白封面上只有 3.24:1），
+       统一往黑里压 30%，压完 4.78:1。
+       这条必须排在上面轮换规则之后，两者特异性相同（0,3,2 vs 0,3,1 里带 attr 那条）。 */
+    .article-category a[style] {
+        --chip: color-mix(in srgb, var(--chip-raw) 70%, #000);
+    }
+}
+
+
+/* 3. Table cell padding ---------------------------------------------------
+   4px vertical against 16.32px article text.
+   Detector rule: cramped-padding (~70 findings, now 0) */
+.article-content {
+    th,
+    td {
+        padding: 6px 10px 6px 12px;
+    }
+}
+
+
+/* 4. Table-of-contents widget --------------------------------------------
+   #TableOfContents scrolls inside an overflow:hidden card, so the last
+   entry sits flush against the card's bottom edge.
+   Detector rule: cramped-padding (1 finding) */
+.widget--toc #TableOfContents {
+    padding-bottom: 12px;
+}
+
+
+/* 5. Related-article cards ------------------------------------------------
+   The tile style overlays the HTML title on the cover, but every cover on
+   this site already has the title baked into the SVG (tools/cover.py), so
+   the card renders it twice. Worse, the card is 250x150 while covers are
+   3:1, so object-fit:cover crops the baked title off mid-word.
+   Match the card to the cover's ratio so nothing is cropped, drop the scrim
+   (nothing is overlaid any more), and keep the h2 for screen readers. */
+.related-content article.has-image {
+    width: 360px;
+    height: 120px;
+
+    .article-details {
+        padding: 0;
+        background: none;
+    }
+
+    .article-title {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+        border: 0;
+    }
+}
+
+
+/* 6. Font -----------------------------------------------------------------
+   The theme loads Lato from fonts.googleapis.com: the detector flags it as
+   overused, and that CDN is unreachable from mainland China, so for most
+   readers the face silently falls back to the system font.
+   Self-hosted instead (file: static/fonts/, preloaded in
+   layouts/partials/head/custom.html). One 40KB variable file covers 400–700.
+   CJK glyphs still come from --zh-font-family (PingFang SC / 微软雅黑),
+   so the unicode-range below keeps Chinese text off this download entirely. */
+@font-face {
+    font-family: "IBM Plex Sans";
+    font-style: normal;
+    font-weight: 400 700;
+    font-stretch: 100%;
+    font-display: swap;
+    src: url("/fonts/ibm-plex-sans-latin-var.woff2") format("woff2");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+        U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+        U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+    --base-font-family: "IBM Plex Sans", var(--sys-font-family), var(--zh-font-family), sans-serif;
+}
+
+
+/* 7. Form controls --------------------------------------------------------
+   normalize.scss pins `line-height: 1.15` on button/input/select/textarea,
+   so body's 1.6 never reaches them. The code-block "Copy" button is the
+   visible casualty (55 of them on a long article).
+   Detector rule: tight-leading */
+button,
+input,
+optgroup,
+select,
+textarea {
+    line-height: 1.5;
+}
+
+
+/* Page-specific stylesheets live beside this file. */
+@import "partials/map.scss";
+@import "partials/redesign.scss";
+
+
+/* 手写体：只用于品牌标识。
+   自托管（Google Fonts 大陆不可达），已用 fonttools 固定字重 700 并子集化，
+   36KB。字符集覆盖大小写拉丁 + 数字 + 常用标点，改 logo 文案够用。 */
+@font-face {
+    font-family: "Caveat";
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url("/fonts/caveat-mark.woff2") format("woff2");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+        U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+        U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}

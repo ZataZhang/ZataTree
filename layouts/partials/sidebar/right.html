@@ -1,0 +1,30 @@
+{{- /*
+    覆盖主题的 sidebar/right.html。
+
+    改动：widget 列表后面追加一个手写体落款（设计稿右栏底部那句
+    "Build a kinder internet."）。其余完全按主题的逻辑渲染，
+    部件类型和顺序仍由 hugo.yaml 的 params.widgets.homepage 控制。
+*/ -}}
+{{- $scope := default "homepage" .Scope -}}
+{{- $context := .Context -}}
+{{- with (index .Context.Site.Params.widgets $scope) -}}
+    <aside class="sidebar right-sidebar sticky">
+        {{ range $widget := . }}
+            {{ if templates.Exists (printf "partials/widget/%s.html" .type) }}
+                <!-- Ensure that the `params` is not nil -->
+                {{- $params := default dict .params -}}
+
+                {{ partial (printf "widget/%s" .type) (dict "Context" $context "Params" $params) }}
+            {{ else }}
+                {{ warnf "Widget %s not found" .type }}
+            {{ end }}
+        {{ end }}
+
+        {{- with $context.Site.Params.brand.widgetQuote }}
+        <figure class="widget-quote">
+            {{ .text }}
+            <cite>— {{ .author }}</cite>
+        </figure>
+        {{- end }}
+    </aside>
+{{ end }}

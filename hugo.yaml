@@ -27,7 +27,10 @@ languages:
         weight: 2                      # 优先级低于英文
         params:
             sidebar:
-                subtitle:              # 中文侧边栏描述（此处为空）
+                # 语言级 params 会覆盖根级 params.sidebar.subtitle。
+                # 这里原来是空字符串，等于把根级的 "Hello,I am Zata." 屏蔽掉了，
+                # 所以中文站的侧栏简介一直不显示。
+                subtitle: 记录思考 · 分享技术 | Stay curious, Keep building.
     # ar:
     #     languageName: عربي          # 示例：阿拉伯语名称
     #     languagedirection: rtl      # 示例：从右到左布局
@@ -46,7 +49,10 @@ services:
         id:                             # Google Analytics 的跟踪 ID（未填写）
 
 pagination:
-    pagerSize: 10                       # 每页显示的文章数量，这里为 10 篇
+    # 不分页：一页装完，靠滚动浏览。这个值只影响 .Paginate 的每页条数，
+    # 设得比文章总数大就不会生成 /page/2/ 之类的分页，分页控件也随之消失。
+    # 注意：原有的 /page/N/ 链接会变成 404。
+    pagerSize: 1000
 
 permalinks:
     post: /p/:slug/                    # 文章链接格式，例如 /p/my-post/
@@ -74,6 +80,26 @@ params:
             enabled: true              # 启用头像
             local: true                # 头像文件存储在本地
             src: img/avatar.jpg        # 头像文件路径
+
+    ### 顶部品牌横幅与侧栏引言的文案。改字只动这里，不用碰模板。
+    brand:
+        logo: Zata                     # 横幅左侧的手写体标识
+        tagline: 扎根技术 · 记录思考 · 见更大的世界
+        mottos:                        # 横幅右侧两组双行标语
+            - lines:
+                  - Better Code
+                  - A Brighter Tomorrow
+            - lines:
+                  - 保持好奇
+                  - 持续成长
+        latestTitle: 最新文章          # 首页栏头标题
+        latestSubtitle: 记录技术的温度，分享成长的轨迹
+        sidebarQuote:                  # 左栏底部引言
+            text: 代码如诗，技术亦是生活。
+            author: 扎塔-Zata
+        widgetQuote:                   # 右栏底部落款（手写体）
+            text: Build a kinder internet.
+            author: 扎塔-Zata
 
     article:
         math: True                    # 是否启用数学公式支持（关闭）
@@ -172,13 +198,17 @@ params:
             - type: search             # 主页小部件：搜索框
             - type: archives           # 主页小部件：归档列表
               params:
-                  limit: 1             # 归档列表限制显示 5 个
+                  # 部件会显示 min(limit, 年份数) 个年份；只有当年份数 > limit 时
+                  # 才多出一行「更多」。站点只有 2025/2026 两年，limit 设为 1
+                  # 就只剩 2026 + 一个没用的「更多」，所以放宽到 10。
+                  limit: 10
             - type: categories         # 主页小部件：分类列表
               params:
-                  limit: 100            # 分类列表限制显示 10 个
+                  limit: 100            # 站内共 12 个分类，全部显示
             - type: tag-cloud          # 主页小部件：标签云
               params:
-                  limit: 100            # 标签云限制显示 10 个
+                  # 右栏 sticky 时部件过高会滚不到，24 个约 250px
+                  limit: 24             # 站内 153 个标签，原来写 100 把部件撑到 1773px
         page:
             - type: toc                # 单页小部件：目录
 
@@ -267,5 +297,9 @@ markup:
 
 frontmatter:
     lastmod: [":git",":fileModTime", "lastmod"]  # 定义最后修改时间的来源（文件修改时间或 frontmatter 中的 lastmod）
+    # 发布日期回退：frontmatter 没写 date 时用 git 提交时间，而不是留零值。
+    # 之前有 5 个文件没有 date，Hugo 把它们归到「0001 年」，归档部件里就多出
+    # 一行 "0001"。不加 :fileModTime 是为了让 CI 构建可复现。
+    date: ["date", ":git", ":default"]
 
 enableGitInfo: true                       # 启用 Git 信息

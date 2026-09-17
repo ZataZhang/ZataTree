@@ -11,8 +11,7 @@ categories:
     # - LLM
     # - Library
     # - PaperReading
-    - Study
-
+    - Project_Application
 ---
 
 

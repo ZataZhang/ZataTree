@@ -65,7 +65,7 @@ date: $(get_current_time)
 slug: "$category"
 image: "$image_name"
 style:
-    background: "#2a9d8f"
+    background: "#238377"
     color: "#fff"
 ---
 EOF
@@ -124,7 +124,7 @@ date: $(get_current_time)
 slug: "$tag"
 image: "$image_name"
 style:
-    background: "#2a9d8f"
+    background: "#238377"
     color: "#fff"
 ---
 EOF

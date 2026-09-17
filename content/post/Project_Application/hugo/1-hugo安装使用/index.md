@@ -12,7 +12,7 @@ categories:
     # - Library
     # - PaperReading
     # - Study
-    - Project&Application
+    - Project_Application
 tags:
     - Blog
     - hugo

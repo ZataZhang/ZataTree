@@ -5,7 +5,7 @@ date: 2026-07-27T10:00:00+08:00
 slug: 扩展式RPA：从Chrome扩展接管到Playwright实战
 image: images/index/index.svg
 categories:
-    - Platforms&Tools
+    - Platforms_Tools
 tags:
     - dev_tools
     - RPA

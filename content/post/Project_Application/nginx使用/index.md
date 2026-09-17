@@ -11,7 +11,7 @@ categories:
     # - LLM
     # - Library
     # - PaperReading
-    - web
+    - Platforms_Tools
 ---
 
 

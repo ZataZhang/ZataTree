@@ -4,6 +4,6 @@ description: "This is category Web"
 slug: "Web"
 image: "index.png"
 style:
-    background: "#2a9d8f"
+    background: "#238377"
     color: "#fff"
 ---

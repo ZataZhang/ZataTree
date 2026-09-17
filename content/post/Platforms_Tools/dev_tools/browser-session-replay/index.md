@@ -3,7 +3,7 @@ title: 浏览器会话录制与接口回放：方案调研
 date: 2026-07-27
 image: images/index/index.svg
 categories:
-    - Platforms&Tools
+    - Platforms_Tools
 tags:
     - dev_tools
     - Browser-Automation

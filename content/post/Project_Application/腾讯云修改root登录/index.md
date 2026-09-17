@@ -12,6 +12,7 @@ categories:
     # - Library
     # - PaperReading
     # - Other
+    - Project_Application
 
 ---
 

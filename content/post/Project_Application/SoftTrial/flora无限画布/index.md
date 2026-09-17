@@ -4,7 +4,7 @@ description: "flora无限画布的使用感受，尝鲜"
 date: 2025-03-04T11:04:28+08:00
 image: images/index/index.png
 categories:
-    - Project&Application
+    - Project_Application
 tags:
     - SoftTrial
 ---

@@ -1,0 +1,323 @@
+/* =========================================================================
+   内容地图（/map/）
+   -------------------------------------------------------------------------
+   layouts/page/map.html 的样式。视觉沿用站点既有系统：白卡片、
+   --card-border-radius、--shadow-l1、--accent-color。
+   页面独有的一个决定：横向色块的宽度 = 该分类的文章数（flex-grow 取 count），
+   所以「面积」是真的在编码信息，不是装饰。
+   ========================================================================= */
+
+.map {
+    padding: var(--main-top-padding) 0 64px;
+
+    /* 卡片上的 -secondary/-tertiary 是配白底调的，直接用在页面灰底上只有
+       4.2–4.3:1，不到 AA。页面背景上的次级文字统一用主题的 body-text-color
+       （#707070：页面底 4.56:1、白底 4.95:1）。
+       层级感交给字号、大写、字距来承担，不靠更浅的灰。 */
+    --map-muted: var(--body-text-color);
+}
+
+/* --- 头部 --------------------------------------------------------------- */
+
+.map-hero {
+    margin-bottom: 36px;
+}
+
+.map-kicker {
+    margin: 0 0 10px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-color);
+}
+
+.map-hero h1 {
+    margin: 0 0 14px;
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    color: var(--card-text-color-main);
+
+    @include respond(md) {
+        font-size: 4rem;
+    }
+}
+
+.map-lede {
+    margin: 0 0 28px;
+    max-width: 58ch;
+    font-size: 1.65rem;
+    line-height: 1.75;
+    color: var(--map-muted);
+}
+
+.map-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 40px;
+    margin: 0;
+    padding: 20px 0 0;
+    border-top: 1px solid var(--card-separator-color);
+
+    div {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+    }
+
+    dt {
+        font-size: 1.1rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--map-muted);
+    }
+
+    dd {
+        margin: 0;
+        font-size: 2.4rem;
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+        color: var(--card-text-color-main);
+    }
+}
+
+.map-intro {
+    margin-bottom: 28px;
+    max-width: 58ch;
+    color: var(--map-muted);
+
+    p {
+        margin: 0 0 0.9em;
+        font-size: 1.5rem;
+        line-height: 1.75;
+    }
+}
+
+/* --- 体量带：单行，段宽严格等于占比 --------------------------------------
+   为什么不换行：一旦折行，不同行的宽度就不可比，"面积=体量"这个前提失效。
+   所以带子只有一行；放不下的分类交给下面的等宽卡片，而不是挤在这条线上。 */
+
+.map-strip-figure {
+    margin: 0 0 40px;
+}
+
+.map-strip {
+    display: flex;
+    /* 间距也会吃掉宽度、挤压占比，所以只留 1px */
+    gap: 1px;
+    height: 56px;
+    border-radius: var(--card-border-radius);
+    overflow: hidden;
+}
+
+.map-strip-seg {
+    /* basis 0 + grow = 文章数 → 宽度严格正比于占比 */
+    flex: var(--s) 1 0;
+    /* 下限只为了保证可点击面积，对本页最大的几段无影响 */
+    min-width: 12px;
+    display: flex;
+    align-items: flex-end;
+    padding: 6px 8px;
+    overflow: hidden;
+    background: var(--accent-color);
+    /* 越大的分类颜色越实，给排名一个冗余编码 */
+    opacity: calc(0.32 + 0.68 * var(--t) / 100);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+        opacity: 1;
+    }
+}
+
+/* 窄到放不下时自动裁掉，tooltip 与下方卡片补齐数字 */
+.map-strip-label {
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--accent-color-text);
+}
+
+.map-strip-figure figcaption {
+    margin-top: 10px;
+    font-size: 1.25rem;
+    color: var(--map-muted);
+}
+
+/* --- 分类明细卡片：等宽，按体量降序 -------------------------------------- */
+
+.map-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 52px;
+
+    @include respond(sm) {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+}
+
+.map-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 20px;
+    background: var(--card-background);
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--shadow-l1);
+}
+
+.map-cell-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 4px 12px;
+    margin: 0;
+}
+
+.map-cell-title {
+    font-size: 1.7rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--card-text-color-main);
+    text-decoration: none;
+
+    &:hover {
+        color: var(--accent-color);
+    }
+}
+
+.map-cell-count {
+    font-size: 1.2rem;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    color: var(--card-text-color-tertiary);
+}
+
+.map-cell-desc {
+    margin: 0;
+    font-size: 1.35rem;
+    line-height: 1.65;
+    color: var(--card-text-color-secondary);
+}
+
+.map-cell-picks {
+    margin: 4px 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+
+    li {
+        font-size: 1.35rem;
+        line-height: 1.5;
+    }
+
+    a {
+        color: var(--card-text-color-main);
+        opacity: 0.75;
+        text-decoration: none;
+
+        &:hover {
+            opacity: 1;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+    }
+}
+
+/* --- 入口路径 ----------------------------------------------------------- */
+
+.map-section-title {
+    margin: 0 0 18px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--map-muted);
+}
+
+.map-path-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+
+    @include respond(md) {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+}
+
+.map-path {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 20px;
+    background: var(--card-background);
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--shadow-l1);
+}
+
+.map-path-kicker {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-color);
+}
+
+.map-path h3 {
+    margin: 0;
+    font-size: 1.7rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--card-text-color-main);
+}
+
+.map-path-desc {
+    margin: 0;
+    font-size: 1.35rem;
+    line-height: 1.65;
+    color: var(--card-text-color-secondary);
+}
+
+.map-path-list {
+    margin: 6px 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+
+    li {
+        font-size: 1.35rem;
+        line-height: 1.5;
+    }
+
+    a {
+        color: var(--card-text-color-main);
+        opacity: 0.75;
+        text-decoration: none;
+
+        &:hover {
+            opacity: 1;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+    }
+}
+
+/* 键盘焦点：卡片里的链接都要看得见 */
+.map a:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+    border-radius: 2px;
+}

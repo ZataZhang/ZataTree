@@ -1,0 +1,36 @@
+{{- /*
+    分类索引页（/categories/）。
+
+    原来 content/page/categories/index.md 指定 layout: "categories"，但这个布局
+    文件在仓库和主题里都不存在，Hugo 于是退化成 _default/single.html：
+    页面只剩一个标题 + 一行日期，还会渲染评论组件（Giscus 没配，直接报
+    "giscus is not installed on this repository"）。
+
+    这里补上布局：和 /tags/ 用同一套 .tag-index 网格，视觉一致。
+    自带布局也顺带绕开了评论组件。
+*/ -}}
+{{ define "main" }}
+    {{- $cats := .Site.Taxonomies.categories -}}
+
+    <header class="tag-index-head">
+        <h1 class="section-term">{{ .Title }}</h1>
+        <p class="section-count">{{ T "list.page" (len $cats) }}</p>
+    </header>
+
+    <div class="tag-index">
+        {{ range $cats.ByCount }}
+        <article>
+            <a href="{{ .Page.RelPermalink }}">
+                <span class="article-title">{{ .Page.Title }}</span>
+                <span class="article-count">{{ len .Pages }} 篇</span>
+            </a>
+        </article>
+        {{ end }}
+    </div>
+
+    {{ partialCached "footer/footer" . }}
+{{ end }}
+
+{{ define "right-sidebar" }}
+    {{ partial "sidebar/right.html" (dict "Context" . "Scope" "homepage") }}
+{{ end }}

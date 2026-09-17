@@ -1,46 +1,45 @@
-{{ define "main" }}
-    <header>
-        <h1 class="section-term">{{ T "widget.tagCloud.title" | default "Tags" }}</h1>
-        <h3 class="section-count">{{ T "list.page" (len .Pages) }}</h3>
+{{- /*
+    标签索引页（/tags/）。覆盖主题的 taxonomy/tag.terms.html。
 
-        <div style="margin-top: 1rem;">
+    原来这里复用了 article-list--tile —— 那是给「有封面的图片方块」用的样式：
+    article 固定 250×350、标题 flex-end 推到卡片底部，而标签根本没有封面。
+    结果 153 个标签排成一列 250×350 的空卡片，整页 54136px 高。
+
+    改成专用类 .tag-index：自适应网格，每格「标签名 + 文章数」一行。
+    样式在 assets/scss/partials/redesign.scss。
+
+    ⚠️ 下面这些 hook 是页面内搜索脚本依赖的，不要改：
+       #tag-search  #tag-list  #tag-empty  article[data-tag-name]
+*/ -}}
+{{ define "main" }}
+    <header class="tag-index-head">
+        <h1 class="section-term">{{ T "widget.tagCloud.title" | default "Tags" }}</h1>
+        <p class="section-count">{{ T "list.page" (len .Pages) }}</p>
+
+        <div class="tag-index-search">
+            <span class="tag-index-search__icon" aria-hidden="true">{{ partial "helper/icon" "search" }}</span>
             <input
                 id="tag-search"
                 type="text"
                 placeholder="搜索标签…"
                 autocomplete="off"
-                style="
-                    width: 100%;
-                    padding: 0.5rem 0.75rem;
-                    font-size: 1rem;
-                    border: 1px solid var(--card-separator-color, #ddd);
-                    border-radius: 8px;
-                    background: var(--card-background, #fff);
-                    color: var(--card-text-color-main, #000);
-                    box-sizing: border-box;
-                "
+                aria-label="搜索标签"
             />
         </div>
     </header>
 
-    <div id="tag-list" class="article-list--tile" style="margin-top: 1.5rem;">
+    <div id="tag-list" class="tag-index">
         {{ range .Pages.ByTitle }}
             <article data-tag-name="{{ .Title | lower }}">
                 <a href="{{ .RelPermalink }}">
-                    <div class="article-details">
-                        <h2 class="article-title">{{ .Title }}</h2>
-                        <footer class="article-time">
-                            <span>{{ len .Pages }} 篇</span>
-                        </footer>
-                    </div>
+                    <span class="article-title">{{ .Title }}</span>
+                    <span class="article-count">{{ len .Pages }} 篇</span>
                 </a>
             </article>
         {{ end }}
     </div>
 
-    <p id="tag-empty" style="display:none; color: var(--card-text-color-tertiary, #999); margin-top:1rem;">
-        没有匹配的标签。
-    </p>
+    <p id="tag-empty" class="tag-index-empty" hidden>没有匹配的标签。</p>
 
     <script>
         (function () {
@@ -49,15 +48,15 @@
             var empty = document.getElementById('tag-empty');
             var items = list.querySelectorAll('article[data-tag-name]');
 
-            input.addEventListener('input', function () {
-                var q = this.value.trim().toLowerCase();
+            input.addEventListener('input', function (e) {
+                var q = e.target.value.trim().toLowerCase();
                 var visible = 0;
                 items.forEach(function (el) {
                     var match = el.dataset.tagName.indexOf(q) !== -1;
-                    el.style.display = match ? '' : 'none';
+                    el.hidden = !match;
                     if (match) visible++;
                 });
-                empty.style.display = visible === 0 ? '' : 'none';
+                empty.hidden = visible !== 0;
             });
         })();
     </script>

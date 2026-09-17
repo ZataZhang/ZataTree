@@ -1,0 +1,170 @@
+{{ define "body-class" }}map-page{{ end }}
+
+{{ define "main" }}
+{{- $cats := .Site.Taxonomies.categories -}}
+
+{{- /* 分类 slug → 分类页链接（分类名含中文时靠 GetPage 解析，不能手拼 URL） */ -}}
+{{- $termLink := dict -}}
+{{- range $name, $weighted := $cats -}}
+    {{- with site.GetPage (printf "/categories/%s" $name) -}}
+        {{- $termLink = merge $termLink (dict $name .RelPermalink) -}}
+    {{- end -}}
+{{- end -}}
+
+{{- /* 已归入分组的小写分类 slug。先去重：Library 和 library 转小写后是同一个
+       key，不去重会被统计两遍。 */ -}}
+{{- $mapped := slice -}}
+{{- range .Params.groups -}}
+    {{- range .terms -}}
+        {{- $slug := lower . -}}
+        {{- if not (in $mapped $slug) -}}{{- $mapped = $mapped | append $slug -}}{{- end -}}
+    {{- end -}}
+{{- end -}}
+
+{{- /* 汇总每个分组 */ -}}
+{{- $rows := slice -}}
+{{- range .Params.groups -}}
+    {{- $seen := slice -}}
+    {{- $count := 0 -}}
+    {{- $link := "" -}}
+    {{- $pages := slice -}}
+    {{- range .terms -}}
+        {{- $slug := lower . -}}
+        {{- if not (in $seen $slug) -}}
+            {{- $seen = $seen | append $slug -}}
+            {{- with index $cats $slug -}}
+                {{- $count = add $count (len .Pages) -}}
+                {{- range .Pages -}}{{- $pages = $pages | append . -}}{{- end -}}
+                {{- if not $link -}}{{- $link = index $termLink $slug | default "" -}}{{- end -}}
+            {{- end -}}
+        {{- end -}}
+    {{- end -}}
+    {{- if gt $count 0 -}}
+        {{- $rows = $rows | append (dict
+            "title" .title
+            "desc" .desc
+            "count" $count
+            "link" $link
+            "pages" (first 3 (sort $pages "Date" "desc"))) -}}
+    {{- end -}}
+{{- end -}}
+
+{{- /* 兜底：未归入任何分组的分类合并成「其他」，并列出名字，保证地图不漏内容 */ -}}
+{{- $otherNames := slice -}}
+{{- $otherCount := 0 -}}
+{{- $otherPages := slice -}}
+{{- range $name, $weighted := $cats -}}
+    {{- if not (in $mapped $name) -}}
+        {{- $otherNames = $otherNames | append $name -}}
+        {{- $otherCount = add $otherCount (len $weighted.Pages) -}}
+        {{- range $weighted.Pages -}}{{- $otherPages = $otherPages | append . -}}{{- end -}}
+    {{- end -}}
+{{- end -}}
+{{- if gt $otherCount 0 -}}
+    {{- $rows = $rows | append (dict
+        "title" "其他"
+        "desc" (printf "尚未归入上面任何一条线：%s。" (delimit $otherNames "、" ))
+        "count" $otherCount
+        "link" ""
+        "pages" (first 3 (sort $otherPages "Date" "desc"))) -}}
+{{- end -}}
+
+{{- $rows = sort $rows "count" "desc" -}}
+{{- $sum := 0 -}}
+{{- $max := 0 -}}
+{{- range $rows -}}
+    {{- $sum = add $sum .count -}}
+    {{- if gt .count $max -}}{{- $max = .count -}}{{- end -}}
+{{- end -}}
+
+{{- $total := len (where .Site.RegularPages "Section" "post") -}}
+
+<article class="map">
+
+    <header class="map-hero">
+        <p class="map-kicker">内容地图</p>
+        <h1>{{ .Title }}</h1>
+        <p class="map-lede">{{ .Description }}</p>
+        <dl class="map-stats">
+            <div><dt>文章</dt><dd>{{ $total }}</dd></div>
+            <div><dt>分类</dt><dd>{{ len $cats }}</dd></div>
+            <div><dt>标签</dt><dd>{{ len .Site.Taxonomies.tags }}</dd></div>
+            <div><dt>跨度</dt><dd>2025–2026</dd></div>
+        </dl>
+    </header>
+
+    {{- with .Content }}
+    <div class="map-intro">{{ . }}</div>
+    {{- end }}
+
+    {{- /* 体量带：单行，segment 宽度严格等于占比。
+           窄到放不下字的 segment 会自动把标签裁掉，靠 title 属性补足。 */ -}}
+    <figure class="map-strip-figure">
+        <div class="map-strip" role="list" aria-label="分类体量占比">
+            {{- range $rows }}
+            {{- $pct := div (mul .count 100) $sum -}}
+            {{- $t := div (mul .count 100) $max -}}
+            <a class="map-strip-seg"
+               style="--s: {{ .count }}; --t: {{ $t }}"
+               href="{{ .link | default `/categories/` }}"
+               role="listitem"
+               title="{{ .title }} — {{ .count }} 篇 · {{ $pct }}%">
+                <span class="map-strip-label">{{ .title }}</span>
+            </a>
+            {{- end }}
+        </div>
+        <figcaption>每一段的宽度 = 该分类的文章数。点一段进分类。</figcaption>
+    </figure>
+
+    <section class="map-cards" aria-label="分类明细">
+        {{- range $rows }}
+        <div class="map-cell" style="--pct: {{ div (mul .count 100) $max }}">
+            <p class="map-cell-head">
+                {{- if .link -}}
+                <a class="map-cell-title" href="{{ .link }}">{{ .title }}</a>
+                {{- else -}}
+                <span class="map-cell-title">{{ .title }}</span>
+                {{- end -}}
+                <span class="map-cell-count">{{ .count }} 篇 · {{ div (mul .count 100) $sum }}%</span>
+            </p>
+            <p class="map-cell-desc">{{ .desc }}</p>
+            <ul class="map-cell-picks">
+                {{- range .pages }}
+                <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+                {{- end }}
+            </ul>
+        </div>
+        {{- end }}
+    </section>
+
+    <section class="map-paths" aria-label="从哪开始读">
+        <h2 class="map-section-title">从哪开始读</h2>
+        <div class="map-path-grid">
+            {{- range .Params.paths }}
+            {{- $pages := slice -}}
+            {{- $seen := slice -}}
+            {{- range .terms -}}
+                {{- $slug := lower . -}}
+                {{- if not (in $seen $slug) -}}
+                    {{- $seen = $seen | append $slug -}}
+                    {{- with index $cats $slug -}}
+                        {{- range .Pages -}}{{- $pages = $pages | append . -}}{{- end -}}
+                    {{- end -}}
+                {{- end -}}
+            {{- end -}}
+            <div class="map-path">
+                <p class="map-path-kicker">{{ .kicker }}</p>
+                <h3>{{ .title }}</h3>
+                <p class="map-path-desc">{{ .desc }}</p>
+                <ul class="map-path-list">
+                    {{- range first 3 (sort $pages "Date" "desc") }}
+                    <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+                    {{- end }}
+                </ul>
+            </div>
+            {{- end }}
+        </div>
+    </section>
+
+</article>
+{{ end }}

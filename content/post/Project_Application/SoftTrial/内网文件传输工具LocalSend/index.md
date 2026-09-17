@@ -4,7 +4,7 @@ description: ""
 date: 2025-03-16T18:47:30+08:00
 image: images/index/index.png
 categories:
-    - Project&Application
+    - Project_Application
 tags:
     - SoftTrial
 ---

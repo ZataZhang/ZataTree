@@ -7,11 +7,11 @@ image: image/index/index.png
 categories:
     # - DeepLearning
     # - Chart
-    - Project&Application
     # - LLM
     # - Library
     # - PaperReading
     # - Other
+    - Project_Application
 tags:
     - PythonGUI
 

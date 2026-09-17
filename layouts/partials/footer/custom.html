@@ -117,8 +117,27 @@
         window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
+    /* ⌘K / Ctrl+K 聚焦右栏搜索框（对应设计稿里的快捷键提示）*/
+    function initSearchShortcut() {
+        try {
+            const input = document.querySelector('.search-form input[name="keyword"]');
+            if (!input) return;
+
+            document.addEventListener('keydown', (e) => {
+                if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+                    e.preventDefault();
+                    input.focus();
+                    input.select();
+                }
+            });
+        } catch (error) {
+            console.error('Error in initSearchShortcut:', error);
+        }
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
         initCodeMoreBox();
         initScrollTop();
+        initSearchShortcut();
     });
 </script>

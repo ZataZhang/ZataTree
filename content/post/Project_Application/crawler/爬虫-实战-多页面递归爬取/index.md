@@ -4,7 +4,7 @@ description: ""
 date: 2025-03-20T10:20:00+08:00
 image: images/index/index.png
 categories:
-    - Project&Application
+    - Project_Application
 tags:
     - 爬虫
 ---

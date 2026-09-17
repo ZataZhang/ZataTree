@@ -6,11 +6,10 @@ image: images/index/index.png
 slug: MoE/index.md ## 必填，文件夹名/index.md
 # image: helena-hertz-wWZzXlDpMog-unsplash.jpg
 categories:
-    - DeepLearning
     # - Chart
     # - Python
-    - LLM
     # - Library
+    - DeepLearning
 ---
 
 

@@ -4,7 +4,7 @@ description: ""
 date: 2025-03-05T16:22:44+08:00
 image: images/index/head.png
 categories:
-    - Project&Application
+    - Project_Application
 tags:
     - hugo
 ---

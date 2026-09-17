@@ -6,8 +6,7 @@ image: images/index/index.png
 slug: PyYAML/index.md
 # image: helena-hertz-wWZzXlDpMog-unsplash.jpg
 categories:
-    - python
-    - Python-Library
+    - Library
 ---
 
 

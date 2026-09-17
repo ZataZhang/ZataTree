@@ -1,0 +1,5 @@
+# 站点级 i18n 覆盖。Hugo 会按 key 合并站点与主题的翻译表，
+# 所以这里只写要改的条目，其余仍走主题 themes/hugo-theme-stack/i18n/zh-cn.yaml。
+search:
+    placeholder:
+        other: 搜索文章、标签或内容...

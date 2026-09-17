@@ -10,7 +10,7 @@ categories:
     # - LLM
     # - Library
     # - PaperReading
-    - Project&Application
+    - Project_Application
 tags:
     - Blog
     - hugo

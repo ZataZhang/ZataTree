@@ -1,0 +1,42 @@
+{{- /*
+    覆盖主题的 _default/baseof.html。
+
+    唯一的结构改动：把 <main> 和右栏包进 .content-area，让品牌横幅能横跨
+    「主区 + 右栏」两列（设计稿里横幅一直延伸到右侧边缘，而右栏从横幅下方才开始）。
+
+    其余保持主题原样，包括 DOM 顺序（right-sidebar 在 main 之前，靠 order 排位），
+    这样主题原有的 order / 响应式规则继续生效。
+*/ -}}
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}" dir="{{ default `ltr` .Language.LanguageDirection }}">
+    <head>
+        {{- partial "head/head.html" . -}}
+        {{- block "head" . -}}{{ end }}
+    </head>
+    <body class="{{ block `body-class` . }}{{ end }}">
+        {{- partial "head/colorScheme" . -}}
+
+        {{/* The container is wider when there's any activated widget */}}
+        {{- $hasWidget := false -}}
+        {{- range .Site.Params.widgets -}}
+            {{- if gt (len .) 0 -}}
+                {{- $hasWidget = true -}}
+            {{- end -}}
+        {{- end -}}
+        <div class="container main-container flex on-phone--column {{ if $hasWidget }}extended{{ else }}compact{{ end }}">
+            {{- block "left-sidebar" . -}}
+                {{ partial "sidebar/left.html" . }}
+            {{- end -}}
+            <div class="content-area">
+                {{- partial "brand/banner.html" . -}}
+                <div class="content-row flex on-phone--column">
+                    {{- block "right-sidebar" . -}}{{ end -}}
+                    <main class="main full-width">
+                        {{- block "main" . }}{{- end }}
+                    </main>
+                </div>
+            </div>
+        </div>
+        {{ partial "footer/include.html" . }}
+    </body>
+</html>

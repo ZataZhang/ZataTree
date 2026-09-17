@@ -1,0 +1,39 @@
+{{- /*
+    覆盖主题的 layouts/index.html。
+
+    改动只有一处：卡片网格上方加一个栏头（图标 + 标题 + 副标题 + 查看全部），
+    对齐设计稿。分页、排序、右栏 scope 全部保持主题原样。
+*/ -}}
+{{ define "main" }}
+    {{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
+    {{ $notHidden := where .Site.RegularPages "Params.hidden" "!=" true }}
+    {{ $filtered := ($pages | intersect $notHidden) }}
+    {{ $sorted := $filtered.ByLastmod.Reverse }}
+    {{ $pag := .Paginate ($sorted) }}
+
+    <section class="section-head">
+        {{/* 水墨月亮（AI 生成，static/img/moon-ink.webp）。
+             装饰性图片，alt 留空；固定宽高比避免布局抖动。 */}}
+        <div class="section-head__icon" aria-hidden="true">
+            <img src="{{ "img/moon-ink.webp" | relURL }}" alt=""
+                 width="240" height="240" loading="lazy" decoding="async">
+        </div>
+        <div class="section-head__text">
+            <h2 class="section-head__title">{{ .Site.Params.brand.latestTitle | default "最新文章" }}</h2>
+            <p class="section-head__sub">{{ .Site.Params.brand.latestSubtitle | default "记录技术的温度，分享成长的轨迹" }}</p>
+        </div>
+    </section>
+
+    <section class="article-list">
+        {{ range $index, $element := $pag.Pages }}
+            {{ partial "article-list/default" . }}
+        {{ end }}
+    </section>
+
+    {{- partial "pagination.html" . -}}
+    {{- partial "footer/footer" . -}}
+{{ end }}
+
+{{ define "right-sidebar" }}
+    {{ partial "sidebar/right.html" (dict "Context" . "Scope" "homepage") }}
+{{ end }}

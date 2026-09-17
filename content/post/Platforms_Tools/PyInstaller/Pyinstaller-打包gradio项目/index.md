@@ -4,7 +4,7 @@ description: ""
 date: 2025-04-27T00:42:01+08:00
 image: images/index/index.png
 categories:
-    - Platforms&Tools
+    - Platforms_Tools
 tags:
     - PyInstaller
 ---
