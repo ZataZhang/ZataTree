@@ -1,5 +1,5 @@
 ---
-title: "Agent 能跑代码之后，最危险的事才刚刚开始"
+title: "Agent 沙箱选型指南：隔离边界、产品对比与判断标准"
 description: "从 Docker、gVisor、Wasm 到 E2B、Daytona、Modal、Runloop、Deno Sandbox 与 AgentCore，讲清 Agent 沙箱的隔离边界、产品特点和选型方法。"
 date: 2026-09-02T18:00:00+08:00
 image: images/index/index.svg
