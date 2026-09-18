@@ -6,7 +6,7 @@ image: images/index/index.png
 categories:
     - Library
 tags:
-    - fastAPI
+    - FastAPI
 ---
 
 

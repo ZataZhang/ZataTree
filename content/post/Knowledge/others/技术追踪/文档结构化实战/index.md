@@ -7,7 +7,7 @@ categories:
     - Knowledge
 tags:
     - 文档结构化
-    - Python
+    - python
     - python-docx
     - pyMuPDF
     - LaTeX

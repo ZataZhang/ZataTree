@@ -954,6 +954,127 @@ main.main {
     color: var(--site-muted);
 }
 
+/* =========================================================================
+   10. 分类索引页（/categories/）
+   -------------------------------------------------------------------------
+   分类块 + 块内 tag 胶囊，tag 的归属关系直接看得见（原来是分类、标签各一页）。
+   胶囊沿用右栏标签云的样式（第 6 节 .tagCloud-tags a），同一套视觉语言。
+
+   > 8 个 tag 的分类默认只留前 8 个（按文章数降序，砍掉的是长尾），
+   其余由模板里的脚本展开；按钮初始 hidden，无 JS 时不会出现一个点不动的按钮。
+   ========================================================================= */
+
+.cat-index {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.cat-index-item {
+    min-width: 0;
+    padding: 14px 16px 16px;
+    background: var(--card-background);
+    border: 1px solid var(--card-separator-color);
+    border-radius: 10px;
+}
+
+.cat-index-item__head {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 2px 12px;
+    margin-bottom: 11px;
+}
+
+.cat-index-item__title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--card-text-color-main);
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+        color: var(--brand-blue);
+    }
+}
+
+.cat-index-item__meta {
+    font-size: 1.2rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--site-muted);
+}
+
+.cat-index-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.cat-chip {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+    /* 超长标签（如 "Server Operations and Maintenance-服务器运维"，实测 311px）
+       在窄屏上不许把卡片撑破。不能用百分比封顶（max-width: 100% / min(100%, …)
+       都试过）：算 min-content 时百分比会被当成 auto，这一项照样把 .content-area
+       顶到 345px（320px 视口实测），而 100vw 是定值，能真正参与固有尺寸计算。
+       110px ≈ 卡片左右内边距 32 + main 内边距 + 滚动条余量，偏保守；
+       桌面端列宽远小于 100vw，这条基本不生效。截断部分由 __name 打省略号。 */
+    min-width: 0;
+    max-width: calc(100vw - 110px);
+    padding: 4px 11px;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    border: 1px solid var(--card-separator-color);
+    border-radius: 7px;
+    background: transparent;
+    color: var(--card-text-color-main);
+    text-decoration: none;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+
+    /* 脚本用 hidden 属性折叠，这里显式声明避免被 display: inline-flex 覆盖 */
+    &[hidden] {
+        display: none;
+    }
+
+    &:hover {
+        background: var(--brand-blue-soft);
+        border-color: var(--brand-blue);
+        color: var(--brand-blue);
+    }
+
+    &__name {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    /* 1.05rem 会掉到 11px 的可用性下限之下（检测器 undersized-ui-text） */
+    &__count {
+        flex: 0 0 auto;
+        font-size: 1.1rem;
+        font-variant-numeric: tabular-nums;
+        color: var(--site-muted);
+    }
+
+    /* 「+N 个标签 / 收起」：虚线边区分于真标签，文字不跟着 hover 变蓝
+       （12px 的蓝字在卡片底上只有 3.6:1，达不到 AA） */
+    &--toggle {
+        font-family: inherit;
+        font-weight: 600;
+        border-style: dashed;
+        border-color: var(--brand-blue);
+        background: var(--brand-blue-soft);
+        cursor: pointer;
+
+        &:hover {
+            color: var(--card-text-color-main);
+        }
+    }
+}
+
 /* 侧栏内容（头像+简介+导航+引言+竹子）约 1100px，高度不够就得让出空间。
    逐级收装饰：先缩引言块（竹子按比例跟着缩），再窄到竹子没意义时直接隐藏，
    只留文字。任何一档下导航项都不会被挤压或遮挡；真放不下也只是侧栏内部滚动。 */

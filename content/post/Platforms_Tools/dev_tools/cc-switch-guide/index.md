@@ -8,7 +8,7 @@ categories:
     - Platforms_Tools
 tags:
     - dev_tools
-    - Claude Code
+    - Claude-Code
     - Codex
 toc: true
 draft: false

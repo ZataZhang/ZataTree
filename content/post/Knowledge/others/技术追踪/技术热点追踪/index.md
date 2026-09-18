@@ -6,7 +6,7 @@ image: images/index/index.png
 categories:
     - Knowledge
 tags:
-    - agent
+    - Agent
     - 文档结构化
     - LLM
     - RAG

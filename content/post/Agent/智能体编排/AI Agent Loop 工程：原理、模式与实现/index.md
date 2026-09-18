@@ -11,7 +11,7 @@ tags:
     - LangChain
     - LangGraph
     - LLM
-    - ReAct
+    - ReAct-Agent
     - Reflection
     - Reflexion
 draft: false
