@@ -26,7 +26,7 @@
     {{- $cats := .Site.Taxonomies.categories -}}
     {{- $collapse := 8 -}}
     {{- $windowDays := 180 -}}
-    {{- $cutoff := now.AddDate 0 0 (mul -1 $windowDays) -}}
+    {{- $cutoff := now.AddDate 0 0 (int (mul -1 $windowDays)) -}}
 
     <header class="tag-index-head">
         <h1 class="section-term">{{ .Title }}</h1>
