@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400" viewBox="0 0 1200 400" role="img" aria-label="Jev：不写字的决策模型，和它真正适合解决的问题">
+  <defs>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8B5CF6"/>
+      <stop offset="100%" stop-color="#22D3EE"/>
+    </linearGradient>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.3" fill="#26324a"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="400" fill="#0B1220"/>
+  <rect width="1200" height="400" fill="url(#dots)" opacity="0.55"/>
+  <rect x="0" y="0" width="6" height="400" fill="url(#accent)"/>
+  <text x="1104" y="64" text-anchor="end" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="20" fill="#64748B">zata.cc</text>
+  <circle cx="940" cy="200" r="128" fill="none" stroke="#1c2a44" stroke-width="1.5"/>
+    <rect x="848" y="148" width="184" height="104" rx="16" fill="#0e1730" stroke="url(#accent)" stroke-width="2.5"/>
+    <rect x="884" y="180" width="112" height="40" rx="9" fill="#8B5CF6" opacity="0.16"/>
+    <rect x="902" y="194" width="76" height="12" rx="6" fill="#22D3EE" opacity="0.8"/>
+    <line x1="812" y1="162" x2="848" y2="162" stroke="#3b4a68" stroke-width="3" stroke-linecap="round"/>
+    <line x1="1032" y1="162" x2="1068" y2="162" stroke="#3b4a68" stroke-width="3" stroke-linecap="round"/>
+    <line x1="812" y1="188" x2="848" y2="188" stroke="#3b4a68" stroke-width="3" stroke-linecap="round"/>
+    <line x1="1032" y1="188" x2="1068" y2="188" stroke="#3b4a68" stroke-width="3" stroke-linecap="round"/>
+    <line x1="812" y1="214" x2="848" y2="214" stroke="#3b4a68" stroke-width="3" stroke-linecap="round"/>
+    <line x1="1032" y1="214" x2="1068" y2="214" stroke="#3b4a68" stroke-width="3" stroke-linecap="round"/>
+    <line x1="812" y1="240" x2="848" y2="240" stroke="#3b4a68" stroke-width="3" stroke-linecap="round"/>
+    <line x1="1032" y1="240" x2="1068" y2="240" stroke="#3b4a68" stroke-width="3" stroke-linecap="round"/>
+    <text x="96" y="166" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="48" font-weight="700" fill="#F8FAFC">Jev：不写字的决策模型，</text>
+  <text x="96" y="238" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="48" font-weight="700" fill="#F8FAFC">和它真正适合解决的问题</text>
+  <rect x="96" y="264" width="112" height="6" rx="3" fill="url(#accent)"/>
+  <rect x="96" y="296" width="283" height="42" rx="21" fill="#152238" stroke="#2c3a58" stroke-width="1.5"/>
+  <text x="114" y="324" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="21" fill="#9FB3D1">models_and_strategies</text>
+</svg>
