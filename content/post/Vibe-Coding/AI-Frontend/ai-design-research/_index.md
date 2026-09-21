@@ -43,4 +43,4 @@ slug: "ai-design-research"
 ## 相关资源
 
 - [art-of-ai-frontend-design（姊妹篇：工具教程风格）](../art-of-ai-frontend-design/index.md)
-- [智能体编排系列](../../../../Agent/智能体编排/_index.md)（同样讨论"新角色 + 工具链"的研究思路）
+- [智能体编排系列](../../../../Agent/Agent%20Orchestration/_index.md)（同样讨论"新角色 + 工具链"的研究思路）

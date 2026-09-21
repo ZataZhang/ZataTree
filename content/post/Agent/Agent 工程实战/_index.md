@@ -28,7 +28,7 @@ slug: "Agent 工程实战"
 
 ## 与相邻 tag 的边界
 
-- 想了解某个**具体框架**的入门用法：见 [LangChain](../LangChain/)、[智能体编排](../智能体编排/)
+- 想了解某个**具体框架**的入门用法：见 [LangChain](../LangChain/)、[Agent Orchestration](../Agent%20Orchestration/)
 - 想研究 **RAG / 检索增强**：见 [RAG](../RAG/)
 - 想看**学术 / 综述类**内容：见 [PaperReading](../../PaperReading/)
 

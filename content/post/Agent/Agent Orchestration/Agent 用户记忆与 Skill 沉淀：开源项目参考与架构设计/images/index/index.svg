@@ -29,8 +29,8 @@
     <text x="96" y="166" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="44" font-weight="700" fill="#F8FAFC">Agent 用户记忆与 Skill</text>
   <text x="96" y="238" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="44" font-weight="700" fill="#F8FAFC">沉淀：开源项目参考与架构设计</text>
   <rect x="96" y="264" width="112" height="6" rx="3" fill="url(#accent)"/>
-  <rect x="96" y="296" width="141" height="42" rx="21" fill="#152238" stroke="#2c3a58" stroke-width="1.5"/>
-  <text x="114" y="324" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="21" fill="#9FB3D1">智能体编排</text>
-  <rect x="251" y="296" width="95" height="42" rx="21" fill="#152238" stroke="#2c3a58" stroke-width="1.5"/>
-  <text x="269" y="324" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="21" fill="#9FB3D1">Agent</text>
+  <rect x="96" y="296" width="255" height="42" rx="21" fill="#152238" stroke="#2c3a58" stroke-width="1.5"/>
+  <text x="114" y="324" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="21" fill="#9FB3D1">Agent Orchestration</text>
+  <rect x="365" y="296" width="95" height="42" rx="21" fill="#152238" stroke="#2c3a58" stroke-width="1.5"/>
+  <text x="383" y="324" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="21" fill="#9FB3D1">Agent</text>
 </svg>
