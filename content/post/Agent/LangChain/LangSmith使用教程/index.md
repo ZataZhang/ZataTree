@@ -7,6 +7,7 @@ categories:
     - Agent
 tags:
     - LangChain
+    - Agent Tracing
 ---
 
 # LangSmith使用教程

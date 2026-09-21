@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="580" viewBox="0 0 1200 580" role="img" aria-label="诊断切段图：把上报链路切成四段，用三个实验逐个排除，最后定位到控制台">
+  <defs>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5B87BF"/>
+      <stop offset="100%" stop-color="#8B5CF6"/>
+    </linearGradient>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.3" fill="#26324a"/>
+    </pattern>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="580" fill="#0B1220"/>
+  <rect width="1200" height="580" fill="url(#dots)"/>
+  <rect x="0" y="0" width="6" height="580" fill="url(#accent)"/>
+
+  <text x="60" y="66" font-family="sans-serif" font-size="27" font-weight="700" fill="#F8FAFC">一次 200 success 的假象：把链路切成四段，逐个排除</text>
+  <rect x="60" y="86" width="112" height="6" rx="3" fill="url(#accent)"/>
+  <text x="60" y="126" font-family="sans-serif" font-size="15" fill="#9FB3D1">三个实验各一次请求，就能把「数据没发出去」和「看的地方不对」分开</text>
+
+  <!-- 四段 -->
+  <g font-family="sans-serif">
+    <rect x="60" y="160" width="240" height="86" rx="10" fill="#131C2E" stroke="#2A3A55"/>
+    <text x="80" y="192" font-size="16" font-weight="700" fill="#F8FAFC">① Agent 进程</text>
+    <text x="80" y="218" font-size="13" fill="#9FB3D1">OTel SDK 生成 span，OTLP/HTTP 发送</text>
+
+    <rect x="340" y="160" width="240" height="86" rx="10" fill="#131C2E" stroke="#2A3A55"/>
+    <text x="360" y="192" font-size="16" font-weight="700" fill="#F8FAFC">② 本地代理</text>
+    <text x="360" y="218" font-size="13" fill="#9FB3D1">127.0.0.1:7897 转发出口流量</text>
+
+    <rect x="620" y="160" width="240" height="86" rx="10" fill="#131C2E" stroke="#2A3A55"/>
+    <text x="640" y="192" font-size="16" font-weight="700" fill="#F8FAFC">③ ARMS 网关</text>
+    <text x="640" y="218" font-size="13" fill="#9FB3D1">/adapt_&lt;xx&gt;_&lt;xx&gt;/api/otlp/traces</text>
+
+    <rect x="900" y="160" width="240" height="86" rx="10" fill="#1C1424" stroke="#8B5CF6" stroke-width="2"/>
+    <text x="920" y="192" font-size="16" font-weight="700" fill="#F8FAFC">④ 控制台</text>
+    <text x="920" y="218" font-size="13" fill="#C4B5FD">地域 · 页签 · 页面作用域</text>
+  </g>
+
+  <line x1="302" y1="203" x2="336" y2="203" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="582" y1="203" x2="616" y2="203" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="862" y1="203" x2="896" y2="203" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- 注释卡片 -->
+  <g font-family="sans-serif" font-size="13">
+    <rect x="60" y="286" width="240" height="132" rx="10" fill="#0F172A" stroke="#2A3A55"/>
+    <text x="80" y="312" font-size="12" fill="#5eead4" font-family="monospace">PASS</text>
+    <text x="80" y="338" fill="#CBD5E1">HTTP 200</text>
+    <text x="80" y="360" fill="#CBD5E1">响应体 "success"</text>
+    <text x="80" y="386" fill="#7C8DA6">发送这一段没问题</text>
+
+    <rect x="340" y="286" width="240" height="132" rx="10" fill="#0F172A" stroke="#2A3A55"/>
+    <text x="360" y="312" font-size="12" fill="#fbbf24" font-family="monospace">实验 ①</text>
+    <text x="360" y="338" fill="#CBD5E1">--noproxy '*' 直连重发</text>
+    <text x="360" y="360" fill="#CBD5E1">结果：仍是 200 success</text>
+    <text x="360" y="386" fill="#7C8DA6">排除：代理伪造响应</text>
+
+    <rect x="620" y="286" width="240" height="132" rx="10" fill="#0F172A" stroke="#2A3A55"/>
+    <text x="640" y="312" font-size="12" fill="#fbbf24" font-family="monospace">实验 ② ③</text>
+    <text x="640" y="338" fill="#CBD5E1">② 发 300 字节随机数据</text>
+    <text x="640" y="360" fill="#f87171" font-family="monospace">→ 400 Bad Request</text>
+    <text x="640" y="382" fill="#CBD5E1">③ 伪造 license key</text>
+    <text x="640" y="404" fill="#f87171" font-family="monospace">→ 403 Forbidden</text>
+
+    <rect x="900" y="286" width="240" height="132" rx="10" fill="#1C1424" stroke="#8B5CF6"/>
+    <text x="920" y="312" font-size="12" fill="#C4B5FD" font-family="monospace">结论</text>
+    <text x="920" y="338" fill="#E9D5FF">网关在真解析、key 有效</text>
+    <text x="920" y="360" fill="#E9D5FF">→ 数据确实入库了</text>
+    <text x="920" y="386" fill="#C4B5FD" font-weight="700">问题只剩「看的</text>
+    <text x="920" y="404" fill="#C4B5FD" font-weight="700">地方不对」</text>
+  </g>
+
+  <!-- 底部结论 -->
+  <rect x="60" y="452" width="1080" height="76" rx="10" fill="#131C2E" stroke="#5B87BF"/>
+  <rect x="60" y="452" width="6" height="76" rx="3" fill="url(#accent)"/>
+  <text x="88" y="484" font-family="sans-serif" font-size="15" fill="#F8FAFC" font-weight="700">上报链路全程正常，空列表的原因在最后一段</text>
+  <text x="88" y="510" font-family="sans-serif" font-size="13" fill="#9FB3D1">地域（dc-sg → 新加坡）· 页签（OpenTelemetry / ARMS）· 页面作用域（绑定单个应用的过滤条件）</text>
+</svg>

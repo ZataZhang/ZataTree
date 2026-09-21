@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-label="对话里带附件时的三层落点：对象存储只存字节，span 只记引用与规模，业务库存关联键">
+  <defs>
+    <linearGradient id="accent2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5B87BF"/>
+      <stop offset="100%" stop-color="#8B5CF6"/>
+    </linearGradient>
+    <pattern id="dots2" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.3" fill="#26324a"/>
+    </pattern>
+    <marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="520" fill="#0B1220"/>
+  <rect width="1200" height="520" fill="url(#dots2)"/>
+  <rect x="0" y="0" width="6" height="520" fill="url(#accent2)"/>
+
+  <text x="60" y="66" font-family="sans-serif" font-size="27" font-weight="700" fill="#F8FAFC">对话里带附件：三层各记什么</text>
+  <rect x="60" y="86" width="112" height="6" rx="3" fill="url(#accent2)"/>
+  <text x="60" y="126" font-family="sans-serif" font-size="15" fill="#9FB3D1">文件字节留在对象存储；trace 只记「引用 + 规模」；业务库保留归属关系</text>
+
+  <!-- 左：对象存储 -->
+  <g font-family="sans-serif">
+    <rect x="60" y="158" width="300" height="212" rx="10" fill="#131C2E" stroke="#2A3A55"/>
+    <text x="82" y="190" font-size="16" font-weight="700" fill="#F8FAFC">对象存储</text>
+    <text x="82" y="214" font-size="12" fill="#7C8DA6">唯一保存文件字节的地方</text>
+    <line x1="82" y1="228" x2="338" y2="228" stroke="#25314A"/>
+
+    <rect x="82" y="244" width="256" height="52" rx="8" fill="#0F172A" stroke="#2A3A55"/>
+    <text x="96" y="266" font-size="13" fill="#5eead4" font-family="monospace">booking-note.txt</text>
+    <text x="96" y="286" font-size="12" fill="#7C8DA6" font-family="monospace">331 B · text/plain</text>
+
+    <text x="82" y="322" font-size="11.5" fill="#9FB3D1" font-family="monospace">oss://bucket/uploads/</text>
+    <text x="82" y="340" font-size="11.5" fill="#9FB3D1" font-family="monospace">  doc-adcc4d1f/…</text>
+    <text x="82" y="360" font-size="12" fill="#7C8DA6">抽取文本在服务端完成</text>
+  </g>
+
+  <!-- 中：trace -->
+  <g font-family="sans-serif">
+    <rect x="440" y="158" width="400" height="212" rx="10" fill="#131C2E" stroke="#5B87BF" stroke-width="2"/>
+    <text x="462" y="190" font-size="16" font-weight="700" fill="#F8FAFC">trace：只记引用与规模</text>
+    <text x="462" y="214" font-size="12" fill="#7C8DA6">span 里永远没有文件内容</text>
+    <line x1="462" y1="228" x2="818" y2="228" stroke="#25314A"/>
+
+    <rect x="462" y="242" width="356" height="56" rx="8" fill="#0F172A" stroke="#2A3A55"/>
+    <text x="476" y="264" font-size="13" fill="#93C5FD" font-family="monospace">agent.attach_document</text>
+    <text x="476" y="285" font-size="11.5" fill="#9FB3D1" font-family="monospace">file.uri / file.mime_type / file.size_bytes</text>
+
+    <rect x="462" y="306" width="356" height="50" rx="8" fill="#0F172A" stroke="#2A3A55"/>
+    <text x="476" y="327" font-size="13" fill="#93C5FD" font-family="monospace">gen_ai chat → input.messages</text>
+    <text x="476" y="347" font-size="11.5" fill="#9FB3D1" font-family="monospace">parts = [ text, uri, text ]</text>
+  </g>
+
+  <!-- 右：业务库 -->
+  <g font-family="sans-serif">
+    <rect x="900" y="158" width="240" height="212" rx="10" fill="#131C2E" stroke="#2A3A55"/>
+    <text x="922" y="190" font-size="16" font-weight="700" fill="#F8FAFC">业务库</text>
+    <text x="922" y="214" font-size="12" fill="#7C8DA6">文件归属业务层</text>
+    <line x1="922" y1="228" x2="1118" y2="228" stroke="#25314A"/>
+
+    <text x="922" y="256" font-size="13" fill="#CBD5E1" font-family="monospace">run_id</text>
+    <text x="922" y="286" font-size="13" fill="#5eead4" font-family="monospace">trace_id</text>
+    <text x="922" y="306" font-size="11.5" fill="#7C8DA6">← 两层之间的关联键</text>
+    <text x="922" y="336" font-size="13" fill="#CBD5E1" font-family="monospace">doc_id</text>
+  </g>
+
+  <line x1="362" y1="252" x2="436" y2="252" stroke="#64748b" stroke-width="2" marker-end="url(#arr2)"/>
+  <text x="366" y="242" font-family="monospace" font-size="11" fill="#7C8DA6">uri</text>
+
+  <line x1="842" y1="306" x2="896" y2="306" stroke="#64748b" stroke-width="2" marker-end="url(#arr2)"/>
+  <text x="845" y="296" font-family="monospace" font-size="11" fill="#7C8DA6">trace_id</text>
+
+  <rect x="60" y="404" width="1080" height="76" rx="10" fill="#131C2E" stroke="#5B87BF"/>
+  <rect x="60" y="404" width="6" height="76" rx="3" fill="url(#accent2)"/>
+  <text x="88" y="436" font-family="sans-serif" font-size="15" fill="#F8FAFC" font-weight="700">为什么 uri part 和 text part 要成对出现</text>
+  <text x="88" y="462" font-family="sans-serif" font-size="13" fill="#9FB3D1">只记 uri → 无法回答「模型到底看没看到附件」；只记 text → 丢了文件来源。两个都记才查得动</text>
+</svg>
