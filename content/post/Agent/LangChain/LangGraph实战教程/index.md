@@ -1,6 +1,6 @@
 ---
 title: LangGraph 实战：StateGraph、手写 ReAct 循环与 Map-Reduce 摘要
-description: "从 State 与条件边，到亲手写一遍 tool-call 循环，再到完整的 ReAct 天气助手与长文本分块摘要图"
+description: "从 State 与条件边，到亲手写一遍 tool-call 循环，再到完整的 ReAct 天气助手与长文本分块摘要图，外加 1.2 的超时、错误处理与优雅停机"
 date: 2026-09-08T12:30:00+08:00
 image: images/index/index.png
 categories:
@@ -16,6 +16,8 @@ LangChain 进入 1.x 之后，LangGraph 不再是"进阶选读"，而是整个�
 这篇文章解决三件事。一是把 StateGraph、State、条件边这几个地基概念一次讲透；二是不用任何 Agent 封装，手写一遍 tool-call 循环——写完你会发现 Agent 没有魔法，它就是消息列表上转的一圈代码；三是用 LangGraph 把这个循环工程化成完整的 ReAct 天气助手，再补一个 Map-Reduce 长文本摘要图和记忆持久化。
 
 文章由我 2025 年 5～6 月的三篇笔记（《Langchain-Graph实战教程》《LangChain-实战-Tools使用教程》《Langgraph使用教程》）整合而成。合并时修正了原笔记的几处真实 bug——条件边示例的构建顺序与路由映射错误、手动循环里对 `tool_call["args"]` 多加的一句 `json.loads`——过时 API 统一在文末版本注记里交代。全文示例模型走阿里云 DashScope 的 qwen 系（qwen-plus / qwen-max）OpenAI 兼容端点，只需要一个 `DASHSCOPE_API_KEY` 环境变量。
+
+前五节是地基，任何版本都用得上。第六节是 2026 年的新增内容：LangGraph 1.1 / 1.2 给节点加上了**超时**、**错误处理器**和**优雅停机**，还给流式输出换了一套以内容块为中心的 API。这几样是"从能跑到敢上生产"之间的那段距离，值得单独看。
 
 ## 1. 基础三件套：StateGraph、State 与条件边
 
@@ -632,7 +634,193 @@ result = app.invoke({"messages": [HumanMessage(content="继续聊")]}, config)
 
 命名注记：这个类现在叫 `InMemorySaver`，`MemorySaver` 是保留的旧别名，两个名字指向同一个东西，新代码建议用前者。
 
-## 6. 版本注记：从 0.x 写法到 LangChain 1.x
+## 6. LangGraph 1.1 / 1.2：从"能跑"到"敢上生产"
+
+前五节的图，跑通没问题，但真接到线上会遇到几类很实际的问题：某个节点卡住了整张图跟着挂、某一步失败之后没有退路只能整个 run 报废、服务收到 SIGTERM 时正在跑的活儿全丢、长对话的 checkpoint 越存越大。1.1 和 1.2 基本就是冲着这些来的。
+
+以下内容默认需要 `langgraph>=1.2`；6.7 那节是 1.1 引入的。
+
+### 6.1 节点超时：`TimeoutPolicy`
+
+`add_node` 现在接受 `timeout=`，给单次节点尝试封顶：
+
+```python
+from datetime import timedelta
+from langgraph.types import TimeoutPolicy
+
+# 简单封顶：秒数或 timedelta
+builder.add_node("call_model", call_model, timeout=60)
+builder.add_node("call_model", call_model, timeout=timedelta(minutes=2))
+
+# 分别限制总时长和空闲时长
+builder.add_node(
+    "call_model",
+    call_model,
+    timeout=TimeoutPolicy(run_timeout=120, idle_timeout=30),
+)
+```
+
+两种限制的语义不一样，别混用：
+
+- **`run_timeout`** 是硬性挂钟上限，**永不刷新**。不管节点多活跃，到点就砍——适合"这个调用最多花两分钟"这种业务约束。
+- **`idle_timeout`** 是**随进度重置**的上限。只在节点一段时间内没有任何可观测进展时才触发——适合"卡死检测"。还能配 `refresh_on="heartbeat"` 用心跳当进度信号。
+
+两个值可以同时给。超时后 LangGraph 抛 `NodeTimeoutError`，**清掉这次失败尝试写入的状态**，然后交给重试策略决定要不要重试。`NodeTimeoutError` 默认是可重试的，而且超时时钟每次重试重新计时，所以 `timeout` 和 `retry_policy` 放在一起是开箱可用的。
+
+有个容易踩的坑：**节点超时只对 async 节点生效**。同步节点带 `timeout` 会在编译期就被拒绝。要包阻塞式 I/O，得在 async 节点里用 `asyncio.to_thread`。
+
+### 6.2 节点级错误处理：`error_handler`
+
+重试解决的是"偶发失败"，但有些失败重试三次也还是失败，这时候你需要的是**退路**而不是重试。`add_node` 的 `error_handler=` 就是干这个的：它在节点失败**且重试耗尽之后**执行，拿到当前状态，可以改状态，也可以用 `Command` 跳到别的节点。
+
+```python
+from langgraph.errors import NodeError
+from langgraph.types import Command, RetryPolicy
+
+def charge_payment(state: State) -> State:
+    raise RuntimeError("payment gateway timeout")
+
+def payment_error_handler(state: State, error: NodeError) -> Command:
+    return Command(
+        update={"status": f"compensated: {error.error}"},
+        goto="finalize",
+    )
+
+graph = (
+    StateGraph(State)
+    .add_node(
+        "charge_payment",
+        charge_payment,
+        retry_policy=RetryPolicy(max_attempts=3, retry_on=ConnectionError),
+        error_handler=payment_error_handler,
+    )
+    .add_node("finalize", finalize)
+    .add_edge(START, "charge_payment")
+    .compile()
+)
+```
+
+这就是 **Saga / 补偿模式**的表达方式：失败不是把整张图炸掉，而是走一条补偿路径把状态收拾干净。
+
+几个细节：
+
+- 执行顺序是固定的——**先重试，重试耗尽（或没配重试策略）才轮到错误处理器**。两者解耦，可以分别配。
+- 想拿到失败上下文，就把参数标注成 `error: NodeError`（按类型注解注入，和 `runtime: Runtime` 一个套路）。`NodeError` 是 frozen dataclass，只有两个字段：`node`（失败的节点名）和 `error`（原始异常）。
+- 不需要上下文的话，签名写成 `(state)` 或 `(state, runtime)` 也行。
+- 注入是可选的，但**每个节点最多一个 `error_handler`**。
+
+### 6.3 图级默认值：`set_node_defaults`
+
+如果每个节点都要重复写一遍 `retry_policy=` / `error_handler=` / `timeout=`，代码会很难看。`set_node_defaults` 把这些提成图级默认：
+
+```python
+from langgraph.types import RetryPolicy, TimeoutPolicy
+
+builder = (
+    StateGraph(State)
+    .set_node_defaults(
+        error_handler=default_error_handler,
+        timeout=TimeoutPolicy(run_timeout=30),
+    )
+    .add_node("step_a", step_a)                                       # 用默认处理器
+    .add_node("step_b", step_b, error_handler=custom_error_handler)   # 用自己的
+)
+```
+
+这个能力在"每次图运行都对应一个外部进程"的场景下特别值——比如后台任务表里的一行，任何未处理的节点失败都应该把那行标成 failed，不用在每个 `add_node` 上重复声明。**单节点配置优先于图级默认值**。
+
+有个安全设计要注意：错误处理器节点本身**不套用 `error_handler` 默认值**——处理器不能接住自己，否则就是无限递归。
+
+### 6.4 优雅停机：`RunControl` 与 drain
+
+服务要重启、容器要缩容，收到 SIGTERM 时正在跑的图怎么办？1.2 给了一个协作式的停机机制：**跑完当前 superstep 再停**，并保存一个可恢复的 checkpoint。
+
+```python
+import signal
+from langgraph.runtime import RunControl
+from langgraph.errors import GraphDrained
+
+control = RunControl()
+signal.signal(signal.SIGTERM, lambda *_: control.request_drain("sigterm"))
+
+try:
+    result = graph.invoke(inputs, config, control=control)
+except GraphDrained as e:
+    log.info("graph drained: %s", e.reason)
+    # 下次启动时用同一个 config 继续
+```
+
+drain 的语义是"**协作**"，它只在 superstep 之间生效，绝不抢占已经在跑的工作：
+
+| 场景 | 行为 |
+|---|---|
+| 节点执行到一半 | 跑完。drain 在下一个 superstep 生效 |
+| 节点正在按重试策略重试 | 重试循环跑到成功或耗尽，之后才生效 |
+| 图正好在同一次 tick 自然结束 | 正常返回。用 `control.drain_requested` 区分 |
+| 后面还有 superstep | 抛 `GraphDrained(reason)`，checkpoint 已保存可续跑 |
+| 子图请求 drain | `GraphDrained` 向上冒泡，让父图在它自己的下一个边界停 |
+
+节点内也能感知 drain，用来跳过昂贵的工作：
+
+```python
+from langgraph.runtime import Runtime
+
+async def my_node(state: State, runtime: Runtime) -> State:
+    if runtime.drain_requested:
+        return {"status": "skipped", "reason": runtime.drain_reason}
+    return {"status": await do_work()}
+```
+
+恢复就是同一 `thread_id` 下 `graph.invoke(None, config)`。
+
+**别把它当成强制中断**：`request_drain()` 不会取消正在跑的 asyncio task，也不会杀线程。想要硬上限，得把 drain 和一个 grace timeout + 任务取消配合使用。
+
+### 6.5 DeltaChannel：给长线程的 checkpoint 减重
+
+图跑得越久，checkpoint 越大。原因是消息列表这类 channel 每步都在增长，而过去的做法是**每一步都把累积后的全量值重新序列化进 checkpoint**——于是存储和读取延迟随对话长度线性上升。
+
+1.2 引入的 `DeltaChannel`（beta）只存每一步写入的**增量**，不存全量。对消息列表这种只会越堆越长的 channel，效果最明显。代价是读历史要重放 delta，所以可以配 `snapshot_frequency=K`，每 K 步写一次全量快照给读取延迟封顶。
+
+如果你在用 DeepAgents，注意它从 0.6.0 起也把消息历史和 agent 文件切到了 `DeltaChannel`，而且**这个变更不可回滚**——细节见《DeepAgents完全指南》3.5 节。
+
+### 6.6 流式输出换代：事件流（v3）
+
+`stream_mode="messages"` / `"updates"` 那套是 LangGraph 的**原始**流式接口，拿到的是 dict，得自己判断这块是什么。1.2 起多了一层更适合应用代码的东西——**事件流**，传 `version="v3"` 开启：
+
+```python
+stream = graph.stream_events(input_data, version="v3")
+
+for message in stream.messages:      # token 级模型输出
+    print(str(message.text), end="", flush=True)
+
+final_state = stream.output          # 最终状态
+```
+
+它的关键设计是：**一次 run 的事件流被归一化成几个带类型的投影，多个消费者可以同时读**——读 `stream.messages` 不会消耗 `stream.values` 需要的事件。可用的投影有 `stream.messages`、`stream.values`、`stream.output`、`stream.subgraphs`、`stream.interrupts` / `stream.interrupted`，以及给自定义 transformer 用的 `stream.extensions`。
+
+异步并发读用 `asyncio.gather`；同步代码想按严格到达顺序混读多个投影，用 `stream.interleave("values", "messages", "subgraphs")`。
+
+底层 `messages` 通道是按 **content block** 建模的，事件序列固定为 `message-start` → `content-block-start` → `content-block-delta` → `content-block-finish` → `message-finish`，文本、推理、工具调用、多模态内容都有显式边界，不再依赖各家 provider 的格式。
+
+`v1` / `v2` 保持兼容，没有破坏性变更——老代码不用动，新代码建议直接从 v3 起步。
+
+### 6.7 类型安全的 invoke / stream（1.1）
+
+1.1 就往这个方向走了一步：`invoke()` / `stream()` 传 `version="v2"` 会拿到带类型的东西。
+
+```python
+from langgraph.types import GraphOutput
+
+result: GraphOutput = graph.invoke(input_data, config, version="v2")
+print(result.value)       # 状态值
+print(result.interrupts)  # 中断信息
+```
+
+`stream(..., version="v2")` 则统一输出带 `type` / `ns` / `data` 三个键的 `StreamPart`，每种 mode 一个 `TypedDict`，都能从 `langgraph.types` 导入。另外 `version="v2"` 下，`invoke()` 和 `values` mode 的输出会**自动转换**成你声明的 Pydantic 模型或 dataclass 类型。
+
+`version="v2"` 是 opt-in，`GraphOutput` 也保留了废弃的 dict 风格访问，方便渐进迁移。
+
+## 7. 版本注记：从 0.x 写法到 LangChain 1.x
 
 这篇整合自 0.x 时代的笔记，几处新旧差异统一交代：
 
@@ -640,10 +828,21 @@ result = app.invoke({"messages": [HumanMessage(content="继续聊")]}, config)
 - **`ChatTongyi` 属 legacy**。原笔记另一处用 `langchain_community.chat_models` 的 `ChatTongyi` 直连通义——这个包里的集成属于 legacy。本文统一走 DashScope 的 OpenAI 兼容端点（`ChatOpenAI` + `base_url`），这也是当时验证过可行的路线
 - **模型**。原笔记示例里有 `gpt-3.5-turbo`（已下线）和 `gpt-4o-mini`，整合时统一替换为 DashScope 的 `qwen-plus` / `qwen-max`
 - **一行式封装**。现在构建 ReAct Agent 不需要手搓图：`langgraph.prebuilt.create_react_agent` 一行拉起；LangChain 1.x 的 `langchain.agents.create_agent` 是官方标准入口，底层就是 LangGraph。但我的判断是：手写一遍第 2 节那个循环，仍然是理解这些封装的最佳方式——封装出问题时，你得知道问题出在哪一层
+- **`MemorySaver` → `InMemorySaver`**（见第 5 节）。旧名仍是可用别名，但新代码建议用 `InMemorySaver`
+- **1.1 / 1.2 是增量而非破坏性变更**。第 6 节的超时、错误处理器、优雅停机、`DeltaChannel`、事件流都是 opt-in 的新参数或新 API，老代码不改也能继续跑。注意 `timeout` / `error_handler` / 优雅停机需要 `langgraph>=1.2`
+
+#### 版本基线
+
+| 组件 | 本文参考版本 | 备注 |
+|---|---|---|
+| `langgraph` | 1.2.11（2026-08-11） | 1.2.0 起有超时 / 错误处理 / 优雅停机 / 事件流 |
+| `langgraph-checkpoint` | 4.2.0 | `DeltaChannel` 相关修复在这个线上 |
+| `langgraph-sdk` | 0.4.4 | 走 Agent Server 时用 |
+| `langchain` | 1.4.0 | `create_agent` 入口；MCP 已内建为 `langchain.mcp` |
 
 更深的 Agent 工程化路线——多智能体、子智能体、规划与上下文管理——同目录的《DeepAgents完全指南》是这篇的自然延伸。
 
-参考：[LangGraph 官方文档](https://langchain-ai.github.io/langgraph/)
+参考：[LangGraph 官方文档](https://docs.langchain.com/oss/python/langgraph/overview)、[容错与优雅停机](https://docs.langchain.com/oss/python/langgraph/fault-tolerance)、[事件流](https://docs.langchain.com/oss/python/langgraph/event-streaming)
 
 ## 附：题外话——我试过的 LangChain 知识图谱（不是 LangGraph）
 
@@ -702,5 +901,7 @@ context = get_relevant_triples(final_graph, "张三")
 - ReAct 循环的图表达就三个部件：`agent` / `tools` 节点、`should_continue` 条件边、`tools -> agent` 回边
 - 超出上下文窗口的活交给 Map-Reduce，图让流水线每一步可插拔
 - 记忆的单位是 `thread_id` + checkpointer，内存版叫 `InMemorySaver`
+- 上线前补齐三件事：`timeout=` 防卡死（注意只对 async 节点生效）、`error_handler=` 给失败留退路（Saga 补偿）、`RunControl` + drain 应对停机。重复的配置用 `set_node_defaults` 提到图级
+- 长线程的 checkpoint 膨胀用 `DeltaChannel` 解决；应用层读流式输出优先用 `version="v3"` 的事件流，投影带类型且可多消费者并发读
 
 先手写一遍循环、看懂消息怎么流，再谈一行式封装——这是全文的路线，也是我判断的入门 LangGraph 最不绕的路。

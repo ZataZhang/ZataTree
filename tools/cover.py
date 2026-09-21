@@ -231,7 +231,8 @@ def render(title, tags, category):
 
 def targets():
     if len(sys.argv) > 1:
-        return [Path(p) for p in sys.argv[1:]]
+        # resolve() so relative paths still work with out.relative_to(ROOT) below
+        return [Path(p).resolve() for p in sys.argv[1:]]
     found = []
     for md in sorted((ROOT / "content" / "post").rglob("index.md")):
         meta = parse_frontmatter(md.read_text(encoding="utf-8"))

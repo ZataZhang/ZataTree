@@ -1,6 +1,6 @@
 ---
 title: LangChain 与 MCP 极简教程：让 Agent 接入外部工具的另一种方式
-description: "用 FastMCP 起一个工具服务，用 langchain-mcp-adapters 接进 Agent：双文件跑通 MCP 最小闭环"
+description: "用 FastMCP 起一个工具服务，用 LangChain 1.4 内建的 langchain.mcp 接进 Agent：双文件跑通 MCP 最小闭环"
 date: 2026-09-08T13:00:00+08:00
 image: images/index/index.png
 categories:
@@ -13,7 +13,9 @@ tags:
 
 给 Agent 接工具，最常见的做法是把所有工具函数都写在应用代码里，再逐个注册给模型。工具少的时候没问题；一旦工具多起来、或者想跨项目复用，这条路就会越来越累——同样的工具，每个应用都要重新写一遍。
 
-MCP（Model Context Protocol，模型上下文协议）是 Anthropic 在 2024 年底推出的开放协议，解决的就是这个问题：把「工具的定义和执行」从应用代码里拆出来，放到独立的服务器上，客户端按需发现和调用。本文用一个最小的双文件例子——FastMCP 起一个数学工具服务，langchain-mcp-adapters 把它接进 Agent——把这条链路跑通。
+MCP（Model Context Protocol，模型上下文协议）是 Anthropic 在 2024 年底推出的开放协议，解决的就是这个问题：把「工具的定义和执行」从应用代码里拆出来，放到独立的服务器上，客户端按需发现和调用。本文用一个最小的双文件例子——FastMCP 起一个数学工具服务，`langchain.mcp` 把它接进 Agent——把这条链路跑通。
+
+客户端这一侧，2026 年 9 月有个值得注意的变化：**MCP 支持已经进到 LangChain 主干里**。LangChain `v1.4.0` 新增了 `langchain.mcp` 命名空间，基于 FastMCP 实现，把原先独立的 `langchain-mcp-adapters` 包整个取代了——`MultiServerMCPClient` 收敛成一个 `MCPAdapter`。所以现在装依赖是 `pip install "langchain[mcp]"`，不再是单独装一个适配器包。本文代码全部按新写法给。
 
 ## MCP 和 Function Call 是什么关系
 
@@ -62,13 +64,13 @@ if __name__ == "__main__":
 
 ```python
 # client.py
-import os
-from mcp import ClientSession, StdioServerParameters
-from mcp.client.stdio import stdio_client
-from langchain_mcp_adapters.tools import load_mcp_tools
-from langgraph.prebuilt import create_react_agent
-from langchain_openai import ChatOpenAI
 import asyncio
+import os
+from pathlib import Path
+
+from langchain.agents import create_agent
+from langchain.mcp import MCPAdapter
+from langchain_openai import ChatOpenAI
 
 # 模型走阿里云百炼的 OpenAI 兼容模式
 model = ChatOpenAI(
@@ -77,35 +79,40 @@ model = ChatOpenAI(
     model="qwen-plus",
 )
 
-# 配置与 MCP 服务器的连接
-server_params = StdioServerParameters(
-    command="python",
-    args=["math_server.py"],
-)
+# 目标类型决定传输方式：Path = stdio 子进程，字符串 = 必须是 http(s) URL
+adapter = MCPAdapter(Path("math_server.py"))
+
 
 async def run_agent():
-    async with stdio_client(server_params) as (read, write):
-        async with ClientSession(read, write) as session:
-            # 初始化连接
-            await session.initialize()
+    async with adapter:
+        # 把 MCP 工具加载为 LangChain 工具
+        tools = await adapter.list_tools()
 
-            # 把 MCP 工具加载为 LangChain 工具
-            tools = await load_mcp_tools(session)
+        # 创建并运行 agent
+        agent = create_agent(model, tools)
+        return await agent.ainvoke({"messages": "what's (3 + 5) x 12?"})
 
-            # 创建并运行 agent
-            agent = create_react_agent(model, tools)
-            agent_response = await agent.ainvoke({"messages": "what's (3 + 5) x 12?"})
-            return agent_response
 
 if __name__ == "__main__":
-    result = asyncio.run(run_agent())
-    print(result)
+    print(asyncio.run(run_agent()))
 ```
+
+`MCPAdapter` 最省事的地方是**它从你交给它的目标自己推断传输方式**，不需要再写 `transport` 字段：
+
+| 传给 `MCPAdapter` 的目标 | 推断出的传输 |
+|---|---|
+| `"https://example.com/mcp"` | Streamable HTTP |
+| `Path("math_server.py")` | stdio 子进程（每个 adapter 一个） |
+| 一个 `FastMCP` 实例 | 进程内直连，不走子进程也不走 socket，跑测试最合适 |
+| `{"mcpServers": {...}}` 配置字典 | 多服务器，工具名自动加 `{server}_` 前缀 |
+| 现成的 `fastmcp.Client` | 完全自定义（transport、缓存、认证） |
+
+有个坑值得单独说：**脚本路径必须传 `Path` 而不是 `str`**。FastMCP 解析字符串时会先当文件路径试，再当 URL 试，所以一个字符串形式的 `"math_server.py"` 有被当成本地脚本拉起的风险；`MCPAdapter` 的做法更保守——直接拒绝所有不符合 URL 形状的字符串。想跑本地脚本，明确写 `Path(...)`。
 
 ### 运行
 
 ```bash
-pip install mcp langchain-mcp-adapters langgraph langchain-openai
+pip install "langchain[mcp]" langchain-openai mcp
 
 export DASHSCOPE_API_KEY=your_api_key
 
@@ -116,13 +123,13 @@ python client.py
 
 ## 运行时发生了什么
 
-1. 客户端按 `StdioServerParameters` 以子进程方式启动 `math_server.py`
-2. `session.initialize()` 完成 MCP 握手
-3. `load_mcp_tools(session)` 把服务器上的工具转换成 LangChain 工具列表
-4. `create_react_agent(model, tools)` 用这些工具构建 ReAct Agent
+1. `MCPAdapter(Path("math_server.py"))` 从目标类型推断出 stdio 传输
+2. 进入 `async with adapter` 时以子进程方式启动 `math_server.py`，完成 MCP 握手
+3. `adapter.list_tools()` 把服务器上的工具转换成 LangChain 工具列表
+4. `create_agent(model, tools)` 用这些工具构建 Agent
 5. Agent 收到问题，决定调用哪个工具；实际执行发生在 MCP server 侧，结果经客户端回传给模型
 
-关键点在第 3 步：对 Agent 来说，MCP 工具和本地 `@tool` 定义的工具没有任何区别，适配器把协议细节全部藏掉了。
+关键点在第 3 步：对 Agent 来说，MCP 工具和本地 `@tool` 定义的工具没有任何区别，适配器把协议细节全部藏掉了。另外返回的每个工具自己持有连接、每次调用各开一个会话，所以**`async with` 退出后 agent 依然可用**——不必把整轮推理都关在上下文里。
 
 ## Function Call vs MCP
 
@@ -138,21 +145,53 @@ python client.py
 
 一句话总结：function calling 决定模型「怎么说」，MCP 决定工具「从哪来」；MCP 工具最终还是要靠 function calling 让模型真正用起来。
 
-## 版本注记与延伸阅读
+## 版本注记：从 langchain-mcp-adapters 迁移过来
 
-- 本文客户端用的是 `langgraph.prebuilt.create_react_agent`；LangChain 1.x 之后对应的统一入口是 `create_agent`，思路一致，细节以官方文档为准。
-- 依赖包名注意：PyPI 安装名是连字符的 `langchain-mcp-adapters`，代码里 import 的是下划线的 `langchain_mcp_adapters`。
+这篇教程最早写在 MCP 适配器还是独立包的时期，当时的客户端长这样：
+
+```python
+from langchain_mcp_adapters.client import MultiServerMCPClient
+from langgraph.prebuilt import create_react_agent
+
+client = MultiServerMCPClient({
+    "math": {"transport": "stdio", "command": "python", "args": ["math_server.py"]},
+})
+tools = await client.get_tools()
+agent = create_react_agent(model, tools)
+```
+
+LangChain `v1.4.0`（2026-09-01）之后，这套写法整体退休。对应关系如下：
+
+| 旧（`langchain-mcp-adapters`） | 新（`langchain.mcp`） |
+|---|---|
+| `MultiServerMCPClient(...)` | `MCPAdapter(target)` |
+| `await client.get_tools()` | `await adapter.list_tools()` |
+| `load_mcp_tools(session)` | 直接用 `adapter.list_tools()` |
+| `convert_mcp_tool_to_langchain_tool` | `as_langchain_tool`（改名，且变成协程） |
+| `tool_name_prefix` | 多服务器时自动加 `{server}_` 前缀 |
+| `handle_tool_errors` 开关 | 移除。行为固定：`isError=True` 变成 `ToolMessage(status="error")`，传输故障直接抛异常 |
+| `Callbacks(on_elicitation=...)` | 取消回调，改为默认开启的 LangGraph `interrupt()` |
+| `tool_interceptors` | 用 LangChain `@wrap_tool_call` 中间件（能拦所有工具，不止 MCP 的） |
+| 连接上的 `auth` / `headers` | 挪到 `fastmcp.Client` 上 |
+
+三个必须知道的边界：
+
+- **`langchain.mcp` 目前是 beta**（需要 `langchain[mcp]>=1.4.0`），import 时会抛一次 `LangChainBetaWarning`，API 可能变。
+- **elicitation 变成 interrupt**：服务端中途要输入时，不再是回调，而是暂停整个 run，用 `Command(resume={"responses": {key: 答案}})` 恢复。这是设计变化，不是 bug。
+- **prompts / resources 还没有包装**：`load_mcp_prompt`、`load_mcp_resources` 这些没有对应实现，需要的话直接用 FastMCP 客户端的 `client.get_prompt(...)` / `client.read_resource(...)`。sampling 和 roots 则是因为 MCP 协议本身在无会话时代移除了，会抛 `NotImplementedError`。
+
+依赖包名也顺便更新一下：现在装的是 `langchain[mcp]`，不再需要 `pip install langchain-mcp-adapters`。
 
 收藏的参考资料：
 
 | 资源 |
 |---|
 | [MCP 终极指南（很值得读）](https://guangzhengli.com/blog/zh/model-context-protocol) |
-| [langchain-mcp-adapters（GitHub）](https://github.com/langchain-ai/langchain-mcp-adapters) |
+| [LangChain 官方 MCP 文档](https://docs.langchain.com/oss/python/langchain/mcp) |
+| [从 langchain-mcp-adapters 迁移](https://docs.langchain.com/oss/python/migrate/langchain-mcp-adapters) |
 | [Using LangChain With Model Context Protocol (MCP)](https://cobusgreyling.medium.com/using-langchain-with-model-context-protocol-mcp-e89b87ee3c4c) |
 | [知乎：一文看懂 MCP（大模型上下文协议）](https://zhuanlan.zhihu.com/p/27327515233) |
 | [Function Call vs MCP](https://www.dailydoseofds.com/p/function-calling-mcp-for-llms/)（本文配图出处） |
-| [知乎：在 Langchain 中使用 MCP 的极简教程](https://zhuanlan.zhihu.com/p/1899053057435739384) |
 
 ## 下一步
 

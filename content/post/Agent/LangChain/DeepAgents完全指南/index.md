@@ -11,7 +11,7 @@ tags:
 
 # DeepAgents 完全指南
 
-> 本文基于 `deepagents==0.7.x`（Python）撰写，涵盖从入门概念到生产部署的全部核心内容。0.x 版本 API 变动较快，如果你的版本低于 0.5，请先升级再对照本文。
+> 本文基于 `deepagents==0.7.15`（Python，2026-09-16 发布）撰写，涵盖从入门概念到生产部署的全部核心内容。0.x 版本 API 变动较快，如果你的版本低于 0.6，请先升级再对照本文——0.6.0 改了消息历史的持久化格式，升级路径见 3.5 节。
 
 ---
 
@@ -64,10 +64,11 @@ DeepAgents（包名 `deepagents`）是 LangChain 团队推出的一个 **agent h
 
 | 能力 | 说明 |
 |---|---|
-| 文件系统 | 内置 `ls / read_file / write_file / edit_file / glob / grep`，支持多种可插拔后端 |
+| 文件系统 | 内置 `ls / read_file / write_file / edit_file / delete / glob / grep`，支持多种可插拔后端 |
 | 子智能体 | 主 agent 通过 `task` 工具委派任务给拥有独立上下文的子 agent |
 | 上下文管理 | 自动摘要长对话，超大工具输出自动转存到文件系统 |
 | Shell 执行 | 通过 Sandbox 后端提供 `execute` 工具 |
+| 代码执行 | `CodeInterpreterMiddleware`（实验性）在受限 QuickJS 沙箱里跑代码与编程式工具调用 |
 | 持久记忆 | 可插拔的状态和存储后端，支持跨会话记忆 |
 | Human-in-the-Loop | 工具调用或文件操作前暂停，等待人工审批/编辑/拒绝 |
 | Skills | 可复用的行为模板，按需加载，渐进式披露 |
@@ -121,6 +122,7 @@ DeepAgents 的一切能力都由**中间件栈（middleware stack）**提供。�
 - **你的 middleware 插在位置 7**，在核心中间件之后、prompt caching 和 memory 之前。
 - 如果你的 middleware 实例的 `.name` 与某个内置中间件相同，它会**原地替换**该内置实例，而不是追加。
 - 某些核心中间件（`FilesystemMiddleware`、`SubAgentMiddleware`、`PatchToolCallsMiddleware`）受框架保护，不能通过 `excluded_middleware` 移除。
+- 上图是**默认组装结果**。实验性中间件（如 `CodeInterpreterMiddleware`）不在其中，只有你显式加进 `middleware` 才会出现。
 
 ### 2.2 核心中间件详解
 
@@ -132,16 +134,34 @@ DeepAgents 的一切能力都由**中间件栈（middleware stack）**提供。�
 |---|---|
 | `ls(path)` | 列出目录内容 |
 | `read_file(file_path, offset, limit)` | 读取文件，支持分页和多模态（图片/音频/视频） |
-| `write_file(file_path, content)` | 创建新文件（仅创建，不覆盖） |
-| `edit_file(file_path, old_string, new_string, replace_all)` | 精确字符串替换 |
-| `delete(file_path)` | 删除文件（需要后端支持） |
+| `write_file(file_path, content)` | 写入文件，**已存在的文件直接覆盖**（0.7.0 起的行为，此前是报错） |
+| `edit_file(file_path, old_string, new_string, replace_all)` | 精确字符串替换，`old_string` 为空会被拒绝（0.7.14 起） |
+| `delete(file_path)` | 删除文件或递归删除目录（0.7.0 新增） |
 | `glob(pattern, path)` | 模式匹配查找文件 |
 | `grep(pattern, path, glob)` | 文本搜索（优先使用 ripgrep） |
 | `execute(command, timeout)` | 执行 shell 命令（仅当后端实现 SandboxBackendProtocol） |
 
+0.7.0 开始，这套读写工具明显向「弱模型也能稳定用」的方向调过一遍，几个行为值得记住：
+
+- **`write_file` 覆盖而不报错**。以前写同名文件会失败，agent 得先 `delete` 再写；现在直接覆盖。
+- **`read_file` 分页可续读**。返回结果里会报总行数、剩余行数以及下一次该用的 `offset`，模型不用自己猜还剩多少没读。
+- **`grep` / `glob` 返回部分结果而不是卡死**。在大目录树上超过上限时，结果里带一个 `truncated` 标记，`grep` 另有 1000 条匹配上限，并支持流式输出和可选的上下文行。
+- **`edit_file` 拒绝空的 `old_string`**。以前传空串会导致不可预期的替换（0.7.14 修的）。
+
+如果你只想暴露其中一部分工具（比如给 agent 一个只读的文件视图），`FilesystemMiddleware` 接受工具白名单：
+
+```python
+from deepagents.middleware.filesystem import FilesystemMiddleware
+
+fs_mw = FilesystemMiddleware(tools=["ls", "read_file", "glob", "grep"])
+
+agent = create_deep_agent(model=model, middleware=[fs_mw])
+```
+
 它还负责**大工具结果的自动转存**：
 - 默认 20000 token 以上的工具输出会被转存到文件系统（路径如 `/large_tool_results/`），上下文中只保留摘要和文件路径。
 - 用户消息超过 50000 token 也会被转存。
+- 转存文件按 `tool_call_id` 命名；对于没有 ID 的调用，0.7.15 起会生成唯一路径，避免多次转存撞到同一个文件名。
 
 #### SubAgentMiddleware
 
@@ -163,23 +183,66 @@ DeepAgents 的一切能力都由**中间件栈（middleware stack）**提供。�
 
 仅当传入 `memory` 参数时存在。在 agent 启动时加载指定的 `AGENTS.md` 文件内容，追加到系统提示词中。这是 DeepAgents 的"启动记忆"机制。
 
+#### CodeInterpreterMiddleware（Interpreter，beta）
+
+0.6.0 引入，不在默认栈里，需要你显式加进 `middleware`。官方文档里这块叫 **Interpreters**——给 agent 一个**进程内**的可编程工作区：agent 写一段 JavaScript，运行时执行后只把结果返回，中间变量不进入模型上下文。
+
+它解决的是一个很具体的问题：正常的工具调用循环里，一次模型 turn 发出的那批 tool call 是**固定的**——不能循环、不能根据结果分支、不能重试、也不能把上一个调用的输出喂给下一个，除非再来一轮模型推理，而且每个结果都会回到上下文里。让模型去分派几百个条目本身也不可靠，它往往只抽样一部分。Interpreter 把这类编排从"模型逐步决策"挪到"代码里跑"，模型只需要想清楚**要做什么**。
+
+```bash
+pip install -U "deepagents[quickjs]"
+```
+
+```python
+from deepagents import create_deep_agent
+from langchain_quickjs import CodeInterpreterMiddleware
+
+agent = create_deep_agent(
+    model=model,
+    middleware=[CodeInterpreterMiddleware()],
+)
+```
+
+它给 agent 加了一个 `eval` 工具，agent 写 JS 调它，你不用手动调。几个要点：
+
+- **默认零外部能力**。QuickJS 环境下拿不到宿主机文件系统、网络、shell、包管理器，连时钟都没有，只能计算、保状态、往 `console.log/warn/error` 写。要放开只有两条明确的口子：**PTC**（programmatic tool calling，用 `ptc=["web_search"]` 给一个工具白名单，代码里通过 `tools.webSearch(...)` 调）和**动态子智能体**（有子智能体时自动暴露 `task()` 全局，可以 `Promise.all` 并行分派）。
+- **状态持久化由 `mode` 控制**：`"thread"`（默认，跨 turn 持久，每轮结束写快照）、`"turn"`（仅一轮内保持）、`"call"`（每次 `eval` 全新 REPL）。快照只保留可序列化的数据——函数和类恢复后会变成不可访问的残留物。
+- **隔离是"能力受限"而不是"内存隔离"**。QuickJS 跑在同进程里，官方明确说这是 scoped interpreter runtime，不是生产级 sandbox。不可信代码要另外放到独立进程或容器里跑。
+- **PTC 不经过常规工具调用路径**，所以 `interrupt_on` 的审批对 PTC 里调用的工具**不生效**。PTC 白名单本身就是权限边界，别把能碰敏感系统、花钱或改数据的工具放进去。
+
+和 `SandboxBackend` 的 `execute` 分工很清楚：**sandbox 是"对着环境写代码"**（shell、装依赖、跑测试、改文件），**interpreter 是"在 agent 循环里写代码"**（组合工具、保状态、决定什么回给模型）。
+
 #### HumanInTheLoopMiddleware
 
 仅当传入 `interrupt_on` 或 permissions 中有 `mode="interrupt"` 的规则时存在。在指定的工具调用前暂停执行，返回中断信息，等待人工决策（approve / edit / reject / respond）。
 
 ### 2.3 系统提示词的组装
 
-最终发给模型的 system prompt 由三部分拼接而成（用空行分隔）：
+最终发给模型的 system prompt 不是一个字符串拼两个变量那么简单。完整顺序是：
 
 ```
-system_prompt = USER → BASE → SUFFIX
+1. 你传入的 system_prompt            （可选的用户层）
+2. 基础 agent 提示词                  （BASE）
+3. Memory 提示词                      （仅当传了 memory：AGENTS.md + 使用说明）
+4. Skills 提示词                      （仅当传了 skills：技能位置 + 各技能 frontmatter + 用法）
+5. 虚拟文件系统提示词                  （含 execute 工具说明，如果用 sandbox 后端）
+6. 子智能体提示词                      （task 工具的用法）
+7. 你自定义中间件附带的提示词            （如果自定义中间件有）
+8. Human-in-the-loop 提示词            （仅当设置了 interrupt_on）
 ```
 
-- **USER**：你传入的 `system_prompt` 参数。
-- **BASE**：由当前 HarnessProfile 定义（通常为空，或包含模型特定的基础指令）。
-- **SUFFIX**：由当前 HarnessProfile 定义的可选后缀指令。
+HarnessProfile 则控制其中的 `BASE` 和 `SUFFIX` 两个变量：
+
+- `base_system_prompt`：**整体替换**基础提示词。
+- `system_prompt_suffix`：在末尾**追加**指令。
 
 大部分时候你只需要关心 `system_prompt` 参数。`BASE` 和 `SUFFIX` 是框架层面为不同模型提供的默认调优，一般不需要动。
+
+注意 `system_prompt` 是**静态**的——每次调用都一样。如果你需要动态提示词（比如按用户权限切换「你有管理员权限」和「你只读」，或者从长期记忆里注入用户偏好），要用 `@dynamic_prompt` 写中间件，在里读 `request.runtime.context` 和 `request.runtime.store`。只在工具内部用到 context 时不必写中间件——工具本身就能拿到 `ToolRuntime`。
+
+值得一提的是 0.7.0 对这块做过一次**大幅瘦身**，动机是"别把工具的用法重复写两遍"——工具 schema 本身已经说明了怎么用，再往提示词里塞一遍纯属浪费 token。具体做法是：内置的 BASE 提示词默认改为空，同时删掉与工具 schema 重复的说明性文字。效果是默认 agent 的工具描述 token 从 4005 降到 2302（−43%）；再叠上空 BASE 和按需开启的 todos，单轮输入的 token 从 5395 降到 1895（−65%）。工具的实际行为没有变化。
+
+如果你在自己的 `system_prompt` 里也习惯把工具用法写得很细，这一点可以直接借鉴：**先看 schema 已经说了什么，再决定提示词里还欠什么**。
 
 ### 2.4 HarnessProfile
 
@@ -191,6 +254,8 @@ HarnessProfile 是"每个模型的默认调优配置包"。当你传入一个模
 - 额外的系统提示词内容
 
 大部分使用场景不需要手动创建 profile。框架会根据模型类型自动选择。
+
+内置 profile 的覆盖范围一直在扩。0.7.0 加入了 **NVIDIA Nemotron 3 Ultra** 的 profile，同时带上了 NIM 的 app-origin 归因；prompt caching 这一侧也补齐了 Bedrock（走 `deepagents[aws]` extra）和 Fireworks（自动做缓存会话亲和）。0.7.15 顺手修了两个 profile 相关的小问题：model profile 的 key 现在允许出现冒号，Nemotron 的内置 profile 也要求真正的 task transition 才生效。
 
 ---
 
@@ -391,6 +456,21 @@ agent = create_deep_agent(model=model, checkpointer=checkpointer)
 
 文件系统（`StateBackend`）的内容也会随 checkpoint 持久化——同一 thread 内跨多轮对话，文件不会丢失。
 
+#### DeltaChannel：0.6.0 起的持久化格式变更
+
+从 0.6.0 开始，消息历史和 agent 文件改用 `DeltaChannel` 存储。原来的做法是每一步都把累积后的**全量**值重新序列化进 checkpoint；`DeltaChannel` 只存这一步写入的**增量**。对长线程来说这是数量级的差别——checkpoint 的大小不再随对话变长而线性膨胀。相应地，可以配 `snapshot_frequency=K` 每 K 步写一次全量快照，用来给读取延迟封顶。
+
+**这里有一条必须知道的兼容性红线：一旦 thread 用 0.6.0+ 持久化过，就不支持回滚。**
+
+DeltaChannel 写出的 checkpoint 是新格式，0.6.0 之前的版本读不了。降级时这些 channel 会切回非 delta 实现，而已有的 delta checkpoint 就变成不可读了——症状是状态重建不完整或直接出错，而且不一定当场暴露。
+
+真的需要降级，只有两条路：
+
+1. 先用 `delta-channel-dump` 恢复脚本把受影响的 thread 迁移掉；
+2. 或者直接丢弃这些 thread。
+
+推广来说：**不要让同一个 channel 在 delta 和非 delta 两种表示之间来回切换**。升级前先想清楚要不要留退路，留退路就在升级前把 thread 导出。
+
 
 ---
 
@@ -404,12 +484,19 @@ DeepAgents 内置的文件系统是一个**虚拟文件系统**（VFS）。它�
 |---|---|---|
 | `ls` | `ls(path: str) -> list[str]` | 列出目录内容 |
 | `read_file` | `read_file(file_path: str, offset: int = 0, limit: int = 500) -> str` | 读取文件内容，支持偏移和限制 |
-| `write_file` | `write_file(file_path: str, content: str) -> str` | 创建新文件（仅创建，不能覆盖已有文件） |
+| `write_file` | `write_file(file_path: str, content: str) -> str` | 写入文件，已存在则直接覆盖 |
 | `edit_file` | `edit_file(file_path: str, old_string: str, new_string: str, replace_all: bool = False) -> str` | 精确字符串替换 |
 | `delete` | `delete(file_path: str) -> str` | 删除文件（需要后端支持删除操作） |
 | `glob` | `glob(pattern: str, path: str = "/") -> list[str]` | 模式匹配查找 |
 | `grep` | `grep(pattern: str, path: str = "/", glob: str = None) -> list[str]` | 内容搜索（优先使用 ripgrep） |
 | `execute` | `execute(command: str, timeout: int = 300) -> str` | 执行 shell 命令（仅当后端实现 SandboxBackendProtocol） |
+
+读类工具在 0.7.0 之后都改成了「**宁可返回部分结果，也不要卡住**」的语义，这是专门为开源模型调过的——弱模型容易在大目录树上触发一次巨量 `grep`，然后整轮就废了：
+
+- `read_file` 会告诉你总共多少行、还剩多少行，以及下一次该传的 `offset`，模型可以稳定地一页页往下读。
+- `grep` / `glob` 命中过多时返回带 `truncated` 标记的部分结果；`grep` 另有 1000 条匹配上限，支持流式输出和可选上下文行。
+- `glob` 在路径不合理时会主动提示该往哪个 `path` 下找（0.7.14 起）。
+- 顺带一提，`edit_file` 从上到下按 `old_string` 精确匹配，传空串会被直接拒绝。
 
 ### 4.2 后端协议
 
@@ -528,6 +615,19 @@ store = PostgresStore.from_conn_string("postgresql://...")
 backend = StoreBackend(store=store, namespace=("knowledge_base",))
 agent = create_deep_agent(model=model, backend=backend)
 ```
+
+#### ContextHubBackend：用 LangSmith Hub 当存储（0.6.0 新增）
+
+如果你已经在用 LangSmith，`ContextHubBackend` 省掉了单独部署一个 LangGraph store 的麻烦——它把 agent 的文件（技能、记忆、其他需要持久化的上下文）直接存成 **LangSmith Hub 上的 commit**。
+
+```python
+from deepagents.backends import ContextHubBackend
+
+backend = ContextHubBackend()  # 走 LangSmith 凭据
+agent = create_deep_agent(model=model, backend=backend)
+```
+
+它真正的价值在**每次写入都带版本历史**：skill 和 memory 这类文件最需要的就是「改错了能回退、能看出是谁在什么时候改的」，而这些能力在 Hub 上是现成的。代价是绑定了 LangSmith，纯本地或自托管场景还是用 StoreBackend。
 
 ### 4.8 权限控制
 
@@ -746,10 +846,31 @@ agent = create_deep_agent(
 )
 ```
 
-阈值默认值根据模型的最大输入 token 自动计算。例如：
+阈值默认值根据模型的最大输入 token 自动计算（官方口径是达到模型上下文窗口的约 85%）。例如：
 - GPT-5（128k context）→ 阈值约 100k token
 - Claude（200k context）→ 阈值约 160k token
 - 回退方案：保留最近 20 条消息
+
+#### 按需压缩：让 agent 自己决定什么时候压
+
+自动摘要只在逼近阈值时才动手，但有些场景你想让它**主动**在任务边界处压缩——比如一个子任务刚交付完，历史已经没用但离阈值还远。
+
+加一个 `compact_conversation` 工具就能做到：
+
+```python
+from deepagents import create_deep_agent
+from deepagents.backends import StateBackend
+from deepagents.middleware.summarization import create_summarization_tool_middleware
+
+backend = StateBackend  # 用默认后端时这样写
+
+agent = create_deep_agent(
+    model=model,
+    middleware=[create_summarization_tool_middleware(model, backend)],
+)
+```
+
+注意这不是替代品：**加上它并不会关掉 85% 的自动压缩**，两者共用同一个摘要引擎和状态。自定义中间件会被插到 `PatchToolCallsMiddleware` 之后（也就是 2.1 节栈里的位置 7）。
 
 ### 6.2 大工具输出转存
 
@@ -1045,6 +1166,80 @@ for event in agent.stream(
         if "files" in node_update:
             print(f"文件变化: {node_update['files'].keys()}")
 ```
+
+### 9.4 事件流（v3）：`stream_events` 与类型化投影
+
+上面几种 `stream_mode` 是 LangGraph 的**原始**流式接口——你拿到的是 dict，要自己判断这一块是什么。LangGraph 1.2.0 / DeepAgents 0.6.0 起多了一套更适合应用层写代码的东西：**事件流**（event streaming），传 `version="v3"` 开启。
+
+核心变化是：一次 run 产出的事件流被归一化后，经过一层 transformer 管线，暴露成几个**带类型的投影**，可以同时被多个消费者读——读 `stream.messages` 不会消耗 `stream.values` 需要的事件。
+
+```python
+stream = agent.stream_events(
+    {"messages": [{"role": "user", "content": "分析这份数据"}]},
+    version="v3",
+)
+
+# 只看模型输出：token 级
+for message in stream.messages:
+    print(str(message.text), end="", flush=True)
+
+# 最终状态
+final_state = stream.output
+```
+
+可用的投影：
+
+| 投影 | 用途 |
+|---|---|
+| `stream` | 遍历所有协议事件（原始层） |
+| `stream.messages` | 模型消息与 token 增量，另有 `.reasoning` 和 `.tool_calls` |
+| `stream.values` | 每一步之后的状态快照，`stream.output` 拿最终值 |
+| `stream.subgraphs` | 发现并观察嵌套图/子智能体执行 |
+| `stream.interrupts` / `stream.interrupted` | 人机协作中断的载荷与判定 |
+| `stream.extensions` | 自定义 transformer 的投影 |
+
+对 DeepAgents 来说，`stream.subgraphs` 特别有用——**子智能体的执行会作为嵌套作用域出现在这里**，直接看 `subgraph.graph_name` 和 `subgraph.path` 就行，不用去解析 namespace 字符串：
+
+```python
+stream = agent.stream_events(input_data, config=config, version="v3")
+
+for subgraph in stream.subgraphs:
+    print(subgraph.graph_name, subgraph.path)
+    for message in subgraph.messages:
+        print(message.text)
+```
+
+异步场景下可以并发消费多个投影：
+
+```python
+stream = await agent.astream_events(input_data, version="v3")
+
+async def consume_messages():
+    async for message in stream.messages:
+        print(f"[llm] node={message.node}")
+
+async def consume_subgraphs():
+    async for subgraph in stream.subgraphs:
+        print(f"[subgraph] path={subgraph.path}")
+
+await asyncio.gather(consume_messages(), consume_subgraphs())
+```
+
+同步代码想在**严格的到达顺序**里混着读多个投影，用 `stream.interleave(...)`：
+
+```python
+for name, item in stream.interleave("values", "messages", "subgraphs"):
+    if name == "values":
+        print(f"[state] keys={list(item)}")
+    elif name == "messages":
+        print(f"[llm] node={item.node}")
+    elif name == "subgraphs":
+        print(f"[subgraph] path={item.path}")
+```
+
+底层通道（`event["method"]`）有 `values`、`updates`、`messages`、`tools`、`lifecycle`、`checkpoints`、`input`、`tasks`、`custom`。其中 `messages` 是按 **content block** 建模的，事件序列固定为 `message-start` → `content-block-start` → `content-block-delta` → `content-block-finish` → `message-finish`，文本、推理、工具调用、多模态内容都有显式边界，不再依赖各家 provider 的格式。
+
+`v1` 和 `v2` 的写法保持兼容，没有破坏性变更——现有代码不用动，新代码建议直接从 v3 起步。
 
 ---
 
@@ -1401,20 +1596,23 @@ GitHub 仓库的 [examples/](https://github.com/langchain-ai/deepagents/tree/mai
 
 ### B. 版本注意事项
 
-- `deepagents` 0.7.x 是当前最新版本系列。
-- 0.5.x → 0.6.x 有重大 API 变化（`SubAgent` 类型变化、`response_format` 新增）。
-- 0.6.x → 0.7.x 新增了 skills、memory、permissions 等功能。
+- `deepagents` 0.7.x 是当前最新版本系列（最新 `0.7.15`，2026-09-16），**尚未发布 0.8 或 1.0**。
+- 0.5.x → 0.6.x 有重大变化：`SubAgent` 类型变化、`response_format` 新增，**并且消息历史与 agent 文件切到 DeltaChannel 持久化，此变更不可回滚**（见 3.5 节）。
+- 0.6.x → 0.7.x 新增了 skills、memory、permissions、`delete` 工具、`FilesystemMiddleware` 工具白名单，同时做了一次提示词瘦身（见 2.3 节）。
+- 0.7.13 → 0.7.14 → 0.7.15 都是修补性质：`read_file` 输出格式调整、`edit_file` 拒绝空 `old_string`、`ls`/`glob` 字符计数修正、无 ID 的工具结果转存改用唯一路径、subagent state key 传递修复。
 - 如果从 0.3.x 升级，`SubAgent` 已从 dict 改为类型化对象，`create_deep_agent` 的参数名有变化。
-- 0.x 版本 API 变动快，生产环境建议锁定版本（`uv add deepagents==0.7.13`）。
+- 0.x 版本 API 变动快，生产环境建议锁定版本（`uv add deepagents==0.7.15`）。
 
-#### 本文覆盖的版本快照（截至 2026-09-08）
+#### 本文覆盖的版本快照（截至 2026-09-21）
 
 | 包 | 本文基准版本 | 发布日期 | 备注 |
 |---|---|---|---|
-| `deepagents`（Python） | 0.7.13 | 2026-09-02 | 核心库，本文主体内容 |
-| `deepagents-code`（dcode） | 0.1.68 | 2026-09-10 | 终端编码智能体，见 12.0 节 |
-| `deepagents-talon` | 0.0.7 | 2026-09-07 | 独立发布，本文未覆盖 |
-| `langchain-quickjs` | 0.3.7 | 2026-09-06 | JS 运行时，本文未覆盖 |
+| `deepagents`（Python） | 0.7.15 | 2026-09-16 | 核心库，本文主体内容 |
+| `deepagents-code`（dcode） | 0.1.72 | 2026-09-21 | 终端编码智能体，见 12.0 节 |
+| `deepagents-talon` | 0.0.8 | 2026-09-11 | 独立发布，本文未覆盖 |
+| `langchain-quickjs` | 0.3.7 | 2026-09-06 | JS 运行时，`CodeInterpreterMiddleware` 依赖它，本文未展开 |
+| `langchain` | 1.4.0 | 2026-09-01 | MCP 支持已内建进 `langchain.mcp` |
+| `langchain-mcp-adapters` | — | — | **已被 `langchain.mcp` 取代，不再维护** |
 | `deepagents.js`（JS/TS） | — | — | 独立仓库，见附录 C |
 
 #### 下次更新检查清单
@@ -1443,4 +1641,4 @@ GitHub 仓库的 [examples/](https://github.com/langchain-ai/deepagents/tree/mai
 
 ---
 
-*本文基于 DeepAgents 0.7.13 版本编写，2026 年 9 月。API 在 1.0 之前可能变化，请以官方文档为准。*
+*本文基于 DeepAgents 0.7.15 版本编写，2026 年 9 月。API 在 1.0 之前可能变化，请以官方文档为准。*
