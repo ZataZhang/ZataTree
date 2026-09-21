@@ -2,7 +2,7 @@
 title: "数据库初始化与迁移：从创建那一刻就要钉死的三件事"
 description: "数据库创建时必须显式定义版本、字符集与排序规则——一份覆盖 MySQL 5.7/8.0、PostgreSQL、SQL Server 的初始化手册与跨版本迁移实战"
 date: 2026-07-23T11:21:08+08:00
-slug: "数据库初始化与迁移：从创建那一刻就要钉死的三件事/index.md"
+slug: "数据库初始化与迁移：从创建那一刻就要钉死的三件事"
 image: images/index/index.svg
 categories:
     - Agent

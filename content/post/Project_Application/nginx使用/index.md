@@ -2,7 +2,7 @@
 title: Nginx
 description: Nginx 是一个高性能的开源 Web 服务器和反向代理服务器，以其高效、轻量和强大的并发处理能力而著称。
 date: 2025-02-24
-slug: Nginx使用/index.md ## 必填，文件夹名/index.md
+slug: Nginx使用 ## 必填，文件夹名
 image: image/index/index.png
 categories:
     # - DeepLearning

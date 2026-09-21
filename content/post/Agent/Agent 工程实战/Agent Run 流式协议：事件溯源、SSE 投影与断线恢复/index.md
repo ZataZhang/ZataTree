@@ -2,7 +2,7 @@
 title: "Agent Run 流式协议：事件溯源、SSE 投影与断线恢复"
 description: "把 Agent Runtime 的执行过程变成前端可稳定消费的流，关键不是把模型输出直接 pipe 给客户端，而是先把执行事实落库，再把事件投影到 SSE。本文记录我当前系统里的三层协议设计：Runner 端口事件、Canonical 事件库和 SSE wire format。"
 date: 2026-09-07T10:30:00+08:00
-slug: "Agent Run 流式协议：事件溯源、SSE 投影与断线恢复/index.md"
+slug: "Agent Run 流式协议：事件溯源、SSE 投影与断线恢复"
 image: images/index/index.svg
 categories:
     - Agent

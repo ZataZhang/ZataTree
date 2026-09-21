@@ -3,7 +3,7 @@ title: FASTAPI使用相关问题
 description: FASTAPI
 date: 2025-02-28
 image: images/index/index.png
-slug: fastapi使用/index.md ## 必填，文件夹名/index.md
+slug: fastapi使用 ## 必填，文件夹名
 # image: helena-hertz-wWZzXlDpMog-unsplash.jpg
 categories:
     # - DeepLearning

@@ -2,7 +2,7 @@
 title: "让用户选择指定 Skill：从社区实践到生产级 API 设计"
 description: "Agent Skills 规范并没有定义用户如何点名执行 Skill。本文对比 Deep Agents、VS Code、Codex 与 Jan 的调用模式，并给出一套包含权限、快照、幂等和运行时强制激活的生产级设计。"
 date: 2026-09-02T15:00:00+08:00
-slug: "让用户选择指定-Skill：从社区实践到生产级-API-设计/index.md"
+slug: "让用户选择指定-Skill：从社区实践到生产级-API-设计"
 image: images/index/index.svg
 categories:
     - Agent

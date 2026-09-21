@@ -3,7 +3,7 @@ title: MoE
 description: 混合专家模型
 date: 2025-02-24
 image: images/index/index.png
-slug: MoE/index.md ## 必填，文件夹名/index.md
+slug: MoE ## 必填，文件夹名
 # image: helena-hertz-wWZzXlDpMog-unsplash.jpg
 categories:
     # - Chart

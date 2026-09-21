@@ -2,7 +2,7 @@
 title: "AG-UI：当 Agent 学会了和前端说话"
 description: "MCP 管 agent 连工具，A2A 管 agent 连 agent，那 agent 连前端呢？AG-UI 用一条 36 种事件的事件流补上了三层协议的最后一块。本文基于官方仓库 main@5f32a64e 与 Python SDK 0.1.22 / TS SDK 0.0.59 的源码写成，深入到中间件、事件校验器和完整运行管线。"
 date: 2026-09-10T14:30:00+08:00
-slug: "AG-UI：当Agent学会了和前端说话/index.md"
+slug: "AG-UI：当Agent学会了和前端说话"
 image: images/index/index.svg
 categories:
     - Agent

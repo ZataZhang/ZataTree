@@ -2,7 +2,7 @@
 title: git&github_tutorial
 description: git&github使用指南
 date: 2025-02-28
-slug: git&github/index.md ### 必填，文件夹名/index.md
+slug: git&github ### 必填，文件夹名
 image: image/index/index.png
 categories:
     - Project_Application

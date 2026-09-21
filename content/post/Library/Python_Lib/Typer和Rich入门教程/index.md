@@ -2,7 +2,7 @@
 title: Typer + Rich 入门教程
 description: 用 Typer 写 CLI、用 Rich 美化输出,Python 命令行工具的最佳拍档
 date: 2026-06-09T15:30:00+08:00
-slug: Typer和Rich入门教程/index.md
+slug: Typer和Rich入门教程
 image: images/index/index.png
 draft: false
 categories:

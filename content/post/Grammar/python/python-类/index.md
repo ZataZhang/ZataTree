@@ -2,7 +2,7 @@
 title: python-类-类变量和实例变量
 description: python语法-类-类变量和实例变量
 date: 2025-02-24
-slug: 类/index.md ## 必填，文件夹名/index.md
+slug: 类 ## 必填，文件夹名
 image: images/index/index.png
 categories:
     # - DeepLearning

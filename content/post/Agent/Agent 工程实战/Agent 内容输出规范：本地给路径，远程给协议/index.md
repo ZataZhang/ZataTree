@@ -2,7 +2,7 @@
 title: "Agent 内容输出规范：本地给路径，远程给协议"
 description: "一个 Agent 跑完一次，会输出自然语言、工具调用、产物文件三类内容。本地运行时给文件路径就够了，但一旦把 Agent 挂到远程接口上，就必须有一套类型化的输出协议。本文梳理消息协议、SSE 事件设计、产物通道与 AG-UI 标准。"
 date: 2026-09-03T10:00:00+08:00
-slug: "Agent 内容输出规范：本地给路径，远程给协议/index.md"
+slug: "Agent 内容输出规范：本地给路径，远程给协议"
 image: images/index/index.svg
 categories:
     - Agent

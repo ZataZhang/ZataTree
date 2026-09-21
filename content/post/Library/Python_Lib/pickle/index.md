@@ -3,7 +3,7 @@ title: pickle
 description: pickle的常用操作
 date: 2025-02-23
 image: images/index/index.png
-slug: pickle/index.md
+slug: pickle
 # image: helena-hertz-wWZzXlDpMog-unsplash.jpg
 categories:
     - Library

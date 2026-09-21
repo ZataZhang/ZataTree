@@ -82,7 +82,7 @@ content/post/{category}/{tag}/{title}/
 title: Article Title
 description: Brief description
 date: 2025-01-15T10:00:00+08:00
-slug: title/index.md
+slug: title
 image: images/index/index.png  # Optional
 categories:
     - CategoryName

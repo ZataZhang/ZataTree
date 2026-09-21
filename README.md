@@ -2,7 +2,7 @@
 title: README
 description: BLOG介绍
 date: 2025-02-24T00:00:00+08:00
-# slug: 文件夹名/index.md ## 必填，文件夹名/index.md
+# slug: 文件夹名 ## 必填，文件夹名
 # image: helena-hertz-wWZzXlDpMog-unsplash.jpg
 categories:
     # - DeepLearning
@@ -28,7 +28,7 @@ tags:
 title: XXX
 description: XXX
 date: 2025-02-24
-slug: XXX/index.md ## 必填，文件夹名/index.md
+slug: XXX ## 必填，文件夹名
 draft: true  # 设置文章为草稿状态，Hugo 默认不会渲染，但是本地使用hugo server -D可以查看到
 image: XXX
 categories:
@@ -262,7 +262,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - `title`: 文章标题
 - `description`: 文章描述
 - `date`: 发布日期
-- `slug`: 文件夹名/index.md （必填）
+- `slug`: 文件夹名 （必填）
 - `categories`: 分类（可选，但建议填写）
 - `tags`: 标签（可选）
 

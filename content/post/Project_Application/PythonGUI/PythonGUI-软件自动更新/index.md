@@ -2,7 +2,7 @@
 title: 软件自动更新
 description: 软件自动更新是指通过内置机制检测新版本并下载安装，以保持软件最新和安全，这里以python语言为例
 date: 2025-02-28
-slug: 软件自动更新/index.md ## 必填，文件夹名/index.md
+slug: 软件自动更新 ## 必填，文件夹名
 image: image/index/index.png
 categories:
     # - DeepLearning

@@ -2,7 +2,7 @@
 title: "给 Agent 接入 Web Search：四种做法，和一条我试过之后放弃的路"
 description: "Agent 需要实时信息时，接入 web search 有五条路径：模型厂商内置工具、搜索 API 包 function tool、MCP server、CLI+Skill，以及自托管 SearXNG。本文给出前四种的具体做法与选型建议；第五种我实测过，聚合并没有解决上游不稳定的问题，最终很难用，不推荐。"
 date: 2026-09-07T10:00:00+08:00
-slug: "给-Agent-接入-Web-Search：四种做法，和一条我试过之后放弃的路/index.md"
+slug: "给-Agent-接入-Web-Search：四种做法，和一条我试过之后放弃的路"
 image: images/index/index.svg
 categories:
     - Agent

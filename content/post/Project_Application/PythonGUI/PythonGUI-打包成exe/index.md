@@ -2,7 +2,7 @@
 title: python程序打包exe使用教程
 description: Python 程序打包成 EXE 文件可以使用工具如 PyInstaller 将脚本转换为独立的可执行文件。
 date: 2025-02-24
-slug: python程序打包exe/index.md ### 必填，文件夹名/index.md
+slug: python程序打包exe ### 必填，文件夹名
 image: image/python程序打包exe/python程序打包exe.png
 categories:
     - Project_Application

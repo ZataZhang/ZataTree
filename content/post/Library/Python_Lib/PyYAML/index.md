@@ -3,7 +3,7 @@ title: PyYAML
 description: PyYAML的常用操作
 date: 2025-02-24
 image: images/index/index.png
-slug: PyYAML/index.md
+slug: PyYAML
 # image: helena-hertz-wWZzXlDpMog-unsplash.jpg
 categories:
     - Library
