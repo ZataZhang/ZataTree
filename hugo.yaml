@@ -284,8 +284,8 @@ markup:
             unsafe: true               # 允许在 Markdown 中嵌入 HTML
     tableOfContents:
         endLevel: 4                    # 目录包含到 4 级标题
-        ordered: true                  # 目录编号
-        startLevel: 1                  # 从 1 级标题开始（包含 # 标题）
+        ordered: false                 # 标题常已自带序号，目录不重复编号
+        startLevel: 2                  # 正文从 ## 开始，避免空的一级列表
     highlight:
         noClasses: false               # 使用 CSS 类高亮代码
         codeFences: true               # 启用代码块

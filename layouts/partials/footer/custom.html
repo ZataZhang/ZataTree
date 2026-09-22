@@ -135,9 +135,65 @@
         }
     }
 
+    function initTocFolding() {
+        const navigation = document.querySelector('.widget--toc #TableOfContents');
+        if (!navigation) return;
+
+        const sections = [];
+        const widget = navigation.closest('.widget');
+        const title = widget && widget.querySelector('.widget-title');
+        const toggleAll = document.createElement('button');
+
+        function updateToggleAll() {
+            const allExpanded = sections.every(({ children }) => !children.hidden);
+            toggleAll.textContent = allExpanded ? '收起' : '展开';
+            toggleAll.setAttribute('aria-expanded', String(allExpanded));
+            toggleAll.setAttribute('aria-label', `${allExpanded ? '收起' : '展开'}全部子目录`);
+        }
+
+        function setExpanded(section, expanded) {
+            section.children.hidden = !expanded;
+            section.button.setAttribute('aria-expanded', String(expanded));
+            section.button.setAttribute('aria-label', `${expanded ? '收起' : '展开'}「${section.title}」的子目录`);
+        }
+
+        navigation.querySelectorAll(':scope > ul > li').forEach((item, index) => {
+            const children = item.querySelector(':scope > ul');
+            const link = item.querySelector(':scope > a');
+            if (!children || !link) return;
+
+            children.id = `toc-section-${index + 1}`;
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'toc-section-toggle';
+            button.setAttribute('aria-controls', children.id);
+            const section = { children, button, title: link.textContent.trim() || '章节' };
+            sections.push(section);
+            setExpanded(section, true);
+            button.addEventListener('click', () => {
+                setExpanded(section, children.hidden);
+                updateToggleAll();
+            });
+            link.after(button);
+        });
+
+        if (!title || !sections.length) return;
+        toggleAll.type = 'button';
+        toggleAll.className = 'toc-toggle-all';
+        toggleAll.setAttribute('aria-controls', sections.map(({ children }) => children.id).join(' '));
+        toggleAll.addEventListener('click', () => {
+            const expand = sections.some(({ children }) => children.hidden);
+            sections.forEach(section => setExpanded(section, expand));
+            updateToggleAll();
+        });
+        updateToggleAll();
+        title.after(toggleAll);
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
         initCodeMoreBox();
         initScrollTop();
         initSearchShortcut();
+        initTocFolding();
     });
 </script>

@@ -86,6 +86,28 @@
                 padding: 7px 2px;
             }
         }
+
+        .article-list article {
+            .article-header {
+                display: flex;
+                flex: 1 1 auto;
+                flex-direction: column;
+            }
+
+            .article-details {
+                justify-content: flex-start;
+                gap: 8px;
+                padding: 14px;
+            }
+
+            .article-subtitle {
+                -webkit-line-clamp: 4;
+            }
+
+            .article-time {
+                margin-top: auto;
+            }
+        }
     }
 }
 
@@ -183,6 +205,132 @@ main.main {
     }
 }
 
+/* 文章目录：章节、子标题分层显示，窄侧栏里不裁切列表标记。 */
+.right-sidebar .widget--toc #TableOfContents {
+    overflow-x: hidden;
+
+    ul {
+        list-style: none;
+    }
+
+    > ul {
+        padding: 0;
+    }
+
+    > ul > li + li {
+        border-top: 1px solid var(--card-separator-color);
+        margin-top: 8px;
+        padding-top: 8px;
+    }
+
+    > ul > li > a {
+        font-weight: 700;
+        color: var(--card-text-color-main);
+    }
+
+    > ul > li > ul {
+        padding-left: 12px;
+        margin: 4px 0 8px 18px;
+        border-left: 1px solid var(--card-separator-color);
+    }
+
+    ul ul ul {
+        padding-left: 12px;
+        margin-left: 8px;
+        border-left: 1px solid var(--card-separator-color);
+    }
+
+    ul ul li > a {
+        color: var(--card-text-color-secondary);
+        font-size: 1.3rem;
+        font-weight: 400;
+    }
+
+    ul ul ul li > a {
+        font-size: 1.2rem;
+    }
+
+    li {
+        margin: 0;
+        padding: 0;
+    }
+
+    li > a {
+        display: block;
+        padding: 8px 10px;
+        line-height: 1.5;
+        overflow-wrap: anywhere;
+    }
+
+    li.active-class > a {
+        margin-left: 0;
+        padding-left: 7px;
+        border-left: 3px solid var(--accent-color);
+        color: var(--card-text-color-main);
+    }
+}
+
+.right-sidebar .widget:has(.widget--toc) {
+    position: relative;
+
+    .toc-toggle-all {
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        border: 0;
+        padding: 5px 7px;
+        background: transparent;
+        color: var(--site-muted);
+        font: inherit;
+        font-size: 1.2rem;
+        cursor: pointer;
+    }
+
+    .toc-toggle-all:hover,
+    .toc-section-toggle:hover {
+        color: var(--brand-blue);
+    }
+
+    #TableOfContents > ul > li {
+        position: relative;
+
+        > a {
+            padding-right: 34px;
+        }
+    }
+
+    .toc-section-toggle {
+        position: absolute;
+        top: 5px;
+        right: 4px;
+        display: grid;
+        place-items: center;
+        width: 28px;
+        height: 28px;
+        border: 0;
+        background: transparent;
+        color: var(--site-muted);
+        cursor: pointer;
+
+        &::before {
+            content: "";
+            width: 7px;
+            height: 7px;
+            border-right: 1.5px solid currentColor;
+            border-bottom: 1.5px solid currentColor;
+            transform: translateY(-2px) rotate(45deg);
+        }
+
+        &[aria-expanded="false"]::before {
+            transform: rotate(-45deg);
+        }
+    }
+
+    #TableOfContents ul[hidden] {
+        display: none;
+    }
+}
+
 /* 竖屏平板与窄桌面：三栏会把文章挤到约 500px，段落与代码难读。
    沿用主题在手机宽度下隐藏右栏的方式，把目录留给宽屏。 */
 @media (min-width: 768px) and (max-width: 1279px) {
@@ -222,9 +370,6 @@ main.main {
             display: none;
         }
 
-        .right-sidebar .widget--toc #TableOfContents li {
-            margin: 8px 0 8px 8px;
-        }
     }
 }
 
