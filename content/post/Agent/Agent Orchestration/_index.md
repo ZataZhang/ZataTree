@@ -7,12 +7,13 @@ description: "从单 Agent 设计到多智能体协作，系统学习智能体�
 
 ## 系列目录
 
-1. [智能体编排设计工程师学习指南](./01-智能体编排设计工程师学习指南/index.md)
-2. [AI Agent Loop 工程:原理、模式与实现](./AI%20Agent%20Loop%20工程：原理、模式与实现/index.md)
-3. [记忆模块技术文档](./记忆模块技术文档/index.md)
-4. [Gliding Horse Agent OS 介绍:Rust 构建的工业级 AI Agent 操作系统](./Gliding%20Horse%20Agent%20OS%20介绍/index.md)
-5. [主流 Agent 框架对比与多框架统一接口设计](./主流%20Agent%20框架对比与多框架统一接口设计/index.md)
-6. [Agent 用户记忆与 Skill 沉淀：开源项目参考与架构设计](./Agent%20用户记忆与%20Skill%20沉淀：开源项目参考与架构设计/index.md)
+1. [智能体编排设计工程师学习指南]({{< relref "post/Agent/Agent Orchestration/01-智能体编排设计工程师学习指南/index.md" >}})
+2. [AI Agent Loop 工程:原理、模式与实现]({{< relref "post/Agent/Agent Orchestration/AI Agent Loop 工程：原理、模式与实现/index.md" >}})
+3. [记忆模块技术文档]({{< relref "post/Agent/Agent Orchestration/记忆模块技术文档/index.md" >}})
+4. [Gliding Horse Agent OS 介绍:Rust 构建的工业级 AI Agent 操作系统]({{< relref "post/Agent/Agent Orchestration/Gliding Horse Agent OS 介绍/index.md" >}})
+5. [主流 Agent 框架对比与多框架统一接口设计]({{< relref "post/Agent/Agent Orchestration/主流 Agent 框架对比与多框架统一接口设计/index.md" >}})
+6. [Agent 用户记忆与 Skill 沉淀：开源项目参考与架构设计]({{< relref "post/Agent/Agent Orchestration/Agent 用户记忆与 Skill 沉淀：开源项目参考与架构设计/index.md" >}})
+7. [Agent Runtime 详解：从模型循环到可恢复的企业执行系统]({{< relref "post/Agent/Agent Orchestration/20260922101724_Agent Runtime详解/index.md" >}})
 
 ## 什么是智能体编排？
 
@@ -26,5 +27,5 @@ description: "从单 Agent 设计到多智能体协作，系统学习智能体�
 
 ## 相关资源
 
-- [LangChain 教程](../LangChain/)
-- [RAG 系列](../RAG/)
+- [LangChain 教程]({{< relref "tags/LangChain" >}})
+- [RAG 系列]({{< relref "tags/RAG" >}})

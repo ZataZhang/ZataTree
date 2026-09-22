@@ -162,7 +162,7 @@ step4：
 
 ## 配置Nginx代理访问(可选）
 
-详情可见 [nginx使用](nginx使用.md)
+详情可见 [nginx使用]({{< relref "post/Project_Application/nginx使用/index.md" >}})
 修改nginx的设置：
 
 ```cpp

@@ -208,7 +208,7 @@ docker info | grep "Docker Root Dir"
 # 应输出 /mnt/docker_data
 ```
 
-更详细的方案（软链接、Compose 级挂载等）可参考 [Docker 容器相关命令](/p/docker容器相关命令/) 中的"数据卷自动挂载到 /mnt"一节。
+更详细的方案（软链接、Compose 级挂载等）可参考 [Docker 容器相关命令]({{< relref "post/Platforms_Tools/Docker/docker容器相关命令/index.md" >}}) 中的"数据卷自动挂载到 /mnt"一节。
 
 ---
 

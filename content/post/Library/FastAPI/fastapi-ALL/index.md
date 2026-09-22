@@ -13,6 +13,6 @@ tags:
 
 # 目录
 
-- [fastapi基础教程](../fastapi-第一个简单示例/)
-- [jwt安全验证](../jwt-with-fastapi/)
-- [fastapi-docs_swagger_UI](../fastapi-docs_swagger_UI/)
+- [fastapi基础教程]({{< relref "post/Library/FastAPI/fastapi-第一个简单示例/index.md" >}})
+- [jwt安全验证]({{< relref "post/Library/FastAPI/jwt-with-fastapi/index.md" >}})
+- [fastapi-docs_swagger_UI]({{< relref "post/Library/FastAPI/fastapi-docs_swagger_UI/index.md" >}})

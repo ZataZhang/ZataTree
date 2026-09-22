@@ -9,10 +9,11 @@ slug: "Agent 工程实战"
 
 ## 系列目录
 
-1. [Agent 工程实战开篇:从 Demo 到生产还有多远](./Agent%20工程实战开篇：从%20Demo%20到生产还有多远/index.md)
-2. [数据库初始化与迁移：从创建那一刻就要钉死的三件事](./数据库初始化与迁移：从创建那一刻就要钉死的三件事/index.md)
+1. [Agent 工程实战开篇:从 Demo 到生产还有多远]({{< relref "post/Agent/Agent 工程实战/Agent 工程实战开篇：从 Demo 到生产还有多远/index.md" >}})
+2. [数据库初始化与迁移：从创建那一刻就要钉死的三件事]({{< relref "post/Agent/Agent 工程实战/数据库初始化与迁移：从创建那一刻就要钉死的三件事/index.md" >}})
    - 配套速查：[数据库初始化原则](./数据库初始化与迁移：从创建那一刻就要钉死的三件事/数据库初始化原则.md)
-3. [Agent 内容输出规范：本地给路径，远程给协议](./Agent%20内容输出规范：本地给路径，远程给协议/index.md)
+3. [Agent 内容输出规范：本地给路径，远程给协议]({{< relref "post/Agent/Agent 工程实战/Agent 内容输出规范：本地给路径，远程给协议/index.md" >}})
+4. [Agent Tracing 基础：Trace、Span 与 OpenTelemetry 埋点]({{< relref "post/Agent/Agent 工程实战/Agent Tracing 基础：Trace、Span 与 OpenTelemetry 埋点/index.md" >}})
 
 ## 这个系列覆盖什么？
 
@@ -28,8 +29,8 @@ slug: "Agent 工程实战"
 
 ## 与相邻 tag 的边界
 
-- 想了解某个**具体框架**的入门用法：见 [LangChain](../LangChain/)、[Agent Orchestration](../Agent%20Orchestration/)
-- 想研究 **RAG / 检索增强**：见 [RAG](../RAG/)
+- 想了解某个**具体框架**的入门用法：见 [LangChain]({{< relref "tags/LangChain" >}})、[Agent Orchestration]({{< relref "post/Agent/Agent Orchestration/_index.md" >}})
+- 想研究 **RAG / 检索增强**：见 [RAG]({{< relref "tags/RAG" >}})
 - 想看**学术 / 综述类**内容：见 [PaperReading](../../PaperReading/)
 
 ## 写作约定

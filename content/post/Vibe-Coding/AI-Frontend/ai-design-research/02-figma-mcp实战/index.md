@@ -532,4 +532,4 @@ Claude Code 截图可能是 1x 或 2x，Figma export 也可能是不同 scale。
 
 ---
 
-> **下一篇预告**：[shadcn/ui + design token：LLM 原生设计系统实践](../03-shadcn设计系统/index.md)。会讲 `components.json` 怎么成为设计 token 的单一真相源，以及 `llms.txt` 怎么让 AI 读懂你的组件库。
+> **下一篇预告**：[shadcn/ui + design token：LLM 原生设计系统实践]({{< relref "post/Vibe-Coding/AI-Frontend/ai-design-research/03-shadcn设计系统/index.md" >}})。会讲 `components.json` 怎么成为设计 token 的单一真相源，以及 `llms.txt` 怎么让 AI 读懂你的组件库。

@@ -1,0 +1,227 @@
+/* 只读文件与改动查看器的样式。
+   设计令牌取自仓库现有原型的共享基线（docs/prototypes/file-viewer-interactive.html
+   的 :root，其源头是 frontend-admin/src/styles/theme.css）。 */
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.129 0.042 264.695);
+  --card: oklch(1 0 0);
+  --primary: oklch(0.208 0.042 265.755);
+  --primary-foreground: oklch(0.984 0.003 247.858);
+  --secondary: oklch(0.968 0.007 247.896);
+  --muted-foreground: oklch(0.554 0.046 257.417);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.929 0.013 255.508);
+  --ring: oklch(0.704 0.04 256.788);
+  --success: oklch(0.55 0.14 152);
+  --add: oklch(0.72 0.14 152 / 22%);
+  --del: oklch(0.62 0.2 25 / 16%);
+  --add-mark: oklch(0.5 0.13 152);
+  --del-mark: oklch(0.52 0.2 25);
+  /* 重命名既不增也不删，单给一套蓝色：沿用增删那对「浅底 + 深字」的用法。 */
+  --rename: oklch(0.62 0.11 256 / 18%);
+  --rename-mark: oklch(0.48 0.13 256);
+  --code-bg: oklch(0.995 0.002 250);
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: color-mix(in oklab, var(--secondary) 60%, var(--background));
+  color: var(--foreground);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+button, input, select { font: inherit; color: inherit; }
+.spacer { flex: 1; }
+
+.app {
+  display: grid;
+  height: 100svh;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 8px;
+  padding: 10px;
+}
+
+.surface {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) + 2px);
+  background: var(--card);
+}
+
+/* 1. 顶部工具条 */
+.topbar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 9px 12px; }
+.repo { display: inline-flex; align-items: center; gap: 7px; font-weight: 650; }
+.repo-mark {
+  display: grid; width: 24px; height: 24px; place-items: center;
+  border-radius: 7px; background: var(--primary); color: var(--primary-foreground); font-size: 12px;
+}
+.chip {
+  border-radius: 999px; background: var(--secondary); color: var(--muted-foreground);
+  padding: 2px 8px; font-size: 11.5px; font-weight: 600;
+}
+.chip.mono { font-family: var(--mono); }
+
+.segmented {
+  display: inline-flex; gap: 2px; border: 1px solid var(--border);
+  border-radius: 9px; background: var(--secondary); padding: 2px;
+}
+.segmented button {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 28px;
+  border: 0; border-radius: 7px; background: transparent; padding: 0 12px;
+  font-size: 13px; font-weight: 600; color: var(--muted-foreground); cursor: pointer;
+}
+.segmented button:hover { color: var(--foreground); }
+.segmented button[aria-selected='true'] {
+  background: var(--card); color: var(--foreground); box-shadow: 0 1px 3px rgb(15 23 42 / 12%);
+}
+.segmented .seg-count {
+  border-radius: 999px; background: color-mix(in oklab, var(--primary) 12%, transparent);
+  color: var(--primary); padding: 0 6px; font-size: 11px; font-weight: 700;
+}
+.segmented button[aria-selected='true'] .seg-count {
+  background: var(--primary); color: var(--primary-foreground);
+}
+
+.baseline { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted-foreground); }
+.baseline select {
+  min-height: 32px; border: 1px solid var(--border); border-radius: 8px;
+  background: var(--card); padding: 0 8px; font-size: 12.5px; color: var(--foreground);
+}
+.baseline select:disabled { background: var(--secondary); color: var(--muted-foreground); opacity: .75; }
+
+.filter {
+  display: flex; min-width: 200px; align-items: center; gap: 7px;
+  border: 1px solid var(--border); border-radius: 8px; background: var(--card); padding: 0 10px;
+}
+.filter:focus-within { border-color: var(--ring); }
+.filter span { color: var(--muted-foreground); }
+.filter input { min-height: 30px; flex: 1; border: 0; background: none; outline: none; }
+
+/* 2. 主体栅格 */
+.body-grid {
+  display: grid; min-height: 0; grid-template-columns: minmax(240px, 320px) minmax(0, 1fr); gap: 8px;
+}
+
+/* 3. 文件树 */
+.tree { display: flex; min-height: 0; flex-direction: column; }
+.tree-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  border-bottom: 1px solid var(--border); padding: 9px 12px;
+  font-size: 11.5px; color: var(--muted-foreground);
+}
+.tree-head b { color: var(--foreground); font-weight: 650; }
+.tree-body { min-height: 0; flex: 1; overflow: auto; padding: 6px; }
+/* 服务退出后左侧只剩最后一次成功读取的结果，不可再点击 */
+.tree-body.is-stale { opacity: .45; pointer-events: none; }
+
+.node {
+  display: flex; align-items: center; gap: 6px; width: 100%; border: 0; border-radius: 6px;
+  background: transparent; padding: 4px 8px; text-align: left; font-size: 12.5px;
+  color: var(--foreground); cursor: pointer;
+}
+.node:hover { background: var(--secondary); }
+.node[aria-selected='true'] {
+  background: color-mix(in oklab, var(--primary) 10%, transparent);
+  color: var(--primary); font-weight: 620;
+}
+.node .caret { width: 12px; flex: none; color: var(--muted-foreground); font-size: 10px; }
+.node .name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.node .stat { margin-left: auto; display: inline-flex; gap: 5px; font-family: var(--mono); font-size: 11px; }
+.stat .add { color: var(--add-mark); }
+.stat .del { color: var(--del-mark); }
+.badge {
+  min-width: 16px; border-radius: 4px; background: var(--secondary); color: var(--muted-foreground);
+  font-family: var(--mono); font-size: 10px; font-weight: 700; text-align: center;
+}
+.badge.A { background: color-mix(in oklab, var(--success) 18%, transparent); color: var(--add-mark); }
+.badge.D { background: var(--del); color: var(--del-mark); }
+.badge.R { background: var(--rename); color: var(--rename-mark); }
+.tree-empty { padding: 18px 12px; color: var(--muted-foreground); font-size: 12.5px; line-height: 1.7; }
+
+/* 4. 内容区 */
+.viewer { display: flex; min-height: 0; flex-direction: column; }
+.viewer-head {
+  display: flex; align-items: center; gap: 10px;
+  border-bottom: 1px solid var(--border); padding: 9px 14px; font-size: 12.5px;
+}
+.viewer-path { overflow: hidden; font-family: var(--mono); font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+.viewer-meta {
+  margin-left: auto; display: inline-flex; flex: none; align-items: center; gap: 8px;
+  color: var(--muted-foreground); font-size: 11.5px;
+}
+.viewer-body { min-height: 0; flex: 1; overflow: auto; background: var(--code-bg); }
+
+.code { margin: 0; padding: 8px 0 22px; font-family: var(--mono); font-size: 12.5px; line-height: 1.65; }
+/* 行号列刻意不叫 .no：Pygments 的 Name.Constant 短类名就是 .no，同名会串色。 */
+.code .row { display: grid; grid-template-columns: 52px minmax(0, 1fr); }
+.code .lineno {
+  display: flex; justify-content: flex-end; user-select: none; padding-right: 12px;
+  color: color-mix(in oklab, var(--muted-foreground) 75%, transparent);
+}
+.code .lineno em { font-style: normal; color: color-mix(in oklab, var(--muted-foreground) 48%, transparent); }
+.code .src { padding-right: 18px; white-space: pre-wrap; word-break: break-word; }
+
+.code.diff .row { grid-template-columns: 78px minmax(0, 1fr); }
+.code .row.add { background: var(--add); }
+.code .row.del { background: var(--del); }
+.code .row.add .src::before { color: var(--add-mark); content: '+'; margin-right: 6px; }
+.code .row.del .src::before { color: var(--del-mark); content: '−'; margin-right: 6px; }
+.code .row.ctx .src::before { content: ' '; margin-right: 6px; }
+.code .row.hunk {
+  grid-template-columns: minmax(0, 1fr); background: var(--secondary); color: var(--muted-foreground);
+  padding: 3px 14px; font-size: 11.5px;
+}
+
+.notice {
+  display: grid; max-width: 560px; gap: 8px; margin: 40px auto;
+  border: 1px solid var(--border); border-radius: calc(var(--radius) + 2px);
+  background: var(--card); padding: 20px 22px;
+}
+.notice h3 { margin: 0; font-size: 15px; }
+.notice p { margin: 0; color: var(--muted-foreground); font-size: 12.5px; line-height: 1.75; }
+.notice code { border-radius: 5px; background: var(--secondary); padding: 1px 6px; font-family: var(--mono); font-size: 12px; }
+.notice.down { border-color: color-mix(in oklab, var(--destructive) 40%, var(--border)); }
+.notice.down h3 { color: var(--destructive); }
+
+/* 5. 状态条 */
+.statusbar { display: flex; align-items: center; gap: 10px; padding: 8px 14px; font-size: 12px; color: var(--muted-foreground); }
+.statusbar .dot { width: 7px; height: 7px; border-radius: 999px; background: var(--success); }
+.statusbar .dot.down { background: var(--destructive); }
+.statusbar .kbd {
+  border: 1px solid var(--border); border-radius: 5px; background: var(--secondary);
+  padding: 0 5px; font-family: var(--mono); font-size: 11px; color: var(--muted-foreground);
+}
+
+/* 6. 语法高亮：Pygments 短类名，配色对齐上面的 oklch 令牌 */
+.code .c, .code .c1, .code .ch, .code .cm, .code .cp, .code .cpf, .code .cs {
+  color: oklch(0.6 0.03 250); font-style: italic;
+}
+.code .k, .code .kc, .code .kd, .code .kn, .code .kp, .code .kr, .code .kt { color: oklch(0.5 0.19 300); }
+.code .o, .code .ow { color: oklch(0.52 0.06 250); }
+.code .s, .code .s1, .code .s2, .code .sa, .code .sb, .code .sc, .code .sd, .code .se,
+.code .sh, .code .si, .code .sr, .code .ss, .code .sx { color: oklch(0.48 0.13 35); }
+.code .m, .code .mb, .code .mf, .code .mh, .code .mi, .code .mo, .code .il { color: oklch(0.48 0.14 250); }
+.code .n, .code .nb, .code .bp, .code .nv, .code .vc, .code .vg, .code .vi, .code .vm { color: oklch(0.42 0.05 260); }
+.code .na, .code .nt { color: oklch(0.5 0.16 20); }
+.code .nc, .code .nn { color: oklch(0.5 0.15 240); font-weight: 600; }
+.code .nf { color: oklch(0.5 0.15 240); }
+.code .nd { color: oklch(0.53 0.13 320); }
+.code .ne { color: var(--destructive); }
+.code .nl { color: oklch(0.5 0.13 210); }
+.code .ni { color: oklch(0.5 0.12 30); }
+.code .gd { color: var(--del-mark); }
+.code .gi { color: var(--add-mark); }
+.code .gh { color: oklch(0.45 0.13 250); font-weight: 600; }
+.code .gu { color: oklch(0.5 0.16 20); font-weight: 600; }
+.code .err { color: var(--destructive); }
+
+@media (max-width: 860px) {
+  .body-grid { grid-template-columns: minmax(0, 1fr); grid-template-rows: 216px minmax(0, 1fr); }
+}

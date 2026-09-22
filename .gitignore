@@ -6,5 +6,10 @@ build
 assets/jsconfig.json
 .DS_Store
 
+# just view：实例登记文件与常驻服务日志
+.env*
+logs/
+__pycache__/
+
 #Agent
 .qoder/

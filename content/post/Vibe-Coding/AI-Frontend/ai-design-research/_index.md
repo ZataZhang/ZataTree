@@ -18,10 +18,10 @@ slug: "ai-design-research"
 
 ## 系列目录
 
-1. [Design Engineer 到底是什么：从 Vercel 拆解到一个新角色](./01-design-engineer是什么/index.md)
-2. [Figma MCP + Claude Code：从设计稿到上线的全过程](./02-figma-mcp实战/index.md)
-3. [shadcn/ui + design token：LLM 原生设计系统实践](./03-shadcn设计系统/index.md)
-4. [一份能直接抄的前端 `.mdc` rules 模板](./04-mdc-rules模板/index.md)
+1. [Design Engineer 到底是什么：从 Vercel 拆解到一个新角色]({{< relref "post/Vibe-Coding/AI-Frontend/ai-design-research/01-design-engineer是什么/index.md" >}})
+2. [Figma MCP + Claude Code：从设计稿到上线的全过程]({{< relref "post/Vibe-Coding/AI-Frontend/ai-design-research/02-figma-mcp实战/index.md" >}})
+3. [shadcn/ui + design token：LLM 原生设计系统实践]({{< relref "post/Vibe-Coding/AI-Frontend/ai-design-research/03-shadcn设计系统/index.md" >}})
+4. [一份能直接抄的前端 `.mdc` rules 模板]({{< relref "post/Vibe-Coding/AI-Frontend/ai-design-research/04-mdc-rules模板/index.md" >}})
 
 ## 研究框架
 
@@ -42,5 +42,5 @@ slug: "ai-design-research"
 
 ## 相关资源
 
-- [art-of-ai-frontend-design（姊妹篇：工具教程风格）](../art-of-ai-frontend-design/index.md)
-- [智能体编排系列](../../../../Agent/Agent%20Orchestration/_index.md)（同样讨论"新角色 + 工具链"的研究思路）
+- [art-of-ai-frontend-design（姊妹篇：工具教程风格）]({{< relref "post/Vibe-Coding/AI-Frontend/art-of-ai-frontend-design/index.md" >}})
+- [智能体编排系列]({{< relref "post/Agent/Agent Orchestration/_index.md" >}})（同样讨论"新角色 + 工具链"的研究思路）

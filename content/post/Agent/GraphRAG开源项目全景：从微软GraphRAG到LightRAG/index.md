@@ -875,5 +875,5 @@ Neo4j + RAG：
 ---
 
 **相关文章**：
-- [RAG 技术全景：从入门到进阶](../RAG技术全景：从入门到进阶/)
-- [RAGFlow 深度解析：为什么它是最值得关注的 RAG 开源项目](../RAGFlow深度解析：为什么它是最值得关注的RAG开源项目/)
+- [RAG 技术全景：从入门到进阶]({{< relref "post/Agent/RAG技术全景：从入门到进阶/index.md" >}})
+- [RAGFlow 深度解析：为什么它是最值得关注的 RAG 开源项目]({{< relref "post/Agent/RAGFlow深度解析：为什么它是最值得关注的RAG开源项目/index.md" >}})

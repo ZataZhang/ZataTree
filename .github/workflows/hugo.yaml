@@ -51,6 +51,8 @@ jobs:
           git config --global core.autocrlf false
           git config --global core.safecrlf true
           git config --global core.ignorecase false
+      - name: Check README content index
+        run: python3 tools/readme_index.py --check
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5

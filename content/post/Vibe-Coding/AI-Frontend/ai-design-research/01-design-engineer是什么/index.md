@@ -234,4 +234,4 @@ DE 不是"设计师转前端"或"前端转设计"——**它是两个维度的�
 
 ---
 
-> **下一篇预告**：[Figma MCP + Claude Code：从设计稿到上线的全过程](../02-figma-mcp实战/index.md)。会演示用 Figma MCP 读 Variables、用 Claude Code 调样式、用 Chrome MCP 截图对比的完整流程。
+> **下一篇预告**：[Figma MCP + Claude Code：从设计稿到上线的全过程]({{< relref "post/Vibe-Coding/AI-Frontend/ai-design-research/02-figma-mcp实战/index.md" >}})。会演示用 Figma MCP 读 Variables、用 Claude Code 调样式、用 Chrome MCP 截图对比的完整流程。

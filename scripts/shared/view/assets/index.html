@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>只读文件与改动查看器</title>
+<link rel="stylesheet" href="/assets/viewer.css">
+</head>
+<body>
+
+<div class="app">
+  <!-- 顶部工具条 -->
+  <header class="surface topbar">
+    <span class="repo">
+      <span class="repo-mark" aria-hidden="true">▤</span>
+      <span id="repo-name">本仓库</span>
+    </span>
+    <span class="chip mono" id="branch-chip">…</span>
+
+    <div class="spacer"></div>
+
+    <div class="segmented" role="tablist" aria-label="视图切换">
+      <button type="button" role="tab" id="tab-files" aria-selected="false">文件</button>
+      <button type="button" role="tab" id="tab-diff" aria-selected="true">
+        改动 <span class="seg-count" id="diff-count" hidden>0</span>
+      </button>
+    </div>
+
+    <label class="baseline">
+      基线
+      <select id="baseline-select" disabled>
+        <option value="worktree">工作区改动</option>
+      </select>
+    </label>
+
+    <label class="filter">
+      <span aria-hidden="true">⌕</span>
+      <input id="filter-input" type="search" placeholder="过滤文件…" autocomplete="off">
+    </label>
+  </header>
+
+  <!-- 主体：左树右内容 -->
+  <div class="body-grid">
+    <aside class="surface tree">
+      <div class="tree-head">
+        <span id="tree-title"><b>文件树</b></span>
+        <span id="tree-note">加载中…</span>
+      </div>
+      <div class="tree-body" id="tree-body" role="tree" aria-label="文件树"></div>
+    </aside>
+
+    <main class="surface viewer">
+      <div class="viewer-head">
+        <span class="viewer-path" id="viewer-path">—</span>
+        <span class="viewer-meta" id="viewer-meta"></span>
+      </div>
+      <div class="viewer-body" id="viewer-body"></div>
+    </main>
+  </div>
+
+  <!-- 状态条 -->
+  <footer class="surface statusbar">
+    <span class="dot" id="status-dot"></span>
+    <span id="status-text">只读视图 · 服务运行中</span>
+    <span class="spacer"></span>
+    <span id="status-hint"></span>
+    <span class="kbd">f</span> 文件
+    <span class="kbd">d</span> 改动
+    <span class="kbd">/</span> 过滤
+  </footer>
+</div>
+
+<script src="/assets/viewer.js"></script>
+</body>
+</html>

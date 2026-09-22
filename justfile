@@ -5,6 +5,28 @@ default:
     @echo "Usage: just search <term>"
     @echo "Example: just search AI-Frontend"
 
+# Open the local read-only file & diff viewer (scripts/shared/view/).
+# The service binds the loopback address only, serves read requests only, and
+# never writes to the repository being viewed. It stays resident for a fast
+# second launch and recycles itself after an idle timeout.
+# Usage:
+#   just view                    # open straight into the diff (改动) view at the repo root
+#   just view <path>             # open into the diff view, focused on a changed file
+#   just view --files            # open into the files view instead
+#   just view --diff [base]      # diff view with an explicit baseline
+#   just view --stop             # recycle this repository's resident instance
+#
+# 这条 recipe 刻意写成普通单行而不是 shebang：`just` 每跑一次 shebang recipe 都要多
+# 起一个临时脚本，而复用命中路径有 150ms 的耗时预算（见 launch.py 顶部的说明）。
+# `-S`（跳过 site 初始化）同样是冲着这 150ms 去的：入口进程只用标准库与同目录的
+# instance.py，服务进程由 launch.py 以不带 `-S` 的方式单独拉起，语法高亮照常可用。
+view *args:
+    exec python3 -S "{{justfile_directory()}}/scripts/shared/view/launch.py" {{args}}
+
+# Thin alias: open the viewer straight into the diff view.
+diff *args:
+    exec just view --diff {{args}}
+
 # Search blog posts by path/filename or by title in front matter
 search term:
     @echo "=== Files matching '{{ term }}' in path ==="

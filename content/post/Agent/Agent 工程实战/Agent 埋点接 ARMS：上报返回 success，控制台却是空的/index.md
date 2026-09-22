@@ -20,6 +20,8 @@ draft: false
 
 这篇文章把这个过程完整记下来。前面是排查（含三个可以复用的判别实验），后面是这次顺带做的一个具体问题：**对话里带附件时，span 应该怎么记**。
 
+> 前置概念（Trace 与 Span、父子关系、属性与事件的边界、上下文传递）见同系列 [Agent Tracing 基础：Trace、Span 与 OpenTelemetry 埋点]({{< relref "post/Agent/Agent 工程实战/Agent Tracing 基础：Trace、Span 与 OpenTelemetry 埋点/index.md" >}})。本篇不重复讲基础，直接从"接进 ARMS 之后为什么看不到"讲起。
+
 ## 一、`gen_ai.*` 到底是什么
 
 动手之前先明确一件事：埋点里那一堆 `gen_ai.xxx` 不是我起的名字，是 **OpenTelemetry 的 GenAI 语义约定**（Generative AI semantic conventions）——社区为"生成式 AI / LLM 应用"单独定义的一套属性规范。

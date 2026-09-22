@@ -711,5 +711,5 @@ RAGFlow 不是"又一个 RAG 框架"，而是**从文档到答案的全流程解
 - Demo: https://ragflow.io
 
 **相关文章**：
-- [RAG 技术全景：从入门到进阶](../RAG技术全景：从入门到进阶/)
-- [Graph RAG 开源项目全景：从微软 GraphRAG 到 LightRAG](../GraphRAG开源项目全景：从微软GraphRAG到LightRAG/)
+- [RAG 技术全景：从入门到进阶]({{< relref "post/Agent/RAG技术全景：从入门到进阶/index.md" >}})
+- [Graph RAG 开源项目全景：从微软 GraphRAG 到 LightRAG]({{< relref "post/Agent/GraphRAG开源项目全景：从微软GraphRAG到LightRAG/index.md" >}})
