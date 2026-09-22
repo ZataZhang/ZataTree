@@ -140,7 +140,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 按 `content/post/` 的实际目录结构生成，括号内为该分类的文章数。**本段由 `python3 tools/readme_index.py` 自动生成，请勿手工编辑** —— 增删文章后重新运行该脚本即可。
 
 <!-- BEGIN:CONTENT-INDEX -->
-## Agent (38)
+## Agent (39)
 
 ### Agent Orchestration
 
@@ -159,6 +159,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [Agent Run 流式协议：事件溯源、SSE 投影与断线恢复](content/post/Agent/Agent%20工程实战/Agent%20Run%20流式协议：事件溯源、SSE%20投影与断线恢复/)
 - [Agent Tracing 基础：Trace、Span 与 OpenTelemetry 埋点](content/post/Agent/Agent%20工程实战/Agent%20Tracing%20基础：Trace、Span%20与%20OpenTelemetry%20埋点/)
 - [Agent 内容输出规范：本地给路径，远程给协议](content/post/Agent/Agent%20工程实战/Agent%20内容输出规范：本地给路径，远程给协议/)
+- [Agent 决策审计：它与 Tracing 的关系](content/post/Agent/Agent%20工程实战/Agent%20决策审计：它与%20Tracing%20的关系/)
 - [Agent 埋点接 ARMS：上报返回 success，控制台却是空的](content/post/Agent/Agent%20工程实战/Agent%20埋点接%20ARMS：上报返回%20success，控制台却是空的/)
 - [Agent 工程实战开篇：从 Demo 到生产还有多远](content/post/Agent/Agent%20工程实战/Agent%20工程实战开篇：从%20Demo%20到生产还有多远/)
 - [OpenAI Responses API与Chat Completions API区别详解](content/post/Agent/Agent%20工程实战/OpenAI%20Responses%20API与Chat%20Completions%20API区别详解/)
