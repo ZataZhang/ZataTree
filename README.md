@@ -140,7 +140,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 按 `content/post/` 的实际目录结构生成，括号内为该分类的文章数。**本段由 `python3 tools/readme_index.py` 自动生成，请勿手工编辑** —— 增删文章后重新运行该脚本即可。
 
 <!-- BEGIN:CONTENT-INDEX -->
-## Agent (39)
+## Agent (40)
 
 ### Agent Orchestration
 
@@ -152,6 +152,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [E2B 迁到阿里云云沙箱：能跑通，但别急着上生产](content/post/Agent/Agent%20Orchestration/E2B%20迁到阿里云云沙箱：能跑通，但别急着上生产/)
 - [Gliding Horse Agent OS 介绍：Rust 构建的工业级 AI Agent 操作系统](content/post/Agent/Agent%20Orchestration/Gliding%20Horse%20Agent%20OS%20介绍/)
 - [主流 Agent 框架对比与多框架统一接口设计](content/post/Agent/Agent%20Orchestration/主流%20Agent%20框架对比与多框架统一接口设计/)
+- [内置 Agent 放哪：一个 is_runnable 陷阱与三类事实源](content/post/Agent/Agent%20Orchestration/内置%20Agent%20放哪：一个%20is_runnable%20陷阱与三类事实源/)
 - [Agent 记忆模块深度技术文档](content/post/Agent/Agent%20Orchestration/记忆模块技术文档/)
 
 ### Agent 工程实战
