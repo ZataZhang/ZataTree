@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Regenerate the content index section of README.md.
 
-Scans content/post/**, reads the title from each index.md front matter, and
-rewrites the block between the CONTENT-INDEX markers in README.md.
+Scans the tracked files under content/post/, reads the title from each
+index.md front matter, and rewrites the block between the CONTENT-INDEX
+markers in README.md.
 
 Usage:
     python3 tools/readme_index.py            # rewrite README.md in place
@@ -13,6 +14,7 @@ from __future__ import annotations
 
 import argparse
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -57,9 +59,33 @@ class Node:
         )
 
 
+def iter_index_files() -> list[Path]:
+    """Return the tracked index.md files, i.e. the ones that will be committed.
+
+    Walking the working tree instead would also pick up articles that are still
+    untracked, so a locally regenerated index could mention a path that is
+    absent from the commit, and CI — which recomputes the index from its own
+    checkout — would then disagree with the committed README.
+    """
+    try:
+        result = subprocess.run(
+            ["git", "ls-files", "-z", "--", "content/post"],
+            cwd=REPO,
+            capture_output=True,
+            check=True,
+        )
+    except (OSError, subprocess.CalledProcessError) as exc:
+        print(f"cannot list tracked files via git: {exc}", file=sys.stderr)
+        raise SystemExit(1)
+    # -z emits raw paths with no quoting, which keeps non-ASCII names intact.
+    names = result.stdout.decode("utf-8").split("\0")
+    # Plain "index.md" only: section metadata is "_index.md".
+    return sorted(REPO / name for name in names if name.endswith("/index.md"))
+
+
 def build_tree() -> Node:
     root = Node("")
-    for index_md in sorted(POST_DIR.rglob("index.md")):
+    for index_md in iter_index_files():
         rel = index_md.parent.relative_to(POST_DIR)
         parts = [p for p in rel.parts if p not in ASSET_DIRS]
         if not parts:

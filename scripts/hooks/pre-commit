@@ -1,0 +1,39 @@
+#!/bin/sh
+# 提交前把 README.md 的内容索引刷新到与 content/post 一致。
+#
+# .git/hooks 不受版本管理，所以本体放在这里，安装方式是把
+# .git/hooks/pre-commit 软链过来（见 AGENTS.md）。
+#
+# 生成器只统计已跟踪/已暂存的文件，所以这里写出的索引与 CI
+# 检出该提交后重算的结果一致：工作区里的未 add 草稿不会把 CI 弄红。
+#
+# 本 hook 只刷新 README.md 这一个派生文件，不会动其它改动。
+
+repo_root=$(git rev-parse --show-toplevel) || exit 0
+git_dir=$(git rev-parse --absolute-git-dir 2>/dev/null) || exit 0
+
+# rebase / merge 期间每个提交都会跑 pre-commit。那时工作区是"最终状态"，
+# 用它重写 README 会把最终索引塞进历史的中间提交，所以直接跳过，
+# 留给 rebase 结束后的正常提交去刷新。
+for state in rebase-merge rebase-apply; do
+    [ -d "$git_dir/$state" ] && exit 0
+done
+[ -f "$git_dir/MERGE_HEAD" ] && exit 0
+
+if ! command -v python3 >/dev/null 2>&1; then
+    echo "pre-commit: 未找到 python3，跳过 README 索引同步（CI 仍会校验）" >&2
+    exit 0
+fi
+
+# 生成失败不该拦住提交，但要说清楚，避免索引静默变陈旧。
+if ! python3 "$repo_root/tools/readme_index.py" >/dev/null; then
+    echo "pre-commit: README 索引生成失败，本次未刷新（CI 仍会校验）" >&2
+    exit 0
+fi
+
+if ! git diff --quiet -- README.md; then
+    git add -- README.md
+    echo "pre-commit: README.md 内容索引已刷新，并加入本次提交"
+fi
+
+exit 0

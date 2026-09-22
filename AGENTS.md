@@ -65,6 +65,29 @@ python zata.py search-tags -k "keyword"
 python zata.py gui
 ```
 
+### Content Index and Pre-commit Hook
+`README.md` carries a generated content index between the `CONTENT-INDEX`
+markers. `tools/readme_index.py` rewrites it, and CI gates the deploy on
+`tools/readme_index.py --check`, so a stale index stops the site from
+publishing.
+
+The generator only counts files that git tracks (`git ls-files`), so the index
+it writes locally matches the one CI recomputes from its checkout — untracked
+drafts in the working tree never poison it.
+
+A pre-commit hook keeps the index fresh automatically. Its body is versioned at
+`scripts/hooks/pre-commit`; `.git/hooks/` is not, so each clone needs the
+symlink once:
+
+```bash
+ln -sfn ../../scripts/hooks/pre-commit .git/hooks/pre-commit
+```
+
+The hook refreshes `README.md` and stages only that file. It skips itself
+during a rebase or merge, where every intermediate commit would otherwise get
+the final index written into it. To refresh by hand, run
+`python3 tools/readme_index.py`.
+
 ## Content Creation Workflow
 
 ### Article Structure
