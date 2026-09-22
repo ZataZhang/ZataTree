@@ -1,9 +1,11 @@
 {{- /*
     覆盖主题的 layouts/index.html。
 
-    改动只有一处：卡片网格上方加一个栏头（图标 + 标题 + 副标题 + 查看全部），
-    对齐设计稿。分页、排序、右栏 scope 全部保持主题原样。
+    卡片网格上方加栏头，首页 body 加专用 class 以限定横屏样式。
+    分页、排序、右栏 scope 保持主题原样。
 */ -}}
+{{ define "body-class" }}home-page{{ end }}
+
 {{ define "main" }}
     {{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
     {{ $notHidden := where .Site.RegularPages "Params.hidden" "!=" true }}

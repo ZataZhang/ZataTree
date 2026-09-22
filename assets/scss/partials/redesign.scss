@@ -45,6 +45,50 @@
     }
 }
 
+/* 横屏首页：让文章和搜索紧跟横幅，并把空间更多留给卡片网格。 */
+@media (min-width: 1280px) and (orientation: landscape) {
+    .home-page {
+        .main-container.extended {
+            --left-sidebar-max-width: clamp(210px, 11vw, 230px);
+            --right-sidebar-max-width: clamp(270px, 16vw, 300px);
+        }
+
+        .brand-banner {
+            margin-bottom: 16px;
+        }
+
+        .content-row > main.main,
+        .content-row > .right-sidebar {
+            padding-top: 0;
+        }
+
+        .right-sidebar {
+            --widget-separation: 12px;
+
+            .widget:not(.search-form) {
+                padding: 12px 14px 14px;
+            }
+
+            .widget-title.section-title {
+                font-size: 1.4rem;
+            }
+
+            .tagCloud-tags {
+                gap: 6px;
+
+                a {
+                    padding: 3px 8px;
+                    font-size: 1.2rem;
+                }
+            }
+
+            .archives-year a {
+                padding: 7px 2px;
+            }
+        }
+    }
+}
+
 .left-sidebar {
     /* ---- 紧凑化：目标是 13 寸笔记本（可视高约 830–870px）一屏放得下 ----
        主题原来的留白是按大方屏设计的，塞进小屏就必须滑。
@@ -135,6 +179,51 @@ main.main {
         &::-webkit-scrollbar-thumb {
             background-color: var(--scrollbar-thumb);
             border-radius: 3px;
+        }
+    }
+}
+
+/* 竖屏平板与窄桌面：三栏会把文章挤到约 500px，段落与代码难读。
+   沿用主题在手机宽度下隐藏右栏的方式，把目录留给宽屏。 */
+@media (min-width: 768px) and (max-width: 1279px) {
+    .main-container.extended {
+        --left-sidebar-max-width: clamp(170px, 18vw, 190px);
+    }
+
+    .content-row > .right-sidebar {
+        display: none;
+    }
+
+    .content-row > main.main {
+        width: 100%;
+    }
+}
+
+/* 竖屏文章页用目录占据左栏。只在文章确实有目录时切换，
+   短文章仍保留站点导航，避免留下空栏。 */
+@media (min-width: 768px) and (max-width: 1279px) and (orientation: portrait) {
+    .article-page:has(.widget--toc) {
+        .main-container.extended {
+            --right-sidebar-max-width: clamp(170px, 20vw, 220px);
+        }
+
+        .left-sidebar {
+            display: none;
+        }
+
+        .content-row > .right-sidebar {
+            display: flex;
+            order: -3;
+            width: var(--right-sidebar-max-width);
+            flex-shrink: 0;
+        }
+
+        .right-sidebar .widget-quote {
+            display: none;
+        }
+
+        .right-sidebar .widget--toc #TableOfContents li {
+            margin: 8px 0 8px 8px;
         }
     }
 }

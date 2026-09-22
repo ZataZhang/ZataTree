@@ -117,11 +117,10 @@
 
     {{- with $b.sidebarQuote }}
     <figure class="sidebar-quote">
-        {{/* 水墨竹子（AI 生成），作底层装饰压在引言文字之下。
-             decorative → alt 空 + aria-hidden。 */}}
+        {{/* 手绘水墨竹影，作引言下方的装饰。 */}}
         <img class="sidebar-quote__bamboo"
-             src="{{ "img/bamboo-ink.webp" | relURL }}" alt=""
-             width="320" height="480" loading="lazy" decoding="async" aria-hidden="true">
+             src="{{ "img/bamboo-ink.svg" | relURL }}" alt=""
+             width="300" height="230" loading="lazy" decoding="async" aria-hidden="true">
         <blockquote>{{ .text }}</blockquote>
         <figcaption>— {{ .author }}</figcaption>
     </figure>
