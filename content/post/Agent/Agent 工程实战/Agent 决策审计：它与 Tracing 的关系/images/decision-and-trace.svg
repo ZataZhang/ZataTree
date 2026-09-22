@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="390" viewBox="0 0 1200 390" role="img" aria-label="一次任务，两种视角">
+<rect width="1200" height="390" fill="#0b1220"/>
+<text x="40" y="58" font-family="sans-serif" font-size="32" font-weight="700" fill="#f8fafc">一次任务，两种视角</text>
+<g font-family="sans-serif"><rect x="40" y="95" width="1120" height="84" rx="14" fill="#17263d" stroke="#5b87bf" stroke-width="2"/><rect x="40" y="95" width="8" height="84" rx="4" fill="#5b87bf"/><text x="70" y="128" font-size="25" font-weight="700" fill="#f8fafc">Trace · 执行过程</text><text x="70" y="160" font-size="19" fill="#b9c9df">模型 → 工具 → 测试 → verifier</text><rect x="40" y="200" width="1120" height="84" rx="14" fill="#17263d" stroke="#38b6a8" stroke-width="2"/><rect x="40" y="200" width="8" height="84" rx="4" fill="#38b6a8"/><text x="70" y="233" font-size="25" font-weight="700" fill="#f8fafc">决策审计 · 判断依据</text><text x="70" y="265" font-size="19" fill="#b9c9df">风险 → 选择/跳过 → 证据 → 裁决</text><text x="40" y="363" font-size="19" fill="#9fb3d1">同一个 run_id 把诊断轨迹与可复核判断关联起来</text></g>
+</svg>

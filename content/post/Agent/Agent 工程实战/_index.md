@@ -14,6 +14,7 @@ slug: "Agent 工程实战"
    - 配套速查：[数据库初始化原则](./数据库初始化与迁移：从创建那一刻就要钉死的三件事/数据库初始化原则.md)
 3. [Agent 内容输出规范：本地给路径，远程给协议]({{< relref "post/Agent/Agent 工程实战/Agent 内容输出规范：本地给路径，远程给协议/index.md" >}})
 4. [Agent Tracing 基础：Trace、Span 与 OpenTelemetry 埋点]({{< relref "post/Agent/Agent 工程实战/Agent Tracing 基础：Trace、Span 与 OpenTelemetry 埋点/index.md" >}})
+5. [Agent 决策审计：它与 Tracing 的关系]({{< relref "post/Agent/Agent 工程实战/Agent 决策审计：它与 Tracing 的关系/index.md" >}})
 
 ## 这个系列覆盖什么？
 
