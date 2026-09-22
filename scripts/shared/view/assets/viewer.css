@@ -89,12 +89,13 @@ button, input, select { font: inherit; color: inherit; }
   background: var(--primary); color: var(--primary-foreground);
 }
 
-.baseline { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted-foreground); }
-.baseline select {
-  min-height: 32px; border: 1px solid var(--border); border-radius: 8px;
-  background: var(--card); padding: 0 8px; font-size: 12.5px; color: var(--foreground);
+/* 刷新按钮右侧的正计时：距上次刷新多久。等宽数字，避免每秒跳动时宽度变化把邻居挤来挤去。 */
+.refresh-timer {
+  flex: none; min-width: 32px; color: var(--muted-foreground);
+  font-family: var(--mono); font-size: 11.5px; font-variant-numeric: tabular-nums;
+  text-align: right;
 }
-.baseline select:disabled { background: var(--secondary); color: var(--muted-foreground); opacity: .75; }
+.refresh-timer[hidden] { display: none; }
 
 .filter {
   display: flex; min-width: 200px; align-items: center; gap: 7px;
@@ -139,10 +140,50 @@ button, input, select { font: inherit; color: inherit; }
 .badge {
   min-width: 16px; border-radius: 4px; background: var(--secondary); color: var(--muted-foreground);
   font-family: var(--mono); font-size: 10px; font-weight: 700; text-align: center;
+  /* 这一列只有十几像素宽，内容一律不许折行——折了会把整行高度顶开。 */
+  white-space: nowrap;
 }
 .badge.A { background: color-mix(in oklab, var(--success) 18%, transparent); color: var(--add-mark); }
 .badge.D { background: var(--del); color: var(--del-mark); }
 .badge.R { background: var(--rename); color: var(--rename-mark); }
+
+/* 改动视图的分段标题（Staged Changes / Changes）。整行可点：点一下收起或展开整段。
+   可点的那部分是一个真按钮（.section-toggle），暂存加号是它的兄弟节点——按钮不能套按钮。
+   箭头与 .node .caret 同宽同列，于是段标签与目录名左缘对齐（负外边距把 hover 底色撑开
+   一点，但不挪动箭头的位置）。 */
+.section-head {
+  display: flex; align-items: center; gap: 6px;
+  padding: 12px 8px 4px;
+}
+.section-head:first-child { padding-top: 4px; }
+.section-toggle {
+  display: flex; min-width: 0; flex: 1; align-items: center; gap: 6px;
+  border: 0; border-radius: 6px; background: transparent; padding: 2px 4px; margin: -2px -4px;
+  color: var(--muted-foreground); text-align: left; cursor: pointer;
+  font-family: inherit; font-size: 11px; font-weight: 700; letter-spacing: .02em;
+}
+.section-toggle:hover { background: var(--secondary); color: var(--foreground); }
+.section-toggle:focus-visible { outline: 2px solid var(--ring); outline-offset: -2px; }
+.section-toggle .caret { width: 12px; flex: none; color: var(--muted-foreground); font-size: 10px; }
+.section-toggle .section-label { min-width: 0; text-transform: none; white-space: nowrap; }
+
+/* 一行 = 条目按钮 + 右侧动作按钮。加号必须放在条目按钮**外面**：按钮套按钮不是合法 HTML，
+   键盘用户也分不出两者。 */
+.node-row { display: flex; align-items: center; gap: 2px; }
+.node-row .node { width: auto; min-width: 0; flex: 1; }
+
+/* 暂存加号：标题上那一个与每个文件旁那一个共用外观，后者更小、更淡，只在悬停时提亮。 */
+.stage-button {
+  display: inline-flex; flex: none; align-items: center; justify-content: center;
+  width: 18px; height: 18px; border: 1px solid transparent; border-radius: 5px;
+  background: transparent; color: color-mix(in oklab, var(--muted-foreground) 70%, transparent);
+  font-family: var(--mono); font-size: 13px; font-weight: 700; line-height: 1; cursor: pointer;
+}
+.stage-button:hover { background: var(--secondary); color: var(--foreground); }
+.stage-button:focus-visible { border-color: var(--ring); outline: none; }
+/* 标题上那一个推到行尾（VSCode 的位置），文件旁那一个跟在条目后面。 */
+.stage-button.section-level { width: auto; margin-left: auto; padding: 0 6px; font-size: 14px; }
+
 .tree-empty { padding: 18px 12px; color: var(--muted-foreground); font-size: 12.5px; line-height: 1.7; }
 
 /* 4. 内容区 */
@@ -152,6 +193,46 @@ button, input, select { font: inherit; color: inherit; }
   border-bottom: 1px solid var(--border); padding: 9px 14px; font-size: 12.5px;
 }
 .viewer-path { overflow: hidden; font-family: var(--mono); font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+/* 复制路径按钮：贴着路径放，图标按钮不参与撑宽，`[hidden]` 要显式压过 display */
+.copy-path {
+  display: inline-flex; flex: none; align-items: center; justify-content: center;
+  width: 22px; height: 22px; border: 1px solid transparent; border-radius: 6px;
+  background: transparent; color: var(--muted-foreground); cursor: pointer;
+}
+.copy-path:hover { background: var(--secondary); color: var(--foreground); }
+.copy-path:focus-visible { border-color: var(--ring); outline: none; }
+.copy-path[hidden] { display: none; }
+.copy-path svg {
+  width: 14px; height: 14px; fill: none; stroke: currentColor;
+  stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+}
+.copy-path .icon-check { display: none; }
+.copy-path[data-copied='true'] { color: var(--success); }
+.copy-path[data-copied='true'] .icon-copy { display: none; }
+.copy-path[data-copied='true'] .icon-check { display: block; }
+
+/* 头部动作：Markdown 的「源码 / 预览」开关、HTML 的「在新标签页打开」、改动视图的
+   「查看文件」。三者都带 [hidden]，而 display 由各自的选择器给出，因此都要显式压过 display。 */
+.preview-switch[hidden], .head-action[hidden] { display: none; }
+.preview-switch button { min-height: 24px; padding: 0 10px; font-size: 12px; }
+.head-action {
+  display: inline-flex; flex: none; align-items: center; min-height: 24px;
+  border: 1px solid var(--border); border-radius: 7px; padding: 0 10px; background: transparent;
+  color: var(--muted-foreground); font: inherit; font-size: 12px;
+  text-decoration: none; white-space: nowrap; cursor: pointer;
+}
+.head-action:hover { background: var(--secondary); color: var(--foreground); }
+.head-action:focus-visible { border-color: var(--ring); outline: none; }
+/* 刷新按钮：图标 + 文字；成功那一刻把图标换成对勾（与「复制路径」同一套反馈做法）。 */
+.head-action svg {
+  width: 13px; height: 13px; flex: none; fill: none; stroke: currentColor;
+  stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+}
+.head-action .icon-check { display: none; }
+.head-action[data-refreshed='true'] { color: var(--success); }
+.head-action[data-refreshed='true'] .icon-refresh { display: none; }
+.head-action[data-refreshed='true'] .icon-check { display: block; }
+
 .viewer-meta {
   margin-left: auto; display: inline-flex; flex: none; align-items: center; gap: 8px;
   color: var(--muted-foreground); font-size: 11.5px;
@@ -177,6 +258,98 @@ button, input, select { font: inherit; color: inherit; }
 .code .row.hunk {
   grid-template-columns: minmax(0, 1fr); background: var(--secondary); color: var(--muted-foreground);
   padding: 3px 14px; font-size: 11.5px;
+}
+
+/* Markdown 预览：正文区不沿用代码块的等宽字体与行号，按文档排版。
+   相对路径的图片不解析（预览片段在查看器页面里，不在文件所在目录），这一点写在
+   docs/guides/file-viewer.md 的已知限制里。 */
+.preview { padding: 20px 26px 44px; }
+.preview.markdown { max-width: 860px; margin: 0 auto; font-size: 14px; line-height: 1.75; }
+.preview.markdown > :first-child { margin-top: 0; }
+.preview.markdown h1, .preview.markdown h2 {
+  border-bottom: 1px solid var(--border); padding-bottom: 6px;
+}
+.preview.markdown h1 { margin: 0 0 .5em; font-size: 1.6em; }
+.preview.markdown h2 { margin: 1.5em 0 .5em; font-size: 1.3em; }
+.preview.markdown h3 { margin: 1.3em 0 .4em; font-size: 1.13em; }
+.preview.markdown h4, .preview.markdown h5, .preview.markdown h6 { margin: 1.2em 0 .4em; }
+.preview.markdown p { margin: .75em 0; }
+.preview.markdown ul, .preview.markdown ol { margin: .75em 0; padding-left: 1.7em; }
+.preview.markdown li { margin: .25em 0; }
+.preview.markdown a { color: oklch(0.5 0.16 250); }
+.preview.markdown code {
+  border-radius: 5px; background: var(--secondary); padding: 1px 6px;
+  font-family: var(--mono); font-size: .9em;
+}
+.preview.markdown pre {
+  overflow: auto; border: 1px solid var(--border); border-radius: 8px;
+  background: var(--card); padding: 12px 14px;
+}
+.preview.markdown pre code { background: none; padding: 0; font-size: 12.5px; }
+.preview.markdown blockquote {
+  margin: .85em 0; border-left: 3px solid var(--border); padding-left: 14px;
+  color: var(--muted-foreground);
+}
+.preview.markdown table { border-collapse: collapse; margin: .9em 0; }
+.preview.markdown th, .preview.markdown td { border: 1px solid var(--border); padding: 6px 10px; }
+.preview.markdown th { background: var(--secondary); font-weight: 650; }
+.preview.markdown img { max-width: 100%; }
+.preview.markdown hr { border: 0; border-top: 1px solid var(--border); margin: 1.7em 0; }
+
+/* 图片预览：撑满可用宽度、超出就纵向滚动。刻意不按视口高度缩放——整页截图缩到一屏里会
+   小到看不清，滚动比缩更可用。 */
+.preview.image { padding: 20px; }
+.preview.image img {
+  display: block; max-width: 100%; margin: 0 auto;
+  border: 1px solid var(--border); border-radius: 8px;
+}
+
+/* 图片改动的旧新对比：宽屏左右并排，竖屏或窗口放不下两栏时改上下。
+   只给一栏时不该占半个屏（.single），缺的那一版由说明句交代。 */
+.image-compare {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start; gap: 16px; padding: 20px;
+}
+.image-compare.single { grid-template-columns: minmax(0, 1fr); }
+.image-compare .image-pane {
+  display: flex; min-width: 0; flex-direction: column; gap: 8px; margin: 0;
+}
+.image-compare figcaption { color: var(--muted-foreground); font-size: 11.5px; }
+.image-compare img {
+  max-width: 100%; border: 1px solid var(--border); border-radius: 8px; background: var(--card);
+}
+.image-compare-note {
+  grid-column: 1 / -1; margin: 0; color: var(--muted-foreground); font-size: 12px; line-height: 1.7;
+}
+/* 竖屏（含窄窗口）逐条堆叠。 */
+@media (orientation: portrait), (max-width: 1100px) {
+  .image-compare { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* 内容区里的图片都能点开放大，指针要给出去这个信号。 */
+.viewer-body img { cursor: zoom-in; }
+
+/* 图片放大层：铺满视口只放这一张。默认「适应屏幕」——先看全貌；点图片切到「原始像素」，
+   那一档不缩放、由整层滚动承载，截图里的字才真的看得清。点空白处或 Esc 关掉。 */
+.image-zoom {
+  position: fixed; inset: 0; z-index: 20; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 10px; padding: 18px;
+  background: color-mix(in oklab, var(--foreground) 78%, transparent); cursor: zoom-out;
+}
+.image-zoom[hidden] { display: none; }
+/* `flex: none` 是必须的：图片是 flex 项，默认 flex-shrink 会把高度压到装得下，宽度再按比例
+   跟着缩——那样「原始像素」永远也到不了原始尺寸，而 max-height 拦不住这一步。 */
+.image-zoom img {
+  flex: none; max-width: 100%; max-height: 100%; cursor: zoom-in;
+  border: 1px solid var(--border); border-radius: 8px; background: var(--card);
+}
+/* 原始像素那一档：整层滚动，图片按自身尺寸铺开——滚动容器里的 flex 项不能用 auto 外边距，
+   否则往上滚时顶部会有一段够不着。 */
+.image-zoom.is-actual-size { overflow: auto; align-items: flex-start; justify-content: flex-start; }
+.image-zoom.is-actual-size img { max-width: none; max-height: none; cursor: zoom-out; }
+.image-zoom-caption {
+  margin: 0; max-width: 90%; color: var(--primary-foreground);
+  font-size: 12px; text-align: center; word-break: break-all;
 }
 
 .notice {

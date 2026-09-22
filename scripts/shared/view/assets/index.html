@@ -26,17 +26,26 @@
       </button>
     </div>
 
-    <label class="baseline">
-      基线
-      <select id="baseline-select" disabled>
-        <option value="worktree">工作区改动</option>
-      </select>
-    </label>
-
     <label class="filter">
       <span aria-hidden="true">⌕</span>
       <input id="filter-input" type="search" placeholder="过滤文件…" autocomplete="off">
     </label>
+
+    <!-- 手动刷新：页面刻意不做任何轮询，所以「看到最新状态」这件事是个显式动作。 -->
+    <button type="button" class="head-action" id="refresh-view"
+            title="重新读取文件树与当前内容（页面不会自动刷新）">
+      <svg class="icon-refresh" viewBox="0 0 24 24" aria-hidden="true">
+        <polyline points="23 4 23 10 17 10"></polyline>
+        <polyline points="1 20 1 14 7 14"></polyline>
+        <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+      </svg>
+      <svg class="icon-check" viewBox="0 0 24 24" aria-hidden="true">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+      <span>刷新</span>
+    </button>
+    <!-- 正计时：距上次刷新的时长。纯本地计时，不发任何请求（「不轮询」那条口径说的是请求）。 -->
+    <span class="refresh-timer" id="refresh-timer" title="距上次刷新"></span>
   </header>
 
   <!-- 主体：左树右内容 -->
@@ -52,10 +61,35 @@
     <main class="surface viewer">
       <div class="viewer-head">
         <span class="viewer-path" id="viewer-path">—</span>
+        <button type="button" id="copy-path" class="copy-path" aria-label="复制文件路径" title="复制文件路径" hidden>
+          <svg class="icon-copy" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <svg class="icon-check" viewBox="0 0 24 24" aria-hidden="true">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </button>
+
+        <!-- 预览控件：只在当前文件支持预览时出现。默认停在「源码」，预览是一次显式切换。 -->
+        <div class="segmented preview-switch" id="preview-switch" role="tablist" aria-label="预览切换" hidden>
+          <button type="button" role="tab" id="tab-source" aria-selected="true">源码</button>
+          <button type="button" role="tab" id="tab-preview" aria-selected="false">预览</button>
+        </div>
+        <!-- 从改动跳到文件：只在改动视图选中了条目时出现。 -->
+        <button type="button" class="head-action" id="open-file" title="切到文件视图，查看该文件的完整正文" hidden>查看文件</button>
+        <a class="head-action" id="open-external" target="_blank" rel="noopener" hidden>在新标签页打开</a>
+
         <span class="viewer-meta" id="viewer-meta"></span>
       </div>
       <div class="viewer-body" id="viewer-body"></div>
     </main>
+  </div>
+
+  <!-- 图片放大层：内容区里点任意图片就铺满这一层，按原始像素看。点任意处或 Esc 关掉。 -->
+  <div class="image-zoom" id="image-zoom" role="dialog" aria-label="图片放大" hidden>
+    <img id="image-zoom-img" alt="">
+    <p class="image-zoom-caption" id="image-zoom-caption"></p>
   </div>
 
   <!-- 状态条 -->

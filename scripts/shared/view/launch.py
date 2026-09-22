@@ -40,9 +40,6 @@ SERVICE_LOG_RELATIVE_PATH = Path("logs") / "view-viewer.log"
 FILES_VIEW = "files"
 DIFF_VIEW = "diff"
 
-#: ``--diff`` 不带基线时的取值：空串表示「不由命令行指定」，交给界面的默认基线。
-UNSET_BASELINE = ""
-
 _READY_TIMEOUT_SECONDS = 5.0
 _READY_POLL_INTERVAL_SECONDS = 0.02
 _REQUEST_TIMEOUT_SECONDS = 1.0
@@ -63,7 +60,6 @@ class LaunchRequest(NamedTuple):
     Attributes:
         requested_path (str): 直达的文件或目录（仓库相对路径），空串表示仓库根。
         view (str): 初始视图，``files`` 或 ``diff``；默认 ``diff``。
-        baseline (str): 改动视图的初始比较基线；空串表示不由命令行指定。
         requested_port (int | None): 显式 ``--port``；未给时为 ``None``。
         idle_timeout_seconds (float): 空闲回收时限；非正数表示关闭自动回收。
         no_reuse (bool): 强制新起实例，不复用既有实例。
@@ -73,7 +69,6 @@ class LaunchRequest(NamedTuple):
 
     requested_path: str
     view: str
-    baseline: str
     requested_port: int | None
     idle_timeout_seconds: float
     no_reuse: bool
@@ -156,12 +151,8 @@ def _parse_arguments(argv: list[str] | None) -> LaunchRequest:
     )
     view_selection_group.add_argument(
         "--diff",
-        nargs="?",
-        const=UNSET_BASELINE,
-        default=None,
-        metavar="基线",
-        dest="diff_baseline",
-        help="显式进入改动视图；可跟一条本地分支名作为基线（默认「工作区改动」）",
+        action="store_true",
+        help="进入改动视图（默认视图）",
     )
     argument_parser.add_argument("--port", type=int, default=None, help="指定监听端口")
     argument_parser.add_argument(
@@ -190,7 +181,6 @@ def _parse_arguments(argv: list[str] | None) -> LaunchRequest:
     return LaunchRequest(
         requested_path=parsed_arguments.path,
         view=FILES_VIEW if parsed_arguments.files else DIFF_VIEW,
-        baseline=parsed_arguments.diff_baseline or UNSET_BASELINE,
         requested_port=parsed_arguments.port,
         idle_timeout_seconds=(
             instance.DEFAULT_IDLE_TIMEOUT_SECONDS
@@ -540,10 +530,10 @@ def _probe_info_endpoint(port: int) -> bool:
 
 
 def _build_viewer_url(*, port: int, launch_request: LaunchRequest) -> str:
-    """拼出界面 URL，把本次调用的初始视图、基线与直达路径带过去。
+    """拼出界面 URL，把本次调用的初始视图与直达路径带过去。
 
-    基线为空串（``--diff`` 没带基线）时整条 ``base`` 都不带上：界面自己会落到默认的
-    「工作区改动」，命令行入口也就不必知道基线的默认取值。
+    改动视图的分区（已暂存 / 未暂存 / 未跟踪）不由命令行指定：界面一律三段全列，直达路径
+    的归属在列表加载完之后解析（见 ``assets/viewer.js`` 的 ``resolveSectionForPath``）。
 
     Args:
         port (int): 服务端口。
@@ -553,8 +543,6 @@ def _build_viewer_url(*, port: int, launch_request: LaunchRequest) -> str:
         str: 指向本机回环实例的 URL。
     """
     query_fields = {"view": launch_request.view}
-    if launch_request.baseline:
-        query_fields["base"] = launch_request.baseline
     if launch_request.requested_path:
         query_fields["path"] = launch_request.requested_path
     return f"http://{instance.LOOPBACK_HOST}:{port}/?{urlencode(query_fields)}"
