@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="430" viewBox="0 0 1200 430" role="img" aria-label="自动选中首行后点击同一行不会产生第二次详情请求">
+  <rect width="1200" height="430" rx="24" fill="#0B1220"/>
+  <text x="60" y="70" fill="#F8FAFC" font-family="sans-serif" font-size="34" font-weight="700">Playwright 等待了不存在的第二次响应</text>
+  <g font-family="sans-serif">
+    <rect x="65" y="133" width="310" height="180" rx="18" fill="#17263D" stroke="#5B87BF" stroke-width="2"/>
+    <text x="92" y="187" fill="#F8FAFC" font-size="25" font-weight="700">页面加载</text>
+    <text x="92" y="228" fill="#9FB3D1" font-size="18">自动选中第一行</text>
+    <text x="92" y="264" fill="#52C3B1" font-size="18">详情 GET → 200</text>
+    <rect x="445" y="133" width="310" height="180" rx="18" fill="#17263D" stroke="#5B87BF" stroke-width="2"/>
+    <text x="472" y="187" fill="#F8FAFC" font-size="25" font-weight="700">测试继续点击</text>
+    <text x="472" y="228" fill="#9FB3D1" font-size="18">点击已选中行</text>
+    <text x="472" y="264" fill="#E9B96E" font-size="18">没有新的详情请求</text>
+    <rect x="825" y="133" width="310" height="180" rx="18" fill="#17263D" stroke="#E58E7A" stroke-width="2"/>
+    <text x="852" y="187" fill="#F8FAFC" font-size="25" font-weight="700">错误的等待</text>
+    <text x="852" y="228" fill="#9FB3D1" font-size="18">waitForResponse</text>
+    <text x="852" y="264" fill="#E58E7A" font-size="18">等待第二次 GET</text>
+  </g>
+  <path d="M386 223h47m-13-12 13 12-13 12M766 223h47m-13-12 13 12-13 12" stroke="#52C3B1" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <text x="65" y="378" fill="#52C3B1" font-family="sans-serif" font-size="19">修复：判断 aria-current → 等详情面板可见 → 读取当前 Admin API 投影</text>
+</svg>

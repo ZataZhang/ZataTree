@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="430" viewBox="0 0 1200 430" role="img" aria-label="工具加载、可见、调用与落库的四道边界">
+  <rect width="1200" height="430" rx="24" fill="#0B1220"/>
+  <text x="60" y="70" fill="#F8FAFC" font-family="sans-serif" font-size="34" font-weight="700">工具调用要跨过四道边界</text>
+  <text x="60" y="107" fill="#9FB3D1" font-family="sans-serif" font-size="19">加载成功，不等于本次 Run 对模型可见</text>
+  <g font-family="sans-serif" text-anchor="middle">
+    <rect x="55" y="157" width="245" height="170" rx="18" fill="#17263D" stroke="#5B87BF" stroke-width="2"/>
+    <text x="177" y="219" fill="#F8FAFC" font-size="27" font-weight="700">① 已加载</text>
+    <text x="177" y="261" fill="#9FB3D1" font-size="18">MCP / 内置工具</text>
+    <rect x="335" y="157" width="245" height="170" rx="18" fill="#17263D" stroke="#5B87BF" stroke-width="2"/>
+    <text x="457" y="219" fill="#F8FAFC" font-size="27" font-weight="700">② 模型可见</text>
+    <text x="457" y="261" fill="#9FB3D1" font-size="18">本次 tools 参数</text>
+    <rect x="615" y="157" width="245" height="170" rx="18" fill="#17263D" stroke="#5B87BF" stroke-width="2"/>
+    <text x="737" y="219" fill="#F8FAFC" font-size="27" font-weight="700">③ 实际调用</text>
+    <text x="737" y="261" fill="#9FB3D1" font-size="18">模型返回 tool call</text>
+    <rect x="895" y="157" width="245" height="170" rx="18" fill="#17263D" stroke="#5B87BF" stroke-width="2"/>
+    <text x="1017" y="219" fill="#F8FAFC" font-size="27" font-weight="700">④ 事件落库</text>
+    <text x="1017" y="261" fill="#9FB3D1" font-size="18">tool.call.started</text>
+  </g>
+  <g stroke="#52C3B1" stroke-width="5" stroke-linecap="round" fill="none">
+    <path d="M309 242h17m-8-8 8 8-8 8"/><path d="M589 242h17m-8-8 8 8-8 8"/><path d="M869 242h17m-8-8 8 8-8 8"/>
+  </g>
+  <text x="60" y="384" fill="#52C3B1" font-family="sans-serif" font-size="18">排查顺序：装配代码 → 模型响应 → canonical 事件 → Admin 投影</text>
+</svg>

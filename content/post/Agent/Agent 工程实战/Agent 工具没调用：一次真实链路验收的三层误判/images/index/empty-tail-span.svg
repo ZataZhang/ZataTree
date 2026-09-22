@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="450" viewBox="0 0 1200 450" role="img" aria-label="全空流尾片段在修复前后对模型 span 数量的影响">
+  <rect width="1200" height="450" rx="24" fill="#0B1220"/>
+  <text x="60" y="68" fill="#F8FAFC" font-family="sans-serif" font-size="34" font-weight="700">一个全空尾片段，凭空多出一条模型 span</text>
+  <text x="60" y="110" fill="#9FB3D1" font-family="sans-serif" font-size="19">真实流：模型调工具 → 工具返回 → 模型完成 → 空尾片段</text>
+  <g font-family="sans-serif">
+    <text x="65" y="192" fill="#E58E7A" font-size="24" font-weight="700">修复前</text>
+    <rect x="210" y="155" width="250" height="58" rx="12" fill="#24415B"/><text x="240" y="192" fill="#F8FAFC" font-size="20">model 0 · tool_calls</text>
+    <rect x="480" y="155" width="220" height="58" rx="12" fill="#24415B"/><text x="523" y="192" fill="#F8FAFC" font-size="20">tool × 2</text>
+    <rect x="720" y="155" width="250" height="58" rx="12" fill="#24415B"/><text x="750" y="192" fill="#F8FAFC" font-size="20">model 1 · stop</text>
+    <rect x="990" y="155" width="150" height="58" rx="12" fill="#653333"/><text x="1007" y="192" fill="#F8FAFC" font-size="19">model 2 ?</text>
+    <text x="65" y="314" fill="#52C3B1" font-size="24" font-weight="700">修复后</text>
+    <rect x="210" y="275" width="250" height="58" rx="12" fill="#24415B"/><text x="240" y="312" fill="#F8FAFC" font-size="20">model 0 · tool_calls</text>
+    <rect x="480" y="275" width="220" height="58" rx="12" fill="#24415B"/><text x="523" y="312" fill="#F8FAFC" font-size="20">tool × 2</text>
+    <rect x="720" y="275" width="250" height="58" rx="12" fill="#24415B"/><text x="750" y="312" fill="#F8FAFC" font-size="20">model 1 · stop</text>
+    <rect x="990" y="275" width="150" height="58" rx="12" fill="#17392F"/><text x="1016" y="312" fill="#52C3B1" font-size="19">忽略空片段</text>
+  </g>
+  <text x="60" y="405" fill="#9FB3D1" font-family="sans-serif" font-size="18">开启 span 的条件：文本、工具片段、usage 或 finish_reason 至少存在一项</text>
+</svg>
