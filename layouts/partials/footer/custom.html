@@ -197,3 +197,39 @@
         initTocFolding();
     });
 </script>
+
+{{/* 仅当页面包含 mermaid 代码块时加载渲染脚本（标记由 render-codeblock-mermaid.html 写入 Page Store） */}}
+{{ if .Store.Get "hasMermaid" }}
+<script src="{{ "js/mermaid.min.js" | relURL }}"></script>
+<script>
+    (function () {
+        let rendering = false;
+
+        function renderMermaid() {
+            const nodes = document.querySelectorAll('.mermaid');
+            if (!nodes.length || typeof mermaid === 'undefined' || rendering) return;
+            rendering = true;
+
+            nodes.forEach(el => {
+                if (!el.dataset.src) el.dataset.src = el.textContent;
+                el.removeAttribute('data-processed');
+                el.textContent = el.dataset.src;
+            });
+
+            const dark = document.documentElement.dataset.scheme === 'dark';
+            mermaid.initialize({ startOnLoad: false, theme: dark ? 'dark' : 'default' });
+
+            Promise.all([...nodes].map(el =>
+                mermaid.run({ nodes: [el] }).catch(err => {
+                    console.error('Mermaid render error:', err);
+                })
+            )).then(() => { rendering = false; });
+        }
+
+        renderMermaid();
+        /* 跟随主题明暗切换重绘。主题脚本（defer）初始化时会额外派发一次事件，
+           与首渲染撞车会导致图渲染失败，故渲染进行中的触发直接忽略。 */
+        window.addEventListener('onColorSchemeChange', renderMermaid);
+    })();
+</script>
+{{ end }}

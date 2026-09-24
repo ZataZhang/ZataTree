@@ -866,7 +866,7 @@ graph TD
     EnvQ -- 是 --> Choice{选择策略}
     Choice -- 推荐：保持一致性 --> UseFile[完全使用 File Mount 挂载 .env]
     Choice -- 备选：简单变量 --> UsePanel[完全使用 控制面板 Env 设置]
-    Choice -- ❌ 禁止 --> Mix[混用两者 (易导致冲突)]
+    Choice -- ❌ 禁止 --> Mix["混用两者 (易导致冲突)"]
   
     Vol --> Deploy[点击 Deploy 部署]
     Bind --> Deploy

@@ -1,4 +1,4 @@
-baseurl: www.zata.cc                    # 定义网站的基础 URL，所有相对链接基于此生成，通常是域名
+baseURL: https://www.zata.cc/           # 定义网站的基础 URL，所有相对链接基于此生成，通常是域名
 languageCode: en-us                     # 指定默认语言代码（如 en-us 表示美国英语）
 theme: hugo-theme-stack                 # 指定使用的 Hugo 主题名称
 title: Example Site                     # 网站的默认标题，显示在浏览器标签页或页面中
