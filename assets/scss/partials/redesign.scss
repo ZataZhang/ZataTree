@@ -411,7 +411,10 @@ main.main {
 
 /* --- 右栏里的整本目录 -------------------------------------------------------
    窄栏（170–300px）里放不下书页那套大卡片，于是压成：章 = 一行小标题，
-   篇 = 一行链接。当前章给章号上色，当前篇给整行底色 —— 两个层级都指得出来。
+   篇 = 一行链接。层级用本站已经在用的一套语言表达（和本篇那栏同一套）：
+   章之间一条分隔线（= 本篇的 li + li）、篇缩进并挂一条竖线（= 本篇的子列表）、
+   章名比篇名大一档且加粗、章号做成等宽小徽章。
+   只靠字重差一档是不够的 —— 章和篇左缘对齐、字号又一样时，读起来就是一张平表。
 
    max-height 与本篇那栏的 #TableOfContents 同值：滚动的一直是「列表自己」，
    部件标题和分段控件固定在上方，两栏切换时滚动表现一致。 */
@@ -456,41 +459,63 @@ main.main {
     }
 }
 
+/* 章与章之间断开：一条分隔线 + 上下留白，比单纯加间距更能说明「换组了」 */
 .widget-book__chapter + .widget-book__chapter {
-    margin-top: 12px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--card-separator-color);
 }
 
+/* 章名做成一条独立的小标题带（浅底 + 圆角），而不是只把字加粗：
+   窄栏里光靠缩进说不清 —— 章号徽章占了 31px，篇名缩进同样的量才刚和章名
+   文字对齐，多给又吃掉正文宽度（170px 的栏里一篇只剩六个字一行）。
+   底色一带在任何宽度下都能立刻分出「这是组名 / 这是成员」。 */
 .widget-book__chapter-name {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     gap: 7px;
-    margin: 0 0 3px;
-    padding: 0 8px;
-    font-size: 1.25rem;
+    margin: 0 0 5px;
+    padding: 4px 8px;
+    border-radius: 7px;
+    background: var(--body-background);
+    font-size: 1.35rem;
     font-weight: 700;
-    line-height: 1.45;
+    line-height: 1.4;
     color: var(--card-text-color-main);
 }
 
+/* 章号小徽章：默认是中性的灰底，只有当前章才变蓝 ——
+   两态都要看得见，所以徽章本身不能一直是蓝的。 */
 .widget-book__ord {
     flex: 0 0 auto;
+    display: inline-grid;
+    place-items: center;
+    min-width: 24px;
+    height: 19px;
+    padding: 0 5px;
+    border-radius: 5px;
+    background: var(--card-background);
     font-family: var(--code-font-family);
     font-size: 1.1rem;
+    font-weight: 700;
     font-variant-numeric: tabular-nums;
-    color: var(--card-text-color-tertiary);
+    color: var(--card-text-color-secondary);
 }
 
 .widget-book__chapter.is-current .widget-book__chapter-name {
     color: var(--brand-blue-deep);
 
     .widget-book__ord {
+        background: var(--brand-blue-soft);
         color: var(--brand-blue-deep);
     }
 }
 
+/* 篇缩进 + 一条竖线挂在章名带下方，和本篇那栏的子列表同一画法 */
 .widget-book__list {
-    margin: 0;
-    padding: 0;
+    margin: 0 0 2px 14px;
+    padding: 0 0 0 10px;
+    border-left: 1px solid var(--card-separator-color);
     list-style: none;
 }
 
