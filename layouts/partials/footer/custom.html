@@ -141,6 +141,9 @@
 
         const sections = [];
         const widget = navigation.closest('.widget');
+        /* 续读会再跑一遍这个函数（新插入的 article 也要折叠代码块）。
+           不设这道闸，每次都会再插一个「收起」和一套章节折叠按钮。 */
+        if (!widget || widget.querySelector('.toc-toggle-all')) return;
         const title = widget && widget.querySelector('.widget-title');
         const toggleAll = document.createElement('button');
 
@@ -190,84 +193,350 @@
         title.after(toggleAll);
     }
 
+    /* ── 目录范围：本篇 / 本书 ────────────────────────────────────
+       文章页右栏目录的两段式切换（入口在 partials/widget/toc.html）。
+       选择写进 localStorage，翻到下一篇时保持同一个视角；
+       切到「本书」时把当前这篇滚进侧栏可视区 —— 只滚侧栏，不动窗口。 */
+    function initTocTabs() {
+        try {
+            const buttons = Array.from(document.querySelectorAll('[data-toc-tab]'));
+            if (!buttons.length) return;
+
+            const widget = buttons[0].closest('.widget');
+            if (!widget) return;
+
+            const panes = Array.from(widget.querySelectorAll('[data-toc-pane]'));
+            const foldButtons = Array.from(widget.querySelectorAll('.toc-toggle-all'));
+            const STORE_KEY = 'zt-toc-scope';
+
+            /* 滚动的是列表自己（.widget-book / #TableOfContents 各自限了 75vh），
+               不是整条右栏 —— 部件标题和分段控件要留在上面不动。 */
+            function scrollerFor(scope) {
+                const pane = panes.find((x) => x.dataset.tocPane === scope);
+                return (pane && (pane.querySelector('.widget-book') || pane.querySelector('#TableOfContents')))
+                    || widget.closest('.right-sidebar');
+            }
+
+            function revealActive(smooth) {
+                const active = widget.querySelector('[data-toc-pane="book"] [aria-current="page"]');
+                const scroller = scrollerFor('book');
+                if (!active || !scroller) return;
+
+                const box = scroller.getBoundingClientRect();
+                const item = active.getBoundingClientRect();
+                if (item.top >= box.top + 8 && item.bottom <= box.bottom - 8) return;
+
+                scroller.scrollTo({
+                    top: scroller.scrollTop + (item.top - box.top) - box.height / 2 + item.height / 2,
+                    behavior: smooth ? 'smooth' : 'auto',
+                });
+            }
+
+            function activate(scope, reveal, smooth) {
+                buttons.forEach((b) => {
+                    const on = b.dataset.tocTab === scope;
+                    b.setAttribute('aria-selected', String(on));
+                    b.tabIndex = on ? 0 : -1;
+                });
+                panes.forEach((p) => { p.hidden = p.dataset.tocPane !== scope; });
+                /* 「收起/展开」只作用于本篇目录 */
+                foldButtons.forEach((b) => { b.hidden = scope !== 'article'; });
+                if (reveal) revealActive(smooth);
+            }
+
+            buttons.forEach((b, i) => {
+                b.addEventListener('click', () => {
+                    activate(b.dataset.tocTab, true, true);
+                    try { localStorage.setItem(STORE_KEY, b.dataset.tocTab); } catch (e) { /* 隐私模式 */ }
+                });
+                b.addEventListener('keydown', (e) => {
+                    const step = e.key === 'ArrowRight' ? 1 : (e.key === 'ArrowLeft' ? -1 : 0);
+                    if (!step) return;
+                    e.preventDefault();
+                    buttons[(i + step + buttons.length) % buttons.length].click();
+                });
+            });
+
+            let saved = null;
+            try { saved = localStorage.getItem(STORE_KEY); } catch (e) { /* 隐私模式 */ }
+            if (saved && saved !== 'article' && buttons.some((b) => b.dataset.tocTab === saved)) {
+                activate(saved, true, false);
+            }
+        } catch (error) {
+            console.error('Error in initTocTabs:', error);
+        }
+    }
+
+    /* ── 续读后的目录高亮 ────────────────────────────────────────
+       主题的 scrollspy（ts/scrollspy.ts）在 DOMContentLoaded 时一次性缓存了
+       标题节点、#TableOfContents 和它的 li 列表。续读把目录换成新这篇之后，
+       那些引用全部脱离文档 —— 高亮不再跟着正文走，也不会把当前小节滚进视野。
+       所以每接进一篇就重建一套，只盯最后接进来的那一篇：前面的篇还留在文档里，
+       但目录反映的是当前这篇。
+
+       滚动容器是右栏本身（.right-sidebar 限了 100vh 并自己滚），不再是
+       #TableOfContents —— 本篇/本书两栏共用这一个滚动条，表现才一致。
+       鼠标停在栏上时不抢用户的手动滚动，和主题的做法一样。 */
+    let chainSpy = null;
+
+    function initChainSpy() {
+        const toc = document.querySelector('#toc-pane-article #TableOfContents');
+        const articles = document.querySelectorAll('main.main > article');
+        const current = articles[articles.length - 1];
+        if (!toc || !current || articles.length < 2) return;
+
+        if (chainSpy) {
+            window.removeEventListener('scroll', chainSpy.handler);
+            chainSpy.cleanup();
+        }
+
+        /* 滚动容器就是目录列表本身，和主题的 scrollspy 同一个假设 */
+        const scroller = toc;
+        const headers = Array.from(current.querySelectorAll(
+            '.article-content h1[id], .article-content h2[id], .article-content h3[id], .article-content h4[id], .article-content h5[id], .article-content h6[id]'
+        ));
+        const links = {};
+        toc.querySelectorAll('li').forEach((li) => {
+            const a = li.querySelector('a');
+            const href = a && a.getAttribute('href');
+            if (href && href.startsWith('#')) links[href.slice(1)] = li;
+        });
+
+        let active = null;
+        let hovered = false;
+        const enter = () => { hovered = true; };
+        const leave = () => { hovered = false; };
+        scroller.addEventListener('mouseenter', enter);
+        scroller.addEventListener('mouseleave', leave);
+
+        function center(li) {
+            const box = scroller.getBoundingClientRect();
+            const item = li.getBoundingClientRect();
+            const delta = (item.top - box.top) - (box.height / 2 - item.height / 2);
+            if (Math.abs(delta) < 8) return;
+            scroller.scrollTo({ top: Math.max(0, scroller.scrollTop + delta), behavior: 'smooth' });
+        }
+
+        function update() {
+            // 标题在文档流里从上往下排，最后一个「已经滚过视口顶部」的就是当前小节
+            let id = null;
+            headers.forEach((h) => {
+                if (h.getBoundingClientRect().top <= 40) id = h.id;
+            });
+
+            const li = id ? links[id] : null;
+            if (li === active) return;
+
+            if (active) active.classList.remove('active-class');
+            if (li) {
+                li.classList.add('active-class');
+                if (!hovered) center(li);
+            }
+            active = li;
+        }
+
+        let frame = 0;
+        const handler = () => {
+            if (frame) return;
+            frame = window.requestAnimationFrame(() => { frame = 0; update(); });
+        };
+
+        window.addEventListener('scroll', handler, { passive: true });
+        chainSpy = {
+            handler,
+            cleanup: () => {
+                scroller.removeEventListener('mouseenter', enter);
+                scroller.removeEventListener('mouseleave', leave);
+            },
+        };
+        update();
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
         initCodeMoreBox();
         initScrollTop();
         initSearchShortcut();
         initTocFolding();
+        initTocTabs();
         initBookChain();
     });
 
-    /* ── 篇尾续读（scroll chaining） ──────────────────────────────
-       滑到当前文章底部时，fetch 同书同章的下一篇，提取其 <article>
-       插入页面，pushState 更新 URL。数据由 #book-chain div 注入。
-       到底时显示「已是本书最后一篇」。 */
+    /* ── 篇尾续读（无限下滑） ────────────────────────────────────
+       滑到当前这篇的底部，就把同书的下一篇接在正文后面，URL 和标题跟着走，
+       一直接到本书最后一篇才停。数据挂在 #book-chain 上（模板见
+       partials/article/components/book-chain-data.html）。
+
+       两个必须留意的点：
+       - 新篇插在 #book-chain 之前，不是 append 到 main 末尾。链尾标记后面
+         还跟着相关文章、评论和页脚，append 会把下一篇甩到页脚底下去。
+       - 每接完一篇都要拿那一篇自己的 #book-chain 覆盖 state。只在结束时
+         置一个 loaded 标志，就退化成「只多加载一篇」而不是无限下滑。 */
     function initBookChain() {
         try {
-            const el = document.getElementById('book-chain');
-            if (!el || el.dataset.isLast === 'true') return;
+            const anchor = document.getElementById('book-chain');
+            const main = anchor && anchor.closest('main.main');
+            if (!main) return;
 
-            const nextUrl = el.dataset.nextUrl;
-            if (!nextUrl) return;
+            const tail = anchor.nextElementSibling && anchor.nextElementSibling.classList.contains('book-chain-nav')
+                ? anchor.nextElementSibling
+                : null;
 
+            const state = {
+                url: anchor.dataset.nextUrl || '',
+                title: anchor.dataset.nextTitle || '',
+                chapter: anchor.dataset.nextChapter || '',
+                book: anchor.dataset.book || '',
+                bookUrl: anchor.dataset.bookUrl || '',
+            };
             let loading = false;
-            let loaded = false;
 
-            function onScroll() {
-                if (loaded || loading) return;
-                const doc = document.documentElement;
-                const scrollBottom = doc.scrollHeight - doc.scrollTop - doc.clientHeight;
-                if (scrollBottom > 800) return;
+            function renderTail() {
+                if (!tail) return;
 
-                loading = true;
-                fetch(nextUrl)
-                    .then(r => r.text())
-                    .then(html => {
-                        const parser = new DOMParser();
-                        const doc = parser.parseFromString(html, 'text/html');
-                        const article = doc.querySelector('article.main-article');
-                        if (!article) return;
-
-                        /* 插入分隔线 + 下一篇 */
-                        const divider = document.createElement('div');
-                        divider.className = 'book-chain-divider';
-                        divider.innerHTML = `<hr><p class="book-chain-label">下一篇：${el.dataset.nextTitle}${el.dataset.nextChapter ? '（' + el.dataset.nextChapter + '）' : ''}</p>`;
-
-                        const main = document.querySelector('main.main');
-                        if (!main) return;
-                        main.appendChild(divider);
-                        main.appendChild(article.cloneNode(true));
-
-                        /* 更新 URL（不跳转） */
-                        history.pushState({}, '', nextUrl);
-                        document.title = doc.title;
-
-                        /* 重新跑代码块折叠、TOC 等 */
-                        initCodeMoreBox();
-                        initTocFolding();
-
-                        loaded = true;
-                    })
-                    .catch(() => { loading = false; });
+                tail.textContent = '';
+                if (state.url) {
+                    const link = document.createElement('a');
+                    link.className = 'book-chain-next';
+                    link.href = state.url;
+                    const label = document.createElement('span');
+                    label.className = 'book-chain-next__label';
+                    label.textContent = state.chapter ? `下一篇 · ${state.chapter}` : '下一篇';
+                    const title = document.createElement('span');
+                    title.className = 'book-chain-next__title';
+                    title.textContent = state.title;
+                    link.append(label, title);
+                    tail.append(link);
+                } else {
+                    tail.classList.add('book-chain-nav--end');
+                    const done = document.createElement('p');
+                    done.textContent = state.book ? `已是《${state.book}》最后一篇` : '已是本书最后一篇';
+                    tail.append(done);
+                    if (state.bookUrl) {
+                        const back = document.createElement('a');
+                        back.href = state.bookUrl;
+                        back.textContent = state.book ? `回到《${state.book}》目录` : '回到目录';
+                        tail.append(back);
+                    }
+                }
             }
 
+            /* 侧栏那两栏目录跟着换：本书高亮挪到新这篇，「本篇」换成新这篇的大纲。
+               prefix 是给这篇的标题锚点加的命名空间，见 namespaceAnchors()。 */
+            function syncSidebar(doc, url, prefix) {
+                const path = new URL(url, location.href).pathname;
+                const pane = document.querySelector('[data-toc-pane="book"]');
+                if (pane) {
+                    pane.querySelectorAll('[aria-current]').forEach((a) => a.removeAttribute('aria-current'));
+                    const link = Array.from(pane.querySelectorAll('a')).find((a) => a.pathname === path);
+                    if (link) {
+                        link.setAttribute('aria-current', 'page');
+                        pane.querySelectorAll('.widget-book__chapter').forEach((li) => {
+                            li.classList.toggle('is-current', li.contains(link));
+                        });
+                    }
+                }
+
+                const target = document.querySelector('#toc-pane-article .widget--toc');
+                const source = doc.querySelector('.widget--toc');
+                if (!target || !source) return;
+
+                target.innerHTML = source.innerHTML;
+                target.querySelectorAll('a[href^="#"]').forEach((a) => {
+                    a.setAttribute('href', `#${prefix}${a.getAttribute('href').slice(1)}`);
+                });
+
+                const widget = target.closest('.widget');
+                const fold = widget && widget.querySelector('.toc-toggle-all');
+                if (fold) fold.remove();
+                initTocFolding();
+                initChainSpy();
+            }
+
+            /* 续读把多篇正文接进同一个文档，而 Hugo 的标题 id 只由标题文字算出来 ——
+               两篇都有「概述」「参考」就会撞车，点目录里的 #id 会被浏览器解析到
+               文档里第一个同名节点，也就是最早那一篇。所以接进来的每一篇都给自己
+               的锚点加一层前缀，目录里的链接同步改写。第一篇不动：主题的
+               scrollspy 和 URL 里的 hash 都按原始 id 工作。 */
+            function namespaceAnchors(article, prefix) {
+                const HEADINGS = '.article-content h1[id], .article-content h2[id], .article-content h3[id], .article-content h4[id], .article-content h5[id], .article-content h6[id]';
+                article.querySelectorAll(HEADINGS).forEach((h) => { h.id = `${prefix}${h.id}`; });
+                article.querySelectorAll('a[href^="#"]').forEach((a) => {
+                    a.setAttribute('href', `#${prefix}${a.getAttribute('href').slice(1)}`);
+                });
+            }
+
+            async function loadNext() {
+                loading = true;
+                const url = state.url;
+                try {
+                    const res = await fetch(url);
+                    if (!res.ok) return;
+                    const doc = new DOMParser().parseFromString(await res.text(), 'text/html');
+                    const article = doc.querySelector('article.main-article');
+                    if (!article) return;
+                    const next = doc.getElementById('book-chain');
+
+                    const divider = document.createElement('div');
+                    divider.className = 'book-chain-divider';
+                    const rule = document.createElement('hr');
+                    const label = document.createElement('p');
+                    label.className = 'book-chain-label';
+                    label.textContent = `下一篇：${state.title}${state.chapter ? `（${state.chapter}）` : ''}`;
+                    divider.append(rule, label);
+
+                    const prefix = `c${main.querySelectorAll(':scope > article').length + 1}-`;
+                    namespaceAnchors(article, prefix);
+                    anchor.before(divider, article);
+
+                    state.url = next ? next.dataset.nextUrl || '' : '';
+                    state.title = next ? next.dataset.nextTitle || '' : '';
+                    state.chapter = next ? next.dataset.nextChapter || '' : '';
+                    state.book = (next && next.dataset.book) || state.book;
+                    state.bookUrl = (next && next.dataset.bookUrl) || state.bookUrl;
+
+                    history.pushState({}, '', url);
+                    document.title = doc.title;
+                    renderTail();
+                    syncSidebar(doc, url, prefix);
+                    initCodeMoreBox();
+                    window.ztRenderMermaid && window.ztRenderMermaid();
+                } catch (error) {
+                    console.error('book-chain error:', error);
+                } finally {
+                    loading = false;
+                }
+            }
+
+            function onScroll() {
+                if (loading || !state.url) return;
+                const doc = document.documentElement;
+                if (doc.scrollHeight - doc.scrollTop - doc.clientHeight > 800) return;
+                loadNext();
+            }
+
+            renderTail();
             window.addEventListener('scroll', onScroll, { passive: true });
-        } catch (e) {
-            console.error('book-chain error:', e);
+        } catch (error) {
+            console.error('Error in initBookChain:', error);
         }
     }
 </script>
 
-{{/* 仅当页面包含 mermaid 代码块时加载渲染脚本（标记由 render-codeblock-mermaid.html 写入 Page Store） */}}
-{{ if .Store.Get "hasMermaid" }}
-<script src="{{ "js/mermaid.min.js" | relURL }}"></script>
+{{/* mermaid 渲染。图脚本按需加载：DOM 里真出现 .mermaid 节点才去取
+   mermaid.min.js，页面一个图都没有就完全不下载。
+   以前这里靠 .Store.Get "hasMermaid" 决定加不加 <script>，那是「本页」的
+   事实 —— 篇尾续读接进来的下一篇可能带图，那样就永远渲染不出来。 */}}
 <script>
     (function () {
+        const SRC = "{{ "js/mermaid.min.js" | relURL }}";
         let rendering = false;
+        let loadingScript = null;
 
-        function renderMermaid() {
-            const nodes = document.querySelectorAll('.mermaid');
-            if (!nodes.length || typeof mermaid === 'undefined' || rendering) return;
+        /* all=true 时连画过的也重画（切明暗主题要换 mermaid 的 theme） */
+        function paint(all) {
+            const nodes = [...document.querySelectorAll('.mermaid')].filter(
+                (el) => all || !el.querySelector('svg'));
+            if (!nodes.length || typeof mermaid === "undefined" || rendering) return;
             rendering = true;
 
             nodes.forEach(el => {
@@ -279,17 +548,27 @@
             const dark = document.documentElement.dataset.scheme === 'dark';
             mermaid.initialize({ startOnLoad: false, theme: dark ? 'dark' : 'default' });
 
-            Promise.all([...nodes].map(el =>
+            Promise.all(nodes.map(el =>
                 mermaid.run({ nodes: [el] }).catch(err => {
                     console.error('Mermaid render error:', err);
                 })
-            )).then(() => { rendering = false; });
+            )).finally(() => { rendering = false; });
         }
 
-        renderMermaid();
+        function ensure() {
+            if (!document.querySelector('.mermaid')) return;
+            if (window.mermaid) { paint(false); return; }
+            if (loadingScript) return;
+            loadingScript = document.createElement('script');
+            loadingScript.src = SRC;
+            loadingScript.onload = () => paint(false);
+            document.body.appendChild(loadingScript);
+        }
+
+        window.ztRenderMermaid = ensure;
+        ensure();
         /* 跟随主题明暗切换重绘。主题脚本（defer）初始化时会额外派发一次事件，
            与首渲染撞车会导致图渲染失败，故渲染进行中的触发直接忽略。 */
-        window.addEventListener('onColorSchemeChange', renderMermaid);
+        window.addEventListener('onColorSchemeChange', () => { if (window.mermaid) paint(true); });
     })();
 </script>
-{{ end }}

@@ -1,0 +1,91 @@
+{{- /*
+    一本书的目录树 + 阅读顺序。三处共用，顺序只有一份事实：
+    - 书页 layouts/categories/term.html（整本目录）
+    - 文章页右栏 layouts/partials/widget/toc.html（「本书」那栏）
+    - 篇尾续读 layouts/partials/article/components/book-chain-data.html（下滑接下一篇）
+
+    入参：dict "Book" <书名>（书名 = content/post/ 下的一级目录名 = 分类名）
+
+    返回 dict：
+      book       书名
+      chapters   slice of dict{name, ord, pages}；只留真有篇的章，按 NN 升序
+      flatPages  本书全部篇，就是阅读顺序本身（章序 → weight → date → title，全升序）
+      chapterOf  map[RelPermalink]章名，平铺书为空
+      flat       本书没有章节层
+
+    章 = content/post/{书}/NN-章节名/ 的目录名；篇 = frontmatter 的 tags 里
+    带该章名的篇。用 frontmatter 原值而不是 term 页标题：term 标题会过 Hugo
+    的 titleCaseStyle，原值才是迁移时约定的那个真源。
+
+    ⚠️ 排序只能一次一个键，反复排、最后排的才是主键，所以键的优先级要倒着写。
+       早先这里写的是 sort $pages (slice "Weight" "Date" "Title") (slice "asc" ×3)，
+       那一版在 term 页集合上不生效，排完仍是 Hugo 默认的 date 倒序 ——
+       于是书页是倒序、篇尾续读是正序，往下滚的顺序和目录正好相反。
+*/ -}}
+{{- $book := .Book -}}
+
+{{- $pages := slice -}}
+{{- range site.RegularPages -}}
+    {{- if in (.Params.categories | default (slice)) $book -}}
+        {{- $pages = $pages | append . -}}
+    {{- end -}}
+{{- end -}}
+
+{{- $chapters := slice -}}
+{{- range readDir (printf "content/post/%s" $book) -}}
+    {{- if and .IsDir (.Name | findRE `^\d+-`) -}}
+        {{- $chapters = $chapters | append (dict
+            "name" (.Name | replaceRE `^\d+-` "")
+            "ord" (.Name | replaceRE `^(\d+)-.*` "$1")) -}}
+    {{- end -}}
+{{- end -}}
+{{- $chapters = sort $chapters "ord" "asc" -}}
+
+{{- /* 先给每篇算出所属章；没有章的（平铺书、或 tag 没对上）排到最后 */ -}}
+{{- $rows := slice -}}
+{{- range $p := $pages -}}
+    {{- $ord := "99" -}}
+    {{- /* 内层 range 会把点号换成章，这里必须用 $p 取这篇的 tags */ -}}
+    {{- range $c := $chapters -}}
+        {{- if in ($p.Params.tags | default (slice)) $c.name -}}
+            {{- $ord = $c.ord -}}
+        {{- end -}}
+    {{- end -}}
+    {{- $rows = $rows | append (dict
+        "page" $p
+        "ord" $ord
+        "weight" ($p.Params.weight | default 0)
+        "date" $p.Date.Unix
+        "title" $p.Title) -}}
+{{- end -}}
+{{- $rows = sort $rows "title" "asc" -}}
+{{- $rows = sort $rows "date" "asc" -}}
+{{- $rows = sort $rows "weight" "asc" -}}
+{{- $rows = sort $rows "ord" "asc" -}}
+
+{{- $ordered := slice -}}
+{{- $chapterOf := dict -}}
+{{- range $c := $chapters -}}
+    {{- $items := slice -}}
+    {{- range $r := $rows -}}
+        {{- if eq $r.ord $c.ord -}}
+            {{- $items = $items | append $r.page -}}
+            {{- $chapterOf = merge $chapterOf (dict $r.page.RelPermalink $c.name) -}}
+        {{- end -}}
+    {{- end -}}
+    {{- if $items -}}
+        {{- $ordered = $ordered | append (dict "name" $c.name "ord" $c.ord "pages" $items) -}}
+    {{- end -}}
+{{- end -}}
+
+{{- $flat := slice -}}
+{{- range $r := $rows -}}
+    {{- $flat = $flat | append $r.page -}}
+{{- end -}}
+
+{{- return (dict
+    "book" $book
+    "chapters" $ordered
+    "flatPages" $flat
+    "chapterOf" $chapterOf
+    "flat" (eq (len $ordered) 0)) -}}

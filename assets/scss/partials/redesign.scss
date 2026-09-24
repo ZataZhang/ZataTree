@@ -211,6 +211,22 @@ main.main {
 /* 文章目录：章节、子标题分层显示，窄侧栏里不裁切列表标记。 */
 .right-sidebar .widget--toc #TableOfContents {
     overflow-x: hidden;
+    /* 主题的 max-height: 75vh 不能拿掉：它的 scrollspy（ts/scrollspy.ts）
+       是把 #TableOfContents 当滚动容器、往它上面调 scrollTo() 来把当前小节
+       滚到栏中间的。改成「整条右栏滚」会让那套逻辑空转 —— 表现就是正文滚到
+       下面了、目录的高亮也在往下走，但列表文字不跟着滚上来。
+       本书那栏用同一个上限（见 .widget-book），两栏的滚动表现才一致。 */
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) transparent;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--scrollbar-thumb);
+        border-radius: 3px;
+    }
 
     ul {
         list-style: none;
@@ -226,7 +242,10 @@ main.main {
         padding-top: 8px;
     }
 
+    /* 一级条目的字号原本没写，继承下来比「本书」那栏大出一截 ——
+       两栏是同一个部件的两个视角，字号得在同一档上，层级靠字重和分隔线分。 */
     > ul > li > a {
+        font-size: 1.35rem;
         font-weight: 700;
         color: var(--card-text-color-main);
     }
@@ -245,7 +264,7 @@ main.main {
 
     ul ul li > a {
         color: var(--card-text-color-secondary);
-        font-size: 1.3rem;
+        font-size: 1.25rem;
         font-weight: 400;
     }
 
@@ -294,18 +313,31 @@ main.main {
         color: var(--brand-blue);
     }
 
+    /* 折叠按钮排在标题右边单独一列。这里刻意不用 position: absolute：
+       绝对定位要求 li 自己当定位祖先，而 li 一旦 position: relative，
+       主题 scrollspy（ts/scrollspy.ts）里的 li.offsetTop 就变成「相对本小节」
+       而不是相对目录容器，算出来的 scrollTop 是负数、被钳成 0 ——
+       表现就是正文滚到很下面了、高亮也在往下走，但目录列表始终不滚。 */
     #TableOfContents > ul > li {
-        position: relative;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 28px;
+        align-items: start;
 
         > a {
-            padding-right: 34px;
+            grid-column: 1;
+            grid-row: 1;
+        }
+
+        > ul {
+            grid-column: 1 / -1;
         }
     }
 
     .toc-section-toggle {
-        position: absolute;
-        top: 5px;
-        right: 4px;
+        grid-column: 2;
+        grid-row: 1;
+        justify-self: end;
+        margin-top: 5px;
         display: grid;
         place-items: center;
         width: 28px;
@@ -334,6 +366,158 @@ main.main {
     }
 }
 
+/* --- 目录的两个范围：本篇 / 本书（分段控件） --------------------------------
+   入口在 layouts/partials/widget/toc.html。轨道用页面底色、选中项用卡片底色，
+   和站点其它「选中态 = 白卡片」的地方一致；选中文字用 --brand-blue-deep，
+   白底上 6.7:1（--brand-blue 只有 3.7:1，小字不够）。 */
+.widget-tabs {
+    display: flex;
+    gap: 4px;
+    margin: 12px 0 10px;
+    padding: 3px;
+    background: var(--body-background);
+    border-radius: 10px;
+}
+
+.widget-tabs__btn {
+    flex: 1 1 0;
+    padding: 6px 8px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    font: inherit;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--site-muted);
+    cursor: pointer;
+    transition: background-color 0.18s ease, color 0.18s ease;
+
+    &:hover {
+        color: var(--card-text-color-main);
+    }
+
+    &[aria-selected="true"] {
+        background: var(--card-background);
+        color: var(--brand-blue-deep);
+        box-shadow: 0 1px 2px rgba(16, 24, 40, 0.08);
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--brand-blue);
+        outline-offset: 1px;
+    }
+}
+
+/* --- 右栏里的整本目录 -------------------------------------------------------
+   窄栏（170–300px）里放不下书页那套大卡片，于是压成：章 = 一行小标题，
+   篇 = 一行链接。当前章给章号上色，当前篇给整行底色 —— 两个层级都指得出来。
+
+   max-height 与本篇那栏的 #TableOfContents 同值：滚动的一直是「列表自己」，
+   部件标题和分段控件固定在上方，两栏切换时滚动表现一致。 */
+.widget-book {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-height: 75vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) transparent;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--scrollbar-thumb);
+        border-radius: 3px;
+    }
+
+    > li + li {
+        margin-top: 4px;
+    }
+}
+
+.widget-book__summary {
+    margin: 0 0 8px;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: var(--site-muted);
+
+    a {
+        color: var(--card-text-color-secondary);
+        text-decoration: none;
+
+        &:hover {
+            color: var(--brand-blue-deep);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+    }
+}
+
+.widget-book__chapter + .widget-book__chapter {
+    margin-top: 12px;
+}
+
+.widget-book__chapter-name {
+    display: flex;
+    align-items: baseline;
+    gap: 7px;
+    margin: 0 0 3px;
+    padding: 0 8px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.45;
+    color: var(--card-text-color-main);
+}
+
+.widget-book__ord {
+    flex: 0 0 auto;
+    font-family: var(--code-font-family);
+    font-size: 1.1rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--card-text-color-tertiary);
+}
+
+.widget-book__chapter.is-current .widget-book__chapter-name {
+    color: var(--brand-blue-deep);
+
+    .widget-book__ord {
+        color: var(--brand-blue-deep);
+    }
+}
+
+.widget-book__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.widget-book__link {
+    display: block;
+    padding: 5px 8px;
+    border-radius: 8px;
+    font-size: 1.25rem;
+    line-height: 1.45;
+    color: var(--card-text-color-secondary);
+    text-decoration: none;
+    overflow-wrap: anywhere;
+    transition: background-color 0.18s ease, color 0.18s ease;
+
+    &:hover,
+    &:focus-visible {
+        background: var(--brand-blue-soft);
+        color: var(--brand-blue-deep);
+    }
+
+    &[aria-current="page"] {
+        background: var(--brand-blue-soft);
+        color: var(--brand-blue-deep);
+        font-weight: 600;
+    }
+}
+
 /* 竖屏平板与窄桌面：三栏会把文章挤到约 500px，段落与代码难读。
    沿用主题在手机宽度下隐藏右栏的方式，把目录留给宽屏。 */
 @media (min-width: 768px) and (max-width: 1279px) {
@@ -354,8 +538,20 @@ main.main {
    短文章仍保留站点导航，避免留下空栏。 */
 @media (min-width: 768px) and (max-width: 1279px) and (orientation: portrait) {
     .article-page:has(.widget--toc) {
+        /* 目录栏窄，长标题都折成两三行。鼠标移上去把栏放宽，移开再收回去。
+           关键是「放宽但不重排」：展开多出来的宽度用负的 margin-right 还回去，
+           这个 flex item 占的位子始终是 --toc-rail，main 的起点不动，
+           正读着的一段不会因为鼠标划过而重新折行。
+           多出来的部分压在文章上，所以展开时要自己补一层页面底色 ——
+           不然部件之间的缝里会漏出底下的正文。 */
+        --toc-rail: clamp(170px, 20vw, 220px);
+        --toc-rail-open: clamp(300px, 34vw, 380px);
+
         .main-container.extended {
-            --right-sidebar-max-width: clamp(170px, 20vw, 220px);
+            /* 主题在 .right-sidebar 上写了 max-width: var(--right-sidebar-max-width)，
+               这里必须按展开后的宽度给上限：给窄的那个值会把展开裁回原样，
+               flex-basis 白改。收起态由 width / flex-basis 控制，不靠 max-width。 */
+            --right-sidebar-max-width: var(--toc-rail-open);
         }
 
         .left-sidebar {
@@ -365,14 +561,33 @@ main.main {
         .content-row > .right-sidebar {
             display: flex;
             order: -3;
-            width: var(--right-sidebar-max-width);
-            flex-shrink: 0;
-        }
+            width: var(--toc-rail);
+            flex: 0 0 var(--toc-rail);
+            /* 压在 main 之上画 */
+            z-index: 2;
+            /* margin-right 必须和 flex-basis 一起过渡：只动 basis 的话，
+               动画途中这个 item 占的位子会先缩后弹，右边正文跟着抖一下。
+               两个量同步走，占位全程恒等于 --toc-rail，正文纹丝不动。 */
+            transition: flex-basis 0.2s ease, margin-right 0.2s ease, background-color 0.2s ease;
+
+            /* :has(:focus-visible) 而不是 :focus-within：鼠标点一下分段控件后
+               按钮仍然带着焦点，用 :focus-within 的话栏会一直敞着不收回，
+               和「鼠标离开就收窄」冲突。键盘 Tab 进来才展开。 */
+            &:hover,
+            &:has(:focus-visible) {
+                flex-basis: var(--toc-rail-open);
+                margin-right: calc(var(--toc-rail) - var(--toc-rail-open));
+                background: var(--body-background);
+                box-shadow: 18px 0 30px -20px rgba(16, 24, 40, 0.45);
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                transition: none;
+            }        }
 
         .right-sidebar .widget-quote {
             display: none;
         }
-
     }
 }
 
@@ -835,6 +1050,12 @@ main.main {
         > .widget-title.section-title {
             grid-column: 2;
             grid-row: 1;
+        }
+
+        /* 目录部件去掉了井号图标，标题改从第一列起排 ——
+           否则第一列虽空，10px 的列间距还是会把标题顶出去。 */
+        &:not(:has(.widget-icon)) > .widget-title.section-title {
+            grid-column: 1 / -1;
         }
 
         > *:not(.widget-icon):not(.widget-title) {

@@ -1,109 +1,54 @@
 {{- /*
-    篇尾续读（scroll chaining）：滑到当前文章底部时，自动加载同书同章的下一篇。
+    篇尾续读：把「下一篇」的数据挂在页面上，真正的滚动加载在
+    partials/footer/custom.html 的 initBookChain()。
 
-    挂载在文章页 footer。工作原理：
-    1. 模板把当前书/章/全站文章序数据写进 data-* 属性
-    2. JS 监听滚动，接近底部时 fetch 下一篇的 HTML
-    3. 提取其 <article> 内容插入当前页面，pushState 更新 URL/标题
-    4. 到底（最后一篇）时显示「已是本书最后一篇」
-
-    依赖 hugo 侧提供的下一篇链接（data-next-url），由 single.html 注入。
+    顺序一律取自 partials/book/tree.html —— 和书页目录、右栏「本书」那栏
+    共用同一份，所以往下滚的顺序就是目录从上往下读的顺序。
 */ -}}
 {{ if .Params.book_chain | default (not (eq .Params.book_chain false)) }}
-    {{- /* 找当前文章的书（第一个 category）和章（第一个 tag 匹配章节目录） */ -}}
-    {{- $cats := .GetTerms "categories" -}}
-    {{- if $cats -}}
-        {{- $book := (index $cats 0).Page.Title -}}
-        {{- $chapterSet := dict -}}
-        {{- range readDir (printf "content/post/%s" $book) -}}
-            {{- if .IsDir -}}
-                {{- if .Name | findRE `^\d+-` -}}
-                    {{- $ch := .Name | replaceRE `^\d+-` "" -}}
-                    {{- $chapterSet = merge $chapterSet (dict $ch true) -}}
-                {{- end -}}
-            {{- end -}}
-        {{- end -}}
+    {{- with .GetTerms "categories" -}}
+        {{- $term := (index . 0).Page -}}
+        {{- $tree := partial "book/tree.html" (dict "Book" $term.Title) -}}
+        {{- $order := $tree.flatPages -}}
 
-        {{- $myChapter := "" -}}
-        {{- range .GetTerms "tags" -}}
-            {{- $t := .Page.Title -}}
-            {{- if index $chapterSet $t -}}
-                {{- $myChapter = $t -}}
-            {{- end -}}
-        {{- end -}}
-
-        {{- /* 当前书全部文章。Taxonomies 的 key 是小写的（agent 工程），
-               用 lower 统一后比较。 */ -}}
-        {{- $bookPages := slice -}}
-        {{- $bookLower := $book | lower -}}
-        {{- range $name, $taxonomy := .Site.Taxonomies.categories -}}
-            {{- if eq ($name | lower) $bookLower -}}
-                {{- $bookPages = $taxonomy.Pages -}}
-            {{- end -}}
-        {{- end -}}
-        {{- $sorted := slice -}}
-        {{- range $bookPages -}}
-            {{- $ch := "" -}}
-            {{- range .GetTerms "tags" -}}
-                {{- $t := .Page.Title -}}
-                {{- if index $chapterSet $t -}}{{ $ch = $t }}{{ end -}}
-            {{- end -}}
-            {{- $ord := "99" -}}
-            {{- if $ch -}}
-                {{- range readDir (printf "content/post/%s" $book) -}}
-                    {{- if and .IsDir (eq (.Name | replaceRE `^\d+-` "") $ch) -}}
-                        {{- $ord = .Name | replaceRE `^(\d+)-.*` "$1" -}}
-                    {{- end -}}
-                {{- end -}}
-            {{- end -}}
-            {{- /* bundle 附属页面（非 index.md，如记忆模块技术文档）不进链 */ -}}
-            {{- if not (eq .Title "Agent 记忆模块深度技术文档") -}}
-                {{- $sorted = $sorted | append (dict "page" . "ch" $ch "ord" $ord "title" .Title "date" .Date.Unix "weight" (.Params.weight | default 0)) -}}
-            {{- end -}}
-        {{- end -}}
-        {{- $sorted = sort $sorted "title" "asc" -}}
-        {{- $sorted = sort $sorted "date" "asc" -}}
-        {{- $sorted = sort $sorted "weight" "asc" -}}
-        {{- $sorted = sort $sorted "ord" "asc" -}}
-
-        {{- /* 找当前文章的位置：File.Dir 匹配（bundle 目录名一致） */ -}}
         {{- $myIdx := -1 -}}
-        {{- range $i, $item := $sorted -}}
-            {{- if eq $item.page.File.Dir $.File.Dir -}}
-                {{- $myIdx = $i -}}
-            {{- end -}}
+        {{- range $i, $p := $order -}}
+            {{- if eq $p.RelPermalink $.RelPermalink -}}{{- $myIdx = $i -}}{{- end -}}
         {{- end -}}
 
-        {{- $nextUrl := "" -}}
-        {{- $nextTitle := "" -}}
+        {{- $next := false -}}
+        {{- if and (ge $myIdx 0) (lt (add $myIdx 1) (len $order)) -}}
+            {{- $next = index $order (add $myIdx 1) -}}
+        {{- end -}}
+
+        {{- /* with 把点号绑到了 term 集合上，取本篇自己要用 $ */ -}}
+        {{- $myChapter := index $tree.chapterOf $.RelPermalink | default "" -}}
         {{- $nextChapter := "" -}}
-        {{- if and (ge $myIdx 0) (lt (add $myIdx 1) (len $sorted)) -}}
-            {{- $next := index $sorted (add $myIdx 1) -}}
-            {{- $nextUrl = $next.page.RelPermalink -}}
-            {{- $nextTitle = $next.title -}}
-            {{- $nextChapter = $next.ch -}}
+        {{- with $next -}}
+            {{- $nextChapter = index $tree.chapterOf .RelPermalink | default "" -}}
         {{- end -}}
 
         <div id="book-chain"
-             data-book="{{ $book }}"
+             data-book="{{ $tree.book }}"
+             data-book-url="{{ $term.RelPermalink }}"
              data-chapter="{{ $myChapter }}"
-             data-next-url="{{ $nextUrl }}"
-             data-next-title="{{ $nextTitle }}"
+             data-next-url="{{ with $next }}{{ .RelPermalink }}{{ end }}"
+             data-next-title="{{ with $next }}{{ .Title }}{{ end }}"
              data-next-chapter="{{ $nextChapter }}"
-             data-is-last="{{ eq $nextUrl "" }}"
+             data-is-last="{{ not $next }}"
         ></div>
 
-        {{- if $nextUrl -}}
+        {{- if $next -}}
         <nav class="book-chain-nav">
-            <a href="{{ $nextUrl }}" class="book-chain-next">
+            <a href="{{ $next.RelPermalink }}" class="book-chain-next">
                 <span class="book-chain-next__label">下一篇{{ if $nextChapter }} · {{ $nextChapter }}{{ end }}</span>
-                <span class="book-chain-next__title">{{ $nextTitle }}</span>
+                <span class="book-chain-next__title">{{ $next.Title }}</span>
             </a>
         </nav>
         {{- else -}}
         <nav class="book-chain-nav book-chain-nav--end">
-            <p>已是《{{ $book }}》最后一篇</p>
-            <a href="{{ "categories/" | relURL }}{{ $book | urlize }}/">回到《{{ $book }}》目录</a>
+            <p>已是《{{ $tree.book }}》最后一篇</p>
+            <a href="{{ $term.RelPermalink }}">回到《{{ $tree.book }}》目录</a>
         </nav>
         {{- end -}}
     {{- end -}}

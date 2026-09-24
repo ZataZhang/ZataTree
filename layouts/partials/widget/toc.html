@@ -1,0 +1,90 @@
+{{- /*
+    覆盖主题的 widget/toc.html。
+
+    文章页右栏目录有两个范围，用分段控件切换：
+    - 本篇：当前文章的大纲（主题的 .TableOfContents + footer 里那套折叠脚本）
+    - 本书：所在分类（=书）的整本目录，当前这篇高亮，点任意一篇跳过去
+
+    「本书」的具体条目来自 partials/book/tree.html —— 书页用的是同一个
+    partial，所以两处不会各算一套。切页时的选择记在 localStorage，
+    读下一篇时保持同一个视角（脚本见 partials/footer/custom.html）。
+
+    只有当这篇所属分类确实不止一篇时才出分段控件：单篇的"书"没有第二处可去。
+*/ -}}
+{{ if (.Context.Scratch.Get "TOCEnabled") }}
+    {{- $page := .Context -}}
+    {{- $bookTerm := false -}}
+    {{- with $page.GetTerms "categories" -}}
+        {{- $bookTerm = index . 0 -}}
+    {{- end -}}
+
+    {{- $tree := false -}}
+    {{- if $bookTerm -}}
+        {{- $tree = partial "book/tree.html" (dict "Book" $bookTerm.Page.Title) -}}
+        {{- if lt (len $tree.flatPages) 2 -}}{{- $tree = false -}}{{- end -}}
+    {{- end -}}
+
+    <section class="widget archives">
+        <h2 class="widget-title section-title">{{ T "article.tableOfContents" }}</h2>
+
+        {{- if $tree -}}
+            <div class="widget-tabs" role="tablist" aria-label="目录范围">
+                <button type="button" class="widget-tabs__btn" role="tab" id="toc-tab-article"
+                        aria-controls="toc-pane-article" aria-selected="true"
+                        data-toc-tab="article">本篇</button>
+                <button type="button" class="widget-tabs__btn" role="tab" id="toc-tab-book"
+                        aria-controls="toc-pane-book" aria-selected="false"
+                        data-toc-tab="book">本书</button>
+            </div>
+        {{- end -}}
+
+        <div class="widget-pane" id="toc-pane-article" data-toc-pane="article"
+            {{- if $tree }} role="tabpanel" aria-labelledby="toc-tab-article"{{ end }}>
+            <div class="widget--toc">
+                {{ $page.TableOfContents }}
+            </div>
+        </div>
+
+        {{- if $tree -}}
+            <div class="widget-pane" id="toc-pane-book" data-toc-pane="book"
+                 role="tabpanel" aria-labelledby="toc-tab-book" hidden>
+                <p class="widget-book__summary">
+                    <a href="{{ $bookTerm.RelPermalink }}">《{{ $tree.book }}》共 {{ len $tree.flatPages }} 篇{{ if $tree.chapters }} · {{ len $tree.chapters }} 章{{ end }}</a>
+                </p>
+
+                {{- if $tree.chapters -}}
+                    <ul class="widget-book">
+                        {{- range $tree.chapters -}}
+                            {{- $cur := false -}}
+                            {{- range $p := .pages -}}
+                                {{- if eq $p.RelPermalink $page.RelPermalink -}}{{- $cur = true -}}{{- end -}}
+                            {{- end -}}
+                            <li class="widget-book__chapter{{ if $cur }} is-current{{ end }}">
+                                <p class="widget-book__chapter-name">
+                                    <span class="widget-book__ord">{{ .ord }}</span>{{ .name }}
+                                </p>
+                                <ul class="widget-book__list">
+                                    {{- range $p := .pages -}}
+                                        <li>
+                                            <a class="widget-book__link" href="{{ $p.RelPermalink }}"
+                                               {{- if eq $p.RelPermalink $page.RelPermalink }} aria-current="page"{{ end }}>{{ $p.Title }}</a>
+                                        </li>
+                                    {{- end -}}
+                                </ul>
+                            </li>
+                        {{- end -}}
+                    </ul>
+                {{- else -}}
+                    <ul class="widget-book widget-book--flat">
+                        {{- range $p := $tree.flatPages -}}
+                            <li>
+                                <a class="widget-book__link" href="{{ $p.RelPermalink }}"
+                                   {{- if eq $p.RelPermalink $page.RelPermalink }} aria-current="page"{{ end }}>{{ $p.Title }}</a>
+                            </li>
+                        {{- end -}}
+                    </ul>
+                {{- end -}}
+            </div>
+        {{- end -}}
+    </section>
+{{ end }}

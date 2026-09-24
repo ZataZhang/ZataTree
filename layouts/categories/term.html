@@ -1,91 +1,42 @@
 {{- /*
     分类 term 页（/categories/{书}/）——一本书的封面 + 整本目录树。
 
-    2026-09-24 新增：分类即书。页面分两块：
+    分类即书。页面分两块：
     - 顶部：书名 + 描述 + 篇数/章数
-    - 下方：整本目录树，章 → 篇（按章序、篇内按 weight→date→title）
-      平铺书（无章节）只列文章。
+    - 下方：整本目录树，章 → 篇；平铺书（无章节）只列文章
 
-    章节集合从 content/post/{书}/ 的 NN- 目录名读（readDir 根是项目根）。
-    篇顺序：weight 升序（小的在前）→ date 升序 → title。
-
-    2026-09-24 改版：目录原来没有任何 CSS（浏览器默认 <ol>）。现在卡片化，
-    章号徽章与篇序号共用同一列宽，"标题左缘成一条竖线"。样式见
-    assets/scss/partials/redesign.scss 第 11 节。
+    章节划分与排序全在 layouts/partials/book/tree.html 里，文章页右栏的
+    「本书」目录用的是同一个 partial，所以两处永远一致。
+    样式见 assets/scss/partials/redesign.scss 第 11 节。
 */ -}}
 {{ define "main" }}
-    {{- $book := .Title -}}
-    {{- $pages := .Pages -}}
-
-    {{- /* 章节集合与序号（序号取目录名里的 NN，不是遍历下标） */ -}}
-    {{- $chapterSet := dict -}}
-    {{- range readDir (printf "content/post/%s" $book) -}}
-        {{- if .IsDir -}}
-            {{- if .Name | findRE `^\d+-` -}}
-                {{- $ch := .Name | replaceRE `^\d+-` "" -}}
-                {{- $ord := .Name | replaceRE `^(\d+)-.*` "$1" -}}
-                {{- $chapterSet = merge $chapterSet (dict $ch $ord) -}}
-            {{- end -}}
-        {{- end -}}
-    {{- end -}}
-
-    {{- /* 按章节分桶。
-       用模板局部 dict 而不是 $.Scratch：Page 的 Scratch 在同一页被重复渲染时
-       （hugo server 的增量重建、以及构建期的 RSS/别名等二次渲染）不会清空，
-       累加会把每篇算成 N 篇。局部变量每次渲染都从零开始。 */ -}}
-    {{- $buckets := dict -}}
-    {{- range $pages -}}
-        {{- $ch := "" -}}
-        {{- range .GetTerms "tags" -}}
-            {{- $t := .Page.Title -}}
-            {{- if index $chapterSet $t -}}
-                {{- $ch = $t -}}
-            {{- end -}}
-        {{- end -}}
-        {{- $list := index $buckets $ch -}}
-        {{- if not $list -}}{{- $list = slice -}}{{- end -}}
-        {{- $buckets = merge $buckets (dict $ch ($list | append .)) -}}
-    {{- end -}}
-
-    {{- $nCh := 0 -}}
-    {{- range $ch, $ord := $chapterSet -}}
-        {{- with index $buckets $ch -}}{{ $nCh = add $nCh 1 }}{{ end -}}
-    {{- end -}}
+    {{- $tree := partial "book/tree.html" (dict "Book" .Title) -}}
+    {{- $nCh := len $tree.chapters -}}
 
     <header class="book-hero">
         <p class="book-hero__kicker">本书目录</p>
-        <h1 class="book-hero__title">{{ $book }}</h1>
+        <h1 class="book-hero__title">{{ .Title }}</h1>
         {{ with .Params.description }}
             <p class="book-hero__lede">{{ . }}</p>
         {{ end }}
         <p class="book-hero__meta">
-            <span class="book-hero__stat"><b>{{ len $pages }}</b> 篇</span>
+            <span class="book-hero__stat"><b>{{ len $tree.flatPages }}</b> 篇</span>
             {{- if $nCh }}<span class="book-hero__stat"><b>{{ $nCh }}</b> 章</span>{{ end }}
         </p>
     </header>
 
     <div class="book-toc">
-        {{- if $nCh -}}
-            {{- /* 有章节：按章序遍历 */ -}}
-            {{- $ordered := slice -}}
-            {{- range $ch, $ord := $chapterSet -}}
-                {{- with index $buckets $ch -}}
-                    {{- $ordered = $ordered | append (dict "name" $ch "ord" $ord "pages" .) -}}
-                {{- end -}}
-            {{- end -}}
-            {{- $ordered = sort $ordered "ord" "asc" -}}
-
-            <ol class="book-toc__chapters">
-                {{- range $chap := $ordered -}}
-                    {{- $items := sort $chap.pages (slice "Weight" "Date" "Title") (slice "asc" "asc" "asc") -}}
+        <ol class="book-toc__chapters">
+            {{- if $nCh -}}
+                {{- range $tree.chapters -}}
                     <li class="book-chapter">
                         <div class="book-chapter__head">
-                            <span class="book-chapter__num">{{ $chap.ord }}</span>
-                            <h2 class="book-chapter__title">{{ $chap.name }}</h2>
-                            <span class="book-chapter__count">{{ len $items }} 篇</span>
+                            <span class="book-chapter__num">{{ .ord }}</span>
+                            <h2 class="book-chapter__title">{{ .name }}</h2>
+                            <span class="book-chapter__count">{{ len .pages }} 篇</span>
                         </div>
                         <ol class="book-chapter__list">
-                            {{- range $j, $p := $items -}}
+                            {{- range $j, $p := .pages -}}
                                 <li class="book-entry">
                                     <a class="book-entry__link" href="{{ $p.RelPermalink }}">
                                         <span class="book-entry__idx">{{ printf "%02d" (add $j 1) }}</span>
@@ -96,14 +47,11 @@
                         </ol>
                     </li>
                 {{- end -}}
-            </ol>
-        {{- else -}}
-            {{- /* 平铺书：没有章节层，整本一个列表 */ -}}
-            {{- $items := sort $pages (slice "Weight" "Date" "Title") (slice "asc" "asc" "asc") -}}
-            <ol class="book-toc__chapters">
+            {{- else -}}
+                {{- /* 平铺书：没有章节层，整本一个列表 */ -}}
                 <li class="book-chapter">
                     <ol class="book-chapter__list">
-                        {{- range $j, $p := $items -}}
+                        {{- range $j, $p := $tree.flatPages -}}
                             <li class="book-entry">
                                 <a class="book-entry__link" href="{{ $p.RelPermalink }}">
                                     <span class="book-entry__idx">{{ printf "%02d" (add $j 1) }}</span>
@@ -113,8 +61,8 @@
                         {{- end -}}
                     </ol>
                 </li>
-            </ol>
-        {{- end -}}
+            {{- end -}}
+        </ol>
     </div>
 
     {{ partialCached "footer/footer" . }}
