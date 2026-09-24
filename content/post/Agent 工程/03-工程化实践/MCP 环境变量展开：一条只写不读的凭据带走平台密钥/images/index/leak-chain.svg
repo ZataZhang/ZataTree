@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="470" viewBox="0 0 1200 470" role="img" aria-label="管理员填写的环境变量经加密入库、装配解密、adapter 展开后，把后端进程的密钥送进子进程并发往外部主机">
+  <rect width="1200" height="470" rx="24" fill="#0B1220"/>
+  <text x="60" y="68" fill="#F8FAFC" font-family="sans-serif" font-size="34" font-weight="700">一个花括号引用如何把平台密钥送出去</text>
+  <g font-family="sans-serif">
+    <rect x="60" y="120" width="240" height="170" rx="18" fill="#17263D" stroke="#5B87BF" stroke-width="2"/>
+    <text x="84" y="166" fill="#F8FAFC" font-size="22" font-weight="700">① 管理面填写</text>
+    <text x="84" y="202" fill="#9FB3D1" font-size="16">FCL_APP_KEY =</text>
+    <text x="84" y="228" fill="#E9B96E" font-size="14" font-family="monospace">${PLATFORM_SECRET_KEY}</text>
+    <text x="84" y="262" fill="#9FB3D1" font-size="16">值只写不读</text>
+
+    <rect x="350" y="120" width="240" height="170" rx="18" fill="#17263D" stroke="#5B87BF" stroke-width="2"/>
+    <text x="374" y="166" fill="#F8FAFC" font-size="22" font-weight="700">② 加密入库</text>
+    <text x="374" y="202" fill="#9FB3D1" font-size="16">platform_credential</text>
+    <text x="374" y="228" fill="#9FB3D1" font-size="16">整体密文</text>
+    <text x="374" y="262" fill="#9FB3D1" font-size="16">别的管理员看不见</text>
+
+    <rect x="640" y="120" width="240" height="170" rx="18" fill="#17263D" stroke="#5B87BF" stroke-width="2"/>
+    <text x="664" y="166" fill="#F8FAFC" font-size="22" font-weight="700">③ 装配期解密</text>
+    <text x="664" y="202" fill="#9FB3D1" font-size="16">解出启动声明</text>
+    <text x="664" y="228" fill="#9FB3D1" font-size="16">command / args / env</text>
+    <text x="664" y="262" fill="#9FB3D1" font-size="16">交给 MCP 客户端</text>
+
+    <rect x="930" y="120" width="240" height="170" rx="18" fill="#17263D" stroke="#E58E7A" stroke-width="2"/>
+    <text x="954" y="166" fill="#F8FAFC" font-size="22" font-weight="700">④ adapter 展开</text>
+    <text x="954" y="202" fill="#E58E7A" font-size="16">替换花括号引用</text>
+    <text x="954" y="228" fill="#9FB3D1" font-size="16">再交给 SDK 起进程</text>
+    <text x="954" y="262" fill="#E58E7A" font-size="16">值变成真实密钥</text>
+
+    <rect x="875" y="345" width="295" height="76" rx="16" fill="#1B1620" stroke="#E58E7A" stroke-width="2" stroke-dasharray="7 6"/>
+    <text x="899" y="378" fill="#E58E7A" font-size="17" font-weight="700">后端进程自己的 os.environ</text>
+    <text x="899" y="404" fill="#9FB3D1" font-size="15">主密钥、数据库串、模型密钥</text>
+  </g>
+  <path d="M308 205h34m-12-11 12 11-12 11M598 205h34m-12-11 12 11-12 11M888 205h34m-12-11 12 11-12 11" stroke="#52C3B1" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M1022 342v-40m-11 14 11-14 11 14" stroke="#E58E7A" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <text x="60" y="372" fill="#E58E7A" font-family="sans-serif" font-size="19" font-weight="700">⑤ 子进程把 appKey 放进请求体</text>
+  <text x="60" y="404" fill="#9FB3D1" font-family="sans-serif" font-size="17">发往同一位管理员填写的 FCL_BASE_URL——一台任意的外部主机</text>
+</svg>

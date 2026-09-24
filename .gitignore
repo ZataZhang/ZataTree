@@ -11,5 +11,8 @@ assets/jsconfig.json
 logs/
 __pycache__/
 
+# uv：just view 预览/高亮依赖的虚拟环境（依赖声明见 pyproject.toml）
+.venv/
+
 #Agent
 .qoder/

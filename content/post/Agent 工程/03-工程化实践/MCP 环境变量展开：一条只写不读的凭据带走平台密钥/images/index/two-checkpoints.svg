@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="470" viewBox="0 0 1200 470" role="img" aria-label="同一个判定函数同时挂在写入点和装配消费点，写入返回错误，装配跳过该条连接">
+  <rect width="1200" height="470" rx="24" fill="#0B1220"/>
+  <text x="60" y="68" fill="#F8FAFC" font-family="sans-serif" font-size="34" font-weight="700">同一个判定，挂在写入点和消费点</text>
+  <g font-family="sans-serif">
+    <rect x="390" y="110" width="420" height="92" rx="18" fill="#132B2A" stroke="#52C3B1" stroke-width="2"/>
+    <text x="414" y="148" fill="#52C3B1" font-size="21" font-weight="700">validate_stdio_env_values_literal</text>
+    <text x="414" y="180" fill="#9FB3D1" font-size="16">值里出现花括号引用即拒绝，报错只列键名</text>
+
+    <rect x="80" y="268" width="440" height="140" rx="18" fill="#17263D" stroke="#5B87BF" stroke-width="2"/>
+    <text x="104" y="308" fill="#F8FAFC" font-size="22" font-weight="700">写入点：连接管理用例</text>
+    <text x="104" y="342" fill="#9FB3D1" font-size="16">管理面表单、种子脚本共用同一入口</text>
+    <text x="104" y="372" fill="#52C3B1" font-size="16">命中 → 400，任何一行都不落库</text>
+
+    <rect x="680" y="268" width="440" height="140" rx="18" fill="#17263D" stroke="#E9B96E" stroke-width="2"/>
+    <text x="704" y="308" fill="#F8FAFC" font-size="22" font-weight="700">消费点：装配 server 声明</text>
+    <text x="704" y="342" fill="#9FB3D1" font-size="16">覆盖校验上线前入库的存量行</text>
+    <text x="704" y="372" fill="#E9B96E" font-size="16">命中 → 只跳过该条并打日志</text>
+  </g>
+  <path d="M300 264v-42h300v-16M900 264v-42H600v-16" stroke="#52C3B1" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M589 216l11-14 11 14" stroke="#52C3B1" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <text x="60" y="446" fill="#9FB3D1" font-family="sans-serif" font-size="17">只挂写入点，存量行照常启动；消费点抛异常，整份连接目录一起不可用，其余 server 被连坐。</text>
+</svg>

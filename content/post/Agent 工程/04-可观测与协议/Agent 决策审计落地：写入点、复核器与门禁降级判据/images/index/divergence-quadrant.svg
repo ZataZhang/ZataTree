@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="470" viewBox="0 0 1200 470" role="img" aria-label="固定门禁与决策审计结论的四象限分歧矩阵，漏报候选与误报候选是降级判据关注的两格">
+  <rect width="1200" height="470" rx="24" fill="#0B1220"/>
+  <text x="60" y="68" fill="#F8FAFC" font-family="sans-serif" font-size="34" font-weight="700">并行期分歧四象限：降级判据盯两个危险象限</text>
+  <g font-family="sans-serif">
+    <text x="480" y="108" fill="#9FB3D1" font-size="17" text-anchor="middle">固定门禁拦下</text>
+    <text x="810" y="108" fill="#9FB3D1" font-size="17" text-anchor="middle">固定门禁放行</text>
+    <text x="310" y="196" fill="#9FB3D1" font-size="17" text-anchor="end">决策审计放行</text>
+    <text x="310" y="346" fill="#9FB3D1" font-size="17" text-anchor="end">决策审计拦截</text>
+
+    <rect x="330" y="125" width="300" height="130" rx="18" fill="#17263D" stroke="#E9B96E" stroke-width="2"/>
+    <text x="354" y="165" fill="#E9B96E" font-size="22" font-weight="700">漏报候选</text>
+    <text x="354" y="200" fill="#9FB3D1" font-size="16">最危险的象限</text>
+    <text x="354" y="228" fill="#9FB3D1" font-size="16">逐条人工复检，归零才谈降级</text>
+
+    <rect x="660" y="125" width="300" height="130" rx="18" fill="#132B2A" stroke="#52C3B1" stroke-width="2"/>
+    <text x="684" y="165" fill="#F8FAFC" font-size="22" font-weight="700">一致放行</text>
+    <text x="684" y="200" fill="#9FB3D1" font-size="16">无分歧，正常交付</text>
+    <text x="684" y="228" fill="#9FB3D1" font-size="16">抽样复核即可</text>
+
+    <rect x="330" y="275" width="300" height="130" rx="18" fill="#17263D" stroke="#5B87BF" stroke-width="2"/>
+    <text x="354" y="315" fill="#F8FAFC" font-size="22" font-weight="700">一致拦截</text>
+    <text x="354" y="350" fill="#9FB3D1" font-size="16">两端都拦，风险一致</text>
+    <text x="354" y="378" fill="#9FB3D1" font-size="16">抽查确认理由成立</text>
+
+    <rect x="660" y="275" width="300" height="130" rx="18" fill="#17263D" stroke="#A78BFA" stroke-width="2"/>
+    <text x="684" y="315" fill="#A78BFA" font-size="22" font-weight="700">误报候选</text>
+    <text x="684" y="350" fill="#9FB3D1" font-size="16">计入审计的误拦率</text>
+    <text x="684" y="378" fill="#9FB3D1" font-size="16">须不高于门禁自己的误拦率</text>
+  </g>
+  <text x="60" y="446" fill="#9FB3D1" font-family="sans-serif" font-size="17">接管条件：漏报候选抽检归零，误报候选率不高于门禁自己的误拦率，分歧全部可归因——三项同时成立才逐项降级。</text>
+</svg>

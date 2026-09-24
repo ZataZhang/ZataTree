@@ -61,6 +61,12 @@ _REFERENCE_ATTRIBUTE_PATTERN = re.compile(r"(\b(src|href)\s*=\s*)(?:\"([^\"]*)\"
 #: 一个都不重写。
 _ABSOLUTE_REFERENCE_PATTERN = re.compile(r"[A-Za-z][A-Za-z0-9+.-]*:")
 
+#: ``fenced_code`` 为 mermaid 围栏产出的确切形态。`class` 取值由 python-markdown 的
+#: ``lang_prefix`` 决定（默认 ``language-``），这里跟着默认值走——改前缀要一起改。
+_MERMAID_FENCE_PATTERN = re.compile(
+    r'<pre><code class="language-mermaid">(?P<source>.*?)</code></pre>', re.DOTALL
+)
+
 
 @dataclass(frozen=True)
 class HighlightedSource:
@@ -133,8 +139,11 @@ def render_markdown_document(source_text: str) -> str | None:
     的 dev 依赖，但缺失即降级——派生项目做 ``uv sync --no-dev`` 时预览入口不出现，源码
     高亮照旧。
 
-    正文里的 raw HTML 不做清洗。查看器绑在回环上、只读，预览又是用户主动点开的一次；
-    这一点写进了 ``docs/guides/file-viewer.md``，而不是靠这里默默替用户过滤内容。
+    正文里的 raw HTML 不做清洗。查看器绑在回环上、只有读与暂存两种能力，预览又是用户主动
+    点开的一次；这里刻意不做清洗——清洗过的结果已经不是文件本身。
+
+    mermaid 围栏会改成 :func:`_turn_mermaid_fences_into_diagram_blocks` 认得的形态，图
+    由浏览器的 mermaid.js 画；服务端不认识 mermaid，也就没有语法可校验。
 
     Args:
         source_text (str): 已解码的 Markdown 正文。
@@ -146,7 +155,33 @@ def render_markdown_document(source_text: str) -> str | None:
         import markdown
     except ImportError:
         return None
-    return markdown.markdown(source_text, extensions=list(_MARKDOWN_EXTENSIONS))
+    return _turn_mermaid_fences_into_diagram_blocks(
+        markdown.markdown(source_text, extensions=list(_MARKDOWN_EXTENSIONS))
+    )
+
+
+def _turn_mermaid_fences_into_diagram_blocks(rendered_html: str) -> str:
+    """把 mermaid 围栏换成 ``<pre class="mermaid">``，交给页面里的 mermaid.js 去画。
+
+    刻意不做成 python-markdown 的 treeprocessor：``fenced_code`` 造出的 ``pre``/``code``
+    在 preprocessor 阶段就进了 ``htmlStash``，treeprocessor 根本看不到那棵子树。这里改成
+    在渲染完成的片段上做一次定点替换，只认 ``fenced_code`` 自己产出的那个确切形态——代码块
+    正文已被转义，里面不可能出现 ``</code></pre>``，因此非贪婪匹配必定停在该围栏的结尾。
+
+    围栏正文**原样留在 ``<pre>`` 里**（仍是转义后的文本）：mermaid 读的是 ``textContent``，
+    ``&gt;`` 在浏览器里解回来还是 ``>``。页面拿不到 mermaid、或图本身渲染失败时，留在那里的
+    就是一个普通代码块——降级方向与其它预览一致。
+
+    Args:
+        rendered_html (str): :func:`render_markdown_document` 里 python-markdown 的产出。
+
+    Returns:
+        str: 围栏已替换的 HTML 片段。
+    """
+    return _MERMAID_FENCE_PATTERN.sub(
+        lambda fence_match: f'<pre class="mermaid">{fence_match.group("source")}</pre>',
+        rendered_html,
+    )
 
 
 def rebase_relative_references(

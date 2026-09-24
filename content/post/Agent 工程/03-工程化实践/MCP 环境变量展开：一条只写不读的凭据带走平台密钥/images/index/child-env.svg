@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="470" viewBox="0 0 1200 470" role="img" aria-label="实测三种声明方式下子进程拿到的环境变量：不声明与声明空字典结果相同，只有花括号引用能把后端变量送进去">
+  <rect width="1200" height="470" rx="24" fill="#0B1220"/>
+  <text x="60" y="68" fill="#F8FAFC" font-family="sans-serif" font-size="34" font-weight="700">实测：子进程到底拿到了什么</text>
+  <g font-family="sans-serif">
+    <rect x="60" y="112" width="345" height="215" rx="18" fill="#17263D" stroke="#5B87BF" stroke-width="2"/>
+    <text x="84" y="152" fill="#F8FAFC" font-size="21" font-weight="700">不声明 env</text>
+    <text x="84" y="190" fill="#9FB3D1" font-size="16">HOME / LOGNAME / PATH</text>
+    <text x="84" y="218" fill="#9FB3D1" font-size="16">SHELL / USER</text>
+    <text x="84" y="256" fill="#52C3B1" font-size="16">后端专有变量：0 个</text>
+    <text x="84" y="296" fill="#9FB3D1" font-size="15">SDK 默认透传的那一组</text>
+
+    <rect x="428" y="112" width="345" height="215" rx="18" fill="#17263D" stroke="#5B87BF" stroke-width="2"/>
+    <text x="452" y="152" fill="#F8FAFC" font-size="21" font-weight="700">声明空字典</text>
+    <text x="452" y="190" fill="#9FB3D1" font-size="16">HOME / LOGNAME / PATH</text>
+    <text x="452" y="218" fill="#9FB3D1" font-size="16">SHELL / USER</text>
+    <text x="452" y="256" fill="#52C3B1" font-size="16">后端专有变量：0 个</text>
+    <text x="452" y="296" fill="#E9B96E" font-size="15">与左边完全相同，并不会清空</text>
+
+    <rect x="796" y="112" width="345" height="215" rx="18" fill="#17263D" stroke="#E58E7A" stroke-width="2"/>
+    <text x="820" y="152" fill="#F8FAFC" font-size="21" font-weight="700">声明花括号引用</text>
+    <text x="820" y="190" fill="#9FB3D1" font-size="16">默认那一组照旧</text>
+    <text x="820" y="218" fill="#E58E7A" font-size="16">外加哨兵值本身</text>
+    <text x="820" y="256" fill="#E58E7A" font-size="16">后端专有变量：进来了</text>
+    <text x="820" y="296" fill="#9FB3D1" font-size="15">唯一能进去的路径</text>
+  </g>
+  <text x="60" y="386" fill="#F8FAFC" font-family="sans-serif" font-size="19" font-weight="700">被推翻的两条旧断言</text>
+  <text x="60" y="418" fill="#9FB3D1" font-family="sans-serif" font-size="17">文档：「子进程环境 = 父进程环境 + 声明里的 env」——父进程环境并没有整体继承。</text>
+  <text x="60" y="446" fill="#9FB3D1" font-family="sans-serif" font-size="17">注释：「传空字典会清空子进程继承的环境」——空字典与省略结果相同。</text>
+</svg>

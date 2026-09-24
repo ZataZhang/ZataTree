@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="470" viewBox="0 0 1200 470" role="img" aria-label="三个写入点分别挂在计划成立、检查起止与裁决签发处，全部追加写入 decision_events 表">
+  <rect width="1200" height="470" rx="24" fill="#0B1220"/>
+  <text x="60" y="68" fill="#F8FAFC" font-family="sans-serif" font-size="34" font-weight="700">审计不改控制流：三个写入点挂在既有节点上</text>
+  <g font-family="sans-serif">
+    <rect x="70" y="110" width="330" height="150" rx="18" fill="#17263D" stroke="#5B87BF" stroke-width="2"/>
+    <text x="94" y="148" fill="#F8FAFC" font-size="22" font-weight="700">① 计划成立</text>
+    <text x="94" y="182" fill="#9FB3D1" font-size="16">planner 的结构化输出</text>
+    <text x="94" y="208" fill="#9FB3D1" font-size="16">通过 schema 校验之后</text>
+    <text x="94" y="244" fill="#52C3B1" font-size="16" font-weight="700">→ plan_created</text>
+
+    <rect x="435" y="110" width="330" height="150" rx="18" fill="#132B2A" stroke="#52C3B1" stroke-width="2"/>
+    <text x="459" y="148" fill="#F8FAFC" font-size="22" font-weight="700">② 检查起止</text>
+    <text x="459" y="182" fill="#9FB3D1" font-size="16">执行器进程内执行检查</text>
+    <text x="459" y="208" fill="#9FB3D1" font-size="16">Agent 转述不算数</text>
+    <text x="459" y="244" fill="#52C3B1" font-size="16" font-weight="700">→ check_started / finished</text>
+
+    <rect x="800" y="110" width="330" height="150" rx="18" fill="#17263D" stroke="#E9B96E" stroke-width="2"/>
+    <text x="824" y="148" fill="#F8FAFC" font-size="22" font-weight="700">③ 裁决签发</text>
+    <text x="824" y="182" fill="#9FB3D1" font-size="16">复核结论与放行签发时</text>
+    <text x="824" y="208" fill="#9FB3D1" font-size="16">引用同一 decision_id</text>
+    <text x="824" y="244" fill="#52C3B1" font-size="16" font-weight="700">→ verdict_issued</text>
+
+    <path d="M400 185h31" stroke="#9FB3D1" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <path d="M423 177l14 8-14 8" stroke="#9FB3D1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <path d="M765 185h31" stroke="#9FB3D1" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <path d="M788 177l14 8-14 8" stroke="#9FB3D1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+    <rect x="70" y="330" width="1060" height="84" rx="18" fill="#132B2A" stroke="#52C3B1" stroke-width="2"/>
+    <text x="94" y="370" fill="#F8FAFC" font-size="21" font-weight="700">decision_events（追加式，只允许 INSERT）</text>
+    <text x="94" y="398" fill="#9FB3D1" font-size="16">写入失败要么计入审计缺失，要么阻止自动放行——不允许静默吞掉</text>
+
+    <path d="M235 260v58" stroke="#52C3B1" stroke-width="4" stroke-linecap="round" fill="none"/>
+    <path d="M224 306l11 14 11-14" stroke="#52C3B1" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <path d="M600 260v58" stroke="#52C3B1" stroke-width="4" stroke-linecap="round" fill="none"/>
+    <path d="M589 306l11 14 11-14" stroke="#52C3B1" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <path d="M965 260v58" stroke="#52C3B1" stroke-width="4" stroke-linecap="round" fill="none"/>
+    <path d="M954 306l11 14 11-14" stroke="#52C3B1" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+  <text x="60" y="446" fill="#9FB3D1" font-family="sans-serif" font-size="17">三个坑都在挂点：计划在校验后写入、结果由执行器写入，Agent 的转述在任何位置都不写。</text>
+</svg>

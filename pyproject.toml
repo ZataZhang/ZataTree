@@ -1,0 +1,20 @@
+# 这个文件只为 `just view` 服务：Markdown 预览与语法高亮都在查看器服务端渲染
+# （scripts/shared/view/rendering.py），依赖 markdown / pygments。仓库本身是 Hugo
+# 站点，没有可安装的 Python 包——没有 [build-system] 时 uv 按 virtual 项目处理，
+# 只建环境装依赖，不安装项目本身。改动依赖后跑 `uv sync`。
+[project]
+name = "zatatree"
+version = "0.1.0"
+description = "Hugo blog; this pyproject only carries `just view` preview/highlight deps"
+requires-python = ">=3.10"
+
+[dependency-groups]
+dev = [
+    # `just view` 的 Markdown 预览在服务端渲染（rendering.render_markdown_document）。
+    # 缺失即降级：预览开关照常出现，但 /api/markdown 返回 503「服务端未安装
+    # Markdown 渲染依赖」。显式声明，不靠环境里恰好装过。
+    "markdown>=3.10.0",
+    # `just view` 的语法高亮同样在服务端渲染（rendering.highlight_source_lines）。
+    # 缺失即降级：正文按纯文本展示，头部语言标签注明「未安装语法高亮依赖」。
+    "pygments>=2.17.0",
+]

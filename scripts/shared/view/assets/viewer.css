@@ -1,6 +1,5 @@
 /* 只读文件与改动查看器的样式。
-   设计令牌取自仓库现有原型的共享基线（docs/prototypes/file-viewer-interactive.html
-   的 :root，其源头是 frontend-admin/src/styles/theme.css）。 */
+   设计令牌沿用仓库前端的主题基线（frontend-admin/src/styles/theme.css 的 :root）。 */
 
 :root {
   --radius: 0.625rem;
@@ -109,15 +108,42 @@ button, input, select { font: inherit; color: inherit; }
 .body-grid {
   display: grid; min-height: 0; grid-template-columns: minmax(240px, 320px) minmax(0, 1fr); gap: 8px;
 }
+/* 加宽左树（树头那个方向按钮）：宽到放得下最长的那一行，但不少于 340px、不超过视口的 60%
+   ——长路径可以撑开左栏，却永远不该把内容区挤没。 */
+.body-grid.is-tree-wide { grid-template-columns: fit-content(60%) minmax(0, 1fr); }
+.body-grid.is-tree-wide .tree { min-width: 340px; }
 
 /* 3. 文件树 */
 .tree { display: flex; min-height: 0; flex-direction: column; }
 .tree-head {
-  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  display: flex; align-items: center; gap: 8px;
   border-bottom: 1px solid var(--border); padding: 9px 12px;
   font-size: 11.5px; color: var(--muted-foreground);
 }
 .tree-head b { color: var(--foreground); font-weight: 650; }
+/* 文件数推到右缘，栏宽开关跟在它后面。 */
+.tree-note { margin-left: auto; }
+/* 栏宽开关：22px 的方形描边按钮（不是一枚裸箭头字符——那读起来像正文里的标点，不像能点的
+   东西）。常态是「往右撑开」，加宽后换成「收回去」并保持一层淡底，状态一眼可见。 */
+.tree-width-toggle {
+  display: inline-flex; flex: none; align-items: center; justify-content: center;
+  width: 22px; height: 22px; border: 1px solid var(--border); border-radius: 6px;
+  background: transparent; color: var(--muted-foreground); cursor: pointer;
+}
+.tree-width-toggle:hover { background: var(--secondary); color: var(--foreground); }
+.tree-width-toggle:focus-visible { border-color: var(--ring); outline: none; }
+.tree-width-toggle[aria-pressed='true'] {
+  border-color: color-mix(in oklab, var(--primary) 30%, var(--border));
+  background: color-mix(in oklab, var(--primary) 10%, transparent);
+  color: var(--primary);
+}
+.tree-width-toggle svg {
+  width: 14px; height: 14px; fill: none; stroke: currentColor;
+  stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+}
+.tree-width-toggle .icon-narrow { display: none; }
+.tree-width-toggle[aria-pressed='true'] .icon-widen { display: none; }
+.tree-width-toggle[aria-pressed='true'] .icon-narrow { display: block; }
 .tree-body { min-height: 0; flex: 1; overflow: auto; padding: 6px; }
 /* 服务退出后左侧只剩最后一次成功读取的结果，不可再点击 */
 .tree-body.is-stale { opacity: .45; pointer-events: none; }
@@ -172,16 +198,19 @@ button, input, select { font: inherit; color: inherit; }
 .node-row { display: flex; align-items: center; gap: 2px; }
 .node-row .node { width: auto; min-width: 0; flex: 1; }
 
-/* 暂存加号：标题上那一个与每个文件旁那一个共用外观，后者更小、更淡，只在悬停时提亮。 */
-.stage-button {
+/* 左树里的小图标按钮：暂存加号与树头的栏宽开关共用排版，各自的描边、底色与尺寸分开写
+   ——加号是嵌在列表行里的低调字符按钮，栏宽开关是一个独立的小按钮。 */
+.tree-icon-button {
   display: inline-flex; flex: none; align-items: center; justify-content: center;
-  width: 18px; height: 18px; border: 1px solid transparent; border-radius: 5px;
+  height: 18px; border: 1px solid transparent; border-radius: 5px;
   background: transparent; color: color-mix(in oklab, var(--muted-foreground) 70%, transparent);
-  font-family: var(--mono); font-size: 13px; font-weight: 700; line-height: 1; cursor: pointer;
+  font-family: var(--mono); font-weight: 700; line-height: 1; cursor: pointer;
 }
-.stage-button:hover { background: var(--secondary); color: var(--foreground); }
-.stage-button:focus-visible { border-color: var(--ring); outline: none; }
-/* 标题上那一个推到行尾（VSCode 的位置），文件旁那一个跟在条目后面。 */
+.tree-icon-button:hover { background: var(--secondary); color: var(--foreground); }
+.tree-icon-button:focus-visible { border-color: var(--ring); outline: none; }
+
+/* 暂存加号：文件旁那一个固定 18px 宽；标题上那一个文字更大、推到行尾（VSCode 的位置）。 */
+.stage-button { width: 18px; font-size: 13px; }
 .stage-button.section-level { width: auto; margin-left: auto; padding: 0 6px; font-size: 14px; }
 
 .tree-empty { padding: 18px 12px; color: var(--muted-foreground); font-size: 12.5px; line-height: 1.7; }
@@ -260,9 +289,7 @@ button, input, select { font: inherit; color: inherit; }
   padding: 3px 14px; font-size: 11.5px;
 }
 
-/* Markdown 预览：正文区不沿用代码块的等宽字体与行号，按文档排版。
-   相对路径的图片不解析（预览片段在查看器页面里，不在文件所在目录），这一点写在
-   docs/guides/file-viewer.md 的已知限制里。 */
+/* Markdown 预览：正文区不沿用代码块的等宽字体与行号，按文档排版。 */
 .preview { padding: 20px 26px 44px; }
 .preview.markdown { max-width: 860px; margin: 0 auto; font-size: 14px; line-height: 1.75; }
 .preview.markdown > :first-child { margin-top: 0; }
@@ -295,6 +322,15 @@ button, input, select { font: inherit; color: inherit; }
 .preview.markdown th { background: var(--secondary); font-weight: 650; }
 .preview.markdown img { max-width: 100%; }
 .preview.markdown hr { border: 0; border-top: 1px solid var(--border); margin: 1.7em 0; }
+
+/* mermaid 图：页面里的 mermaid.js 会把 `<pre class="mermaid">` 的内容换成它画的 SVG（服务端
+   只负责把围栏换成这个块）。外框沿用上面的代码块做法，只把图居中。画不出来时——资源没取到、
+   或图本身语法有错——块里留着的就是围栏源码，所以字体按代码块给等宽，降级形态与别的围栏一致。 */
+.preview.markdown pre.mermaid {
+  text-align: center;
+  font-family: var(--mono); font-size: 12.5px;
+}
+.preview.markdown pre.mermaid svg { max-width: 100%; height: auto; }
 
 /* 图片预览：撑满可用宽度、超出就纵向滚动。刻意不按视口高度缩放——整页截图缩到一屏里会
    小到看不清，滚动比缩更可用。 */
@@ -397,4 +433,8 @@ button, input, select { font: inherit; color: inherit; }
 
 @media (max-width: 860px) {
   .body-grid { grid-template-columns: minmax(0, 1fr); grid-template-rows: 216px minmax(0, 1fr); }
+  /* 窄窗口下左树本来就占满整屏宽（文件名放得下），栏宽开关既不显示，也不该留下加宽态。 */
+  .body-grid.is-tree-wide { grid-template-columns: minmax(0, 1fr); }
+  .body-grid.is-tree-wide .tree { min-width: 0; }
+  .tree-width-toggle { display: none; }
 }

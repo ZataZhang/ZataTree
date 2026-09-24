@@ -3,7 +3,7 @@
  *
  * 数据全部来自本机只读接口（/api/info、/api/tree、/api/file、/api/changes、/api/diff、
  * /api/markdown），页面不做任何写入，也不做心跳轮询——一旦开始轮询，服务端的空闲自动
- * 回收就会静默失效（见 docs/guides/file-viewer.md 的回收策略一节）。
+ * 回收就会静默失效。
  *
  * 改动视图在界面上分两段展示，与 VSCode 对齐：`Staged Changes` 与 `Changes`（后者由服务端
  * 的「未暂存」与「未跟踪」两段合并而来）。**同一个文件可以同时出现在两段里**（暂存了几个 hunk
@@ -14,16 +14,27 @@
  *
  * 页面只有一个写操作：`Changes` 里的加号（标题旁那一个、以及每个文件旁那一个）会把改动
  * 加进索引（`POST /api/stage`）。除此之外页面不写入任何东西——没有提交、没有撤销暂存、
- * 没有丢弃改动，服务端也只有这一个写口（见 docs/guides/file-viewer.md）。
+ * 没有丢弃改动，服务端也只有这一个写口。
  *
  * 两个视图各自记一份「上一次看的那一个」（成功读到内容才记），切视图时还原，而不是每次
  * 都回到空态。改动视图头部的「查看文件」是显式指定，优先于记忆。
+ *
+ * 左树宽度由树头那个图标按钮切换（双箭头，常态指向右）：点一下把左栏放宽到放得下最长的
+ * 那一行（上限视口 60%、下限 340px），箭头随之翻向左边表示「收回去」。它只改布局，不取任何
+ * 数据，也不参与任何一次渲染路径。
  *
  * 预览的默认值按文件类型定：Markdown 直接进预览（源码是一次显式切换），图片直接显示（没有
  * 源码可切），其它文本文件与 HTML 默认源码。Markdown 的渲染结果由服务端给出、由「预览」开关
  * 按需取回；图片与 HTML 都指向服务端原样供出的 `/raw/`（HTML 在新标签页里打开，不内联渲染）。
  * 哪个文件支持哪种预览由服务端在 /api/file 的 `preview` / `kind` 字段里给出，本文件不复制
  * 任何后缀表。
+ *
+ * Markdown 里的 mermaid 围栏由服务端换成 `<pre class="mermaid">`，图本身交给浏览器里的
+ * mermaid.js 画（服务端不认识 mermaid，也就无从校验语法）。那份 mermaid 是随查看器一起分发
+ * 的第三方产物 `assets/mermaid.min.js`：mermaid 官方压缩包，v11.17.2，MIT，取自
+ * `https://cdn.jsdelivr.net/npm/mermaid@11.17.2/dist/mermaid.min.js`
+ * （sha256 `581ed7d74bd9048d0e3a91363927d72ef22942d7722546b27f7cc29e35390eb8`，字节与上游
+ * 一致）。升级就是换掉这个文件与上面这行版本号，然后在真浏览器里把图看一遍。
  */
 (() => {
   "use strict";
@@ -69,7 +80,9 @@
     refreshTimer: document.getElementById("refresh-timer"),
     treeTitle: document.getElementById("tree-title"),
     treeNote: document.getElementById("tree-note"),
+    treeWidthToggle: document.getElementById("tree-width-toggle"),
     treeBody: document.getElementById("tree-body"),
+    bodyGrid: document.querySelector(".body-grid"),
     viewerPath: document.getElementById("viewer-path"),
     copyPathButton: document.getElementById("copy-path"),
     previewSwitch: document.getElementById("preview-switch"),
@@ -108,6 +121,8 @@
      * 分段是整段一起收起来的那一层——目录折叠管段内，这一层管段本身。
      */
     changeGroupExpansion: new Map(),
+    /** 左树是否加宽（树头那个方向开关）。只影响布局，不参与任何取数。 */
+    isTreeWide: false,
     filterText: "",
     filePaths: [],
     changedSections: [],
@@ -319,7 +334,7 @@
   /**
    * 手动刷新：重取仓库信息、文件树，并按当前视图重取内容。
    *
-   * 页面**刻意不做任何轮询**（见 docs/guides/file-viewer.md 的常驻与回收一节），所以「看到
+   * 页面**刻意不做任何轮询**，所以「看到
    * 最新的文件状态」这件事是一个显式动作。它比页面初始化多做的就一件：重取文件树——树只在
    * 初始化时取过一次，新建或删掉的文件不重取就永远不会出现（这也是这个按钮存在的主要理由）。
    *
@@ -380,6 +395,7 @@
    */
   async function initializeViewer() {
     applyInitialQueryParameters();
+    renderTreeWidth();
     const didLoad = await guardAgainstServiceExit(async () => {
       const infoResponse = await requestJson("/api/info");
       elements.repoName.textContent = infoResponse.body.repo_name;
@@ -601,6 +617,22 @@
     const treeTitleNode = document.createElement("b");
     treeTitleNode.textContent = isDiffView ? "改动文件" : "文件树";
     elements.treeTitle.replaceChildren(treeTitleNode);
+  }
+
+  /**
+   * 渲染左树的栏宽开关。
+   *
+   * 加宽只改布局：不取数据、不重渲染树，所以它不走 renderTree——树的每一次重渲染都只写
+   * 列表内容，栏宽是页面级的显示状态。两个箭头都在 DOM 里，由 CSS 按 `aria-pressed` 选一个
+   * 显示：常态是「往右撑开」，加宽后换成「收回去」，title / aria-label 跟着一起换。
+   */
+  function renderTreeWidth() {
+    const isWide = viewState.isTreeWide;
+    elements.bodyGrid.classList.toggle("is-tree-wide", isWide);
+    elements.treeWidthToggle.setAttribute("aria-pressed", String(isWide));
+    const toggleLabel = isWide ? "恢复默认栏宽" : "加宽左侧栏，显示完整文件名";
+    elements.treeWidthToggle.title = toggleLabel;
+    elements.treeWidthToggle.setAttribute("aria-label", toggleLabel);
   }
 
   /**
@@ -865,8 +897,8 @@
     const stageButtonNode = document.createElement("button");
     stageButtonNode.type = "button";
     stageButtonNode.className = stageButtonInput.isSectionLevel
-      ? "stage-button section-level"
-      : "stage-button";
+      ? "tree-icon-button stage-button section-level"
+      : "tree-icon-button stage-button";
     stageButtonNode.title = stageButtonInput.title;
     stageButtonNode.setAttribute("aria-label", stageButtonInput.title);
     stageButtonNode.textContent = stageButtonInput.label;
@@ -954,7 +986,7 @@
     rowNode.className = "node-row";
     rowNode.append(rowButton);
     // 只在「Changes」里的条目上给加号：已经在索引里的东西再暂存一次没有意义（这也是为什么
-    // 「Staged Changes」那一段没有反向的减号——见 docs/guides/file-viewer.md 里记下的那条决策）。
+    // 「Staged Changes」那一段没有反向的减号——取消暂存是刻意不做的，不是漏了）。
     if (changedFile.section !== "staged") {
       const stageButtonNode = buildStageButton({
         title: `把 ${changedFile.path} 的当前内容加入索引（git add）`,
@@ -1534,6 +1566,76 @@
     renderCodeLines(fileBody.lines);
   }
 
+  /** 那份 mermaid 资源的加载过程（含已加载完成的），null 表示还没取过。 */
+  let mermaidLoadPromise = null;
+
+  /**
+   * 取回 mermaid 的资源。
+   *
+   * 按需取：页面里没有图时一个字节都不请求——把 3.5 MB 的 mermaid 写进 index.html 会让每个
+   * 页面都为它付一次解析成本。取过一次就记着这份 Promise，失败时清回 null，让下一次预览还能
+   * 再试（服务在跑就基本不会失败；真取不到时图块退回代码块，见 renderMermaidDiagrams）。
+   * @returns {Promise<object>} mermaid 的全局对象。
+   */
+  function loadMermaidLibrary() {
+    if (mermaidLoadPromise === null) {
+      mermaidLoadPromise = new Promise((resolve, reject) => {
+        const mermaidScriptNode = document.createElement("script");
+        mermaidScriptNode.src = "/assets/mermaid.min.js";
+        mermaidScriptNode.addEventListener("load", () => {
+          if (window.mermaid) {
+            resolve(window.mermaid);
+            return;
+          }
+          mermaidLoadPromise = null;
+          reject(new Error("mermaid 资源没有挂到全局对象上"));
+        });
+        mermaidScriptNode.addEventListener("error", () => {
+          mermaidLoadPromise = null;
+          reject(new Error("mermaid 资源取不到"));
+        });
+        document.head.append(mermaidScriptNode);
+      });
+    }
+    return mermaidLoadPromise;
+  }
+
+  /**
+   * 把预览里的 mermaid 块画成 SVG。
+   *
+   * 服务端把围栏换成 `<pre class="mermaid">` 之后就不管了，图由这里画：mermaid 读的是块里的
+   * 文本（服务端已转义，`&gt;` 在浏览器里解回来还是 `>`），画完把内容换成 `<svg>` 并打上
+   * `data-processed`——所以同一块重复调用是安全的。来回切「源码 / 预览」会重新插入一份 DOM，
+   * 那是新节点，会再画一次。
+   *
+   * 两种失败都不往上抛：资源取不到时退回代码块并由状态条说明，图本身语法有错时 mermaid 自己
+   * 在块里画出错误说明，这里只把状态条补上。
+   * @param {HTMLElement} previewNode 刚插进内容区的预览节点。
+   */
+  async function renderMermaidDiagrams(previewNode) {
+    const diagramNodes = Array.from(previewNode.querySelectorAll("pre.mermaid"));
+    if (diagramNodes.length === 0) {
+      return;
+    }
+    let mermaidLibrary;
+    try {
+      mermaidLibrary = await loadMermaidLibrary();
+    } catch (loadError) {
+      elements.statusHint.textContent = `只读视图 · ${loadError.message}，Mermaid 图按源码显示`;
+      return;
+    }
+    mermaidLibrary.initialize({
+      startOnLoad: false,
+      fontFamily:
+        '-apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif',
+    });
+    try {
+      await mermaidLibrary.run({ nodes: diagramNodes });
+    } catch (renderError) {
+      elements.statusHint.textContent = `只读视图 · 有 Mermaid 图没画出来：${renderError.message}`;
+    }
+  }
+
   /**
    * 渲染 Markdown 预览。
    *
@@ -1555,10 +1657,11 @@
     const previewNode = document.createElement("div");
     previewNode.className = "preview markdown";
     // 服务端渲染出的 HTML 片段。Markdown 正文里的 raw HTML 会在这里执行——预览是用户
-    // 主动点开的一次，且查看器是绑在回环上的本机只读工具，详见 docs/guides/file-viewer.md。
+    // 主动点开的一次，且查看器是绑在回环上的本机工具。
     previewNode.innerHTML = viewState.markdownHtml;
     elements.viewerBody.replaceChildren(previewNode);
     elements.statusHint.textContent = "只读视图 · Markdown 预览（服务端渲染）";
+    await renderMermaidDiagrams(previewNode);
   }
 
   /**
@@ -1650,6 +1753,10 @@
 
   elements.tabFiles.addEventListener("click", () => {
     void switchView(FILES_VIEW);
+  });
+  elements.treeWidthToggle.addEventListener("click", () => {
+    viewState.isTreeWide = !viewState.isTreeWide;
+    renderTreeWidth();
   });
   elements.copyPathButton.addEventListener("click", () => {
     void copyCurrentViewerPath();

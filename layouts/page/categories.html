@@ -1,30 +1,18 @@
 {{- /*
-    分类索引页（/categories/）。
+    分类索引页（/categories/）——书架。
 
-    原来 content/page/categories/index.md 指定 layout: "categories"，但这个布局
-    文件在仓库和主题里都不存在，Hugo 于是退化成 _default/single.html：
-    页面只剩一个标题 + 一行日期，还会渲染评论组件（Giscus 没配，直接报
-    "giscus is not installed on this repository"）。
+    2026-09-24 改版：分类即书、tag 即章节。每本书（分类）下面列它的章节，
+    章节由「该书文章的 tags 与目录第二层名求交集」得出（章节在磁盘上就是
+    content/post/{书}/{NN-章节}/ 这一层），自由标签不再出现在书架页。
 
-    这里补上布局；自带布局也顺带绕开了评论组件。
-
-    2026-09 改版：tag 挂进分类里（原先是分类、标签各占一页的扁平网格）。
-    - tag 列表由该分类下的文章反推，不是全站标签的并集；
-    - 每个 tag 后面的数字是「该分类下用过它的文章数」，不是站点总数；
-    - 超过 $collapse 个 tag 的分类默认只展示最常用的 $collapse 个，
-      其余由页面脚本展开。排序用的文章数降序，所以折叠掉的都是长尾。
-      无 JS 时全显示、按钮不出现（按钮初始 hidden，由脚本放出来）；
-    - 分类本身按「近 $windowDays 天更新篇数」排序，规则写在下面 $sections 处。
-
-    注意：tag 链接指向的是全站标签页（/tags/xxx/），不是「分类 + 标签」的
-    交叉筛选页——155 个标签里只有 14 个跨了多个分类（「教程」最多，横跨 5 个），
-    绝大多数点进去就是本分类的内容。
-
-    样式在 assets/scss/partials/redesign.scss 第 10 节。
+    - 章节按磁盘目录的 NN- 序号排序（即 CHAPTERS 里定的章序），不是按文章数；
+    - 数字是「该章的文章数」；平铺书（无章节层）显示「N 篇 · 平铺」；
+    - 书排序沿用旧规则：近 $windowDays 天更新篇数降序 → 最近更新日 → 标题。
+      ⚠️ hugo sort 只吃一对 KEY/ORDER，多级排序靠「稳定排序连续排三趟」，
+      从次要键到主要键，顺序不能倒。
 */ -}}
 {{ define "main" }}
     {{- $cats := .Site.Taxonomies.categories -}}
-    {{- $collapse := 8 -}}
     {{- $windowDays := 180 -}}
     {{- $cutoff := now.AddDate 0 0 (int (mul -1 $windowDays)) -}}
 
@@ -33,25 +21,6 @@
         <p class="section-count">{{ T "list.page" (len $cats) }}</p>
     </header>
 
-    {{- /* 分类排序：近 $windowDays 天的更新篇数降序 → 最近一次更新日期降序 → 标题升序。
-           "更新"取 .Lastmod（hugo.yaml 的 frontmatter.lastmod 配的是 :git → :fileModTime
-           → 显式 lastmod），实测 305 页里 304 页等于 .GitInfo.CommitDate，也就是
-           git 最后一次提交该文章（含同目录资产，换封面也算更新）的时间，不是发布日。
-           所以它统计的是「近期动过多少篇」——批量改 frontmatter / 换封面这类提交
-           会让整批文章同时变新，这是刻意的（那些提交确实动了文章）。
-
-           排序不能用 .ByCount 之类现成方法，得先摊成 slice 再 sort。
-           ⚠️ hugo 的 sort 只吃一对 KEY/ORDER，多写的参数会被静默忽略
-           （签名就是 sort COLLECTION [KEY] [ORDER]），所以三级排序只能靠
-           「稳定排序 + 从次要键到主要键连续排三趟」。实测 sort 是稳定的，
-           且两次构建结果一致；这条链的顺序不能倒过来写。
-           并列很常见（当前 Book/Vibe Coding 同 4 篇、Grammar/PaperReading 同 1 篇），
-           没有兜底键的话并列组的先后不可控。
-
-           注意 now 取的是构建时间：CI 每次 push 重建，分类的先后会随窗口滚动自己
-           漂移（某分类掉出窗口就沉下去）。这是「按更新频次」的固有语义。
-           无 git 历史的文件（未提交）会退回 fileModTime = 检出时间，本地会偏新
-           （当前 1 篇未提交文章就是这样）；CI 是 fetch-depth: 0 的全量克隆，没有这个回退。 */ -}}
     {{- $sections := slice -}}
     {{- range $cats -}}
         {{- $recent := 0 -}}
@@ -75,87 +44,64 @@
         {{ range $sections }}
             {{- $term := .term -}}
             {{- $recent := .recent -}}
-            {{- /* 反推该分类下的 tag：key 用 RelPermalink（唯一），value 装标题和计数。
-                   GetTerms 而不是 .Params.tags —— 后者是原始字符串（"OpenAI API"），
-                   对不上 Hugo 归一化后的词条 key（openai-api）。 */ -}}
+            {{- $book := .title -}}
+
+            {{- /* 该书在磁盘上的章节集合：content/post/{书}/ 下带 NN- 前缀的目录。
+                   readDir 的根是项目根（不是 content/），所以路径要带 content/ 前缀。
+                   顺便记下 NN- 序号，排序时按章序而不是字典序。 */ -}}
+            {{- $bookDir := printf "content/post/%s" $book -}}
+            {{- $chapterSet := dict -}}
+            {{- range readDir $bookDir -}}
+                {{- if .IsDir -}}
+                    {{- if .Name | findRE `^\d+-` -}}
+                        {{- $ch := .Name | replaceRE `^\d+-` "" -}}
+                        {{- $ord := .Name | replaceRE `^(\d+)-.*` "$1" -}}
+                        {{- $chapterSet = merge $chapterSet (dict $ch $ord) -}}
+                    {{- end -}}
+                {{- end -}}
+            {{- end -}}
+
+            {{- /* 文章 tag 与章节求交集，统计每章篇数；GetTerms 而不是 .Params.tags，
+                   后者是原始字符串，对不上 Hugo 归一化后的词条 */ -}}
             {{- $acc := dict -}}
             {{- range $term.Pages -}}
                 {{- range .GetTerms "tags" -}}
-                    {{- $href := .Page.RelPermalink -}}
-                    {{- $n := 1 -}}
-                    {{- with index $acc $href -}}
-                        {{- $n = add .count 1 -}}
+                    {{- $ch := .Page.Title -}}
+                    {{- if index $chapterSet $ch -}}
+                        {{- $n := 1 -}}
+                        {{- with index $acc $ch -}}
+                            {{- $n = add .count 1 -}}
+                        {{- end -}}
+                        {{- $acc = merge $acc (dict $ch (dict "title" $ch "count" $n "href" .Page.RelPermalink "ord" (index $chapterSet $ch))) -}}
                     {{- end -}}
-                    {{- $acc = merge $acc (dict $href (dict "title" .Page.Title "count" $n)) -}}
                 {{- end -}}
             {{- end -}}
 
             {{- $rows := slice -}}
-            {{- range $href, $t := $acc -}}
-                {{- $rows = $rows | append (dict "href" $href "title" $t.title "count" $t.count) -}}
+            {{- range $ch, $t := $acc -}}
+                {{- $rows = $rows | append $t -}}
             {{- end -}}
-            {{- /* 同上：sort 只吃一对 KEY/ORDER，两次排（次要键先排）才拿得到
-                   「文章数降序、同分按标题升序」。@acc 是 map，遍历顺序是随机的，
-                   少了这一步同分 tag 的先后每次构建都可能变。 */ -}}
-            {{- $rows = sort $rows "title" "asc" -}}
-            {{- $rows = sort $rows "count" "desc" -}}
+            {{- $rows = sort $rows "ord" "asc" -}}
 
             <section class="cat-index-item">
                 <header class="cat-index-item__head">
-                    <a class="cat-index-item__title" href="{{ $term.Page.RelPermalink }}">{{ $term.Page.Title }}</a>
-                    <span class="cat-index-item__meta">近 {{ $windowDays }} 天 {{ $recent }} 篇 · 共 {{ len $term.Pages }} 篇 · {{ len $rows }} 个标签</span>
+                    <a class="cat-index-item__title" href="{{ $term.Page.RelPermalink }}">{{ $book }}</a>
+                    <span class="cat-index-item__meta">近 {{ $windowDays }} 天 {{ $recent }} 篇 · 共 {{ len $term.Pages }} 篇{{ if $rows }} · {{ len $rows }} 章{{ else }} · 平铺{{ end }}</span>
                 </header>
 
                 {{ with $rows }}
-                    <div class="cat-index-chips" {{ if gt (len .) $collapse }}data-collapse="{{ $collapse }}"{{ end }}>
+                    <div class="cat-index-chips">
                         {{ range . }}
                             <a class="cat-chip" href="{{ .href }}">
                                 <span class="cat-chip__name">{{ .title }}</span>
                                 <span class="cat-chip__count">{{ .count }}</span>
                             </a>
                         {{ end }}
-                        {{ if gt (len .) $collapse }}
-                            <button
-                                class="cat-chip cat-chip--toggle"
-                                type="button"
-                                aria-expanded="false"
-                                hidden
-                                data-more="+{{ sub (len .) $collapse }} 个标签"
-                                data-less="收起"
-                            >+{{ sub (len .) $collapse }} 个标签</button>
-                        {{ end }}
                     </div>
                 {{ end }}
             </section>
         {{ end }}
     </div>
-
-    <script>
-        (function () {
-            document.querySelectorAll('.cat-index-chips[data-collapse]').forEach(function (box) {
-                var limit  = parseInt(box.dataset.collapse, 10);
-                var toggle = box.querySelector('.cat-chip--toggle');
-                if (!limit || !toggle) return;
-
-                var chips = Array.prototype.filter.call(
-                    box.querySelectorAll('.cat-chip'),
-                    function (el) { return el !== toggle; }
-                );
-
-                function render(expanded) {
-                    chips.forEach(function (el, i) { el.hidden = !expanded && i >= limit; });
-                    toggle.hidden = false;
-                    toggle.textContent = expanded ? toggle.dataset.less : toggle.dataset.more;
-                    toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-                }
-
-                render(false);
-                toggle.addEventListener('click', function () {
-                    render(toggle.getAttribute('aria-expanded') !== 'true');
-                });
-            });
-        })();
-    </script>
 
     {{ partialCached "footer/footer" . }}
 {{ end }}

@@ -140,568 +140,539 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 按 `content/post/` 的实际目录结构生成，括号内为该分类的文章数。**本段由 `python3 tools/readme_index.py` 自动生成，请勿手工编辑** —— 增删文章后重新运行该脚本即可。
 
 <!-- BEGIN:CONTENT-INDEX -->
-## Agent (43)
+## Agent 工程 (35)
 
-### Agent Orchestration
+### 01-入门与全景
 
-- [智能体编排设计工程师学习指南](content/post/Agent/Agent%20Orchestration/01-智能体编排设计工程师学习指南/)
-- [Agent Runtime 详解：从模型循环到可恢复的企业执行系统](content/post/Agent/Agent%20Orchestration/20260922101724_Agent%20Runtime详解/)
-- [AI Agent Loop 工程：原理、模式与实现](content/post/Agent/Agent%20Orchestration/AI%20Agent%20Loop%20工程：原理、模式与实现/)
-- [Agent 沙箱选型指南：隔离边界、产品对比与判断标准](content/post/Agent/Agent%20Orchestration/Agent%20沙箱选型指南：隔离边界、产品对比与判断标准/)
-- [Agent 用户记忆与 Skill 沉淀：开源项目参考与架构设计](content/post/Agent/Agent%20Orchestration/Agent%20用户记忆与%20Skill%20沉淀：开源项目参考与架构设计/)
-- [E2B 迁到阿里云云沙箱：能跑通，但别急着上生产](content/post/Agent/Agent%20Orchestration/E2B%20迁到阿里云云沙箱：能跑通，但别急着上生产/)
-- [Gliding Horse Agent OS 介绍：Rust 构建的工业级 AI Agent 操作系统](content/post/Agent/Agent%20Orchestration/Gliding%20Horse%20Agent%20OS%20介绍/)
-- [主流 Agent 框架对比与多框架统一接口设计](content/post/Agent/Agent%20Orchestration/主流%20Agent%20框架对比与多框架统一接口设计/)
-- [内置 Agent 放哪：一个 is_runnable 陷阱与三类事实源](content/post/Agent/Agent%20Orchestration/内置%20Agent%20放哪：一个%20is_runnable%20陷阱与三类事实源/)
-- [Agent 记忆模块深度技术文档](content/post/Agent/Agent%20Orchestration/记忆模块技术文档/)
+- [AI agent介绍：基于大模型的人工智能代理](content/post/Agent%20工程/01-入门与全景/AI%20agent介绍：基于大模型的人工智能代理/)
+- [Agent 工程实战开篇：从 Demo 到生产还有多远](content/post/Agent%20工程/01-入门与全景/Agent%20工程实战开篇：从%20Demo%20到生产还有多远/)
+- [Agent 生产工程全景手册：从 Runtime 到业务闭环](content/post/Agent%20工程/01-入门与全景/Agent生产工程全景手册/)
 
-### Agent 工程实战
+### 02-框架与运行时
 
-- [Agent Run 流式协议：事件溯源、SSE 投影与断线恢复](content/post/Agent/Agent%20工程实战/Agent%20Run%20流式协议：事件溯源、SSE%20投影与断线恢复/)
-- [Agent Tracing 基础：Trace、Span 与 OpenTelemetry 埋点](content/post/Agent/Agent%20工程实战/Agent%20Tracing%20基础：Trace、Span%20与%20OpenTelemetry%20埋点/)
-- [Agent 内容输出规范：本地给路径，远程给协议](content/post/Agent/Agent%20工程实战/Agent%20内容输出规范：本地给路径，远程给协议/)
-- [Agent 决策审计：它与 Tracing 的关系](content/post/Agent/Agent%20工程实战/Agent%20决策审计：它与%20Tracing%20的关系/)
-- [Agent 埋点接 ARMS：上报返回 success，控制台却是空的](content/post/Agent/Agent%20工程实战/Agent%20埋点接%20ARMS：上报返回%20success，控制台却是空的/)
-- [Agent 工具没调用，先查模型到底能看见什么](content/post/Agent/Agent%20工程实战/Agent%20工具没调用：一次真实链路验收的三层误判/)
-- [Agent 工程实战开篇：从 Demo 到生产还有多远](content/post/Agent/Agent%20工程实战/Agent%20工程实战开篇：从%20Demo%20到生产还有多远/)
-- [Agent 生产工程全景手册：从 Runtime 到业务闭环](content/post/Agent/Agent%20工程实战/Agent生产工程全景手册/)
-- [OpenAI Responses API与Chat Completions API区别详解](content/post/Agent/Agent%20工程实战/OpenAI%20Responses%20API与Chat%20Completions%20API区别详解/)
-- [Session、Thread、Run：一条消息为什么是一个 Run](content/post/Agent/Agent%20工程实战/Session、Thread、Run：一条消息为什么是一个%20Run/)
-- [数据库初始化与迁移：从创建那一刻就要钉死的三件事](content/post/Agent/Agent%20工程实战/数据库初始化与迁移：从创建那一刻就要钉死的三件事/)
-- [给 Agent 接入 Web Search：四种做法，和一条我试过之后放弃的路](content/post/Agent/Agent%20工程实战/给%20Agent%20接入%20Web%20Search：四种做法，和一条我试过之后放弃的路/)
-- [让用户选择指定 Skill：从社区实践到生产级 API 设计](content/post/Agent/Agent%20工程实战/让用户选择指定%20Skill：从社区实践到生产级%20API%20设计/)
-- [阿里云百炼联网搜索：三种入口，三种结果，我全都踩了一遍](content/post/Agent/Agent%20工程实战/阿里云百炼联网搜索：三种入口，三种结果，我全都踩了一遍/)
+- [智能体编排设计工程师学习指南](content/post/Agent%20工程/02-框架与运行时/01-智能体编排设计工程师学习指南/)
+- [Agent Runtime 详解：从模型循环到可恢复的企业执行系统](content/post/Agent%20工程/02-框架与运行时/20260922101724_Agent%20Runtime详解/)
+- [AI Agent Loop 工程：原理、模式与实现](content/post/Agent%20工程/02-框架与运行时/AI%20Agent%20Loop%20工程：原理、模式与实现/)
+- [Agent 用户记忆与 Skill 沉淀：开源项目参考与架构设计](content/post/Agent%20工程/02-框架与运行时/Agent%20用户记忆与%20Skill%20沉淀：开源项目参考与架构设计/)
+- [Gliding Horse Agent OS 介绍：Rust 构建的工业级 AI Agent 操作系统](content/post/Agent%20工程/02-框架与运行时/Gliding%20Horse%20Agent%20OS%20介绍/)
+- [主流 Agent 框架对比与多框架统一接口设计](content/post/Agent%20工程/02-框架与运行时/主流%20Agent%20框架对比与多框架统一接口设计/)
+- [内置 Agent 放哪：一个 is_runnable 陷阱与三类事实源](content/post/Agent%20工程/02-框架与运行时/内置%20Agent%20放哪：一个%20is_runnable%20陷阱与三类事实源/)
+- [Agent 记忆模块深度技术文档](content/post/Agent%20工程/02-框架与运行时/记忆模块技术文档/)
 
-### Agent开发中遇到的问题
+### 03-工程化实践
 
-- [ai返回数据的格式不稳定，存在解析错误的问题](content/post/Agent/Agent开发中遇到的问题/ai返回数据的格式不稳定，存在解析错误的问题/)
+- [Agent 内容输出规范：本地给路径，远程给协议](content/post/Agent%20工程/03-工程化实践/Agent%20内容输出规范：本地给路径，远程给协议/)
+- [Agent 工具没调用，先查模型到底能看见什么](content/post/Agent%20工程/03-工程化实践/Agent%20工具没调用：一次真实链路验收的三层误判/)
+- [${VAR} 是谁的环境变量：一条只写不读的凭据带走平台密钥](content/post/Agent%20工程/03-工程化实践/MCP%20环境变量展开：一条只写不读的凭据带走平台密钥/)
+- [OpenAI Responses API与Chat Completions API区别详解](content/post/Agent%20工程/03-工程化实践/OpenAI%20Responses%20API与Chat%20Completions%20API区别详解/)
+- [ai返回数据的格式不稳定，存在解析错误的问题](content/post/Agent%20工程/03-工程化实践/ai返回数据的格式不稳定，存在解析错误的问题/)
+- [数据库初始化与迁移：从创建那一刻就要钉死的三件事](content/post/Agent%20工程/03-工程化实践/数据库初始化与迁移：从创建那一刻就要钉死的三件事/)
+- [相同LLM不同提示词的对比](content/post/Agent%20工程/03-工程化实践/相同LLM不同提示词的对比/)
+- [给 Agent 接入 Web Search：四种做法，和一条我试过之后放弃的路](content/post/Agent%20工程/03-工程化实践/给%20Agent%20接入%20Web%20Search：四种做法，和一条我试过之后放弃的路/)
+- [让用户选择指定 Skill：从社区实践到生产级 API 设计](content/post/Agent%20工程/03-工程化实践/让用户选择指定%20Skill：从社区实践到生产级%20API%20设计/)
+- [阿里云百炼联网搜索：三种入口，三种结果，我全都踩了一遍](content/post/Agent%20工程/03-工程化实践/阿里云百炼联网搜索：三种入口，三种结果，我全都踩了一遍/)
 
-### Agent流式协议
+### 04-可观测与协议
 
-- [AG-UI：当 Agent 学会了和前端说话](content/post/Agent/Agent流式协议/AG-UI：当Agent学会了和前端说话/)
+- [AG-UI：当 Agent 学会了和前端说话](content/post/Agent%20工程/04-可观测与协议/AG-UI：当Agent学会了和前端说话/)
+- [Agent Run 流式协议：事件溯源、SSE 投影与断线恢复](content/post/Agent%20工程/04-可观测与协议/Agent%20Run%20流式协议：事件溯源、SSE%20投影与断线恢复/)
+- [Agent Tracing 基础：Trace、Span 与 OpenTelemetry 埋点](content/post/Agent%20工程/04-可观测与协议/Agent%20Tracing%20基础：Trace、Span%20与%20OpenTelemetry%20埋点/)
+- [Agent 决策审计落地：写入点、复核器与门禁降级判据](content/post/Agent%20工程/04-可观测与协议/Agent%20决策审计落地：写入点、复核器与门禁降级判据/)
+- [Agent 决策审计：它与 Tracing 的关系](content/post/Agent%20工程/04-可观测与协议/Agent%20决策审计：它与%20Tracing%20的关系/)
+- [Agent 埋点接 ARMS：上报返回 success，控制台却是空的](content/post/Agent%20工程/04-可观测与协议/Agent%20埋点接%20ARMS：上报返回%20success，控制台却是空的/)
+- [Session、Thread、Run：一条消息为什么是一个 Run](content/post/Agent%20工程/04-可观测与协议/Session、Thread、Run：一条消息为什么是一个%20Run/)
+- [全量解码与增量解码：原理、区别以及应用](content/post/Agent%20工程/04-可观测与协议/全量解码与增量解码：原理、区别以及应用/)
 
-### ComputerUse
+### 05-沙箱与执行环境
 
-- [Cua 框架详解：给任何 Agent 一台可操控的电脑](content/post/Agent/ComputerUse/Cua%20框架详解：给任何%20Agent%20一台可操控的电脑/)
+- [Agent 沙箱选型指南：隔离边界、产品对比与判断标准](content/post/Agent%20工程/05-沙箱与执行环境/Agent%20沙箱选型指南：隔离边界、产品对比与判断标准/)
+- [Cua 框架详解：给任何 Agent 一台可操控的电脑](content/post/Agent%20工程/05-沙箱与执行环境/Cua%20框架详解：给任何%20Agent%20一台可操控的电脑/)
+- [E2B 迁到阿里云云沙箱：能跑通，但别急着上生产](content/post/Agent%20工程/05-沙箱与执行环境/E2B%20迁到阿里云云沙箱：能跑通，但别急着上生产/)
 
-- [Graph RAG 开源项目全景：从微软 GraphRAG 到 LightRAG](content/post/Agent/GraphRAG开源项目全景：从微软GraphRAG到LightRAG/)
+### 06-应用与集成
 
-### LangChain
+- [n8n](content/post/Agent%20工程/06-应用与集成/n8n/)
+- [nl2sql](content/post/Agent%20工程/06-应用与集成/nl2sql/)
+- [openclaw](content/post/Agent%20工程/06-应用与集成/openclaw/)
 
-- [DeepAgents完全指南](content/post/Agent/LangChain/DeepAgents完全指南/)
-- [Langchain-RAG实战教程](content/post/Agent/LangChain/LangChain-RAG实战教程/)
-- [LangChain 与 MCP 极简教程：让 Agent 接入外部工具的另一种方式](content/post/Agent/LangChain/LangChain与MCP极简教程/)
-- [LangChain 常见报错与排查指南](content/post/Agent/LangChain/LangChain常见报错与排查/)
-- [LangChain 模型接入指南：OpenAI 兼容协议与多平台调用](content/post/Agent/LangChain/LangChain模型接入指南/)
-- [LangGraph 实战：StateGraph、手写 ReAct 循环与 Map-Reduce 摘要](content/post/Agent/LangChain/LangGraph实战教程/)
-- [LangSmith使用教程](content/post/Agent/LangChain/LangSmith使用教程/)
-- [langchain_core 组件详解：Prompt 模板与 Output Parsers](content/post/Agent/LangChain/langchain_core组件详解/)
-- [一个订阅更新摘要 Agent 的完整实践：从提示词踩坑到长文本分块](content/post/Agent/LangChain/订阅摘要Agent实战/)
+## RAG 与 LangChain (17)
 
-### RAG
+### 01-LangChain 基础
 
-- [RAG入门：从问题定义到系统设计](content/post/Agent/RAG/01-RAG入门：从问题定义到系统设计/)
-- [RAG进阶：Chunking、召回、Hybrid Search 与 Rerank](content/post/Agent/RAG/02-RAG进阶：Chunking、召回、Hybrid%20Search%20与%20Rerank/)
-- [RAG评测与 Inspect：如何知道问题出在检索、重排还是生成](content/post/Agent/RAG/03-RAG评测与%20Inspect：如何知道问题出在检索、重排还是生成/)
-- [RAG生产实践：常见坑、性能优化与迭代路线图](content/post/Agent/RAG/04-RAG生产实践：常见坑、性能优化与迭代路线图/)
+- [LangChain 与 MCP 极简教程：让 Agent 接入外部工具的另一种方式](content/post/RAG%20与%20LangChain/01-LangChain%20基础/LangChain与MCP极简教程/)
+- [LangChain 常见报错与排查指南](content/post/RAG%20与%20LangChain/01-LangChain%20基础/LangChain常见报错与排查/)
+- [LangChain 模型接入指南：OpenAI 兼容协议与多平台调用](content/post/RAG%20与%20LangChain/01-LangChain%20基础/LangChain模型接入指南/)
+- [LangSmith使用教程](content/post/RAG%20与%20LangChain/01-LangChain%20基础/LangSmith使用教程/)
+- [langchain_core 组件详解：Prompt 模板与 Output Parsers](content/post/RAG%20与%20LangChain/01-LangChain%20基础/langchain_core组件详解/)
 
-- [RAGFlow 深度解析：为什么它是最值得关注的 RAG 开源项目](content/post/Agent/RAGFlow深度解析：为什么它是最值得关注的RAG开源项目/)
-- [RAG 技术全景：从入门到进阶](content/post/Agent/RAG技术全景：从入门到进阶/)
+### 02-LangChain 进阶
 
-## Book (1)
+- [DeepAgents完全指南](content/post/RAG%20与%20LangChain/02-LangChain%20进阶/DeepAgents完全指南/)
+- [Langchain-RAG实战教程](content/post/RAG%20与%20LangChain/02-LangChain%20进阶/LangChain-RAG实战教程/)
+- [LangGraph 实战：StateGraph、手写 ReAct 循环与 Map-Reduce 摘要](content/post/RAG%20与%20LangChain/02-LangChain%20进阶/LangGraph实战教程/)
+- [一个订阅更新摘要 Agent 的完整实践：从提示词踩坑到长文本分块](content/post/RAG%20与%20LangChain/02-LangChain%20进阶/订阅摘要Agent实战/)
 
-### 读书笔记
+### 03-RAG 原理与实践
 
-- [《大语言模型》读书笔记（赵鑫）](content/post/Book/读书笔记/大语言模型-赵鑫/)
+- [RAG入门：从问题定义到系统设计](content/post/RAG%20与%20LangChain/03-RAG%20原理与实践/01-RAG入门：从问题定义到系统设计/)
+- [RAG进阶：Chunking、召回、Hybrid Search 与 Rerank](content/post/RAG%20与%20LangChain/03-RAG%20原理与实践/02-RAG进阶：Chunking、召回、Hybrid%20Search%20与%20Rerank/)
+- [RAG评测与 Inspect：如何知道问题出在检索、重排还是生成](content/post/RAG%20与%20LangChain/03-RAG%20原理与实践/03-RAG评测与%20Inspect：如何知道问题出在检索、重排还是生成/)
+- [RAG生产实践：常见坑、性能优化与迭代路线图](content/post/RAG%20与%20LangChain/03-RAG%20原理与实践/04-RAG生产实践：常见坑、性能优化与迭代路线图/)
 
-## DeepLearning (19)
+### 04-RAG 生态与选型
 
-### NLP
+- [Graph RAG 开源项目全景：从微软 GraphRAG 到 LightRAG](content/post/RAG%20与%20LangChain/04-RAG%20生态与选型/GraphRAG开源项目全景：从微软GraphRAG到LightRAG/)
+- [RAGFlow 深度解析：为什么它是最值得关注的 RAG 开源项目](content/post/RAG%20与%20LangChain/04-RAG%20生态与选型/RAGFlow深度解析：为什么它是最值得关注的RAG开源项目/)
+- [RAG 技术全景：从入门到进阶](content/post/RAG%20与%20LangChain/04-RAG%20生态与选型/RAG技术全景：从入门到进阶/)
+- [vector-database](content/post/RAG%20与%20LangChain/04-RAG%20生态与选型/vector-database/)
 
-- [LLM微调：qwen2_chat模型部署和微调](content/post/DeepLearning/NLP/LLM微调：qwen2_chat模型部署和微调/)
-- [命名实体识别](content/post/DeepLearning/NLP/命名实体识别/)
-- [文本分类](content/post/DeepLearning/NLP/文本分类/)
+## Vibe Coding (7)
 
-### agent
+### 01-设计工程研究
 
-- [n8n](content/post/DeepLearning/agent/n8n/)
-- [nl2sql](content/post/DeepLearning/agent/nl2sql/)
-- [openclaw](content/post/DeepLearning/agent/openclaw/)
-- [vector-database](content/post/DeepLearning/agent/vector-database/)
+- [Design Engineer 到底是什么：从 Vercel 拆解到一个新角色](content/post/Vibe%20Coding/01-设计工程研究/01-design-engineer是什么/)
+- [Figma MCP + Claude Code：从设计稿到上线的全过程](content/post/Vibe%20Coding/01-设计工程研究/02-figma-mcp实战/)
+- [shadcn/ui + design token：LLM 原生设计系统实践](content/post/Vibe%20Coding/01-设计工程研究/03-shadcn设计系统/)
+- [一份能直接抄的前端 `.mdc` rules 模板](content/post/Vibe%20Coding/01-设计工程研究/04-mdc-rules模板/)
 
-### frame
+### 02-实战与调试
 
-- [深度学习开源框架](content/post/DeepLearning/frame/DeepSpeed/)
-- [vllm](content/post/DeepLearning/frame/vllm/)
+- [AI 前端调试技巧：把被遮挡翻译成尺寸约束](content/post/Vibe%20Coding/02-实战与调试/AI%20前端调试技巧：把被遮挡翻译成尺寸约束/)
+- [下拉框里显示 _all：Base UI 与 Radix Select 的一个行为差异](content/post/Vibe%20Coding/02-实战与调试/Base%20UI%20Select%20显示%20_all%20的坑/)
+- [用 AI 打造惊艳前端：从 Vibe Coding 到实战的艺术指南](content/post/Vibe%20Coding/02-实战与调试/art-of-ai-frontend-design/)
 
-### models_and_strategies
+## Web 开发 (17)
 
-- [Alignment-DPOvsPPOvsGRPO](content/post/DeepLearning/models_and_strategies/Alignment-DPOvsPPOvsGRPO/)
-- [DeepSeek_NSA](content/post/DeepLearning/models_and_strategies/Deepseek_NSA/)
-- [ICL-上下文学习](content/post/DeepLearning/models_and_strategies/ICL-上下文学习/)
-- [Jev：不写字的决策模型，和它真正适合解决的问题](content/post/DeepLearning/models_and_strategies/Jev：不写字的决策模型，和它真正适合解决的问题/)
-- [MoE](content/post/DeepLearning/models_and_strategies/MoE/)
-- [RLHF](content/post/DeepLearning/models_and_strategies/RLHF/)
-- [Attention](content/post/DeepLearning/models_and_strategies/attention注意力机制/)
-- [mechine_learning_models](content/post/DeepLearning/models_and_strategies/mechine_learning_models/)
-- [增量学习研究综述：理论、方法、应用与未来展望](content/post/DeepLearning/models_and_strategies/增量学习研究综述：理论、方法、应用与未来展望/)
-- [大模型结构原理与代码实现](content/post/DeepLearning/models_and_strategies/模型-transformer原理和代码实现/)
+### 01-FastAPI
 
-## Design (12)
+- [ALL-fastapi](content/post/Web%20开发/01-FastAPI/fastapi-ALL/)
+- [fastapi-docs_swagger_UI-openAPI](content/post/Web%20开发/01-FastAPI/fastapi-docs_swagger_UI/)
+- [fastapi-前提知识](content/post/Web%20开发/01-FastAPI/fastapi-前提知识/)
+- [fastapi使用教程](content/post/Web%20开发/01-FastAPI/fastapi-第一个简单示例/)
+- [FASTAPI使用相关问题](content/post/Web%20开发/01-FastAPI/fastapi使用/)
+- [jwt-with-fastapi](content/post/Web%20开发/01-FastAPI/jwt-with-fastapi/)
+- [注入依赖进一步解释](content/post/Web%20开发/01-FastAPI/注入依赖进一步解释/)
 
-### 值得学习的图
+### 02-Flask 与后端模式
 
-- [作图参考](content/post/Design/值得学习的图/作图参考/)
-- [漂亮的reademe文件使用教程](content/post/Design/值得学习的图/漂亮的reademe文件使用教程/)
+- [Building asynchronous APIs for handling long-term tasks and dynamic resources](content/post/Web%20开发/02-Flask%20与后端模式/Building%20asynchronous%20APIs%20for%20handling%20long-term%20tasks%20and%20dynamic%20resources/)
+- [Celery](content/post/Web%20开发/02-Flask%20与后端模式/Celery/)
+- [Flask使用教程](content/post/Web%20开发/02-Flask%20与后端模式/Flask使用/)
+- [Jinja是什么？可以用在做什么？](content/post/Web%20开发/02-Flask%20与后端模式/Jinja是什么？可以用在做什么？/)
+- [flask-构建一个简单的文件同步系统](content/post/Web%20开发/02-Flask%20与后端模式/flask-构建一个简单的文件同步系统/)
 
-### 功能图
+### 03-快速原型框架
 
-- [数据流图](content/post/Design/功能图/数据流图/)
+- [gradio教程](content/post/Web%20开发/03-快速原型框架/gradio/)
+- [streamlit使用教程](content/post/Web%20开发/03-快速原型框架/streamlit使用教程/)
 
-### 原型图
+### 04-前端与跨端
 
-- [使用ai工具绘制原型图html并导入figma](content/post/Design/原型图/使用ai工具绘制原型图html并导入figma/)
+- [React框架使用教程](content/post/Web%20开发/04-前端与跨端/React框架使用教程/)
+- [flutter_tutorial](content/post/Web%20开发/04-前端与跨端/flutter_tutorial/)
+- [Refine: 当 API 即界面，CRUD 不再是体力活](content/post/Web%20开发/04-前端与跨端/refine-meta-framework/)
 
-### 结构图
+## 工程实践 (11)
 
-- [类图](content/post/Design/结构图/类图/)
+### 01-可观测性
 
-### 行为图
+- [LogQL 查询语言详解：先选流，再过滤，最后才解析](content/post/工程实践/01-可观测性/LogQL查询语言详解/)
+- [云原生可观测性：从"监控"到"洞察"的进化之路](content/post/工程实践/01-可观测性/云原生可观测性-从监控到洞察的进化之路/)
+- [项目中日志的使用教程](content/post/工程实践/01-可观测性/项目中日志的使用教程/)
 
-- [用例图](content/post/Design/行为图/用例图/)
+### 02-流程与规范
 
-### 软件架构设计
+- [代码写作心得-使用教程](content/post/工程实践/02-流程与规范/代码写作心得-使用教程/)
+- [怎么保存.env文件到github公开的仓库](content/post/工程实践/02-流程与规范/怎么保存.env文件到github公开的仓库/)
+- [软件项目开发流程使用教程](content/post/工程实践/02-流程与规范/软件项目开发流程/)
+- [通用模板规范GeneralTemplateSpecifications](content/post/工程实践/02-流程与规范/通用模板规范GeneralTemplateSpecifications/)
 
-- [从脚本到企业级平台：AI Agent 系统"整洁架构"演进与 Python 落地指南](content/post/Design/软件架构设计/AI-Agent四层模块化单体架构/)
-- [FastAPI 后端架构设计](content/post/Design/软件架构设计/FastAPI后端架构设计/)
-- [一个标准的软件项目结构](content/post/Design/软件架构设计/一个标准的软件项目结构/)
-- [简洁架构（Clean Architecture）：让业务逻辑永远不依赖框架](content/post/Design/软件架构设计/简洁架构-Clean-Architecture/)
-- [软件架构设计-培养软件架构师的思维](content/post/Design/软件架构设计/软件架构设计-培养软件架构师的思维/)
-- [领域驱动设计（DDD）分层架构：用领域语言构建复杂系统](content/post/Design/软件架构设计/领域驱动设计分层架构-DDD/)
+### 03-DevOps 与平台
 
-## Engineering (7)
+- [Docker 和 Traefik 一键安装脚本](content/post/工程实践/03-DevOps%20与平台/Docker-Traefik一键安装脚本/)
+- [Woodpecker CI 使用教程](content/post/工程实践/03-DevOps%20与平台/Woodpecker-CI使用教程/)
+- [企业AI工具平台架构设计：拥抱快速变化的AI生态](content/post/工程实践/03-DevOps%20与平台/ai-platform-architecture/)
+- [开发问题与解法笔记](content/post/工程实践/03-DevOps%20与平台/开发问题与解法笔记/)
 
-### DevOps
+## 开发工具链 (27)
 
-- [Docker 和 Traefik 一键安装脚本](content/post/Engineering/DevOps/Docker-Traefik一键安装脚本/)
-- [Woodpecker CI 使用教程](content/post/Engineering/DevOps/Woodpecker-CI使用教程/)
+### 01-Git 与 GitHub
 
-### platform-architecture
+- [Self-hosted Runner](content/post/开发工具链/01-Git%20与%20GitHub/Self-hosted%20Runner/)
+- [gh使用教程](content/post/开发工具链/01-Git%20与%20GitHub/gh使用教程/)
+- [git&github_tutorial](content/post/开发工具链/01-Git%20与%20GitHub/git&github使用/)
+- [git-submodule-子模块](content/post/开发工具链/01-Git%20与%20GitHub/git-submodule-子模块/)
+- [2-github action 使用](content/post/开发工具链/01-Git%20与%20GitHub/github%20action/)
+- [github release](content/post/开发工具链/01-Git%20与%20GitHub/github%20release/)
 
-- [企业AI工具平台架构设计：拥抱快速变化的AI生态](content/post/Engineering/platform-architecture/ai-platform-architecture/)
+### 02-Docker 与容器
 
-### 可观测性
+- [Docker Compose(dev\test\prod)](content/post/开发工具链/02-Docker%20与容器/Docker%20Compose(devtestprod)/)
+- [Docker Swarm 实战（一）：核心概念与集群管理](content/post/开发工具链/02-Docker%20与容器/Docker%20Swarm%20实战/)
+- [Docker Swarm 实战（二）：Traefik 反向代理部署](content/post/开发工具链/02-Docker%20与容器/Docker%20Swarm%20实战%20-%20Traefik%20反向代理部署/)
+- [Docker 私有镜像仓库registry](content/post/开发工具链/02-Docker%20与容器/Docker%20私有仓库/)
+- [Docker使用实战-compose教程](content/post/开发工具链/02-Docker%20与容器/Docker使用实战-compose教程/)
+- [build x86 image in ARM MAC platform and devolopmet to remote server](content/post/开发工具链/02-Docker%20与容器/build%20x86%20image%20in%20ARM%20MAC%20platform%20and%20devolopmet%20to%20remote%20server/)
+- [docker-ubuntu容器中安装miniconda问题合集](content/post/开发工具链/02-Docker%20与容器/docker-ubuntu容器中安装miniconda问题合集/)
+- [docker使用教程](content/post/开发工具链/02-Docker%20与容器/docker容器相关命令/)
 
-- [LogQL 查询语言详解：先选流，再过滤，最后才解析](content/post/Engineering/可观测性/LogQL查询语言详解/)
-- [云原生可观测性：从"监控"到"洞察"的进化之路](content/post/Engineering/可观测性/云原生可观测性-从监控到洞察的进化之路/)
-- [项目中日志的使用教程](content/post/Engineering/可观测性/项目中日志的使用教程/)
+### 03-浏览器自动化
 
-### 软件工程
+- [AI 生成前端的 E2E 实践：用 Playwright 做视觉回归和功能兜底](content/post/开发工具链/03-浏览器自动化/ai-frontend-e2e/)
+- [浏览器会话录制与接口回放：方案调研](content/post/开发工具链/03-浏览器自动化/browser-session-replay/)
+- [扩展式 RPA：从 Chrome 扩展原理到 Playwright 实战方案](content/post/开发工具链/03-浏览器自动化/extension-rpa/)
+- [从 noVNC 到 Playwright 截图流：容器内 VNC 踩坑记](content/post/开发工具链/03-浏览器自动化/novnc-playwright/)
+- [Playwright 使用实践与本地浏览器 Profile 避坑](content/post/开发工具链/03-浏览器自动化/playwright-profile/)
+- [Playwright Chromium 在 Docker 内 SIGTRAP 启动崩溃排查实录](content/post/开发工具链/03-浏览器自动化/playwright-sigtrap/)
 
-- [软件项目开发流程使用教程](content/post/Engineering/软件工程/软件项目开发流程/)
+### 04-终端与编辑器
 
-## Grammar (18)
+- [VScode使用教程|cursor使用教程](content/post/开发工具链/04-终端与编辑器/VScode安装和配置/)
+- [CC Switch 详解：一个应用管住八个 AI 编程 CLI](content/post/开发工具链/04-终端与编辑器/cc-switch-guide/)
+- [copier-using](content/post/开发工具链/04-终端与编辑器/copier-using/)
+- [Herdr 详解：给 AI Agent 用的终端运行时](content/post/开发工具链/04-终端与编辑器/herdr-ai-agent-terminal-runtime/)
+- [为 AI 而写的 CLI 设计指南：原则、避坑与难点](content/post/开发工具链/04-终端与编辑器/为AI而写的CLI设计指南/)
 
-### Matlab
+### 05-AI 与创作工具
 
-- [Matlab-基本语法](content/post/Grammar/Matlab/Matlab-基本语法/)
+- [用 AI 把文章做成口播视频：三条路线、工具盘点与落地管线](content/post/开发工具链/05-AI%20与创作工具/ai-article-to-video/)
+- [Blender 详解：奥斯卡和 AI Agent 为什么都选了它](content/post/开发工具链/05-AI%20与创作工具/blender-complete-guide/)
 
-### PyQt
+## 效率与文档 (10)
 
-- [PyQt-入门教程（AI生成）](content/post/Grammar/PyQt/PyQt-入门教程/)
-- [PyQt-设备像素设置](content/post/Grammar/PyQt/PyQt-设备像素设置/)
+### 01-写作与排版
 
-### general
+- [Markdown中常用的图标或徽章](content/post/效率与文档/01-写作与排版/Markdown中常用的图标或徽章/)
+- [“categories”（类别）和“tags”（标签）的区别](content/post/效率与文档/01-写作与排版/categories和tags的区别/)
+- [markdown使用技巧](content/post/效率与文档/01-写作与排版/markdown使用技巧/)
+- [word-封面-你文档的门面](content/post/效率与文档/01-写作与排版/word-封面-你文档的门面/)
+- [word技巧-排版和布局](content/post/效率与文档/01-写作与排版/word技巧-排版和布局/)
+- [如何提成所写文档和ppt的颜值](content/post/效率与文档/01-写作与排版/如何提成所写文档和ppt的颜值/)
+- [文档结构化实战：从 Markdown/PDF 到 Word](content/post/效率与文档/01-写作与排版/文档结构化实战/)
 
-- [生活中的方法](content/post/Grammar/general/生活中的收获量化方法/)
-- [通用模板规范GeneralTemplateSpecifications](content/post/Grammar/general/通用模板规范GeneralTemplateSpecifications/)
+### 02-系统小技巧
 
-### python
+- [mac os使用经验](content/post/效率与文档/02-系统小技巧/macos使用经验/)
+- [关闭win11更新](content/post/效率与文档/02-系统小技巧/关闭win11更新/)
+- [在overleaf中为什么两个完全一样的代码一个不能显示图片](content/post/效率与文档/02-系统小技巧/在overleaf中为什么两个完全一样的代码一个不能显示图片/)
 
-- [Python-Docstring 的详细教程](content/post/Grammar/python/python-Docstring%20的详细教程/)
-- [【python】__init__.py为什么要写](content/post/Grammar/python/python-__init__.py为什么要写/)
-- [python-logging模块添加日志](content/post/Grammar/python/python-logging模块添加日志/)
-- [python-lru_cache 缓存装饰器](content/post/Grammar/python/python-lru_cache%20缓存装饰器/)
-- [python-staticmethod 修饰符](content/post/Grammar/python/python-staticmethod%20修饰符/)
-- [python-typing提高代码可读性](content/post/Grammar/python/python-typing提高代码可读性/)
-- [python-在项目中应该如何定义文件路径](content/post/Grammar/python/python-在项目中应该如何定义文件路径/)
-- [python-将py文件编译为pyc文件并运行](content/post/Grammar/python/python-将py文件编译为pyc文件并运行/)
-- [python-应如何定义包通用的变量-推荐config.py](content/post/Grammar/python/python-应如何定义包通用的变量-推荐config.py/)
-- [python-数据类](content/post/Grammar/python/python-数据类/)
-- [python-相对导入错误attempted relative import with no known parent package](content/post/Grammar/python/python-相对导入错误attempted%20relative%20import%20with%20no%20known%20parent%20package/)
-- [python-类-类变量和实例变量](content/post/Grammar/python/python-类/)
-- [python使用教程-难点和遇到的问题](content/post/Grammar/python/python-难点和遇到的问题/)
+## 数据科学 (13)
 
-## Knowledge (67)
+### 01-Transformers 全家桶
 
-### English
+- [datasets](content/post/数据科学/01-Transformers%20全家桶/datasets/)
+- [evaluate](content/post/数据科学/01-Transformers%20全家桶/evaluate/)
+- [model](content/post/数据科学/01-Transformers%20全家桶/model/)
+- [pipeline](content/post/数据科学/01-Transformers%20全家桶/pipeline/)
+- [tokenizer](content/post/数据科学/01-Transformers%20全家桶/tokenizer/)
+- [trainer](content/post/数据科学/01-Transformers%20全家桶/trainer/)
 
-- [english如何学习](content/post/Knowledge/English/english如何学习/)
-- [英语语法知识点](content/post/Knowledge/English/英语语法知识点/)
+### 02-数值与科学计算
 
-### Linux
+- [matplotlib教程-zata——v0.0.0](content/post/数据科学/02-数值与科学计算/matplotlib使用教程_Zata_v0.0.0/)
+- [numpy使用教程](content/post/数据科学/02-数值与科学计算/numpy使用教程/)
+- [pandas使用教程](content/post/数据科学/02-数值与科学计算/pandas使用教程/)
+- [scipy](content/post/数据科学/02-数值与科学计算/scipy/)
 
-- [1核1G云服务器“绝地求生”：如何把Ubuntu的内存从剩200M优化到能跑服务](content/post/Knowledge/Linux/1核1G云服务器“绝地求生”：如何把Ubuntu的内存从剩200M优化到能跑服务/)
-- [bash命令使用教程](content/post/Knowledge/Linux/bash命令使用教程/)
-- [linux使用教程](content/post/Knowledge/Linux/linux服务器初始化配置教程/)
-- [国外服务器扶墙](content/post/Knowledge/Linux/国外服务器扶墙/)
+### 03-建模与部署
 
-### encyclopedic
+- [onnx使用教程](content/post/数据科学/03-建模与部署/onnx使用教程/)
+- [sklearn使用教程](content/post/数据科学/03-建模与部署/sklearn使用教程/)
+- [torch使用教程-zata——v0.0.0](content/post/数据科学/03-建模与部署/torch使用教程_Zata_v0.0.0/)
 
-- [中国历史知识](content/post/Knowledge/encyclopedic/中国历史知识/)
-- [中国各省市介绍](content/post/Knowledge/encyclopedic/中国各省市介绍/)
-- [总-百科知识](content/post/Knowledge/encyclopedic/总-百科知识/)
-- [文学与幽默知识积累](content/post/Knowledge/encyclopedic/文学与幽默知识积累/)
-- [汽车-百科知识](content/post/Knowledge/encyclopedic/汽车-百科知识/)
-- [茶叶-百科知识](content/post/Knowledge/encyclopedic/茶叶/)
+## 构建与打包 (10)
 
-### geographic
+### 01-依赖与环境管理
 
-- [shanghai-geographic](content/post/Knowledge/geographic/shanghai-geographic/)
+- [conda使用教程|pip使用教程|依赖安装_使用教程](content/post/构建与打包/01-依赖与环境管理/conda使用相关/)
+- [npm使用教程](content/post/构建与打包/01-依赖与环境管理/npm使用教程/)
+- [pipx使用教程](content/post/构建与打包/01-依赖与环境管理/pipx使用教程/)
+- [包管理工具poetry使用教程](content/post/构建与打包/01-依赖与环境管理/包管理工具poetry使用教程/)
+- [包管理工具uv使用教程](content/post/构建与打包/01-依赖与环境管理/包管理工具uv使用教程/)
 
-### markdown
+### 02-打包发布
 
-- [Markdown中常用的图标或徽章](content/post/Knowledge/markdown/Markdown中常用的图标或徽章/)
-- [markdown使用技巧](content/post/Knowledge/markdown/markdown使用技巧/)
+- [PyInstaller使用教程](content/post/构建与打包/02-打包发布/PyInstaller-简易教程/)
+- [PyStand-简易教程](content/post/构建与打包/02-打包发布/PyStand-简易教程/)
+- [Pyinstaller-打包gradio项目](content/post/构建与打包/02-打包发布/Pyinstaller-打包gradio项目/)
+- [python程序打包exe使用教程](content/post/构建与打包/02-打包发布/PythonGUI-打包成exe/)
+- [setuptools-打包python项目为egg / 安装库函数](content/post/构建与打包/02-打包发布/setuptools-打包python项目为egg/)
 
-### news
+## 深度学习 (21)
 
-- [❤️每日思考和AI资讯](content/post/Knowledge/news/资讯和思考/)
+### 01-模型与机制
 
-### others
+- [DeepSeek_NSA](content/post/深度学习/01-模型与机制/Deepseek_NSA/)
+- [ICL-上下文学习](content/post/深度学习/01-模型与机制/ICL-上下文学习/)
+- [Jev：不写字的决策模型，和它真正适合解决的问题](content/post/深度学习/01-模型与机制/Jev：不写字的决策模型，和它真正适合解决的问题/)
+- [MoE](content/post/深度学习/01-模型与机制/MoE/)
+- [Attention](content/post/深度学习/01-模型与机制/attention注意力机制/)
+- [大模型结构原理与代码实现](content/post/深度学习/01-模型与机制/模型-transformer原理和代码实现/)
 
-- [1panel使用教程｜云服务器使用教程](content/post/Knowledge/others/1panel使用/)
-- [AI agent介绍：基于大模型的人工智能代理](content/post/Knowledge/others/AI%20agent介绍：基于大模型的人工智能代理/)
-- [Building asynchronous APIs for handling long-term tasks and dynamic resources](content/post/Knowledge/others/Building%20asynchronous%20APIs%20for%20handling%20long-term%20tasks%20and%20dynamic%20resources/)
-- [Celery](content/post/Knowledge/others/Celery/)
-- [Coolify](content/post/Knowledge/others/Coolify/)
-- [JAX](content/post/Knowledge/others/JAX/)
-- [Jinja是什么？可以用在做什么？](content/post/Knowledge/others/Jinja是什么？可以用在做什么？/)
-- [Server Probe](content/post/Knowledge/others/Server%20Probe/)
-- [Useful but not attempted](content/post/Knowledge/others/Useful%20but%20not%20attempted/)
-- [“categories”（类别）和“tags”（标签）的区别](content/post/Knowledge/others/categories和tags的区别/)
-- [conda使用教程|pip使用教程|依赖安装_使用教程](content/post/Knowledge/others/conda使用相关/)
-- [cookbook](content/post/Knowledge/others/cookbook/)
-- [copier-using](content/post/Knowledge/others/copier-using/)
-- [mac os使用经验](content/post/Knowledge/others/macos使用经验/)
-- [openbayes算力平台使用教程](content/post/Knowledge/others/openbayes算力平台使用教程/)
-- [python中将函数设置为定时任务](content/post/Knowledge/others/python中将函数设置为定时任务/)
-- [python的命名规范](content/post/Knowledge/others/python的命名规范/)
-- [rustdesk安装使用](content/post/Knowledge/others/rustdesk安装使用/)
-- [start_a_business](content/post/Knowledge/others/start-a-business/)
-- [streamlit使用教程](content/post/Knowledge/others/streamlit使用教程/)
-- [vllm使用教程](content/post/Knowledge/others/vllm实战教程/)
-- [一个软件项目的文件目录应该怎么定义](content/post/Knowledge/others/一个软件项目的文件目录应该怎么定义/)
-- [什么是算子？](content/post/Knowledge/others/什么是算子？/)
-- [代码写作心得-使用教程](content/post/Knowledge/others/代码写作心得-使用教程/)
-- [clash 教程](content/post/Knowledge/others/修改clash中的配置信息/)
-- [全量解码与增量解码：原理、区别以及应用](content/post/Knowledge/others/全量解码与增量解码：原理、区别以及应用/)
-- [包管理工具poetry使用教程](content/post/Knowledge/others/包管理工具poetry使用教程/)
-- [在overleaf中为什么两个完全一样的代码一个不能显示图片](content/post/Knowledge/others/在overleaf中为什么两个完全一样的代码一个不能显示图片/)
-- [如何和别人尬聊，打破僵局？](content/post/Knowledge/others/如何和别人尬聊，打破僵局？/)
-- [如何提成所写文档和ppt的颜值](content/post/Knowledge/others/如何提成所写文档和ppt的颜值/)
-- [如何自学一个新领域？](content/post/Knowledge/others/如何自学一个领域？/)
-- [字典学习（Dictionary Learning）](content/post/Knowledge/others/字典学习（Dictionary%20Learning）/)
-- [对比了几种大模型在相同任务下的表现](content/post/Knowledge/others/对比了几种大模型在相同任务下的表现/)
-- [徒步知识点](content/post/Knowledge/others/徒步知识点/)
-- [怎么保存.env文件到github公开的仓库](content/post/Knowledge/others/怎么保存.env文件到github公开的仓库/)
-- 技术追踪
-    - [技术热点追踪](content/post/Knowledge/others/技术追踪/技术热点追踪/)
-    - [文档结构化实战：从 Markdown/PDF 到 Word](content/post/Knowledge/others/技术追踪/文档结构化实战/)
-- [相同LLM不同提示词的对比](content/post/Knowledge/others/相同LLM不同提示词的对比/)
-- [给Zata的公司取一个名字](content/post/Knowledge/others/给Zata的公司取一个名字/)
-- [近红外光谱的知识点](content/post/Knowledge/others/近红外光谱的知识点/)
+### 02-训练与对齐
 
-### windows
+- [Alignment-DPOvsPPOvsGRPO](content/post/深度学习/02-训练与对齐/Alignment-DPOvsPPOvsGRPO/)
+- [LLM微调：qwen2_chat模型部署和微调](content/post/深度学习/02-训练与对齐/LLM微调：qwen2_chat模型部署和微调/)
+- [RLHF](content/post/深度学习/02-训练与对齐/RLHF/)
+- [增量学习研究综述：理论、方法、应用与未来展望](content/post/深度学习/02-训练与对齐/增量学习研究综述：理论、方法、应用与未来展望/)
 
-- [关闭win11更新](content/post/Knowledge/windows/关闭win11更新/)
+### 03-NLP 任务
 
-### word技巧
+- [命名实体识别](content/post/深度学习/03-NLP%20任务/命名实体识别/)
+- [文本分类](content/post/深度学习/03-NLP%20任务/文本分类/)
 
-- [word-封面-你文档的门面](content/post/Knowledge/word技巧/word-封面-你文档的门面/)
-- [word技巧-排版和布局](content/post/Knowledge/word技巧/word技巧-排版和布局/)
+### 04-推理与部署
 
-### 科技月报：机器人又抢饭碗啦
+- [深度学习开源框架](content/post/深度学习/04-推理与部署/DeepSpeed/)
+- [openbayes算力平台使用教程](content/post/深度学习/04-推理与部署/openbayes算力平台使用教程/)
+- [vllm](content/post/深度学习/04-推理与部署/vllm/)
+- [vllm使用教程](content/post/深度学习/04-推理与部署/vllm实战教程/)
 
-- [科技月报-2025](content/post/Knowledge/科技月报：机器人又抢饭碗啦/科技月报-2025/)
-- [科技月报-2026](content/post/Knowledge/科技月报：机器人又抢饭碗啦/科技月报-2026/)
+### 05-基础与方法
 
-### 面试八股
+- [JAX](content/post/深度学习/05-基础与方法/JAX/)
+- [mechine_learning_models](content/post/深度学习/05-基础与方法/mechine_learning_models/)
+- [什么是算子？](content/post/深度学习/05-基础与方法/什么是算子？/)
+- [字典学习（Dictionary Learning）](content/post/深度学习/05-基础与方法/字典学习（Dictionary%20Learning）/)
+- [对比了几种大模型在相同任务下的表现](content/post/深度学习/05-基础与方法/对比了几种大模型在相同任务下的表现/)
 
-- [Langchain开发八股-常见问题](content/post/Knowledge/面试八股/Langchain开发八股-常见问题/)
-- [深度学习八股-基础理论知识](content/post/Knowledge/面试八股/深度学习八股-基础理论知识/)
-- [深度学习八股-实战经验](content/post/Knowledge/面试八股/深度学习八股-实战经验/)
-- [深度学习八股-技术栈与工具](content/post/Knowledge/面试八股/深度学习八股-技术栈与工具/)
-- [深度学习八股-量化](content/post/Knowledge/面试八股/深度学习八股-量化/)
-- [深度学习八股-面试常见问题](content/post/Knowledge/面试八股/深度学习八股-面试常见问题/)
+## 科技月报 (4)
 
-## Library (36)
+- [技术热点追踪](content/post/科技月报/技术热点追踪/)
+- [科技月报-2025](content/post/科技月报/科技月报-2025/)
+- [科技月报-2026](content/post/科技月报/科技月报-2026/)
+- [❤️每日思考和AI资讯](content/post/科技月报/资讯和思考/)
 
-### FastAPI
+## 编程语言 (29)
 
-- [ALL-fastapi](content/post/Library/FastAPI/fastapi-ALL/)
-- [fastapi-docs_swagger_UI-openAPI](content/post/Library/FastAPI/fastapi-docs_swagger_UI/)
-- [fastapi-前提知识](content/post/Library/FastAPI/fastapi-前提知识/)
-- [fastapi使用教程](content/post/Library/FastAPI/fastapi-第一个简单示例/)
-- [jwt-with-fastapi](content/post/Library/FastAPI/jwt-with-fastapi/)
-- [注入依赖进一步解释](content/post/Library/FastAPI/注入依赖进一步解释/)
+### 01-语言基础
 
-### Flask
+- [Matlab-基本语法](content/post/编程语言/01-语言基础/Matlab-基本语法/)
+- [Python-Docstring 的详细教程](content/post/编程语言/01-语言基础/python-Docstring%20的详细教程/)
+- [【python】__init__.py为什么要写](content/post/编程语言/01-语言基础/python-__init__.py为什么要写/)
+- [python-staticmethod 修饰符](content/post/编程语言/01-语言基础/python-staticmethod%20修饰符/)
+- [python-typing提高代码可读性](content/post/编程语言/01-语言基础/python-typing提高代码可读性/)
+- [python-应如何定义包通用的变量-推荐config.py](content/post/编程语言/01-语言基础/python-应如何定义包通用的变量-推荐config.py/)
+- [python-数据类](content/post/编程语言/01-语言基础/python-数据类/)
+- [python-类-类变量和实例变量](content/post/编程语言/01-语言基础/python-类/)
+- [python的命名规范](content/post/编程语言/01-语言基础/python的命名规范/)
 
-- [Flask使用教程](content/post/Library/Flask/Flask使用/)
-- [flask-构建一个简单的文件同步系统](content/post/Library/Flask/flask-构建一个简单的文件同步系统/)
+### 02-包与工程化
 
-### Python_Lib
+- [python-logging模块添加日志](content/post/编程语言/02-包与工程化/python-logging模块添加日志/)
+- [python-lru_cache 缓存装饰器](content/post/编程语言/02-包与工程化/python-lru_cache%20缓存装饰器/)
+- [python-在项目中应该如何定义文件路径](content/post/编程语言/02-包与工程化/python-在项目中应该如何定义文件路径/)
+- [python-将py文件编译为pyc文件并运行](content/post/编程语言/02-包与工程化/python-将py文件编译为pyc文件并运行/)
+- [python-相对导入错误attempted relative import with no known parent package](content/post/编程语言/02-包与工程化/python-相对导入错误attempted%20relative%20import%20with%20no%20known%20parent%20package/)
+- [python使用教程-难点和遇到的问题](content/post/编程语言/02-包与工程化/python-难点和遇到的问题/)
+- [python中将函数设置为定时任务](content/post/编程语言/02-包与工程化/python中将函数设置为定时任务/)
 
-- [PyYAML](content/post/Library/Python_Lib/PyYAML/)
-- [Typer + Rich 入门教程](content/post/Library/Python_Lib/Typer和Rich入门教程/)
-- [FASTAPI使用相关问题](content/post/Library/Python_Lib/fastapi使用/)
-- [gradio教程](content/post/Library/Python_Lib/gradio/)
-- [numpy使用教程](content/post/Library/Python_Lib/numpy使用教程/)
-- [pickle](content/post/Library/Python_Lib/pickle/)
-- [pytest测试用例使用教程](content/post/Library/Python_Lib/pytest/)
-- [python开发环境配置指南](content/post/Library/Python_Lib/python开发环境配置指南/)
-- [scipy](content/post/Library/Python_Lib/scipy/)
-- [sklearn使用教程](content/post/Library/Python_Lib/sklearn使用教程/)
-- [tableprint使用教程](content/post/Library/Python_Lib/tableprint使用教程/)
-- [toml_usage_tutorial](content/post/Library/Python_Lib/toml_usage使用教程/)
+### 03-常用库
 
-### React
+- [PyYAML](content/post/编程语言/03-常用库/PyYAML/)
+- [Typer + Rich 入门教程](content/post/编程语言/03-常用库/Typer和Rich入门教程/)
+- [pickle](content/post/编程语言/03-常用库/pickle/)
+- [pydantic使用教程](content/post/编程语言/03-常用库/pydantic使用教程/)
+- [pytest测试用例使用教程](content/post/编程语言/03-常用库/pytest/)
+- [python开发环境配置指南](content/post/编程语言/03-常用库/python开发环境配置指南/)
+- [tableprint使用教程](content/post/编程语言/03-常用库/tableprint使用教程/)
+- [toml_usage_tutorial](content/post/编程语言/03-常用库/toml_usage使用教程/)
 
-- [React框架使用教程](content/post/Library/React/React框架使用教程/)
+### 04-界面与串口
 
-### flutter
+- [PyQt-入门教程（AI生成）](content/post/编程语言/04-界面与串口/PyQt-入门教程/)
+- [PyQt-设备像素设置](content/post/编程语言/04-界面与串口/PyQt-设备像素设置/)
+- [pyserial-使用教程](content/post/编程语言/04-界面与串口/pyserial-Python%20中最常用的串口通信库快速入门/)
 
-- [flutter_tutorial](content/post/Library/flutter/flutter_tutorial/)
+### 05-数据与 ORM
 
-### matplotlib
+- [Alembic](content/post/编程语言/05-数据与%20ORM/Alembic/)
+- [SQLAlchemy简单入门](content/post/编程语言/05-数据与%20ORM/SQLAlchemy简单入门/)
 
-- [matplotlib教程-zata——v0.0.0](content/post/Library/matplotlib/matplotlib使用教程_Zata_v0.0.0/)
+## 设计 (14)
 
-### pandas
+### 01-软件架构
 
-- [pandas使用教程](content/post/Library/pandas/pandas使用教程/)
+- [从脚本到企业级平台：AI Agent 系统"整洁架构"演进与 Python 落地指南](content/post/设计/01-软件架构/AI-Agent四层模块化单体架构/)
+- [FastAPI 后端架构设计](content/post/设计/01-软件架构/FastAPI后端架构设计/)
+- [一个标准的软件项目结构](content/post/设计/01-软件架构/一个标准的软件项目结构/)
+- [一个软件项目的文件目录应该怎么定义](content/post/设计/01-软件架构/一个软件项目的文件目录应该怎么定义/)
+- [简洁架构（Clean Architecture）：让业务逻辑永远不依赖框架](content/post/设计/01-软件架构/简洁架构-Clean-Architecture/)
+- [软件架构设计-培养软件架构师的思维](content/post/设计/01-软件架构/软件架构设计-培养软件架构师的思维/)
+- [领域驱动设计（DDD）分层架构：用领域语言构建复杂系统](content/post/设计/01-软件架构/领域驱动设计分层架构-DDD/)
 
-### pyserial
+### 02-UML 建模图
 
-- [pyserial-使用教程](content/post/Library/pyserial/pyserial-Python%20中最常用的串口通信库快速入门/)
+- [数据流图](content/post/设计/02-UML%20建模图/数据流图/)
+- [用例图](content/post/设计/02-UML%20建模图/用例图/)
+- [类图](content/post/设计/02-UML%20建模图/类图/)
 
-### setuptools
+### 03-原型与灵感
 
-- [setuptools-打包python项目为egg / 安装库函数](content/post/Library/setuptools/setuptools-打包python项目为egg/)
+- [作图参考](content/post/设计/03-原型与灵感/作图参考/)
+- [使用ai工具绘制原型图html并导入figma](content/post/设计/03-原型与灵感/使用ai工具绘制原型图html并导入figma/)
+- [分类图](content/post/设计/03-原型与灵感/分类图/)
+- [漂亮的reademe文件使用教程](content/post/设计/03-原型与灵感/漂亮的reademe文件使用教程/)
 
-### smallLibrary
+## 软件试用 (30)
 
-- [onnx使用教程](content/post/Library/smallLibrary/onnx使用教程/)
-- [pydantic使用教程](content/post/Library/smallLibrary/pydantic使用教程/)
+### 01-AI 工具试用
 
-### torch
+- [软件工程的范式转移：基于 Claude Code 与智能体协作的高效编程实践](content/post/软件试用/01-AI%20工具试用/Efficient%20Programming%20Based%20on%20Claude%20Code%20Collaboration%20with%20Intelligent%20Agents/)
+- [Tavily-搜索引擎api](content/post/软件试用/01-AI%20工具试用/Tavily/)
+- [cc-switch](content/post/软件试用/01-AI%20工具试用/cc-switch/)
+- [ccNexus](content/post/软件试用/01-AI%20工具试用/ccNexus/)
+- [cherry-studio](content/post/软件试用/01-AI%20工具试用/cherry-studio/)
+- [claude-code&codex&Gemini-cli](content/post/软件试用/01-AI%20工具试用/claude-code/)
+- [coze](content/post/软件试用/01-AI%20工具试用/coze/)
+- [cursor使用教程](content/post/软件试用/01-AI%20工具试用/cursor使用教程/)
+- [everything-claude-code](content/post/软件试用/01-AI%20工具试用/everything-claude-code/)
+- [flora无限画布](content/post/软件试用/01-AI%20工具试用/flora无限画布/)
+- [wrap.dev](content/post/软件试用/01-AI%20工具试用/wrap.dev/)
+- [百度自由画布](content/post/软件试用/01-AI%20工具试用/百度自由画布/)
 
-- [torch使用教程-zata——v0.0.0](content/post/Library/torch/torch使用教程_Zata_v0.0.0/)
+### 02-终端与包管理
 
-### transformers
+- [homebrew](content/post/软件试用/02-终端与包管理/homebrew/)
+- [nvm](content/post/软件试用/02-终端与包管理/nvm/)
+- [postman](content/post/软件试用/02-终端与包管理/postman/)
+- [tmux简易使用](content/post/软件试用/02-终端与包管理/tmux/)
+- [wsl使用教程](content/post/软件试用/02-终端与包管理/wsl使用教程/)
+- [多台电脑环境变量(.env)同步方案](content/post/软件试用/02-终端与包管理/多台电脑环境变量(.env)同步方案/)
+- [新电脑快速配置-scoop](content/post/软件试用/02-终端与包管理/新电脑快速配置-scoop-homebrew/)
 
-- [datasets](content/post/Library/transformers/datasets/)
-- [evaluate](content/post/Library/transformers/evaluate/)
-- [model](content/post/Library/transformers/model/)
-- [pipeline](content/post/Library/transformers/pipeline/)
-- [tokenizer](content/post/Library/transformers/tokenizer/)
-- [trainer](content/post/Library/transformers/trainer/)
+### 03-部署与自托管
 
-### 优秀图表学习
+- [Coolify vs Dokploy](content/post/软件试用/03-部署与自托管/Coolify%20vs%20Dokploy/)
+- [alist](content/post/软件试用/03-部署与自托管/alist/)
+- [github项目newsnow部署](content/post/软件试用/03-部署与自托管/github项目newsnow部署/)
+- [polar-DB](content/post/软件试用/03-部署与自托管/polar-DB/)
+- [网页内容变化监控项目](content/post/软件试用/03-部署与自托管/网页内容变化监控项目/)
 
-- [分类图](content/post/Library/优秀图表学习/分类图/)
+### 04-文档与标注
 
-## PaperReading (1)
+- [数据集标注工具](content/post/软件试用/04-文档与标注/LabelStudio-tutorial/)
+- [Sphinx-快速生成python项目的api文档](content/post/软件试用/04-文档与标注/Sphinx-快速生成python项目的api文档/)
+- [生成api文档工具的简易使用](content/post/软件试用/04-文档与标注/api文档的写作/)
 
-- [瑞金医院拉曼无创血糖论文](content/post/PaperReading/RuijinHospitalandNearviewTechnologyLaunchRamanSpectroscopyforNon-InvasiveBloodGlucoseMonitoring_NatureMetabolism/)
+### 05-桌面效率工具
 
-## Platforms_Tools (38)
+- [IObit Unlocker解除文件占用](content/post/软件试用/05-桌面效率工具/IObit%20Unlocker解除文件占用/)
+- [内网文件传输工具LocalSend](content/post/软件试用/05-桌面效率工具/内网文件传输工具LocalSend/)
+- [实用软件工具｜好用软件推荐](content/post/软件试用/05-桌面效率工具/实用软件工具/)
 
-### Blender
+## 运维与服务器 (27)
 
-- [Blender 详解：奥斯卡和 AI Agent 为什么都选了它](content/post/Platforms_Tools/Blender/blender-complete-guide/)
+### 01-服务器与系统
 
-### CLI
+- [1核1G云服务器“绝地求生”：如何把Ubuntu的内存从剩200M优化到能跑服务](content/post/运维与服务器/01-服务器与系统/1核1G云服务器“绝地求生”：如何把Ubuntu的内存从剩200M优化到能跑服务/)
+- [SSH使用教程](content/post/运维与服务器/01-服务器与系统/SSH常用命令/)
+- [Server Probe](content/post/运维与服务器/01-服务器与系统/Server%20Probe/)
+- [bash命令使用教程](content/post/运维与服务器/01-服务器与系统/bash命令使用教程/)
+- [linux使用教程](content/post/运维与服务器/01-服务器与系统/linux服务器初始化配置教程/)
+- [server_ops](content/post/运维与服务器/01-服务器与系统/server_ops/)
+- [服务器安全-server Security](content/post/运维与服务器/01-服务器与系统/服务器安全-server%20Security/)
+- [服务器磁盘管理基础](content/post/运维与服务器/01-服务器与系统/服务器磁盘管理基础/)
+- [腾讯云修改为root登录](content/post/运维与服务器/01-服务器与系统/腾讯云修改root登录/)
+- [阿里云服务器](content/post/运维与服务器/01-服务器与系统/阿里云服务器/)
 
-- [Herdr 详解：给 AI Agent 用的终端运行时](content/post/Platforms_Tools/CLI/herdr-ai-agent-terminal-runtime/)
-- [为 AI 而写的 CLI 设计指南：原则、避坑与难点](content/post/Platforms_Tools/CLI/为AI而写的CLI设计指南/)
+### 02-网络与代理
 
-### Docker
+- [rustdesk安装使用](content/post/运维与服务器/02-网络与代理/rustdesk安装使用/)
+- [代理配置与环境变量实战](content/post/运维与服务器/02-网络与代理/代理配置实战/)
+- [clash 教程](content/post/运维与服务器/02-网络与代理/修改clash中的配置信息/)
+- [国外服务器扶墙](content/post/运维与服务器/02-网络与代理/国外服务器扶墙/)
+- [服务器爬墙](content/post/运维与服务器/02-网络与代理/服务器爬墙/)
 
-- [Docker Compose(dev\test\prod)](content/post/Platforms_Tools/Docker/Docker%20Compose(devtestprod)/)
-- [Docker Swarm 实战（一）：核心概念与集群管理](content/post/Platforms_Tools/Docker/Docker%20Swarm%20实战/)
-- [Docker Swarm 实战（二）：Traefik 反向代理部署](content/post/Platforms_Tools/Docker/Docker%20Swarm%20实战%20-%20Traefik%20反向代理部署/)
-- [Docker 私有镜像仓库registry](content/post/Platforms_Tools/Docker/Docker%20私有仓库/)
-- [Docker使用实战-compose教程](content/post/Platforms_Tools/Docker/Docker使用实战-compose教程/)
-- [build x86 image in ARM MAC platform and devolopmet to remote server](content/post/Platforms_Tools/Docker/build%20x86%20image%20in%20ARM%20MAC%20platform%20and%20devolopmet%20to%20remote%20server/)
-- [docker-ubuntu容器中安装miniconda问题合集](content/post/Platforms_Tools/Docker/docker-ubuntu容器中安装miniconda问题合集/)
-- [docker使用教程](content/post/Platforms_Tools/Docker/docker容器相关命令/)
+### 03-网关与站点
 
-### PyInstaller
+- [Nginx](content/post/运维与服务器/03-网关与站点/nginx使用/)
+- [traefik](content/post/运维与服务器/03-网关与站点/traefik/)
+- [域名迁移](content/post/运维与服务器/03-网关与站点/域名迁移/)
 
-- [PyInstaller使用教程](content/post/Platforms_Tools/PyInstaller/PyInstaller-简易教程/)
-- [Pyinstaller-打包gradio项目](content/post/Platforms_Tools/PyInstaller/Pyinstaller-打包gradio项目/)
+### 04-容器化部署
 
-### PyStand
+- [1panel使用教程｜云服务器使用教程](content/post/运维与服务器/04-容器化部署/1panel使用/)
+- [CICD](content/post/运维与服务器/04-容器化部署/CICD/)
+- [Coolify](content/post/运维与服务器/04-容器化部署/Coolify/)
+- [Dokploy](content/post/运维与服务器/04-容器化部署/Dokploy/)
 
-- [PyStand-简易教程](content/post/Platforms_Tools/PyStand/PyStand-简易教程/)
+### 05-存储与数据库
 
-### S3
+- [Object Storage (对象存储服务)](content/post/运维与服务器/05-存储与数据库/Object%20Storage%20(对象存储服务)/)
+- [PostgreSQL](content/post/运维与服务器/05-存储与数据库/PostgreSQL/)
+- [S3 兼容存储踩坑记：boto3 新默认校验和撞上 NotImplemented](content/post/运维与服务器/05-存储与数据库/S3%20兼容存储踩坑记：boto3%20新默认校验和撞上%20NotImplemented/)
+- [redis](content/post/运维与服务器/05-存储与数据库/redis/)
+- [数据库备份实战](content/post/运维与服务器/05-存储与数据库/数据库备份实战/)
 
-- [S3 兼容存储踩坑记：boto3 新默认校验和撞上 NotImplemented](content/post/Platforms_Tools/S3/S3%20兼容存储踩坑记：boto3%20新默认校验和撞上%20NotImplemented/)
+## 通识与生活 (16)
 
-### Server Operations and Maintenance-服务器运维
+### 01-百科知识
 
-- [CICD](content/post/Platforms_Tools/Server%20Operations%20and%20Maintenance-服务器运维/CICD/)
-- [Dokploy](content/post/Platforms_Tools/Server%20Operations%20and%20Maintenance-服务器运维/Dokploy/)
-- [Object Storage (对象存储服务)](content/post/Platforms_Tools/Server%20Operations%20and%20Maintenance-服务器运维/Object%20Storage%20(对象存储服务)/)
-- [server_ops](content/post/Platforms_Tools/Server%20Operations%20and%20Maintenance-服务器运维/server_ops/)
-- [traefik](content/post/Platforms_Tools/Server%20Operations%20and%20Maintenance-服务器运维/traefik/)
-- [代理配置与环境变量实战](content/post/Platforms_Tools/Server%20Operations%20and%20Maintenance-服务器运维/代理配置实战/)
-- [域名迁移](content/post/Platforms_Tools/Server%20Operations%20and%20Maintenance-服务器运维/域名迁移/)
-- [服务器安全-server Security](content/post/Platforms_Tools/Server%20Operations%20and%20Maintenance-服务器运维/服务器安全-server%20Security/)
-- [服务器爬墙](content/post/Platforms_Tools/Server%20Operations%20and%20Maintenance-服务器运维/服务器爬墙/)
-- [服务器磁盘管理基础](content/post/Platforms_Tools/Server%20Operations%20and%20Maintenance-服务器运维/服务器磁盘管理基础/)
-- [阿里云服务器](content/post/Platforms_Tools/Server%20Operations%20and%20Maintenance-服务器运维/阿里云服务器/)
+- [shanghai-geographic](content/post/通识与生活/01-百科知识/shanghai-geographic/)
+- [中国历史知识](content/post/通识与生活/01-百科知识/中国历史知识/)
+- [中国各省市介绍](content/post/通识与生活/01-百科知识/中国各省市介绍/)
+- [总-百科知识](content/post/通识与生活/01-百科知识/总-百科知识/)
+- [文学与幽默知识积累](content/post/通识与生活/01-百科知识/文学与幽默知识积累/)
+- [汽车-百科知识](content/post/通识与生活/01-百科知识/汽车-百科知识/)
+- [茶叶-百科知识](content/post/通识与生活/01-百科知识/茶叶/)
 
-### dev_tools
+### 02-英语学习
 
-- [用 AI 把文章做成口播视频：三条路线、工具盘点与落地管线](content/post/Platforms_Tools/dev_tools/ai-article-to-video/)
-- [AI 生成前端的 E2E 实践：用 Playwright 做视觉回归和功能兜底](content/post/Platforms_Tools/dev_tools/ai-frontend-e2e/)
-- [浏览器会话录制与接口回放：方案调研](content/post/Platforms_Tools/dev_tools/browser-session-replay/)
-- [CC Switch 详解：一个应用管住八个 AI 编程 CLI](content/post/Platforms_Tools/dev_tools/cc-switch-guide/)
-- [扩展式 RPA：从 Chrome 扩展原理到 Playwright 实战方案](content/post/Platforms_Tools/dev_tools/extension-rpa/)
-- [从 noVNC 到 Playwright 截图流：容器内 VNC 踩坑记](content/post/Platforms_Tools/dev_tools/novnc-playwright/)
-- [Playwright 使用实践与本地浏览器 Profile 避坑](content/post/Platforms_Tools/dev_tools/playwright-profile/)
-- [Playwright Chromium 在 Docker 内 SIGTRAP 启动崩溃排查实录](content/post/Platforms_Tools/dev_tools/playwright-sigtrap/)
+- [english如何学习](content/post/通识与生活/02-英语学习/english如何学习/)
+- [英语语法知识点](content/post/通识与生活/02-英语学习/英语语法知识点/)
 
-### packageTools
+### 03-生活与个人
 
-- [npm使用教程](content/post/Platforms_Tools/packageTools/npm使用教程/)
+- [cookbook](content/post/通识与生活/03-生活与个人/cookbook/)
+- [start_a_business](content/post/通识与生活/03-生活与个人/start-a-business/)
+- [如何和别人尬聊，打破僵局？](content/post/通识与生活/03-生活与个人/如何和别人尬聊，打破僵局？/)
+- [如何自学一个新领域？](content/post/通识与生活/03-生活与个人/如何自学一个领域？/)
+- [徒步知识点](content/post/通识与生活/03-生活与个人/徒步知识点/)
+- [生活中的方法](content/post/通识与生活/03-生活与个人/生活中的收获量化方法/)
+- [给Zata的公司取一个名字](content/post/通识与生活/03-生活与个人/给Zata的公司取一个名字/)
 
-### pipx
+## 阅读笔记 (3)
 
-- [pipx使用教程](content/post/Platforms_Tools/pipx/pipx使用教程/)
+- [瑞金医院拉曼无创血糖论文](content/post/阅读笔记/RuijinHospitalandNearviewTechnologyLaunchRamanSpectroscopyforNon-InvasiveBloodGlucoseMonitoring_NatureMetabolism/)
+- [《大语言模型》读书笔记（赵鑫）](content/post/阅读笔记/大语言模型-赵鑫/)
+- [近红外光谱的知识点](content/post/阅读笔记/近红外光谱的知识点/)
 
-- [Refine: 当 API 即界面，CRUD 不再是体力活](content/post/Platforms_Tools/refine-meta-framework/)
+## 面试八股 (6)
 
-### uv
+- [Langchain开发八股-常见问题](content/post/面试八股/Langchain开发八股-常见问题/)
+- [深度学习八股-基础理论知识](content/post/面试八股/深度学习八股-基础理论知识/)
+- [深度学习八股-实战经验](content/post/面试八股/深度学习八股-实战经验/)
+- [深度学习八股-技术栈与工具](content/post/面试八股/深度学习八股-技术栈与工具/)
+- [深度学习八股-量化](content/post/面试八股/深度学习八股-量化/)
+- [深度学习八股-面试常见问题](content/post/面试八股/深度学习八股-面试常见问题/)
 
-- [包管理工具uv使用教程](content/post/Platforms_Tools/uv/包管理工具uv使用教程/)
+## 项目实战 (18)
 
-## Project_Application (64)
+### 01-爬虫实战
 
-- [Dify](content/post/Project_Application/Dify/)
+- [ai-crawler-深度调研报告：人工智能驱动的网络爬虫技术——能力、应用与生态演进](content/post/项目实战/01-爬虫实战/ai-crawler/)
+- [crawler-tutorial](content/post/项目实战/01-爬虫实战/crawler-tutorial/)
+- [crawler-爬虫ip代理商](content/post/项目实战/01-爬虫实战/crawler-爬虫ip代理商/)
+- [一个自动签到的py并且使用github action每日执行](content/post/项目实战/01-爬虫实战/一个自动签到的py并且使用github%20action每日执行/)
+- [爬虫-实战-多页面递归爬取](content/post/项目实战/01-爬虫实战/爬虫-实战-多页面递归爬取/)
+- [爬虫-实战-爬取arXiv AI论文对应的url和title等](content/post/项目实战/01-爬虫实战/爬虫-实战-爬取arXiv%20AI论文对应的url和title等/)
+- [爬虫-基础介绍](content/post/项目实战/01-爬虫实战/爬虫知识点/)
 
-### PythonGUI
+### 02-博客建站
 
-- [python程序打包exe使用教程](content/post/Project_Application/PythonGUI/PythonGUI-打包成exe/)
-- [软件自动更新](content/post/Project_Application/PythonGUI/PythonGUI-软件自动更新/)
+- [1-hugo安装使用](content/post/项目实战/02-博客建站/1-hugo安装使用/)
+- [2-Hugo主题和配置](content/post/项目实战/02-博客建站/2-hugo主题和配置/)
+- [3-hugo博客集成Netlify CMS](content/post/项目实战/02-博客建站/3-hugo博客集成Netlify%20CMS/)
+- [4-自定义Python函数创建博客：告别繁琐的文件头输入](content/post/项目实战/02-博客建站/4-自定义Python函数创建博客：告别繁琐的文件头输入/)
+- [5-引入 Giscus 评论系统](content/post/项目实战/02-博客建站/5-引入%20Giscus%20评论系统/)
+- [hugo使用过程中遇到的问题](content/post/项目实战/02-博客建站/hugo使用过程中遇到的问题/)
+- [给hugo博客的页面增加一个自定义密码（防君子不防小人）](content/post/项目实战/02-博客建站/给页面增加一个自定义密码（防君子不防小人）/)
 
-### SQL
+### 03-应用开发
 
-- [Alembic](content/post/Project_Application/SQL/Alembic/)
-- [PostgreSQL](content/post/Project_Application/SQL/PostgreSQL/)
-- [SQLAlchemy简单入门](content/post/Project_Application/SQL/SQLAlchemy简单入门/)
-- [redis](content/post/Project_Application/SQL/redis/)
-- [数据库备份实战](content/post/Project_Application/SQL/数据库备份实战/)
-
-### SSH
-
-- [SSH使用教程](content/post/Project_Application/SSH/SSH常用命令/)
-
-### SoftTrial
-
-- [Coolify vs Dokploy](content/post/Project_Application/SoftTrial/Coolify%20vs%20Dokploy/)
-- [IObit Unlocker解除文件占用](content/post/Project_Application/SoftTrial/IObit%20Unlocker解除文件占用/)
-- [alist](content/post/Project_Application/SoftTrial/alist/)
-- [cc-switch](content/post/Project_Application/SoftTrial/cc-switch/)
-- [ccNexus](content/post/Project_Application/SoftTrial/ccNexus/)
-- [claude-code&codex&Gemini-cli](content/post/Project_Application/SoftTrial/claude-code/)
-- [coze](content/post/Project_Application/SoftTrial/coze/)
-- [everything-claude-code](content/post/Project_Application/SoftTrial/everything-claude-code/)
-- [flora无限画布](content/post/Project_Application/SoftTrial/flora无限画布/)
-- [homebrew](content/post/Project_Application/SoftTrial/homebrew/)
-- [nvm](content/post/Project_Application/SoftTrial/nvm/)
-- [polar-DB](content/post/Project_Application/SoftTrial/polar-DB/)
-- [wrap.dev](content/post/Project_Application/SoftTrial/wrap.dev/)
-- [wsl使用教程](content/post/Project_Application/SoftTrial/wsl使用教程/)
-- [内网文件传输工具LocalSend](content/post/Project_Application/SoftTrial/内网文件传输工具LocalSend/)
-- [百度自由画布](content/post/Project_Application/SoftTrial/百度自由画布/)
-- [网页内容变化监控项目](content/post/Project_Application/SoftTrial/网页内容变化监控项目/)
-
-### SoftUseExp
-
-- [软件工程的范式转移：基于 Claude Code 与智能体协作的高效编程实践](content/post/Project_Application/SoftUseExp/Efficient%20Programming%20Based%20on%20Claude%20Code%20Collaboration%20with%20Intelligent%20Agents/)
-- [数据集标注工具](content/post/Project_Application/SoftUseExp/LabelStudio-tutorial/)
-- [Sphinx-快速生成python项目的api文档](content/post/Project_Application/SoftUseExp/Sphinx-快速生成python项目的api文档/)
-- [Tavily-搜索引擎api](content/post/Project_Application/SoftUseExp/Tavily/)
-- [生成api文档工具的简易使用](content/post/Project_Application/SoftUseExp/api文档的写作/)
-- [cherry-studio](content/post/Project_Application/SoftUseExp/cherry-studio/)
-- [cursor使用教程](content/post/Project_Application/SoftUseExp/cursor使用教程/)
-- [github项目newsnow部署](content/post/Project_Application/SoftUseExp/github项目newsnow部署/)
-- [postman](content/post/Project_Application/SoftUseExp/postman/)
-- [tmux简易使用](content/post/Project_Application/SoftUseExp/tmux/)
-- [多台电脑环境变量(.env)同步方案](content/post/Project_Application/SoftUseExp/多台电脑环境变量(.env)同步方案/)
-- [实用软件工具｜好用软件推荐](content/post/Project_Application/SoftUseExp/实用软件工具/)
-- [新电脑快速配置-scoop](content/post/Project_Application/SoftUseExp/新电脑快速配置-scoop-homebrew/)
-
-### VScode
-
-- [VScode使用教程|cursor使用教程](content/post/Project_Application/VScode/VScode安装和配置/)
-
-### crawler
-
-- [ai-crawler-深度调研报告：人工智能驱动的网络爬虫技术——能力、应用与生态演进](content/post/Project_Application/crawler/ai-crawler/)
-- [crawler-tutorial](content/post/Project_Application/crawler/crawler-tutorial/)
-- [crawler-爬虫ip代理商](content/post/Project_Application/crawler/crawler-爬虫ip代理商/)
-- [一个自动签到的py并且使用github action每日执行](content/post/Project_Application/crawler/一个自动签到的py并且使用github%20action每日执行/)
-- [爬虫-实战-多页面递归爬取](content/post/Project_Application/crawler/爬虫-实战-多页面递归爬取/)
-- [爬虫-实战-爬取arXiv AI论文对应的url和title等](content/post/Project_Application/crawler/爬虫-实战-爬取arXiv%20AI论文对应的url和title等/)
-- [爬虫-基础介绍](content/post/Project_Application/crawler/爬虫知识点/)
-
-### git&github
-
-- [Self-hosted Runner](content/post/Project_Application/git&github/Self-hosted%20Runner/)
-- [gh使用教程](content/post/Project_Application/git&github/gh使用教程/)
-- [git&github_tutorial](content/post/Project_Application/git&github/git&github使用/)
-- [git-submodule-子模块](content/post/Project_Application/git&github/git-submodule-子模块/)
-- [2-github action 使用](content/post/Project_Application/git&github/github%20action/)
-- [github release](content/post/Project_Application/git&github/github%20release/)
-
-### hugo
-
-- [1-hugo安装使用](content/post/Project_Application/hugo/1-hugo安装使用/)
-- [2-Hugo主题和配置](content/post/Project_Application/hugo/2-hugo主题和配置/)
-- [3-hugo博客集成Netlify CMS](content/post/Project_Application/hugo/3-hugo博客集成Netlify%20CMS/)
-- [4-自定义Python函数创建博客：告别繁琐的文件头输入](content/post/Project_Application/hugo/4-自定义Python函数创建博客：告别繁琐的文件头输入/)
-- [5-引入 Giscus 评论系统](content/post/Project_Application/hugo/5-引入%20Giscus%20评论系统/)
-- [hugo使用过程中遇到的问题](content/post/Project_Application/hugo/hugo使用过程中遇到的问题/)
-- [给hugo博客的页面增加一个自定义密码（防君子不防小人）](content/post/Project_Application/hugo/给页面增加一个自定义密码（防君子不防小人）/)
-
-- [Nginx](content/post/Project_Application/nginx使用/)
-
-### wechatapplet
-
-- [微信小程序使用教程——WechatMiniProgram](content/post/Project_Application/wechatapplet/微信小程序使用教程/)
-
-### 单片机
-
-- [野火F103-MiNI使用教程](content/post/Project_Application/单片机/野火F103-MiNI使用教程/)
-
-- [腾讯云修改为root登录](content/post/Project_Application/腾讯云修改root登录/)
-
-## Vibe-Coding (7)
-
-### AI-Frontend
-
-- [AI 前端调试技巧：把被遮挡翻译成尺寸约束](content/post/Vibe-Coding/AI-Frontend/AI%20前端调试技巧：把被遮挡翻译成尺寸约束/)
-- [下拉框里显示 _all：Base UI 与 Radix Select 的一个行为差异](content/post/Vibe-Coding/AI-Frontend/Base%20UI%20Select%20显示%20_all%20的坑/)
-- ai-design-research
-    - [Design Engineer 到底是什么：从 Vercel 拆解到一个新角色](content/post/Vibe-Coding/AI-Frontend/ai-design-research/01-design-engineer是什么/)
-    - [Figma MCP + Claude Code：从设计稿到上线的全过程](content/post/Vibe-Coding/AI-Frontend/ai-design-research/02-figma-mcp实战/)
-    - [shadcn/ui + design token：LLM 原生设计系统实践](content/post/Vibe-Coding/AI-Frontend/ai-design-research/03-shadcn设计系统/)
-    - [一份能直接抄的前端 `.mdc` rules 模板](content/post/Vibe-Coding/AI-Frontend/ai-design-research/04-mdc-rules模板/)
-- [用 AI 打造惊艳前端：从 Vibe Coding 到实战的艺术指南](content/post/Vibe-Coding/AI-Frontend/art-of-ai-frontend-design/)
+- [Dify](content/post/项目实战/03-应用开发/Dify/)
+- [软件自动更新](content/post/项目实战/03-应用开发/PythonGUI-软件自动更新/)
+- [微信小程序使用教程——WechatMiniProgram](content/post/项目实战/03-应用开发/微信小程序使用教程/)
+- [野火F103-MiNI使用教程](content/post/项目实战/03-应用开发/野火F103-MiNI使用教程/)
 <!-- END:CONTENT-INDEX -->

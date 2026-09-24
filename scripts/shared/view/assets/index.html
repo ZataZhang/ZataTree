@@ -53,7 +53,20 @@
     <aside class="surface tree">
       <div class="tree-head">
         <span id="tree-title"><b>文件树</b></span>
-        <span id="tree-note">加载中…</span>
+        <span class="tree-note" id="tree-note">加载中…</span>
+        <!-- 栏宽开关：一个小图标按钮，点一下把左栏放宽到放得下完整文件名；加宽后箭头翻向
+             左边表示「收回去」。两个箭头都在这里，由 CSS 按 aria-pressed 选一个显示。 -->
+        <button type="button" class="tree-width-toggle" id="tree-width-toggle"
+                aria-pressed="false" title="加宽左侧栏，显示完整文件名">
+          <svg class="icon-widen" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m6 17 5-5-5-5"></path>
+            <path d="m13 17 5-5-5-5"></path>
+          </svg>
+          <svg class="icon-narrow" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m11 17-5-5 5-5"></path>
+            <path d="m18 17-5-5 5-5"></path>
+          </svg>
+        </button>
       </div>
       <div class="tree-body" id="tree-body" role="tree" aria-label="文件树"></div>
     </aside>

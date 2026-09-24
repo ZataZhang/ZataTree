@@ -9,11 +9,11 @@
 （PUT / DELETE / PATCH）仍然一律 405。它要求 ``Content-Type: application/json``：跨站表单式
 POST 是「简单请求」，浏览器会直接发出去，而 JSON 类型会强制预检、预检又必然失败，于是「某个
 网页在你不知情时改动你的索引」这条路径被封住。要开新的写口之前，请先读
-``docs/guides/file-viewer.md`` 的「它只能看」那一节——那条边界是用户拍板收窄过的。
+:mod:`workspace` 的模块 docstring——那条边界是用户拍板收窄过的。
 
 空闲回收：服务按「最后一次请求时间」计时，超过时限即优雅退出并清理登记文件。页面
 刻意不做心跳轮询，因此「关掉标签页」即等同于进入空闲——这是自动回收路径成立的前提，
-给这个页面加轮询会让自动回收静默失效。细节见 ``docs/guides/file-viewer.md``。
+给这个页面加轮询会让自动回收静默失效。
 """
 
 from __future__ import annotations
@@ -45,6 +45,9 @@ _STATIC_CONTENT_TYPES_BY_FILENAME = {
     "index.html": "text/html; charset=utf-8",
     "viewer.css": "text/css; charset=utf-8",
     "viewer.js": "application/javascript; charset=utf-8",
+    # 第三方产物（mermaid 的官方压缩包），只在页面真的遇到 mermaid 围栏时才按需取。
+    # 版本、来源与校验和见 assets/viewer.js 顶部的说明。
+    "mermaid.min.js": "application/javascript; charset=utf-8",
 }
 
 _READ_METHOD_HANDLER_PREFIX = "do_"
@@ -339,9 +342,10 @@ class ViewerRequestHandler(BaseHTTPRequestHandler):
         """按固定文件名白名单返回静态资源。
 
         资源名来自请求路径，因此这里用白名单而不是拼接路径：没有可以拼接的路径，就
-        没有可以逃逸的路径。查看器自身只有这三个固定资源，所以白名单足够；仓库内
-        文件的按路径取用走另一条路由（见 :meth:`_serve_raw_file`），那里的防护是
-        解析成绝对路径之后再断言。
+        没有可以逃逸的路径。查看器自己的页面资源是手写的三个文件，加上一份第三方
+        产物（mermaid，见 :data:`_STATIC_CONTENT_TYPES_BY_FILENAME`），数量固定，
+        所以白名单足够；仓库内文件的按路径取用走另一条路由（见
+        :meth:`_serve_raw_file`），那里的防护是解析成绝对路径之后再断言。
         """
         content_type = _STATIC_CONTENT_TYPES_BY_FILENAME.get(asset_name)
         if content_type is None:

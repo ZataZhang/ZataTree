@@ -16,6 +16,7 @@ slug: "Agent 工程实战"
 3. [Agent 内容输出规范：本地给路径，远程给协议]({{< relref "post/Agent/Agent 工程实战/Agent 内容输出规范：本地给路径，远程给协议/index.md" >}})
 4. [Agent Tracing 基础：Trace、Span 与 OpenTelemetry 埋点]({{< relref "post/Agent/Agent 工程实战/Agent Tracing 基础：Trace、Span 与 OpenTelemetry 埋点/index.md" >}})
 5. [Agent 决策审计：它与 Tracing 的关系]({{< relref "post/Agent/Agent 工程实战/Agent 决策审计：它与 Tracing 的关系/index.md" >}})
+6. [Agent 决策审计落地：写入点、复核器与门禁降级判据]({{< relref "post/Agent/Agent 工程实战/Agent 决策审计落地：写入点、复核器与门禁降级判据/index.md" >}})
 
 ## 这个系列覆盖什么？
 

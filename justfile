@@ -22,11 +22,15 @@ default:
 #
 # 这条 recipe 刻意写成普通单行而不是 shebang：`just` 每跑一次 shebang recipe 都要多
 # 起一个临时脚本，而复用命中路径有 150ms 的耗时预算（见 launch.py 顶部的说明）。
-# 本仓库没有 venv，直接走 PATH 上的 python3。
+# 解释器优先直连项目 venv 而不是走 `uv run`：`uv run --no-sync` 每次仍要做一遍
+# 项目解析，多花一二十毫秒。venv 还没建出来（尚未 `uv sync`）时退回 `uv run`。
 # `-S`（跳过 site 初始化）同样是冲着这 150ms 去的：入口进程只用标准库与同目录的
-# instance.py，服务进程由 launch.py 以不带 `-S` 的方式单独拉起，语法高亮照常可用。
+# instance.py，服务进程由 launch.py 以不带 `-S` 的方式单独拉起，预览与语法高亮
+# 依赖（pyproject dev 组，装在 venv 里）对服务进程照常可见。
+_view_python := if os_family() == "windows" { justfile_directory() / ".venv/Scripts/python.exe" } else { justfile_directory() / ".venv/bin/python" }
+
 view *args:
-    exec python3 -S "{{justfile_directory()}}/scripts/shared/view/launch.py" {{args}}
+    exec {{ if path_exists(_view_python) == "true" { quote(_view_python) } else { "uv run --no-sync python" } }} -S "{{justfile_directory()}}/scripts/shared/view/launch.py" {{args}}
 
 # Thin alias: open the viewer in the diff view (already the default).
 diff *args:
