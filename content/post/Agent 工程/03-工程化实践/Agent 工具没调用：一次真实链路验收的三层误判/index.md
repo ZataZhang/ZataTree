@@ -5,8 +5,9 @@ date: 2026-09-22T11:45:00+08:00
 slug: "agent-tool-call-visibility-and-tracing-validation"
 image: images/index/index.svg
 categories:
-    - Agent
+    - Agent 工程
 tags:
+    - 工程化实践
     - Agent 工程实战
     - Playwright
     - E2E-Testing

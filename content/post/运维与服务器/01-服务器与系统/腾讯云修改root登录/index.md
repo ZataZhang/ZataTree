@@ -5,15 +5,9 @@ date: 2025-02-24
 slug: 腾讯云修改root登录 ## 必填，文件夹名
 image: image/腾讯云修改root登录/腾讯云修改root登录.jpg
 categories:
-    # - DeepLearning
-    # - Chart
-    # - Python
-    # - LLM
-    # - Library
-    # - PaperReading
-    # - Other
-    - Project_Application
-
+    - 运维与服务器
+tags:
+    - 服务器与系统
 ---
 
 ```bash

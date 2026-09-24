@@ -4,8 +4,9 @@ description: ""
 date: 2025-12-29T15:05:31+08:00
 image: images/index/index.png
 categories:
-    - Project_Application
+    - 软件试用
 tags:
+    - 文档与标注
     - SoftUseExp
 ---
 

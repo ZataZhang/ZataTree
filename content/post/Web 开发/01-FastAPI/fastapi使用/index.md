@@ -6,13 +6,9 @@ image: images/index/index.png
 slug: fastapi使用 ## 必填，文件夹名
 # image: helena-hertz-wWZzXlDpMog-unsplash.jpg
 categories:
-    # - DeepLearning
-    # - DeepLearning
-    # - Chart
-    # - LLM
-    # - PaperReading
-    - Library
+    - Web 开发
 tags:
+    - FastAPI
     - Python_Library
 ---
 #  ☆ FASTAPI
@@ -162,7 +158,7 @@ step4：
 
 ## 配置Nginx代理访问(可选）
 
-详情可见 [nginx使用]({{< relref "post/Project_Application/nginx使用/index.md" >}})
+详情可见 [nginx使用]({{< relref "post/运维与服务器/03-网关与站点/nginx使用/index.md" >}})
 修改nginx的设置：
 
 ```cpp

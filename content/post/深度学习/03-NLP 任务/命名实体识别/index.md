@@ -5,8 +5,9 @@ date: 2025-03-13T14:29:48+08:00
 image: images/index/index.png
 # image: images/index/index.png
 categories:
-    - DeepLearning
+    - 深度学习
 tags:
+    - NLP 任务
     - NLP
 ---
 

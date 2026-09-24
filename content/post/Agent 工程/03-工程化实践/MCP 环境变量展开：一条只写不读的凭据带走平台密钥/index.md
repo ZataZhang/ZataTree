@@ -5,8 +5,9 @@ date: 2026-09-24T14:30:00+08:00
 slug: "mcp-stdio-env-expansion-secret-exfiltration"
 image: images/index/index.svg
 categories:
-    - Agent
+    - Agent 工程
 tags:
+    - 工程化实践
     - Agent 工程实战
     - MCP
     - Agent Security

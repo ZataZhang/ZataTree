@@ -4,8 +4,9 @@ description: ""
 date: 2025-04-24T11:06:37+08:00
 image: images/index/index.png
 categories:
-    - Grammar
+    - 编程语言
 tags:
+    - 界面与串口
     - PyQt
 ---
 

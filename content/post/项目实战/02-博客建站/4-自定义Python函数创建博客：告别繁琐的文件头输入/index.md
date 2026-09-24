@@ -4,17 +4,9 @@ description: ""
 date: 2025-03-03T16:32:39+08:00
 image: images/index/index.png
 categories:
-    # - DeepLearning
-    # - Chart
-    # - Python
-    # - LLM
-    # - Library
-    # - PaperReading
-    # - Study
-    # - Other
-    # - Knowledge points
-    - Project_Application
+    - 项目实战
 tags:
+    - 博客建站
     - hugo
     - Blog
 ---

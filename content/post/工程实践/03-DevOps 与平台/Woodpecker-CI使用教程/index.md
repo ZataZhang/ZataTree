@@ -4,8 +4,9 @@ description: "从概念、架构、部署到流水线 YAML，系统了解轻量�
 date: 2026-06-07T10:00:00+08:00
 image: images/index/index.png
 categories:
-    - Engineering
+    - 工程实践
 tags:
+    - DevOps 与平台
     - DevOps
     - CI/CD
 ---
@@ -171,7 +172,7 @@ steps:
 
 如果你已经习惯用 Dokploy 配合 Traefik 快速部署应用，Woodpecker 并不会变难。Woodpecker 不自带 Traefik，但它可以像普通 Web 应用一样接入现有 Traefik 网关。
 
-如果服务器还没有安装 Docker 和 Traefik，可以先按这篇文章准备公共入口层：[Docker 和 Traefik 一键安装脚本]({{< relref "/post/Engineering/DevOps/Docker-Traefik一键安装脚本/index.md" >}})。
+如果服务器还没有安装 Docker 和 Traefik，可以先按这篇文章准备公共入口层：[Docker 和 Traefik 一键安装脚本]({{< relref "/post/工程实践/03-DevOps 与平台/Docker-Traefik一键安装脚本/index.md" >}})。
 
 核心思路是：
 

@@ -4,8 +4,9 @@ description: "记录 Python Playwright 的常用启动方式、登录态复用�
 date: 2025-08-31T08:13:49+08:00
 image: images/index/index.png
 categories:
-    - Library
+    - 开发工具链
 tags:
+    - 浏览器自动化
     - Python_Lib
     - Playwright
     - Browser-Automation

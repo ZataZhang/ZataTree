@@ -4,8 +4,9 @@ description: "以阿里云百炼 + LangChain 实际跑通的 RAG 应用为主线
 date: 2025-05-06T11:05:13+08:00
 image: images/index/index.png
 categories:
-    - Agent
+    - RAG 与 LangChain
 tags:
+    - LangChain 进阶
     - LangChain
 ---
 

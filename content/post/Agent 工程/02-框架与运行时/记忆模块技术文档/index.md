@@ -4,8 +4,9 @@ description: "深入解析智能体记忆系统的架构设计、实现方案与
 date: 2025-06-17T11:00:00+08:00
 image: images/index/index.png
 categories:
-    - Agent
+    - Agent 工程
 tags:
+    - 框架与运行时
     - Agent Orchestration
     - 记忆模块
     - Memory

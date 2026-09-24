@@ -5,9 +5,11 @@ date: 2025-02-28
 slug: git&github ### 必填，文件夹名
 image: image/index/index.png
 categories:
-    - Project_Application
-tags: ["git&github","教程"]
-
+    - 开发工具链
+tags:
+    - Git 与 GitHub
+    - git&github
+    - 教程
 ---
 
 

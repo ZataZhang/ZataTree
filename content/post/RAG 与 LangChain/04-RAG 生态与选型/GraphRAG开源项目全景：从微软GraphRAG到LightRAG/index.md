@@ -4,8 +4,9 @@ description: Graph RAG 是 RAG 技术的重要演进方向，本文系统梳理�
 date: 2026-03-27T16:00:00+08:00
 image: images/index/index.png
 categories:
-    - Agent
+    - RAG 与 LangChain
 tags:
+    - RAG 生态与选型
     - RAG
     - GraphRAG
     - KnowledgeGraph
@@ -875,5 +876,5 @@ Neo4j + RAG：
 ---
 
 **相关文章**：
-- [RAG 技术全景：从入门到进阶]({{< relref "post/Agent/RAG技术全景：从入门到进阶/index.md" >}})
-- [RAGFlow 深度解析：为什么它是最值得关注的 RAG 开源项目]({{< relref "post/Agent/RAGFlow深度解析：为什么它是最值得关注的RAG开源项目/index.md" >}})
+- [RAG 技术全景：从入门到进阶]({{< relref "post/RAG 与 LangChain/04-RAG 生态与选型/RAG技术全景：从入门到进阶/index.md" >}})
+- [RAGFlow 深度解析：为什么它是最值得关注的 RAG 开源项目]({{< relref "post/RAG 与 LangChain/04-RAG 生态与选型/RAGFlow深度解析：为什么它是最值得关注的RAG开源项目/index.md" >}})

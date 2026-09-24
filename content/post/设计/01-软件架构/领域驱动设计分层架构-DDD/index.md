@@ -4,8 +4,9 @@ description: "系统讲解 DDD 四层架构模型，涵盖实体、值对象、�
 date: 2026-04-12T12:00:00+08:00
 image: images/index/index.png
 categories:
-    - Design
+    - 设计
 tags:
+    - 软件架构
     - 软件架构设计
 draft: false
 ---

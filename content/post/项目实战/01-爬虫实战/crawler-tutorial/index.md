@@ -4,8 +4,9 @@ description: ""
 date: 2025-11-19T11:28:14+08:00
 image: images/index/index.png
 categories:
-    - Project_Application
+    - 项目实战
 tags:
+    - 爬虫实战
     - crawler
 ---
 

@@ -4,8 +4,9 @@ description: ""
 date: 2025-03-05T14:46:18+08:00
 image: images/index/head.png
 categories:
-    - Project_Application
+    - 项目实战
 tags:
+    - 博客建站
     - hugo
 ---
 

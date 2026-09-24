@@ -5,13 +5,9 @@ date: 2025-02-28
 slug: Dify
 image: Dify.png
 categories:
-    # - DeepLearning
-    # - Chart
-    # - Python
-    # - LLM
-    # - Library
-    # - PaperReading
-    - Project_Application
+    - 项目实战
+tags:
+    - 应用开发
 ---
 
 

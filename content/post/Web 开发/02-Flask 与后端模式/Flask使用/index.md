@@ -5,8 +5,9 @@ date: 2025-03-10T16:00:15+08:00
 image: images/index/index.png
 # image: images/index/index.png
 categories:
-    - Library
+    - Web 开发
 tags:
+    - Flask 与后端模式
     - Flask
     - 教程
 ---

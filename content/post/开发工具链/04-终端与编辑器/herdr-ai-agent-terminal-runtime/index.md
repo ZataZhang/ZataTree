@@ -5,8 +5,9 @@ date: 2026-09-15T10:30:00+08:00
 slug: herdr-ai-agent-terminal-runtime
 image: images/index/index.svg
 categories:
-    - Platforms_Tools
+    - 开发工具链
 tags:
+    - 终端与编辑器
     - CLI
     - Agent 工程实战
     - 教程

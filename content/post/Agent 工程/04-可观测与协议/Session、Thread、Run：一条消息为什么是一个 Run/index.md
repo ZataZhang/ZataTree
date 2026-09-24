@@ -5,8 +5,9 @@ date: 2026-09-23T23:11:14+08:00
 slug: "session-thread-run"
 image: images/index/index.svg
 categories:
-    - Agent
+    - Agent 工程
 tags:
+    - 可观测与协议
     - Agent 工程实战
     - Agent Orchestration
 draft: false

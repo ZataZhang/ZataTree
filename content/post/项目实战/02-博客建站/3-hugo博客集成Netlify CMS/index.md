@@ -4,18 +4,11 @@ description:  Netlify CMS 主要是解决了，随时随地打开浏览器写mar
 date: 2025-03-03T00:00:00+08:00
 image: images/index/index.png
 categories:
-    # - DeepLearning
-    # - Chart
-    # - Python
-    # - LLM
-    # - Library
-    # - PaperReading
-    - Project_Application
+    - 项目实战
 tags:
+    - 博客建站
     - Blog
     - hugo
-
-
 ---
 
 参考：

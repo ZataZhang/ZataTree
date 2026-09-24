@@ -5,8 +5,9 @@ date: 2026-09-07T10:00:00+08:00
 slug: "给-Agent-接入-Web-Search：四种做法，和一条我试过之后放弃的路"
 image: images/index/index.svg
 categories:
-    - Agent
+    - Agent 工程
 tags:
+    - 工程化实践
     - Agent 工程实战
 draft: false
 ---

@@ -4,10 +4,10 @@ description: "从 Docker、gVisor、Wasm 到 E2B、Daytona、Modal、Runloop、D
 date: 2026-09-02T18:00:00+08:00
 image: images/index/index.svg
 categories:
-    - Agent
+    - Agent 工程
 tags:
+    - 沙箱与执行环境
     - Agent Orchestration
-    - Agent
     - Sandbox
     - Agent Security
     - Code Execution

@@ -5,8 +5,9 @@ date: 2026-04-12T11:00:00+08:00
 image: images/index/index.png
 slug: docker-swarm-traefik-deployment
 categories:
-    - Platforms_Tools
+    - 开发工具链
 tags:
+    - Docker 与容器
     - Docker
 draft: false
 ---

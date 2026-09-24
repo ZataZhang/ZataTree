@@ -5,8 +5,9 @@ date: 2026-09-10T14:30:00+08:00
 slug: "AG-UI：当Agent学会了和前端说话"
 image: images/index/index.svg
 categories:
-    - Agent
+    - Agent 工程
 tags:
+    - 可观测与协议
     - Agent流式协议
 draft: false
 ---

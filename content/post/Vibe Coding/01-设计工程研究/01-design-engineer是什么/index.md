@@ -5,8 +5,9 @@ description: "Vercel 在 2024 年正式定义 Design Engineer 这个角色。本
 slug: "01-design-engineer是什么"
 image: images/index/index.svg
 categories:
-    - Vibe-Coding
+    - Vibe Coding
 tags:
+    - 设计工程研究
     - AI-Frontend
     - Design-Engineer
     - Vercel
@@ -234,4 +235,4 @@ DE 不是"设计师转前端"或"前端转设计"——**它是两个维度的�
 
 ---
 
-> **下一篇预告**：[Figma MCP + Claude Code：从设计稿到上线的全过程]({{< relref "post/Vibe-Coding/AI-Frontend/ai-design-research/02-figma-mcp实战/index.md" >}})。会演示用 Figma MCP 读 Variables、用 Claude Code 调样式、用 Chrome MCP 截图对比的完整流程。
+> **下一篇预告**：[Figma MCP + Claude Code：从设计稿到上线的全过程]({{< relref "post/Vibe Coding/01-设计工程研究/02-figma-mcp实战/index.md" >}})。会演示用 Figma MCP 读 Variables、用 Claude Code 调样式、用 Chrome MCP 截图对比的完整流程。

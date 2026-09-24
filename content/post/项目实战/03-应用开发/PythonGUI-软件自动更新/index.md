@@ -5,16 +5,10 @@ date: 2025-02-28
 slug: 软件自动更新 ## 必填，文件夹名
 image: image/index/index.png
 categories:
-    # - DeepLearning
-    # - Chart
-    # - LLM
-    # - Library
-    # - PaperReading
-    # - Other
-    - Project_Application
+    - 项目实战
 tags:
+    - 应用开发
     - PythonGUI
-
 ---
 
 

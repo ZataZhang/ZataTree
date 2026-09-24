@@ -4,8 +4,9 @@ description: "深入解析 Anthropic 官方智能体工具 Claude Code 的核心
 date: 2026-02-01T18:23:03+08:00
 image: images/index/index.png
 categories:
-    - Project_Application
+    - 软件试用
 tags:
+    - AI 工具试用
     - SoftUseExp
     - AI_Engineering
     - Developer_Productivity

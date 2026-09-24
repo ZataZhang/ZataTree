@@ -4,9 +4,10 @@ description: 对比 OpenAI Responses API 与 Chat Completions API 的核心差�
 date: 2026-09-07T18:05:39+08:00
 image: images/index/index.svg
 categories:
-  - Agent
+    - Agent 工程
 tags:
-  - OpenAI API
+    - 工程化实践
+    - OpenAI API
 draft: false
 ---
 

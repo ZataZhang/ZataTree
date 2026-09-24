@@ -5,8 +5,9 @@ date: 2026-09-09T22:09:48+08:00
 slug: ai-article-to-video
 image: images/index/index.svg
 categories:
-    - Platforms_Tools
+    - 开发工具链
 tags:
+    - AI 与创作工具
     - dev_tools
     - AI-Video
     - Video-Production

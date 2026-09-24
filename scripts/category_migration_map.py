@@ -8,8 +8,8 @@ RULES / OVERRIDES 落地（git mv 目录 + 重写 front matter categories）。
 映射完整性有硬校验：任何文章既不在 OVERRIDES 也不在 RULES 则报错退出；
 写了却没命中任何文章的规则键也会告警，防止路径打错字静默失效。
 
-书名均为占位名，整体改名不影响映射。60 篇/本上限（2026-09-24 定）：
-当前最大一本 34 篇，无超限。
+书名均为占位名，整体改名不影响映射。60 篇/本上限（2026-09-24 定）：无超限。
+映射含两层：书（新分类）+ 章节（新 tag）。一篇 = 一书 = 恰好一章，不跨书不跨章。
 
 用法：
     python3 scripts/category_migration_map.py             # 写 tasks/category-migration.md
@@ -133,7 +133,7 @@ OVERRIDES = {
     "Knowledge/others/Server Probe": "运维与服务器",
     "Knowledge/others/start-a-business": "通识与生活",
     "Knowledge/others/streamlit使用教程": "Web 开发",
-    "Knowledge/others/Useful but not attempted": "工程实践",
+    "Knowledge/others/开发问题与解法笔记": "工程实践",
     "Knowledge/others/vllm实战教程": "深度学习",
     "Knowledge/others/给Zata的公司取一个名字": "通识与生活",
     # --- Library/Python_Lib 12 篇逐篇拆到语言/Web/数据科学 ---
@@ -222,13 +222,418 @@ FLAGS = {
     "Knowledge/others/相同LLM不同提示词的对比": "提示词对比归 Agent 工程；也可去深度学习",
     "Knowledge/others/一个软件项目的文件目录应该怎么定义": "与《一个标准的软件项目结构》成对，归设计；也可去工程实践",
     "Knowledge/others/categories和tags的区别": "概念科普归效率与文档；也可去通识与生活",
-    "Knowledge/others/Useful but not attempted": "技术问题清单，更像待写选题池，建议改造或合并",
+    "Knowledge/others/开发问题与解法笔记": "已按要求改名（原 Useful but not attempted）。正文待修缮：开头目录漏列 SSHFS 一问、WSL2 一节只有截图未写答案，建议后续补写或拆分",
     "Platforms_Tools/Blender/blender-complete-guide": "创作工具归开发工具链；也可去软件试用",
     "Platforms_Tools/dev_tools/ai-frontend-e2e": "与 Playwright 系列聚堆；其 front matter 现标 Vibe-Coding，也可去那边",
     "Project_Application/SoftUseExp/Tavily": "Agent 搜索 API，随软件试用；也可去 Agent 工程",
     "Project_Application/SQL/SQLAlchemy简单入门": "数据库 5 篇拆了两处（这对去编程语言，PostgreSQL/redis/备份去运维）；想聚一起可整体挪",
     "Project_Application/SQL/Alembic": "同上，与 SQLAlchemy 结伴",
+    "Grammar/Matlab/Matlab-基本语法": "语言基础章里唯一的非 Python 内容，可挪深度学习或留作小节",
 }
+
+# ---------------------------------------------------------------- 章节（tag=章节 的设计）
+# 一篇 = 一书 = 恰好一章，不跨书不跨章。列表顺序 = 章节顺序（书目录的章序）。
+# 空列表 = 平铺小书，不设章节层（面试八股/阅读笔记/科技月报）。
+CHAPTERS = {
+    "Agent 工程": ["入门与全景", "框架与运行时", "工程化实践", "可观测与协议", "沙箱与执行环境", "应用与集成"],
+    "RAG 与 LangChain": ["LangChain 基础", "LangChain 进阶", "RAG 原理与实践", "RAG 生态与选型"],
+    "深度学习": ["模型与机制", "训练与对齐", "NLP 任务", "推理与部署", "基础与方法"],
+    "编程语言": ["语言基础", "包与工程化", "常用库", "界面与串口", "数据与 ORM"],
+    "Web 开发": ["FastAPI", "Flask 与后端模式", "快速原型框架", "前端与跨端"],
+    "数据科学": ["Transformers 全家桶", "数值与科学计算", "建模与部署"],
+    "构建与打包": ["依赖与环境管理", "打包发布"],
+    "开发工具链": ["Git 与 GitHub", "Docker 与容器", "浏览器自动化", "终端与编辑器", "AI 与创作工具"],
+    "设计": ["软件架构", "UML 建模图", "原型与灵感"],
+    "工程实践": ["可观测性", "流程与规范", "DevOps 与平台"],
+    "运维与服务器": ["服务器与系统", "网络与代理", "网关与站点", "容器化部署", "存储与数据库"],
+    "项目实战": ["爬虫实战", "博客建站", "应用开发"],
+    "软件试用": ["AI 工具试用", "终端与包管理", "部署与自托管", "文档与标注", "桌面效率工具"],
+    "效率与文档": ["写作与排版", "系统小技巧"],
+    "通识与生活": ["百科知识", "英语学习", "生活与个人"],
+    "Vibe Coding": ["设计工程研究", "实战与调试"],
+    "面试八股": [],
+    "阅读笔记": [],
+    "科技月报": [],
+}
+
+# 章节构成。引用两种形式："tag:分类/tag名" = 该旧 tag 的文章整组并入本章；其余 = 单篇旧路径。
+# 校验保证：每本书恰好被章节切完——无遗漏、无重复、无空章、无打错字的引用。
+CH_REFS = {
+    "Agent 工程": {
+        "入门与全景": [
+            "Knowledge/others/AI agent介绍：基于大模型的人工智能代理",
+            "Agent/Agent 工程实战/Agent 工程实战开篇：从 Demo 到生产还有多远",
+            "Agent/Agent 工程实战/Agent生产工程全景手册",
+        ],
+        "框架与运行时": [
+            "Agent/Agent Orchestration/01-智能体编排设计工程师学习指南",
+            "Agent/Agent Orchestration/20260922101724_Agent Runtime详解",
+            "Agent/Agent Orchestration/AI Agent Loop 工程：原理、模式与实现",
+            "Agent/Agent Orchestration/Agent 用户记忆与 Skill 沉淀：开源项目参考与架构设计",
+            "Agent/Agent Orchestration/Gliding Horse Agent OS 介绍",
+            "Agent/Agent Orchestration/主流 Agent 框架对比与多框架统一接口设计",
+            "Agent/Agent Orchestration/内置 Agent 放哪：一个 is_runnable 陷阱与三类事实源",
+            "Agent/Agent Orchestration/记忆模块技术文档",
+        ],
+        "工程化实践": [
+            "Agent/Agent 工程实战/MCP 环境变量展开：一条只写不读的凭据带走平台密钥",
+            "Agent/Agent 工程实战/OpenAI Responses API与Chat Completions API区别详解",
+            "Agent/Agent 工程实战/Agent 内容输出规范：本地给路径，远程给协议",
+            "Agent/Agent 工程实战/数据库初始化与迁移：从创建那一刻就要钉死的三件事",
+            "Agent/Agent 工程实战/给 Agent 接入 Web Search：四种做法，和一条我试过之后放弃的路",
+            "Agent/Agent 工程实战/让用户选择指定 Skill：从社区实践到生产级 API 设计",
+            "Agent/Agent 工程实战/阿里云百炼联网搜索：三种入口，三种结果，我全都踩了一遍",
+            "Agent/Agent 工程实战/Agent 工具没调用：一次真实链路验收的三层误判",
+            "Agent/Agent开发中遇到的问题/ai返回数据的格式不稳定，存在解析错误的问题",
+            "Knowledge/others/相同LLM不同提示词的对比",
+        ],
+        "可观测与协议": [
+            "Agent/Agent 工程实战/Agent Run 流式协议：事件溯源、SSE 投影与断线恢复",
+            "Agent/Agent 工程实战/Agent Tracing 基础：Trace、Span 与 OpenTelemetry 埋点",
+            "Agent/Agent 工程实战/Agent 决策审计落地：写入点、复核器与门禁降级判据",
+            "Agent/Agent 工程实战/Agent 决策审计：它与 Tracing 的关系",
+            "Agent/Agent 工程实战/Agent 埋点接 ARMS：上报返回 success，控制台却是空的",
+            "Agent/Agent 工程实战/Session、Thread、Run：一条消息为什么是一个 Run",
+            "Agent/Agent流式协议/AG-UI：当Agent学会了和前端说话",
+            "Knowledge/others/全量解码与增量解码：原理、区别以及应用",
+        ],
+        "沙箱与执行环境": [
+            "Agent/Agent Orchestration/Agent 沙箱选型指南：隔离边界、产品对比与判断标准",
+            "Agent/Agent Orchestration/E2B 迁到阿里云云沙箱：能跑通，但别急着上生产",
+            "Agent/ComputerUse/Cua 框架详解：给任何 Agent 一台可操控的电脑",
+        ],
+        "应用与集成": [
+            "DeepLearning/agent/n8n",
+            "DeepLearning/agent/nl2sql",
+            "DeepLearning/agent/openclaw",
+        ],
+    },
+    "RAG 与 LangChain": {
+        "LangChain 基础": [
+            "Agent/LangChain/langchain_core组件详解",
+            "Agent/LangChain/LangChain模型接入指南",
+            "Agent/LangChain/LangChain常见报错与排查",
+            "Agent/LangChain/LangChain与MCP极简教程",
+            "Agent/LangChain/LangSmith使用教程",
+        ],
+        "LangChain 进阶": [
+            "Agent/LangChain/DeepAgents完全指南",
+            "Agent/LangChain/LangGraph实战教程",
+            "Agent/LangChain/LangChain-RAG实战教程",
+            "Agent/LangChain/订阅摘要Agent实战",
+        ],
+        "RAG 原理与实践": ["tag:Agent/RAG"],
+        "RAG 生态与选型": [
+            "Agent/GraphRAG开源项目全景：从微软GraphRAG到LightRAG",
+            "Agent/RAGFlow深度解析：为什么它是最值得关注的RAG开源项目",
+            "Agent/RAG技术全景：从入门到进阶",
+            "DeepLearning/agent/vector-database",
+        ],
+    },
+    "深度学习": {
+        "模型与机制": [
+            "DeepLearning/models_and_strategies/模型-transformer原理和代码实现",
+            "DeepLearning/models_and_strategies/attention注意力机制",
+            "DeepLearning/models_and_strategies/MoE",
+            "DeepLearning/models_and_strategies/Deepseek_NSA",
+            "DeepLearning/models_and_strategies/Jev：不写字的决策模型，和它真正适合解决的问题",
+            "DeepLearning/models_and_strategies/ICL-上下文学习",
+        ],
+        "训练与对齐": [
+            "DeepLearning/NLP/LLM微调：qwen2_chat模型部署和微调",
+            "DeepLearning/models_and_strategies/Alignment-DPOvsPPOvsGRPO",
+            "DeepLearning/models_and_strategies/RLHF",
+            "DeepLearning/models_and_strategies/增量学习研究综述：理论、方法、应用与未来展望",
+        ],
+        "NLP 任务": [
+            "DeepLearning/NLP/命名实体识别",
+            "DeepLearning/NLP/文本分类",
+        ],
+        "推理与部署": [
+            "tag:DeepLearning/frame",
+            "Knowledge/others/vllm实战教程",
+            "Knowledge/others/openbayes算力平台使用教程",
+        ],
+        "基础与方法": [
+            "Knowledge/others/JAX",
+            "Knowledge/others/什么是算子？",
+            "Knowledge/others/字典学习（Dictionary Learning）",
+            "Knowledge/others/对比了几种大模型在相同任务下的表现",
+            "DeepLearning/models_and_strategies/mechine_learning_models",
+        ],
+    },
+    "编程语言": {
+        "语言基础": [
+            "Grammar/python/python-__init__.py为什么要写",
+            "Grammar/python/python-应如何定义包通用的变量-推荐config.py",
+            "Grammar/python/python-类",
+            "Grammar/python/python-数据类",
+            "Grammar/python/python-staticmethod 修饰符",
+            "Grammar/python/python-typing提高代码可读性",
+            "Grammar/python/python-Docstring 的详细教程",
+            "Knowledge/others/python的命名规范",
+            "Grammar/Matlab/Matlab-基本语法",
+        ],
+        "包与工程化": [
+            "Grammar/python/python-相对导入错误attempted relative import with no known parent package",
+            "Grammar/python/python-在项目中应该如何定义文件路径",
+            "Grammar/python/python-将py文件编译为pyc文件并运行",
+            "Grammar/python/python-logging模块添加日志",
+            "Grammar/python/python-lru_cache 缓存装饰器",
+            "Grammar/python/python-难点和遇到的问题",
+            "Knowledge/others/python中将函数设置为定时任务",
+        ],
+        "常用库": [
+            "Library/Python_Lib/pickle",
+            "Library/Python_Lib/pytest",
+            "Library/Python_Lib/python开发环境配置指南",
+            "Library/Python_Lib/PyYAML",
+            "Library/Python_Lib/tableprint使用教程",
+            "Library/Python_Lib/toml_usage使用教程",
+            "Library/Python_Lib/Typer和Rich入门教程",
+            "Library/smallLibrary/pydantic使用教程",
+        ],
+        "界面与串口": [
+            "Grammar/PyQt/PyQt-入门教程",
+            "Grammar/PyQt/PyQt-设备像素设置",
+            "Library/pyserial/pyserial-Python 中最常用的串口通信库快速入门",
+        ],
+        "数据与 ORM": [
+            "Project_Application/SQL/SQLAlchemy简单入门",
+            "Project_Application/SQL/Alembic",
+        ],
+    },
+    "Web 开发": {
+        "FastAPI": ["tag:Library/FastAPI", "Library/Python_Lib/fastapi使用"],
+        "Flask 与后端模式": [
+            "tag:Library/Flask",
+            "Knowledge/others/Jinja是什么？可以用在做什么？",
+            "Knowledge/others/Building asynchronous APIs for handling long-term tasks and dynamic resources",
+            "Knowledge/others/Celery",
+        ],
+        "快速原型框架": [
+            "Library/Python_Lib/gradio",
+            "Knowledge/others/streamlit使用教程",
+        ],
+        "前端与跨端": [
+            "Library/React/React框架使用教程",
+            "Library/flutter/flutter_tutorial",
+            "Platforms_Tools/refine-meta-framework",
+        ],
+    },
+    "数据科学": {
+        "Transformers 全家桶": ["tag:Library/transformers"],
+        "数值与科学计算": [
+            "Library/Python_Lib/numpy使用教程",
+            "Library/Python_Lib/scipy",
+            "Library/matplotlib/matplotlib使用教程_Zata_v0.0.0",
+            "Library/pandas/pandas使用教程",
+        ],
+        "建模与部署": [
+            "Library/Python_Lib/sklearn使用教程",
+            "Library/smallLibrary/onnx使用教程",
+            "Library/torch/torch使用教程_Zata_v0.0.0",
+        ],
+    },
+    "构建与打包": {
+        "依赖与环境管理": [
+            "Knowledge/others/conda使用相关",
+            "Knowledge/others/包管理工具poetry使用教程",
+            "Platforms_Tools/packageTools/npm使用教程",
+            "Platforms_Tools/pipx/pipx使用教程",
+            "Platforms_Tools/uv/包管理工具uv使用教程",
+        ],
+        "打包发布": [
+            "tag:Platforms_Tools/PyInstaller",
+            "Platforms_Tools/PyStand/PyStand-简易教程",
+            "Library/setuptools/setuptools-打包python项目为egg",
+            "Project_Application/PythonGUI/PythonGUI-打包成exe",
+        ],
+    },
+    "开发工具链": {
+        "Git 与 GitHub": ["tag:Project_Application/git&github"],
+        "Docker 与容器": ["tag:Platforms_Tools/Docker"],
+        "浏览器自动化": [
+            "Platforms_Tools/dev_tools/ai-frontend-e2e",
+            "Platforms_Tools/dev_tools/browser-session-replay",
+            "Platforms_Tools/dev_tools/extension-rpa",
+            "Platforms_Tools/dev_tools/novnc-playwright",
+            "Platforms_Tools/dev_tools/playwright-profile",
+            "Platforms_Tools/dev_tools/playwright-sigtrap",
+        ],
+        "终端与编辑器": [
+            "Platforms_Tools/CLI/herdr-ai-agent-terminal-runtime",
+            "Platforms_Tools/CLI/为AI而写的CLI设计指南",
+            "Project_Application/VScode/VScode安装和配置",
+            "Knowledge/others/copier-using",
+            "Platforms_Tools/dev_tools/cc-switch-guide",
+        ],
+        "AI 与创作工具": [
+            "Platforms_Tools/Blender/blender-complete-guide",
+            "Platforms_Tools/dev_tools/ai-article-to-video",
+        ],
+    },
+    "设计": {
+        "软件架构": ["tag:Design/软件架构设计", "Knowledge/others/一个软件项目的文件目录应该怎么定义"],
+        "UML 建模图": [
+            "Design/结构图/类图",
+            "Design/行为图/用例图",
+            "Design/功能图/数据流图",
+        ],
+        "原型与灵感": [
+            "Design/原型图/使用ai工具绘制原型图html并导入figma",
+            "tag:Design/值得学习的图",
+            "Library/优秀图表学习/分类图",
+        ],
+    },
+    "工程实践": {
+        "可观测性": ["tag:Engineering/可观测性"],
+        "流程与规范": [
+            "Engineering/软件工程/软件项目开发流程",
+            "Grammar/general/通用模板规范GeneralTemplateSpecifications",
+            "Knowledge/others/代码写作心得-使用教程",
+            "Knowledge/others/怎么保存.env文件到github公开的仓库",
+        ],
+        "DevOps 与平台": [
+            "Engineering/DevOps/Docker-Traefik一键安装脚本",
+            "Engineering/DevOps/Woodpecker-CI使用教程",
+            "Engineering/platform-architecture/ai-platform-architecture",
+            "Knowledge/others/开发问题与解法笔记",
+        ],
+    },
+    "运维与服务器": {
+        "服务器与系统": [
+            "Knowledge/Linux/1核1G云服务器“绝地求生”：如何把Ubuntu的内存从剩200M优化到能跑服务",
+            "Knowledge/Linux/bash命令使用教程",
+            "Knowledge/Linux/linux服务器初始化配置教程",
+            "Knowledge/others/Server Probe",
+            "Platforms_Tools/Server Operations and Maintenance-服务器运维/server_ops",
+            "Platforms_Tools/Server Operations and Maintenance-服务器运维/服务器安全-server Security",
+            "Platforms_Tools/Server Operations and Maintenance-服务器运维/服务器磁盘管理基础",
+            "Platforms_Tools/Server Operations and Maintenance-服务器运维/阿里云服务器",
+            "Project_Application/腾讯云修改root登录",
+            "Project_Application/SSH/SSH常用命令",
+        ],
+        "网络与代理": [
+            "Knowledge/Linux/国外服务器扶墙",
+            "Knowledge/others/修改clash中的配置信息",
+            "Knowledge/others/rustdesk安装使用",
+            "Platforms_Tools/Server Operations and Maintenance-服务器运维/代理配置实战",
+            "Platforms_Tools/Server Operations and Maintenance-服务器运维/服务器爬墙",
+        ],
+        "网关与站点": [
+            "Project_Application/nginx使用",
+            "Platforms_Tools/Server Operations and Maintenance-服务器运维/traefik",
+            "Platforms_Tools/Server Operations and Maintenance-服务器运维/域名迁移",
+        ],
+        "容器化部署": [
+            "Knowledge/others/1panel使用",
+            "Knowledge/others/Coolify",
+            "Platforms_Tools/Server Operations and Maintenance-服务器运维/CICD",
+            "Platforms_Tools/Server Operations and Maintenance-服务器运维/Dokploy",
+        ],
+        "存储与数据库": [
+            "Platforms_Tools/S3/S3 兼容存储踩坑记：boto3 新默认校验和撞上 NotImplemented",
+            "Platforms_Tools/Server Operations and Maintenance-服务器运维/Object Storage (对象存储服务)",
+            "Project_Application/SQL/PostgreSQL",
+            "Project_Application/SQL/redis",
+            "Project_Application/SQL/数据库备份实战",
+        ],
+    },
+    "项目实战": {
+        "爬虫实战": ["tag:Project_Application/crawler"],
+        "博客建站": ["tag:Project_Application/hugo"],
+        "应用开发": [
+            "Project_Application/Dify",
+            "Project_Application/PythonGUI/PythonGUI-软件自动更新",
+            "Project_Application/wechatapplet/微信小程序使用教程",
+            "Project_Application/单片机/野火F103-MiNI使用教程",
+        ],
+    },
+    "软件试用": {
+        "AI 工具试用": [
+            "Project_Application/SoftTrial/cc-switch",
+            "Project_Application/SoftTrial/ccNexus",
+            "Project_Application/SoftTrial/claude-code",
+            "Project_Application/SoftTrial/coze",
+            "Project_Application/SoftTrial/everything-claude-code",
+            "Project_Application/SoftTrial/flora无限画布",
+            "Project_Application/SoftTrial/wrap.dev",
+            "Project_Application/SoftTrial/百度自由画布",
+            "Project_Application/SoftUseExp/Tavily",
+            "Project_Application/SoftUseExp/cherry-studio",
+            "Project_Application/SoftUseExp/cursor使用教程",
+            "Project_Application/SoftUseExp/Efficient Programming Based on Claude Code Collaboration with Intelligent Agents",
+        ],
+        "终端与包管理": [
+            "Project_Application/SoftTrial/homebrew",
+            "Project_Application/SoftTrial/nvm",
+            "Project_Application/SoftTrial/wsl使用教程",
+            "Project_Application/SoftUseExp/postman",
+            "Project_Application/SoftUseExp/tmux",
+            "Project_Application/SoftUseExp/多台电脑环境变量(.env)同步方案",
+            "Project_Application/SoftUseExp/新电脑快速配置-scoop-homebrew",
+        ],
+        "部署与自托管": [
+            "Project_Application/SoftTrial/Coolify vs Dokploy",
+            "Project_Application/SoftTrial/alist",
+            "Project_Application/SoftTrial/polar-DB",
+            "Project_Application/SoftTrial/网页内容变化监控项目",
+            "Project_Application/SoftUseExp/github项目newsnow部署",
+        ],
+        "文档与标注": [
+            "Project_Application/SoftUseExp/LabelStudio-tutorial",
+            "Project_Application/SoftUseExp/Sphinx-快速生成python项目的api文档",
+            "Project_Application/SoftUseExp/api文档的写作",
+        ],
+        "桌面效率工具": [
+            "Project_Application/SoftTrial/IObit Unlocker解除文件占用",
+            "Project_Application/SoftTrial/内网文件传输工具LocalSend",
+            "Project_Application/SoftUseExp/实用软件工具",
+        ],
+    },
+    "效率与文档": {
+        "写作与排版": [
+            "tag:Knowledge/markdown",
+            "tag:Knowledge/word技巧",
+            "Knowledge/others/如何提成所写文档和ppt的颜值",
+            "Knowledge/others/技术追踪/文档结构化实战",
+            "Knowledge/others/categories和tags的区别",
+        ],
+        "系统小技巧": [
+            "Knowledge/others/macos使用经验",
+            "Knowledge/others/在overleaf中为什么两个完全一样的代码一个不能显示图片",
+            "Knowledge/windows/关闭win11更新",
+        ],
+    },
+    "通识与生活": {
+        "百科知识": ["tag:Knowledge/encyclopedic", "Knowledge/geographic/shanghai-geographic"],
+        "英语学习": ["tag:Knowledge/English"],
+        "生活与个人": [
+            "Grammar/general/生活中的收获量化方法",
+            "Knowledge/others/cookbook",
+            "Knowledge/others/start-a-business",
+            "Knowledge/others/如何和别人尬聊，打破僵局？",
+            "Knowledge/others/如何自学一个领域？",
+            "Knowledge/others/徒步知识点",
+            "Knowledge/others/给Zata的公司取一个名字",
+        ],
+    },
+    "Vibe Coding": {
+        "设计工程研究": [
+            "Vibe-Coding/AI-Frontend/ai-design-research/01-design-engineer是什么",
+            "Vibe-Coding/AI-Frontend/ai-design-research/02-figma-mcp实战",
+            "Vibe-Coding/AI-Frontend/ai-design-research/03-shadcn设计系统",
+            "Vibe-Coding/AI-Frontend/ai-design-research/04-mdc-rules模板",
+        ],
+        "实战与调试": [
+            "Vibe-Coding/AI-Frontend/AI 前端调试技巧：把被遮挡翻译成尺寸约束",
+            "Vibe-Coding/AI-Frontend/Base UI Select 显示 _all 的坑",
+            "Vibe-Coding/AI-Frontend/art-of-ai-frontend-design",
+        ],
+    },
+}
+
 
 # ---------------------------------------------------------------- 迁移时要顺手修的数据问题（front matter 校验发现）
 INTEGRITY = [
@@ -326,6 +731,49 @@ def main():
     total = sum(len(v) for v in rows.values())
     over60 = [b for b in BOOK_ORDER if len(rows.get(b, [])) > 60]
 
+    # ---- 章节解析与校验：每本书恰好被章节切完——无遗漏、无重复、无空章、无失效引用 ----
+    chapter_of = {}
+    errors = []
+    for b in BOOK_ORDER:
+        book_rels = [rel for rel, _, _ in rows.get(b, [])]
+        if not CHAPTERS.get(b):
+            if CH_REFS.get(b):
+                errors.append(f"{b}：平铺书却有章节引用")
+            continue
+        seen = {}
+        for ch in CHAPTERS[b]:
+            hits = []
+            for ref in CH_REFS.get(b, {}).get(ch, []):
+                if ref.startswith("tag:"):
+                    cat, tag = ref[4:].split("/", 1)
+                    matched = [rel for rel in book_rels
+                               if rel.split(os.sep)[0] == cat
+                               and len(rel.split(os.sep)) >= 3
+                               and rel.split(os.sep)[1] == tag]
+                    if not matched:
+                        errors.append(f"{b}·{ch}：tag 引用 {ref} 没命中任何文章")
+                    hits.extend(matched)
+                else:
+                    if ref not in book_rels:
+                        errors.append(f"{b}·{ch}：路径引用 {ref} 不在本书（检查是否打错字）")
+                    else:
+                        hits.append(ref)
+            for h in hits:
+                if h in seen:
+                    errors.append(f"{h} 被分到多个章节：{seen[h]} 和 {ch}")
+                seen[h] = ch
+                chapter_of[h] = ch
+            if not hits:
+                errors.append(f"{b}·{ch}：章节为空")
+        for rel in book_rels:
+            if rel not in seen:
+                errors.append(f"{b}：未分章节：{rel}")
+    if errors:
+        for e in errors:
+            print(e, file=sys.stderr)
+        sys.exit(1)
+
+
     out = []
     w = out.append
     w("# 分类细化 · 全量映射表（待确认）")
@@ -335,29 +783,47 @@ def main():
     w("> 约束：60 篇/本上限（最大一本 "
       + str(max(len(v) for v in rows.values())) + " 篇，无超限）。书名均为占位名，可整体改。")
     w("> ⚠️ = 待你拍板的条目，明细见「待拍板清单」。")
+    w("> 章节：一篇 = 一书 = 恰好一章（tag 由自由关键词改为章节，不跨书不跨章）。章节顺序即建议阅读顺序，章内顺序迁移后用 weight 定稿。")
     w("")
     w("## 总览")
     w("")
-    w("| # | 书 | 篇数 | 主要来源 |")
-    w("|---|---|---|---|")
+    w("| # | 书 | 篇数 | 章节 | 主要来源 |")
+    w("|---|---|---|---|---|")
+    n_ch = sum(len(CHAPTERS.get(b) or []) for b in BOOK_ORDER)
     for i, b in enumerate(BOOK_ORDER, 1):
-        w(f"| {i} | {b} | {len(rows.get(b, []))} | {BOOK_SOURCES[b]} |")
-    w(f"| | **合计** | **{total}** | |")
+        chs = CHAPTERS.get(b) or []
+        ch_cell = f"{len(chs)} 章" if chs else "平铺"
+        w(f"| {i} | {b} | {len(rows.get(b, []))} | {ch_cell} | {BOOK_SOURCES[b]} |")
+    w(f"| | **合计** | **{total}** | **{n_ch} 章** | |")
     w("")
 
     w("## 映射明细")
     w("")
-    for i, b in enumerate(BOOK_ORDER, 1):
-        items = sorted(rows.get(b, []))
-        w(f"### {i}. {b} · {len(items)} 篇")
-        w("")
+    flag_no = {rel: i for i, rel in enumerate(FLAGS, 1)}
+
+    def table(sub):
         w("| 标题 | 旧位置 | 备注 |")
         w("|---|---|---|")
-        for rel, title, _ in items:
+        for rel, title, _ in sub:
             t = esc(title) if title else "_(无标题)_"
-            note = f"⚠️#{list(FLAGS).index(rel) + 1}" if rel in FLAGS else ""
+            note = f"⚠️#{flag_no[rel]}" if rel in FLAGS else ""
             w(f"| {t} | `{esc(rel)}` | {note} |")
         w("")
+
+    for i, b in enumerate(BOOK_ORDER, 1):
+        items = sorted(rows.get(b, []))
+        chs = CHAPTERS.get(b) or []
+        head = f"### {i}. {b} · {len(items)} 篇" + (f" · {len(chs)} 章" if chs else " · 平铺")
+        w(head)
+        w("")
+        if chs:
+            for j, ch in enumerate(chs, 1):
+                sub = sorted([it for it in items if chapter_of[it[0]] == ch])
+                w(f"**第 {j} 章 · {ch}**（{len(sub)} 篇）")
+                w("")
+                table(sub)
+        else:
+            table(items)
 
     w("## 待拍板清单")
     w("")
@@ -399,10 +865,10 @@ def main():
     w("")
     w("## 后续步骤")
     w("")
-    w("1. 过一遍本表：改书名、处理 ⚠️ 条目和合并候选（直接改 md 或口头说，我同步进脚本规则）")
-    w("2. `zata.py create-category` 建 19 个新分类（含封面图），旧分类元数据保留到验证后再删")
-    w("3. 迁移命令（参照 `tools/merge_categories.py` 的 dry-run/--apply 惯例）：git mv 目录 + 重写 categories，顺手修上面 5 处 front matter、处理 2 个空文件、删空目录")
-    w("4. `hugo server` 全站点验，之后再做书视图前端（书页目录 + 篇尾续读）")
+    w("1. 过一遍本表：改书名/章节名，处理 ⚠️ 条目和合并候选（直接改 md 或口头说，我同步进脚本规则）")
+    w("2. `zata.py create-category` 建 19 个新分类（含封面图）；今后新文章一篇只挂一个分类、一个 tag=章节")
+    w("3. 迁移命令（参照 `tools/merge_categories.py` 的 dry-run/--apply 惯例）：git mv 到 `content/post/{书}/{章节}/{文章}` + 重写 categories 和 tags，顺手修 5 处 front matter、处理 2 个空文件、删空目录")
+    w("4. `hugo server` 全站点验；然后章内排序（weight）定稿书目录，再做书视图前端（书页目录 + 篇尾续读）")
     w("")
 
     doc = "\n".join(out)

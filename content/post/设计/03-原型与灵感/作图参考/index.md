@@ -4,8 +4,9 @@ description: ""
 date: 2025-03-25T11:00:07+08:00
 image: images/index/index.png
 categories:
-    - Design
+    - 设计
 tags:
+    - 原型与灵感
     - 值得学习的图
 ---
 

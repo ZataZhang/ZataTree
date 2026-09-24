@@ -4,8 +4,9 @@ description: ""
 date: 2025-06-19T10:23:58+08:00
 image: images/index/index.png
 categories:
-    - Library
+    - 数据科学
 tags:
+    - 建模与部署
     - smallLibrary
 ---
 

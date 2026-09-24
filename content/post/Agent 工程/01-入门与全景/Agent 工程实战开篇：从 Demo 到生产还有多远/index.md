@@ -5,8 +5,9 @@ date: 2026-07-23T10:31:54+08:00
 slug: "Agent 工程实战开篇：从 Demo 到生产还有多远"
 image: images/index/index.svg
 categories:
-    - Agent
+    - Agent 工程
 tags:
+    - 入门与全景
     - Agent 工程实战
 draft: false
 ---

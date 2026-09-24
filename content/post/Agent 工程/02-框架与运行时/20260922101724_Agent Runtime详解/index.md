@@ -5,10 +5,10 @@ date: 2026-09-22T10:17:24+08:00
 slug: agent-runtime-explained
 image: images/index/index.svg
 categories:
-    - Agent
+    - Agent 工程
 tags:
+    - 框架与运行时
     - Agent Orchestration
-    - Agent
     - Agent 工程实战
 draft: false
 ---
@@ -173,7 +173,7 @@ Agent Runtime 不必天然等于沙箱。沙箱是它可能使用的一种执行
 - **业务执行事件**：Run 创建、工具调用、批准、终态等可审计事实，常需可靠持久化、顺序号和权限控制。
 - **观测 Trace**：模型/工具步骤的耗时、父子关系、token 和错误，帮助定位慢点、失败点与成本。
 
-二者可以关联，也可以由同一组可靠事件投影出诊断视图，但不能默认认为一条采样 Trace 就能承担完整业务审计。Trace 可能被采样、丢弃或限期删除。敏感的 prompt、源码、邮件和工具结果也不应为了排障而默认全文写入观测系统。进一步阅读本站的 [Agent Tracing 基础]({{< relref "post/Agent/Agent 工程实战/Agent Tracing 基础：Trace、Span 与 OpenTelemetry 埋点/index.md" >}})。
+二者可以关联，也可以由同一组可靠事件投影出诊断视图，但不能默认认为一条采样 Trace 就能承担完整业务审计。Trace 可能被采样、丢弃或限期删除。敏感的 prompt、源码、邮件和工具结果也不应为了排障而默认全文写入观测系统。进一步阅读本站的 [Agent Tracing 基础]({{< relref "post/Agent 工程/04-可观测与协议/Agent Tracing 基础：Trace、Span 与 OpenTelemetry 埋点/index.md" >}})。
 
 ## 七、一个平台设计示例：Runtime、Adapter、Harness 如何分工
 

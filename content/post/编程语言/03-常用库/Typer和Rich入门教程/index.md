@@ -6,8 +6,9 @@ slug: Typer和Rich入门教程
 image: images/index/index.png
 draft: false
 categories:
-    - Library
+    - 编程语言
 tags:
+    - 常用库
     - Python_Lib
     - Typer
     - Rich

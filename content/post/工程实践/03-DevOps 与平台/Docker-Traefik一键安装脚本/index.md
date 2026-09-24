@@ -5,8 +5,9 @@ date: 2026-06-08T00:30:00+08:00
 image: images/index/index.png
 slug: docker-traefik-install-script
 categories:
-    - Engineering
+    - 工程实践
 tags:
+    - DevOps 与平台
     - DevOps
     - Docker
     - Traefik

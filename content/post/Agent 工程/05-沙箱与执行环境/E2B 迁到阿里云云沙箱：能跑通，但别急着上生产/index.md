@@ -5,8 +5,9 @@ date: 2026-09-21T19:00:00+08:00
 slug: "E2B 迁到阿里云云沙箱：能跑通，但别急着上生产"
 image: images/index/index.svg
 categories:
-    - Agent
+    - Agent 工程
 tags:
+    - 沙箱与执行环境
     - Agent Orchestration
     - Sandbox
     - E2B

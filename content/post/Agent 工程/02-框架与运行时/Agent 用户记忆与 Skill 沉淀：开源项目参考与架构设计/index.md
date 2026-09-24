@@ -4,10 +4,10 @@ description: "对比 Mem0、Letta、Zep、Graphiti、LangGraph、Agent Skills、
 date: 2026-08-31T18:00:00+08:00
 image: images/index/index.svg
 categories:
-    - Agent
+    - Agent 工程
 tags:
+    - 框架与运行时
     - Agent Orchestration
-    - Agent
     - Memory
     - Agent Skills
     - Context Engineering

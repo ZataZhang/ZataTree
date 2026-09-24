@@ -5,8 +5,9 @@ date: 2026-09-07T10:30:00+08:00
 slug: "Agent Run 流式协议：事件溯源、SSE 投影与断线恢复"
 image: images/index/index.svg
 categories:
-    - Agent
+    - Agent 工程
 tags:
+    - 可观测与协议
     - Agent 工程实战
     - SSE
     - Protocol

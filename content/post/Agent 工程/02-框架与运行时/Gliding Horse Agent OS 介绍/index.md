@@ -4,8 +4,9 @@ description: "全面介绍 doiito/gliding_horse —— 一个用 Rust 编写的�
 date: 2026-06-29T10:00:00+08:00
 image: images/index/index.svg
 categories:
-    - Agent
+    - Agent 工程
 tags:
+    - 框架与运行时
     - Agent Orchestration
     - Rust
     - MultiAgent
@@ -327,7 +328,7 @@ curl http://localhost:8080/api/v1/projects \
 
 - **PDCA 7 级自适应**让它对"什么算 Agent 框架"的定义更宽泛——同一套引擎既可做即时问答,又可跑周级项目,这种"弹性"是 LangChain / AutoGen 目前都没做到的。
 - **CPU 缓存架构 + MESI 一致性**是从硬件架构借来的概念,工程上不是新东西,但**移植到多 Agent 记忆**是很新鲜的一手;若实现得当,能极大缓解"Agent 之间互相覆盖记忆"的常见 bug。
-- **JSON-LD 作为跨子系统数据总线**使得"技能/记忆/任务/代码"得以在 RDF 图层统一——这一点与 [GraphRAG 全景]({{< relref "post/Agent/GraphRAG开源项目全景：从微软GraphRAG到LightRAG/index.md" >}}) 思路一脉相承,但走得更远。
+- **JSON-LD 作为跨子系统数据总线**使得"技能/记忆/任务/代码"得以在 RDF 图层统一——这一点与 [GraphRAG 全景]({{< relref "post/RAG 与 LangChain/04-RAG 生态与选型/GraphRAG开源项目全景：从微软GraphRAG到LightRAG/index.md" >}}) 思路一脉相承,但走得更远。
 - **OpenAI 兼容 API + MCP 双协议**意味着开发者不强制绑定任何单一模型生态,DeepSeek、Qwen、本地 vLLM 都可以无缝接入,适合国内闭源/开源混合场景。
 
 **目前的不确定性**:
@@ -359,9 +360,9 @@ curl http://localhost:8080/api/v1/projects \
 
 ## 系列文章
 
-- [智能体编排设计工程师学习指南]({{< relref "post/Agent/Agent Orchestration/01-智能体编排设计工程师学习指南/index.md" >}})
-- [AI Agent Loop 工程:原理、模式与实现]({{< relref "post/Agent/Agent Orchestration/AI Agent Loop 工程：原理、模式与实现/index.md" >}})
-- [记忆模块技术文档]({{< relref "post/Agent/Agent Orchestration/记忆模块技术文档/index.md" >}})
-- [GraphRAG 开源项目全景]({{< relref "post/Agent/GraphRAG开源项目全景：从微软GraphRAG到LightRAG/index.md" >}})
+- [智能体编排设计工程师学习指南]({{< relref "post/Agent 工程/02-框架与运行时/01-智能体编排设计工程师学习指南/index.md" >}})
+- [AI Agent Loop 工程:原理、模式与实现]({{< relref "post/Agent 工程/02-框架与运行时/AI Agent Loop 工程：原理、模式与实现/index.md" >}})
+- [记忆模块技术文档]({{< relref "post/Agent 工程/02-框架与运行时/记忆模块技术文档/index.md" >}})
+- [GraphRAG 开源项目全景]({{< relref "post/RAG 与 LangChain/04-RAG 生态与选型/GraphRAG开源项目全景：从微软GraphRAG到LightRAG/index.md" >}})
 
 > 注:Hugo 的相对路径解析对含空格目录使用 URL 编码(`%20`);若仍出现 broken 链接,请以博客最终渲染为准。

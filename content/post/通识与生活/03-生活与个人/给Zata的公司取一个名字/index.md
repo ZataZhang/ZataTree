@@ -5,8 +5,9 @@ date: 2025-04-24T12:44:29+08:00
 image: images/index/index.png
 draft: true
 categories:
-    - Knowledge
+    - 通识与生活
 tags:
+    - 生活与个人
     - others
 ---
 

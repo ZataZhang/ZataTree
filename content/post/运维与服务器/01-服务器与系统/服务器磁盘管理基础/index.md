@@ -4,8 +4,9 @@ description: 从查看磁盘、分区格式化到持久化挂载，覆盖日常�
 date: 2026-06-05T10:00:00+08:00
 image: images/index/index.png
 categories:
-    - Platforms_Tools
+    - 运维与服务器
 tags:
+    - 服务器与系统
     - Server Operations and Maintenance-服务器运维
 draft: false
 ---
@@ -208,7 +209,7 @@ docker info | grep "Docker Root Dir"
 # 应输出 /mnt/docker_data
 ```
 
-更详细的方案（软链接、Compose 级挂载等）可参考 [Docker 容器相关命令]({{< relref "post/Platforms_Tools/Docker/docker容器相关命令/index.md" >}}) 中的"数据卷自动挂载到 /mnt"一节。
+更详细的方案（软链接、Compose 级挂载等）可参考 [Docker 容器相关命令]({{< relref "post/开发工具链/02-Docker 与容器/docker容器相关命令/index.md" >}}) 中的"数据卷自动挂载到 /mnt"一节。
 
 ---
 

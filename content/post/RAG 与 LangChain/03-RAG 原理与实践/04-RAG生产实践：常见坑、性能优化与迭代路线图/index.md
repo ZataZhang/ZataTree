@@ -4,8 +4,9 @@ description: 从 Demo 到生产环境，RAG 最大的挑战通常不是搭起来
 date: 2026-03-25T15:55:00+08:00
 image: images/index/index.png
 categories:
-    - Agent
+    - RAG 与 LangChain
 tags:
+    - RAG 原理与实践
     - RAG
     - Production
 ---

@@ -5,10 +5,10 @@ date: 2026-09-22T18:39:16+08:00
 slug: builtin-agent-source-of-truth
 image: images/index/index.svg
 categories:
-    - Agent
+    - Agent 工程
 tags:
+    - 框架与运行时
     - Agent Orchestration
-    - Agent
     - Agent 工程实战
 draft: false
 ---

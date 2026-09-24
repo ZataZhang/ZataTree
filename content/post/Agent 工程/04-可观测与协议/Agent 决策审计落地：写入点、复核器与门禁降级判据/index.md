@@ -5,15 +5,16 @@ date: 2026-09-24T14:15:00+08:00
 slug: "agent-decision-audit-implementation"
 image: images/index/index.svg
 categories:
-    - Agent
+    - Agent 工程
 tags:
+    - 可观测与协议
     - Agent 工程实战
     - Agent Tracing
     - 可观测性
 draft: false
 ---
 
-一份能用的决策审计，第一版可以只有六行 JSONL。还是[上一篇]({{< relref "post/Agent/Agent 工程实战/Agent 决策审计：它与 Tracing 的关系/index.md" >}})里那个改数据库连接配置的例子——Agent 选中了单元测试和真实数据库冒烟，这次把事件流补全：
+一份能用的决策审计，第一版可以只有六行 JSONL。还是[上一篇]({{< relref "post/Agent 工程/04-可观测与协议/Agent 决策审计：它与 Tracing 的关系/index.md" >}})里那个改数据库连接配置的例子——Agent 选中了单元测试和真实数据库冒烟，这次把事件流补全：
 
 ```json
 {"seq":1,"decision_id":"dec-42","event_type":"plan_created","actor":"planner",
@@ -140,7 +141,7 @@ def append_event(conn, decision_id, run_id, event_type, actor,
     conn.commit()
 ```
 
-幂等键的取法和[全景手册]({{< relref "post/Agent/Agent 工程实战/Agent生产工程全景手册/index.md" >}})对工具调用的要求同源：按业务身份（`decision_id + event_type + key_suffix`）去重，不按请求 ID。检查类事件里 `key_suffix` 就是 `check_id`，同一项检查反复重试，`check_started` 只落一条。
+幂等键的取法和[全景手册]({{< relref "post/Agent 工程/01-入门与全景/Agent生产工程全景手册/index.md" >}})对工具调用的要求同源：按业务身份（`decision_id + event_type + key_suffix`）去重，不按请求 ID。检查类事件里 `key_suffix` 就是 `check_id`，同一项检查反复重试，`check_started` 只落一条。
 
 ## 四、复核器：规则在前，模型在后
 
@@ -253,6 +254,6 @@ def history_complete(events):            # events 已按 seq 排序、按 decisi
 
 ## 延伸阅读
 
-- [Agent 决策审计：它与 Tracing 的关系]({{< relref "post/Agent/Agent 工程实战/Agent 决策审计：它与 Tracing 的关系/index.md" >}})——设计篇：身份模型、记录字段与决策、Trace 的边界
-- [Agent 生产工程全景手册：从 Runtime 到业务闭环]({{< relref "post/Agent/Agent 工程实战/Agent生产工程全景手册/index.md" >}})
-- [Agent Tracing 基础：Trace、Span 与 OpenTelemetry 埋点]({{< relref "post/Agent/Agent 工程实战/Agent Tracing 基础：Trace、Span 与 OpenTelemetry 埋点/index.md" >}})
+- [Agent 决策审计：它与 Tracing 的关系]({{< relref "post/Agent 工程/04-可观测与协议/Agent 决策审计：它与 Tracing 的关系/index.md" >}})——设计篇：身份模型、记录字段与决策、Trace 的边界
+- [Agent 生产工程全景手册：从 Runtime 到业务闭环]({{< relref "post/Agent 工程/01-入门与全景/Agent生产工程全景手册/index.md" >}})
+- [Agent Tracing 基础：Trace、Span 与 OpenTelemetry 埋点]({{< relref "post/Agent 工程/04-可观测与协议/Agent Tracing 基础：Trace、Span 与 OpenTelemetry 埋点/index.md" >}})

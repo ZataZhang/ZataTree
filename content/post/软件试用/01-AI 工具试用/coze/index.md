@@ -4,8 +4,9 @@ description: "coze尝鲜"
 date: 2025-03-04T11:46:49+08:00
 image: images/index/index.png
 categories:
-    - Project_Application
+    - 软件试用
 tags:
+    - AI 工具试用
     - SoftTrial
 ---
 

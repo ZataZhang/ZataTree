@@ -4,13 +4,9 @@ description: 论文阅读
 date: 2025-02-24
 # slug: 文件夹名/index.md ## 必填，文件夹名/index.md
 image: images/index/index.png
+tags:
 categories:
-    # - DeepLearning
-    # - Chart
-    # - Python
-    # - LLM
-    # - Library
-    - PaperReading
+    - 阅读笔记
 ---
 
 ![alt text](images/index/index.png)

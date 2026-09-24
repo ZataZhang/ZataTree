@@ -4,8 +4,9 @@ description: ""
 date: 2025-09-25T11:52:44+08:00
 image: images/index/index.png
 categories:
-    - Knowledge
+    - 运维与服务器
 tags:
+    - 服务器与系统
     - others
 ---
 这是一种在IT运维和网站管理中非常常见的工具，对于了解和维护服务器的健康状态至关重要。

@@ -4,8 +4,9 @@ description: ""
 date: 2025-03-06T21:15:32+08:00
 image: images/index/image.png
 categories:
-    - Grammar
+    - 编程语言
 tags:
+    - 语言基础
     - python
 ---
 

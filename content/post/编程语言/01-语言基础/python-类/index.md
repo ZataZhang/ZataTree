@@ -5,14 +5,9 @@ date: 2025-02-24
 slug: 类 ## 必填，文件夹名
 image: images/index/index.png
 categories:
-    # - DeepLearning
-    # - DeepLearning
-    # - Chart
-    - Grammar
-    # - LLM
-    # - Library
-    # - PaperReading
+    - 编程语言
 tags:
+    - 语言基础
     - python
 ---
 

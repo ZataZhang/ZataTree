@@ -5,8 +5,9 @@ date: 2026-09-22T11:30:00+08:00
 slug: "agent-decision-audit-and-tracing"
 image: images/index/index.svg
 categories:
-    - Agent
+    - Agent 工程
 tags:
+    - 可观测与协议
     - Agent 工程实战
     - Agent Tracing
     - 可观测性
@@ -137,4 +138,4 @@ PRD / Issue / change
 
 我的判断是：**决策审计可以嵌进 Agent tracing 的浏览体验，但应有独立的数据契约和留存责任。** 当 Agent 只是辅助写代码，trace 通常足以排障；当 Agent 开始决定“哪些门禁可以不跑、这次是否放行”，决策记录就成为运行时的必要组成部分。
 
-继续阅读：[Agent 决策审计落地：写入点、复核器与门禁降级判据]({{< relref "post/Agent/Agent 工程实战/Agent 决策审计落地：写入点、复核器与门禁降级判据/index.md" >}})——本文的落地实现篇；[Agent Tracing 基础：Trace、Span 与 OpenTelemetry 埋点]({{< relref "post/Agent/Agent 工程实战/Agent Tracing 基础：Trace、Span 与 OpenTelemetry 埋点/index.md" >}})；[Agent Runtime 详解]({{< relref "post/Agent/Agent Orchestration/20260922101724_Agent Runtime详解/index.md" >}})。
+继续阅读：[Agent 决策审计落地：写入点、复核器与门禁降级判据]({{< relref "post/Agent 工程/04-可观测与协议/Agent 决策审计落地：写入点、复核器与门禁降级判据/index.md" >}})——本文的落地实现篇；[Agent Tracing 基础：Trace、Span 与 OpenTelemetry 埋点]({{< relref "post/Agent 工程/04-可观测与协议/Agent Tracing 基础：Trace、Span 与 OpenTelemetry 埋点/index.md" >}})；[Agent Runtime 详解]({{< relref "post/Agent 工程/02-框架与运行时/20260922101724_Agent Runtime详解/index.md" >}})。

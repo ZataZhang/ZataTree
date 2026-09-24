@@ -5,8 +5,9 @@ date: 2026-09-15T09:30:00+08:00
 slug: cc-switch-guide
 image: images/index/index.svg
 categories:
-    - Platforms_Tools
+    - 开发工具链
 tags:
+    - 终端与编辑器
     - dev_tools
     - Claude-Code
     - Codex

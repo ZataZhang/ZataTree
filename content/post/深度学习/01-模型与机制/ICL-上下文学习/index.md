@@ -4,8 +4,9 @@ description: ""
 date: 2025-03-12T10:19:09+08:00
 image: images/index/index.png
 categories:
-    - DeepLearning
+    - 深度学习
 tags:
+    - 模型与机制
     - 模型&策略
 ---
 

@@ -6,13 +6,9 @@ image: images/index/index.png
 slug: DeepSeek_NSA ## 必填，文件夹名
 # image: helena-hertz-wWZzXlDpMog-unsplash.jpg
 categories:
-    - DeepLearning
-    # - DeepLearning
-    # - Chart
-    # - Python
-    # - LLM
-    # - Library
-    - PaperReading
+    - 深度学习
+tags:
+    - 模型与机制
 ---
 
 

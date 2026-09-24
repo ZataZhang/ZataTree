@@ -4,8 +4,9 @@ description: ""
 date: 2025-11-21T11:16:13+08:00
 image: images/index/index.png
 categories:
-    - Knowledge
+    - 通识与生活
 tags:
+    - 百科知识
     - geographic
 ---
 

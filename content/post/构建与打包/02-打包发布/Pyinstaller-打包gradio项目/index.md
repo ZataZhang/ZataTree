@@ -4,8 +4,9 @@ description: ""
 date: 2025-04-27T00:42:01+08:00
 image: images/index/index.png
 categories:
-    - Platforms_Tools
+    - 构建与打包
 tags:
+    - 打包发布
     - PyInstaller
 ---
 

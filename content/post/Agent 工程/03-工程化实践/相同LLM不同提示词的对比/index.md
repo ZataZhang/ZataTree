@@ -5,8 +5,9 @@ date: 2025-03-07T16:10:38+08:00
 image: images/index/index.png
 # image: images/index/index.png
 categories:
-    - Knowledge
+    - Agent 工程
 tags:
+    - 工程化实践
     - others
 ---
 

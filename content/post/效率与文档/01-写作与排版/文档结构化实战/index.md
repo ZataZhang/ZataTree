@@ -4,8 +4,9 @@ description: "记录 Markdown 转 Word、PDF 转 Word 的实战经验，包括 L
 date: 2026-06-04T12:00:00+08:00
 image: images/index/index.png
 categories:
-    - Knowledge
+    - 效率与文档
 tags:
+    - 写作与排版
     - 文档结构化
     - python
     - python-docx

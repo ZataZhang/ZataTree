@@ -4,8 +4,9 @@ description: 在 Docker 容器内为有头 Chrome 提供远程桌面，先后踩
 date: 2026-06-09T14:00:00+08:00
 image: images/index/index.png
 categories:
-    - Platforms_Tools
+    - 开发工具链
 tags:
+    - 浏览器自动化
     - Docker
     - Playwright
     - VNC

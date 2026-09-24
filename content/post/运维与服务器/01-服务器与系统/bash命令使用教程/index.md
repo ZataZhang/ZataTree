@@ -4,8 +4,9 @@ description: ""
 date: 2025-07-18T17:41:56+08:00
 image: images/index/index.png
 categories:
-    - Knowledge
+    - 运维与服务器
 tags:
+    - 服务器与系统
     - Linux
 ---
 

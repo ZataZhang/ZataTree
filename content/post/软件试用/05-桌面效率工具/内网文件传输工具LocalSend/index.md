@@ -4,8 +4,9 @@ description: ""
 date: 2025-03-16T18:47:30+08:00
 image: images/index/index.png
 categories:
-    - Project_Application
+    - 软件试用
 tags:
+    - 桌面效率工具
     - SoftTrial
 ---
 

@@ -4,8 +4,9 @@ description: "从基础概念、设计原则到架构师视角，系统梳理软
 date: 2025-04-23T17:30:33+08:00
 image: images/index/index.png
 categories:
-    - Design
+    - 设计
 tags:
+    - 软件架构
     - 软件架构设计
 ---
 

@@ -4,8 +4,9 @@ description: ""
 date: 2025-05-07T14:03:43+08:00
 image: images/index/index.png
 categories:
-    - Knowledge
+    - 效率与文档
 tags:
+    - 系统小技巧
     - windows
 ---
 

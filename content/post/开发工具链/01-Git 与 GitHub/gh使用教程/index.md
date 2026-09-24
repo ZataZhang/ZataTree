@@ -4,8 +4,9 @@ description: "详细介绍 GitHub CLI（gh）的常用命令、认证方式、�
 date: 2026-04-12T21:50:00+08:00
 image: images/index/index.png
 categories:
-    - Project_Application
+    - 开发工具链
 tags:
+    - Git 与 GitHub
     - git&github
     - gh
     - github

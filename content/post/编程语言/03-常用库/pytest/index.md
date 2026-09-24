@@ -4,8 +4,9 @@ description: "一份涵盖基础、内置 fixtures、conftest.py、参数化和�
 date: 2025-07-31T10:38:04+08:00
 image: images/index/index.png
 categories:
-    - Library
+    - 编程语言
 tags:
+    - 常用库
     - Python_Lib
 ---
 

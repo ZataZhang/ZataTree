@@ -6,10 +6,9 @@ image: images/index/index.png
 slug: MoE ## 必填，文件夹名
 # image: helena-hertz-wWZzXlDpMog-unsplash.jpg
 categories:
-    # - Chart
-    # - Python
-    # - Library
-    - DeepLearning
+    - 深度学习
+tags:
+    - 模型与机制
 ---
 
 

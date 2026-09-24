@@ -5,8 +5,9 @@ description: "Cursor 的 .cursorrules 已被 .cursor/rules/*.mdc 取代，Claude
 slug: "04-mdc-rules模板"
 image: images/index/index.svg
 categories:
-    - Vibe-Coding
+    - Vibe Coding
 tags:
+    - 设计工程研究
     - AI-Frontend
     - Cursor
     - Claude-Code

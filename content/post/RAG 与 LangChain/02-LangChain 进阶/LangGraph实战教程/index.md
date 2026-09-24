@@ -4,8 +4,9 @@ description: "从 State 与条件边，到亲手写一遍 tool-call 循环，再
 date: 2026-09-08T12:30:00+08:00
 image: images/index/index.png
 categories:
-    - Agent
+    - RAG 与 LangChain
 tags:
+    - LangChain 进阶
     - LangChain
 ---
 

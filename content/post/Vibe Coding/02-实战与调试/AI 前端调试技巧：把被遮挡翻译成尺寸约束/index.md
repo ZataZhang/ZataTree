@@ -4,8 +4,9 @@ description: "一个让 AI 稳定修复前端遮挡问题的提示词技巧：�
 date: 2026-06-25T11:34:35+08:00
 image: images/index/index.svg
 categories:
-    - Vibe-Coding
+    - Vibe Coding
 tags:
+    - 实战与调试
     - AI-Frontend
 ---
 

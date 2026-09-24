@@ -4,8 +4,9 @@ description: ""
 date: 2025-10-30T01:27:14+08:00
 image: images/index/index.png
 categories:
-    - DeepLearning
+    - 深度学习
 tags:
+    - 推理与部署
     - frame
 ---
 vLLM 是一个非常流行的高性能大语言模型（LLM）推理和服务库。它之所以速度快，关键在于它采用了 **PagedAttention** 和**持续批处理 (Continuous Batching)** 等先进技术，极大提高了 GPU 内存的利用率和吞吐量。

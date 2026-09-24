@@ -5,8 +5,9 @@ date: 2025-03-10T14:00:34+08:00
 image: images/index/index.png
 # image: images/index/index.png
 categories:
-    - Knowledge
+    - 构建与打包
 tags:
+    - 依赖与环境管理
     - others
     - 教程
 ---

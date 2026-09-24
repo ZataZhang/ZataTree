@@ -5,19 +5,11 @@ date: 2025-02-28
 slug: hugo安装使用 ## 必填，文件夹名
 image: images/index/head.png
 categories:
-    # - DeepLearning
-    # - Chart
-    # - Python
-    # - LLM
-    # - Library
-    # - PaperReading
-    # - Study
-    - Project_Application
+    - 项目实战
 tags:
+    - 博客建站
     - Blog
     - hugo
-
-
 ---
 
 

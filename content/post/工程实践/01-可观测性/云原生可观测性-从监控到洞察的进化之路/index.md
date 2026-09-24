@@ -4,7 +4,7 @@ description: "深入解析云原生时代的可观测性体系，涵盖 Metrics�
 date: 2026-05-27T10:00:00+08:00
 image: images/index/index.png
 categories:
-    - Engineering
+    - 工程实践
 tags:
     - 可观测性
     - 云原生

@@ -6,19 +6,10 @@ image: images/index/index.png
 # slug: 文件夹名/index.md ## 必填，文件夹名/index.md
 # image: helena-hertz-wWZzXlDpMog-unsplash.jpg
 categories:
-    # - DeepLearning
-    # - Chart
-    # - Python
-    # - LLM
-    # - Library
-    # - PaperReading
-    # - Study
-    # - Other
-    # - Knowledge points
-    - Project_Application
+    - 开发工具链
 tags:
+    - Git 与 GitHub
     - git&github
-
 ---
 
 

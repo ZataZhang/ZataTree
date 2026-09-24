@@ -1,11 +1,15 @@
 ---
-title: Useful but not attempted
-description: ""
+title: 开发问题与解法笔记
+description: "收集开发中遇到的问题与解法：用 SSHFS 把远程容器目录映射到本地、WSL2 中 Docker 服务开放局域网访问、以及登录 cookie/authorization 凭证的自动更新方案。"
+slug: 开发问题与解法笔记
+aliases:
+    - /p/useful-but-not-attempted/
 date: 2025-08-13T00:03:46+08:00
 image: images/index/index.png
 categories:
-    - Knowledge
+    - 工程实践
 tags:
+    - DevOps 与平台
     - others
 ---
 

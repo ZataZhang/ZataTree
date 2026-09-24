@@ -5,8 +5,9 @@ date: 2026-09-15T10:30:00+08:00
 slug: blender-complete-guide
 image: images/index/index.svg
 categories:
-    - Platforms_Tools
+    - 开发工具链
 tags:
+    - AI 与创作工具
     - Blender
     - 教程
 toc: true

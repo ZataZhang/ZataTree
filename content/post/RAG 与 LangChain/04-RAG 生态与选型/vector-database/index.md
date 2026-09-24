@@ -4,9 +4,9 @@ description: ""
 date: 2025-11-20T16:41:12+08:00
 image: images/index/index.png
 categories:
-    - DeepLearning
+    - RAG 与 LangChain
 tags:
-    - Agent
+    - RAG 生态与选型
 ---
 
 

@@ -5,8 +5,9 @@ date: 2026-09-10T23:58:52+08:00
 slug: s3-boto3-checksum-notimplemented
 image: images/index/index.svg
 categories:
-    - Platforms_Tools
+    - 运维与服务器
 tags:
+    - 存储与数据库
     - S3
     - boto3
     - 踩坑

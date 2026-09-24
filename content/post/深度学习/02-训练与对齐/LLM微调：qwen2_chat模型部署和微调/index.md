@@ -4,8 +4,9 @@ description: ""
 date: 2025-01-09T10:14:04+08:00
 image: images/index/index.png
 categories:
-    - DeepLearning
+    - 深度学习
 tags:
+    - 训练与对齐
     - NLP
 ---
 

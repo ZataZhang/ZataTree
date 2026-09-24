@@ -4,8 +4,9 @@ description: "用 FastMCP 起一个工具服务，用 LangChain 1.4 内建的 la
 date: 2026-09-08T13:00:00+08:00
 image: images/index/index.png
 categories:
-    - Agent
+    - RAG 与 LangChain
 tags:
+    - LangChain 基础
     - LangChain
 ---
 

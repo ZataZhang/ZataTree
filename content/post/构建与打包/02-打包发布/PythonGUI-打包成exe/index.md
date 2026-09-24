@@ -5,8 +5,9 @@ date: 2025-02-24
 slug: python程序打包exe ### 必填，文件夹名
 image: image/python程序打包exe/python程序打包exe.png
 categories:
-    - Project_Application
+    - 构建与打包
 tags:
+    - 打包发布
     - PythonGUI
 ---
 

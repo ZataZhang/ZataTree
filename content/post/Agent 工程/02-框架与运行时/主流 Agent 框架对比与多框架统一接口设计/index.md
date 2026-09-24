@@ -4,10 +4,10 @@ description: "对比 Deep Agents、LangGraph、LangChain create_agent、OpenAI A
 date: 2026-08-31T16:00:00+08:00
 image: images/index/index.svg
 categories:
-    - Agent
+    - Agent 工程
 tags:
+    - 框架与运行时
     - Agent Orchestration
-    - Agent
     - LangGraph
     - Deep Agents
     - PydanticAI

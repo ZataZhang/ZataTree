@@ -4,8 +4,9 @@ description: ""
 date: 2025-10-23T21:11:46+08:00
 image: images/index/index.png
 categories:
-    - Knowledge
+    - 通识与生活
 tags:
+    - 生活与个人
     - others
 ---
 

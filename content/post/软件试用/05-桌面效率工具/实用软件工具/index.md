@@ -4,8 +4,9 @@ description: ""
 date: 2025-07-11T15:07:54+08:00
 image: images/index/index.png
 categories:
-    - Project_Application
+    - 软件试用
 tags:
+    - 桌面效率工具
     - SoftUseExp
 ---
 

@@ -4,9 +4,8 @@ description: "持续追踪 Agent 与文档结构化领域的技术热点与开�
 date: 2026-06-04T10:00:00+08:00
 image: images/index/index.png
 categories:
-    - Knowledge
+    - 科技月报
 tags:
-    - Agent
     - 文档结构化
     - LLM
     - RAG

@@ -4,8 +4,9 @@ description: "从 API Key 到 OutputParserException 再到 Agent 死循环：七
 date: 2026-09-08T13:30:00+08:00
 image: images/index/index.png
 categories:
-    - Agent
+    - RAG 与 LangChain
 tags:
+    - LangChain 基础
     - LangChain
 ---
 

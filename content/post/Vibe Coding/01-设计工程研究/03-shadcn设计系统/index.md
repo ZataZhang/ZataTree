@@ -5,8 +5,9 @@ description: "shadcn/ui 在 2025 年后把自己定位为 AI-Ready 组件库。�
 slug: "03-shadcn设计系统"
 image: images/index/index.svg
 categories:
-    - Vibe-Coding
+    - Vibe Coding
 tags:
+    - 设计工程研究
     - AI-Frontend
     - shadcn-ui
     - Design-Token
@@ -501,4 +502,4 @@ Button 组件已定制：默认尺寸为 lg，圆角为 full。
 
 ---
 
-> **下一篇预告**：[一份能直接抄的前端 `.mdc` rules 模板]({{< relref "post/Vibe-Coding/AI-Frontend/ai-design-research/04-mdc-rules模板/index.md" >}})。会从 PatrickJS/awesome-cursorrules 整理出适合 Next.js + shadcn/ui 项目的规则模板。
+> **下一篇预告**：[一份能直接抄的前端 `.mdc` rules 模板]({{< relref "post/Vibe Coding/01-设计工程研究/04-mdc-rules模板/index.md" >}})。会从 PatrickJS/awesome-cursorrules 整理出适合 Next.js + shadcn/ui 项目的规则模板。

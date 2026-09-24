@@ -4,8 +4,9 @@ description: "一个真实项目从零到能用：LCEL 管线搭建、提示词�
 date: 2026-09-08T12:00:00+08:00
 image: images/index/index.png
 categories:
-    - Agent
+    - RAG 与 LangChain
 tags:
+    - LangChain 进阶
     - LangChain
 ---
 

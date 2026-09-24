@@ -5,8 +5,9 @@ date: 2026-07-23T11:21:08+08:00
 slug: "数据库初始化与迁移：从创建那一刻就要钉死的三件事"
 image: images/index/index.svg
 categories:
-    - Agent
+    - Agent 工程
 tags:
+    - 工程化实践
     - Agent 工程实战
 draft: false
 ---

@@ -4,8 +4,9 @@ description: "从零开始掌握 tmux：会话、窗口、窗格、复制模式�
 date: 2025-05-09T11:32:28+08:00
 image: images/index/index.png
 categories:
-    - Project_Application
+    - 软件试用
 tags:
+    - 终端与包管理
     - SoftUseExp
     - 简易使用
 ---

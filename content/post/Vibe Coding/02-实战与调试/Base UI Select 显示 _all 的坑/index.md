@@ -4,8 +4,9 @@ description: "智能体市场的四个筛选器全部显示成 _all。代码里�
 date: 2026-08-06T09:30:34+08:00
 image: images/index/index.svg
 categories:
-    - Vibe-Coding
+    - Vibe Coding
 tags:
+    - 实战与调试
     - AI-Frontend
 draft: false
 ---

@@ -4,8 +4,9 @@ description: ""
 date: 2026-02-03T10:27:23+08:00
 image: images/index/index.png
 categories:
-    - Project_Application
+    - 软件试用
 tags:
+    - AI 工具试用
     - SoftTrial
 ---
 

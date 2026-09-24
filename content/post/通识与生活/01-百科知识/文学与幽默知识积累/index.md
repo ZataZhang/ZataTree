@@ -4,7 +4,7 @@ description: ""
 date: 2025-07-03T09:56:33+08:00
 image: images/index/index.png
 categories:
-    - Knowledge
+    - 通识与生活
 tags:
     - 百科知识
 ---

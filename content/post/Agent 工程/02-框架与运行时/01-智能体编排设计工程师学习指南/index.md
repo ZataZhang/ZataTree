@@ -4,10 +4,10 @@ description: "深入解析智能体编排设计工程师这一新兴岗位的职
 date: 2025-06-17T11:00:00+08:00
 image: images/index/index.png
 categories:
-    - Agent
+    - Agent 工程
 tags:
+    - 框架与运行时
     - Agent Orchestration
-    - Agent
     - LangChain
     - LangGraph
     - LLM
@@ -78,7 +78,7 @@ vectorstore = ChromaDB(embedding_function=embeddings)
 memory = VectorStoreRetrieverMemory(retriever=vectorstore.as_retriever())
 ```
 
-> 📖 **记忆模块的完整技术文档**（包括多级记忆架构、向量数据库选型、嵌入模型对比、遗忘机制、知识图谱增强记忆、性能优化等）请参考：[记忆模块技术文档]({{< relref "post/Agent/Agent Orchestration/记忆模块技术文档/index.md" >}})
+> 📖 **记忆模块的完整技术文档**（包括多级记忆架构、向量数据库选型、嵌入模型对比、遗忘机制、知识图谱增强记忆、性能优化等）请参考：[记忆模块技术文档]({{< relref "post/Agent 工程/02-框架与运行时/记忆模块技术文档/index.md" >}})
 
 ### 2. 规划（Planning）
 
@@ -369,7 +369,7 @@ LangChain
 
 - 官方文档：https://python.langchain.com/
 - LangChain v0.3 API 文档（本项目已收录）：[langchain_v0.3_API](../LangChain/langchain_v0.3_API/)
-- LangSmith 使用教程：[LangSmith使用教程]({{< relref "post/Agent/LangChain/LangSmith使用教程/index.md" >}})
+- LangSmith 使用教程：[LangSmith使用教程]({{< relref "post/RAG 与 LangChain/01-LangChain 基础/LangSmith使用教程/index.md" >}})
 
 ### LangGraph：状态机编排
 
@@ -424,7 +424,7 @@ result = app.invoke({"messages": ["帮我查北京天气"]})
 **学习资源**：
 
 - 官方文档：https://langchain-ai.github.io/langgraph/
-- LangGraph 使用教程（本项目已收录）：[Langgraph使用教程]({{< relref "post/Agent/LangChain/LangGraph实战教程/index.md" >}})
+- LangGraph 使用教程（本项目已收录）：[Langgraph使用教程]({{< relref "post/RAG 与 LangChain/02-LangChain 进阶/LangGraph实战教程/index.md" >}})
 
 ### AutoGen：微软多智能体框架
 
@@ -819,8 +819,8 @@ result = agent.invoke({"input": "hello"})
 
 - [LangChain 系列教程]({{< relref "tags/LangChain" >}})
 - [RAG 系列教程]({{< relref "tags/RAG" >}})
-- [LangGraph 使用教程]({{< relref "post/Agent/LangChain/LangGraph实战教程/index.md" >}})
-- [LangSmith 使用教程]({{< relref "post/Agent/LangChain/LangSmith使用教程/index.md" >}})
+- [LangGraph 使用教程]({{< relref "post/RAG 与 LangChain/02-LangChain 进阶/LangGraph实战教程/index.md" >}})
+- [LangSmith 使用教程]({{< relref "post/RAG 与 LangChain/01-LangChain 基础/LangSmith使用教程/index.md" >}})
 
 ### 学习网站
 

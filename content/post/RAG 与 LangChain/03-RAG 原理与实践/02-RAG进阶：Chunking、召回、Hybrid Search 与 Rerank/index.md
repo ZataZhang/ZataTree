@@ -4,8 +4,9 @@ description: RAG 做得好不好，很多时候不是模型问题，而是 chunk
 date: 2026-03-25T15:45:00+08:00
 image: images/index/index.png
 categories:
-    - Agent
+    - RAG 与 LangChain
 tags:
+    - RAG 原理与实践
     - RAG
     - Retrieval
 ---

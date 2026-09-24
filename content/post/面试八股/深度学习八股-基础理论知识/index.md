@@ -4,7 +4,7 @@ description: ""
 date: 2025-03-31T15:13:17+08:00
 image: images/index/index.png
 categories:
-    - Knowledge
+    - 面试八股
 tags:
     - 面试八股
 ---

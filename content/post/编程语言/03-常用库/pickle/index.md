@@ -6,7 +6,9 @@ image: images/index/index.png
 slug: pickle
 # image: helena-hertz-wWZzXlDpMog-unsplash.jpg
 categories:
-    - Library
+    - 编程语言
+tags:
+    - 常用库
 ---
 
 

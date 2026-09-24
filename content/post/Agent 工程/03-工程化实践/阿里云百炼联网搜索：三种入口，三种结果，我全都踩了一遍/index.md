@@ -5,8 +5,9 @@ date: 2026-09-07T19:40:00+08:00
 slug: "阿里云百炼联网搜索：三种入口，三种结果，我全都踩了一遍"
 image: images/index/index.svg
 categories:
-    - Agent
+    - Agent 工程
 tags:
+    - 工程化实践
     - Agent 工程实战
 draft: false
 ---

@@ -4,7 +4,7 @@ description: "在软件开发中，日志记录（Logging）是调试、监控�
 date: 2025-07-13T15:12:12+08:00
 image: images/index/index.png
 categories:
-    - Engineering
+    - 工程实践
 tags:
     - 可观测性
 ---

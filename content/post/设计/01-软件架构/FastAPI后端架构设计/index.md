@@ -4,8 +4,9 @@ description: "面向中大型项目的 FastAPI 后端架构设计示例，涵盖
 date: 2025-09-16T14:48:04+08:00
 image: images/index/index.png
 categories:
-    - Design
+    - 设计
 tags:
+    - 软件架构
     - 软件架构设计
 ---
 # FastAPI 项目结构化教程

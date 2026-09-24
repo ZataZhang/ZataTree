@@ -4,17 +4,9 @@ date: 2025-03-03T14:40:00+08:00
 # slug: 文件夹名/index.md ## 必填，文件夹名/index.md
 image: image/index/index.png
 categories:
-    # - DeepLearning
-    # - Chart
-    # - Python
-    # - LLM
-    # - Library
-    # - PaperReading
-    # - Study
-    # - Other
-    # - Knowledge points
-    - Project_Application
+    - 项目实战
 tags:
+    - 爬虫实战
     - git&github
     - 爬虫
 ---

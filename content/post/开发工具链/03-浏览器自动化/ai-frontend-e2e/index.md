@@ -5,8 +5,9 @@ date: 2026-06-25T14:00:00+08:00
 slug: ai-generated-frontend-e2e-testing
 image: images/index/index.svg
 categories:
-    - Vibe-Coding
+    - 开发工具链
 tags:
+    - 浏览器自动化
     - AI-Frontend
     - E2E-Testing
     - Playwright

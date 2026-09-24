@@ -5,8 +5,9 @@ date: 2026-09-10T15:30:00+08:00
 slug: agent-friendly-cli
 image: images/index/index.svg
 categories:
-    - Platforms_Tools
+    - 开发工具链
 tags:
+    - 终端与编辑器
     - CLI
     - Agent 工程实战
     - 教程

@@ -4,8 +4,9 @@ description: ""
 date: 2026-01-01T21:05:42+08:00
 image: images/index/index.png
 categories:
-    - Grammar
+    - 通识与生活
 tags:
+    - 生活与个人
     - general
 ---
 

@@ -4,8 +4,9 @@ description: ""
 date: 2025-03-20T10:59:07+08:00
 image: images/index/index.png
 categories:
-    - Project_Application
+    - 项目实战
 tags:
+    - 爬虫实战
     - 爬虫
 ---
 

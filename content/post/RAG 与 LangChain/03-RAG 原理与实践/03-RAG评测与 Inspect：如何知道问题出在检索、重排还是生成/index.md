@@ -4,8 +4,9 @@ description: 很多 RAG 系统不是不能用，而是出了问题后不知道�
 date: 2026-03-25T15:50:00+08:00
 image: images/index/index.png
 categories:
-    - Agent
+    - RAG 与 LangChain
 tags:
+    - RAG 原理与实践
     - RAG
     - Evaluation
     - Observability

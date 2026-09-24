@@ -4,8 +4,9 @@ description: Dokploy 部署后点击登录触发 Playwright TargetClosedError，
 date: 2026-06-08T15:30:00+08:00
 image: images/index/index.png
 categories:
-    - Platforms_Tools
+    - 开发工具链
 tags:
+    - 浏览器自动化
     - Docker
     - Browser-Automation
 ---

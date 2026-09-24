@@ -4,8 +4,9 @@ description: ""
 date: 2025-07-16T00:40:23+08:00
 image: images/index/index.png
 categories:
-    - Platforms_Tools
+    - 构建与打包
 tags:
+    - 依赖与环境管理
     - npm
 ---
 

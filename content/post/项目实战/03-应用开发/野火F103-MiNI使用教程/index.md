@@ -4,8 +4,9 @@ description: ""
 date: 2025-05-15T13:49:09+08:00
 image: images/index/index.png
 categories:
-    - Project_Application
+    - 项目实战
 tags:
+    - 应用开发
     - 单片机
 ---
 

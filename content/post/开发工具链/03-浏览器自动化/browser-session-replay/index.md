@@ -3,8 +3,9 @@ title: 浏览器会话录制与接口回放：方案调研
 date: 2026-07-27
 image: images/index/index.svg
 categories:
-    - Platforms_Tools
+    - 开发工具链
 tags:
+    - 浏览器自动化
     - dev_tools
     - Browser-Automation
 

@@ -5,8 +5,9 @@ date: 2026-09-23T16:48:35+08:00
 slug: "agent-production-engineering-handbook"
 image: images/index/index.svg
 categories:
-    - Agent
+    - Agent 工程
 tags:
+    - 入门与全景
     - Agent 工程实战
 draft: false
 ---
@@ -161,7 +162,7 @@ Worker 领取任务时可使用带过期时间的租约。续租失败的旧 Wor
 
 执行不可信代码时，进程隔离不等于完整沙箱。要检查文件系统、网络出口、凭证注入、容器逃逸面、CPU/内存/运行时限额和清理策略。密钥尽量通过短期凭证或受控代理提供，避免写入提示词、日志、环境快照和 Agent 可读文件。
 
-延伸阅读：[Agent Runtime 详解]({{< relref "post/Agent/Agent Orchestration/20260922101724_Agent Runtime详解/index.md" >}})、[Agent 沙箱选型指南]({{< relref "post/Agent/Agent Orchestration/Agent 沙箱选型指南：隔离边界、产品对比与判断标准/index.md" >}})、[Agent Run 流式协议]({{< relref "post/Agent/Agent 工程实战/Agent Run 流式协议：事件溯源、SSE 投影与断线恢复/index.md" >}})。
+延伸阅读：[Agent Runtime 详解]({{< relref "post/Agent 工程/02-框架与运行时/20260922101724_Agent Runtime详解/index.md" >}})、[Agent 沙箱选型指南]({{< relref "post/Agent 工程/05-沙箱与执行环境/Agent 沙箱选型指南：隔离边界、产品对比与判断标准/index.md" >}})、[Agent Run 流式协议]({{< relref "post/Agent 工程/04-可观测与协议/Agent Run 流式协议：事件溯源、SSE 投影与断线恢复/index.md" >}})。
 
 ## 2. 工作流、调度与交付
 
@@ -314,7 +315,7 @@ SLO 要对应用户能感知的结果。例如“99% 的任务在 30 秒内开�
 
 事故响应手册至少说明：如何停止新 Run、如何取消正在运行的 Run、如何撤销/轮换凭证、如何封禁工具或模型路由、如何保留证据、如何恢复队列和数据、谁负责通知用户。定期演练这些操作；紧急按钮如果从未演练，不能视为可用控制。
 
-延伸阅读：[Agent Tracing 基础]({{< relref "post/Agent/Agent 工程实战/Agent Tracing 基础：Trace、Span 与 OpenTelemetry 埋点/index.md" >}})、[Agent 决策审计]({{< relref "post/Agent/Agent 工程实战/Agent 决策审计：它与 Tracing 的关系/index.md" >}})、[Agent 决策审计落地]({{< relref "post/Agent/Agent 工程实战/Agent 决策审计落地：写入点、复核器与门禁降级判据/index.md" >}})。
+延伸阅读：[Agent Tracing 基础]({{< relref "post/Agent 工程/04-可观测与协议/Agent Tracing 基础：Trace、Span 与 OpenTelemetry 埋点/index.md" >}})、[Agent 决策审计]({{< relref "post/Agent 工程/04-可观测与协议/Agent 决策审计：它与 Tracing 的关系/index.md" >}})、[Agent 决策审计落地]({{< relref "post/Agent 工程/04-可观测与协议/Agent 决策审计落地：写入点、复核器与门禁降级判据/index.md" >}})。
 
 ## 5. 安全与治理：让 Agent 的权限可控、行为可追溯
 
@@ -582,10 +583,10 @@ Agent 工作负载通常是长短任务混合、下游调用扇出明显、资�
 
 ## 延伸阅读
 
-- [Agent 工程实战：从 Demo 到生产]({{< relref "post/Agent/Agent 工程实战/Agent 工程实战开篇：从 Demo 到生产还有多远/index.md" >}})
-- [Agent Runtime 详解]({{< relref "post/Agent/Agent Orchestration/20260922101724_Agent Runtime详解/index.md" >}})
-- [AI Agent Loop 工程]({{< relref "post/Agent/Agent Orchestration/AI Agent Loop 工程：原理、模式与实现/index.md" >}})
-- [LangGraph 实战教程]({{< relref "post/Agent/LangChain/LangGraph实战教程/index.md" >}})
-- [Agent 用户记忆与 Skill 沉淀]({{< relref "post/Agent/Agent Orchestration/Agent 用户记忆与 Skill 沉淀：开源项目参考与架构设计/index.md" >}})
+- [Agent 工程实战：从 Demo 到生产]({{< relref "post/Agent 工程/01-入门与全景/Agent 工程实战开篇：从 Demo 到生产还有多远/index.md" >}})
+- [Agent Runtime 详解]({{< relref "post/Agent 工程/02-框架与运行时/20260922101724_Agent Runtime详解/index.md" >}})
+- [AI Agent Loop 工程]({{< relref "post/Agent 工程/02-框架与运行时/AI Agent Loop 工程：原理、模式与实现/index.md" >}})
+- [LangGraph 实战教程]({{< relref "post/RAG 与 LangChain/02-LangChain 进阶/LangGraph实战教程/index.md" >}})
+- [Agent 用户记忆与 Skill 沉淀]({{< relref "post/Agent 工程/02-框架与运行时/Agent 用户记忆与 Skill 沉淀：开源项目参考与架构设计/index.md" >}})
 
 本文是领域知识入口，不替代针对特定技术栈的操作手册。后续可将 Runtime、评测、工作流、安全和平台运营分别扩展为专题，并在这里维护它们之间的关系、实践顺序与生产验收标准。

@@ -4,8 +4,9 @@ description: ""
 date: 2025-06-08T23:37:17+08:00
 image: images/index/index.png
 categories:
-    - Project_Application
+    - 项目实战
 tags:
+    - 应用开发
     - wechatapplet
 ---
 

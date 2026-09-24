@@ -4,8 +4,9 @@ description: ""
 date: 2025-04-28T16:41:54+08:00
 image: images/index/index.png
 categories:
-    - Library
+    - 构建与打包
 tags:
+    - 打包发布
     - setuptools
     - 教程
 ---

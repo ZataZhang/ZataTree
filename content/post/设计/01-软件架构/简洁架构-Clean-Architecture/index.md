@@ -4,8 +4,9 @@ description: "深入解析 Uncle Bob 提出的简洁架构（Clean Architecture�
 date: 2026-04-12T11:00:00+08:00
 image: images/index/index.png
 categories:
-    - Design
+    - 设计
 tags:
+    - 软件架构
     - 软件架构设计
 draft: false
 ---

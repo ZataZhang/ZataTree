@@ -5,7 +5,7 @@ date: 2025-03-12T09:50:27+08:00
 slug: 大语言模型-赵鑫
 image: images/index/index.svg
 categories:
-    - Book
+    - 阅读笔记
 tags:
     - 读书笔记
 ---

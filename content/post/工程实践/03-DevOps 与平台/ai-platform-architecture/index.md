@@ -5,8 +5,9 @@ date: 2025-01-15T10:00:00+08:00
 slug: ai-platform-architecture
 image: images/index/index.svg
 categories:
-    - Engineering
+    - 工程实践
 tags:
+    - DevOps 与平台
     - Architecture
     - AI Platform
     - Enterprise Tools

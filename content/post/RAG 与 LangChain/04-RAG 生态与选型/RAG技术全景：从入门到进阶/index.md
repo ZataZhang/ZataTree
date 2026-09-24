@@ -4,8 +4,9 @@ description: RAG 不只是检索+生成，Graph RAG、Agentic RAG、多模态 RA
 date: 2026-03-26T16:00:00+08:00
 image: images/index/index.png
 categories:
-    - Agent
+    - RAG 与 LangChain
 tags:
+    - RAG 生态与选型
     - RAG
     - LLM
     - OpenSource
@@ -32,7 +33,7 @@ Query → Agent 规划 → 多轮检索/推理 → 反思修正 → 生成
 
 ## 二、Graph RAG：知识图谱 + RAG
 
-> 本文对 Graph RAG 做概要介绍，详细的开源项目分析和选型指南请参阅 [Graph RAG 开源项目全景：从微软 GraphRAG 到 LightRAG]({{< relref "post/Agent/GraphRAG开源项目全景：从微软GraphRAG到LightRAG/index.md" >}})。
+> 本文对 Graph RAG 做概要介绍，详细的开源项目分析和选型指南请参阅 [Graph RAG 开源项目全景：从微软 GraphRAG 到 LightRAG]({{< relref "post/RAG 与 LangChain/04-RAG 生态与选型/GraphRAG开源项目全景：从微软GraphRAG到LightRAG/index.md" >}})。
 
 ### 为什么需要 Graph RAG
 
@@ -814,5 +815,5 @@ RAG 1.0 → RAG 2.0 → RAG 3.0
 ---
 
 **相关文章**：
-- [Graph RAG 开源项目全景：从微软 GraphRAG 到 LightRAG]({{< relref "post/Agent/GraphRAG开源项目全景：从微软GraphRAG到LightRAG/index.md" >}})
-- [RAGFlow 深度解析：为什么它是最值得关注的 RAG 开源项目]({{< relref "post/Agent/RAGFlow深度解析：为什么它是最值得关注的RAG开源项目/index.md" >}})
+- [Graph RAG 开源项目全景：从微软 GraphRAG 到 LightRAG]({{< relref "post/RAG 与 LangChain/04-RAG 生态与选型/GraphRAG开源项目全景：从微软GraphRAG到LightRAG/index.md" >}})
+- [RAGFlow 深度解析：为什么它是最值得关注的 RAG 开源项目]({{< relref "post/RAG 与 LangChain/04-RAG 生态与选型/RAGFlow深度解析：为什么它是最值得关注的RAG开源项目/index.md" >}})

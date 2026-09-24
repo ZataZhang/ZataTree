@@ -4,8 +4,9 @@ description: ""
 date: 2025-05-08T22:00:28+08:00
 image: images/index/index.png
 categories:
-    - Knowledge
+    - Web 开发
 tags:
+    - Flask 与后端模式
     - others
 ---
 

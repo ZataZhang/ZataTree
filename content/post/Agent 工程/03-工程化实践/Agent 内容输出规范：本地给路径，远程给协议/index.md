@@ -5,8 +5,9 @@ date: 2026-09-03T10:00:00+08:00
 slug: "Agent 内容输出规范：本地给路径，远程给协议"
 image: images/index/index.svg
 categories:
-    - Agent
+    - Agent 工程
 tags:
+    - 工程化实践
     - Agent 工程实战
 draft: false
 ---

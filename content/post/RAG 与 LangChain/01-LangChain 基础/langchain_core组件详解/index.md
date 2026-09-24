@@ -4,8 +4,9 @@ description: "输入侧与输出侧的完整闭环：PromptTemplate 家族速查
 date: 2026-09-08T11:30:00+08:00
 image: images/index/index.png
 categories:
-    - Agent
+    - RAG 与 LangChain
 tags:
+    - LangChain 基础
     - LangChain
 ---
 

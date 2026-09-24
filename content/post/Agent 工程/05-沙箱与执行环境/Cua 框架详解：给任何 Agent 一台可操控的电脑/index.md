@@ -4,12 +4,12 @@ description: "深入解析 22.6k star 的开源计算机使用框架 trycua/cua�
 date: 2026-09-14T16:00:00+08:00
 image: images/index/index.svg
 categories:
-    - Agent
+    - Agent 工程
 tags:
+    - 沙箱与执行环境
     - ComputerUse
     - MCP
     - 桌面自动化
-    - Agent
 draft: false
 ---
 

@@ -4,7 +4,7 @@ description: ""
 date: 2025-11-26T15:22:18+08:00
 image: images/index/index.png
 categories:
-    - Knowledge
+    - 科技月报
 tags:
     - 科技月报：机器人又抢饭碗啦
 ---

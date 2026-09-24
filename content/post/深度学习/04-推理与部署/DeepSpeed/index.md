@@ -4,8 +4,9 @@ description: ""
 date: 2025-03-06T21:38:33+08:00
 image: images/index/index.png
 categories:
-    - DeepLearning
+    - 深度学习
 tags:
+    - 推理与部署
     - DL-frame
 ---
 

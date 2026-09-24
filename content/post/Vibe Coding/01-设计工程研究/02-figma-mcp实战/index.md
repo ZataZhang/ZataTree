@@ -5,8 +5,9 @@ description: "Figma 官方 MCP 发布后，设计稿可以直接被 AI 读取。
 slug: "02-figma-mcp实战"
 image: images/index/index.svg
 categories:
-    - Vibe-Coding
+    - Vibe Coding
 tags:
+    - 设计工程研究
     - AI-Frontend
     - Figma
     - MCP
@@ -532,4 +533,4 @@ Claude Code 截图可能是 1x 或 2x，Figma export 也可能是不同 scale。
 
 ---
 
-> **下一篇预告**：[shadcn/ui + design token：LLM 原生设计系统实践]({{< relref "post/Vibe-Coding/AI-Frontend/ai-design-research/03-shadcn设计系统/index.md" >}})。会讲 `components.json` 怎么成为设计 token 的单一真相源，以及 `llms.txt` 怎么让 AI 读懂你的组件库。
+> **下一篇预告**：[shadcn/ui + design token：LLM 原生设计系统实践]({{< relref "post/Vibe Coding/01-设计工程研究/03-shadcn设计系统/index.md" >}})。会讲 `components.json` 怎么成为设计 token 的单一真相源，以及 `llms.txt` 怎么让 AI 读懂你的组件库。

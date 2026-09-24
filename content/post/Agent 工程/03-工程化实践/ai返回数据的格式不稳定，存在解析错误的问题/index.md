@@ -4,8 +4,9 @@ description: ""
 date: 2025-03-17T09:33:58+08:00
 image: images/index/index-1.png
 categories:
-    - Agent
+    - Agent 工程
 tags:
+    - 工程化实践
     - Agent开发中遇到的问题
 ---
 
@@ -35,7 +36,7 @@ tags:
 一些模型的对比可以看：
 |参考|
 |---|
-|[对比了几种大模型在相同任务下的表现]({{< relref "post/Knowledge/others/对比了几种大模型在相同任务下的表现/index.md" >}})|
+|[对比了几种大模型在相同任务下的表现]({{< relref "post/深度学习/05-基础与方法/对比了几种大模型在相同任务下的表现/index.md" >}})|
 
 
 

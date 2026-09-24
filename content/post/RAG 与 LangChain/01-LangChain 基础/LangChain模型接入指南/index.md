@@ -4,8 +4,9 @@ description: "用 langchain_openai 接入一切 OpenAI 兼容端点：换头三�
 date: 2026-09-08T11:00:00+08:00
 image: images/index/index.png
 categories:
-    - Agent
+    - RAG 与 LangChain
 tags:
+    - LangChain 基础
     - LangChain
 ---
 

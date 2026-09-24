@@ -4,7 +4,7 @@ description: ""
 date: 2025-03-04T14:54:46+08:00
 image: images/index/index.png
 categories:
-    - Knowledge
+    - 阅读笔记
 tags:
     - others
 ---

@@ -4,8 +4,9 @@ description: ""
 date: 2026-03-07T17:50:08+08:00
 image: images/index/index.png
 categories:
-    - Project_Application
+    - 软件试用
 tags:
+    - 部署与自托管
     - SoftTrial
 ---
 

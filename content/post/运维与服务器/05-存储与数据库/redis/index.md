@@ -4,8 +4,9 @@ description: ""
 date: 2025-10-17T11:26:56+08:00
 image: images/index/index.png
 categories:
-    - Project_Application
+    - 运维与服务器
 tags:
+    - 存储与数据库
     - SQL
 ---
 

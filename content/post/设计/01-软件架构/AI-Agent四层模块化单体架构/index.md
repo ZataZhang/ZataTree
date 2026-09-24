@@ -5,8 +5,9 @@ date: 2026-04-12T10:00:00+08:00
 image: images/index/index.png
 slug: ai-agent-clean-architecture
 categories:
-    - Design
+    - 设计
 tags:
+    - 软件架构
     - 软件架构设计
 draft: false
 ---

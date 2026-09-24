@@ -4,8 +4,9 @@ description: ""
 date: 2025-09-12T15:26:16+08:00
 image: images/index/index.png
 categories:
-    - Knowledge
+    - 开发工具链
 tags:
+    - 终端与编辑器
     - others
 ---
 

@@ -4,8 +4,9 @@ description: "从通用软件工程实践出发，梳理一个标准项目结构
 date: 2025-07-23T22:58:35+08:00
 image: images/index/index.png
 categories:
-    - Design
+    - 设计
 tags:
+    - 软件架构
     - 软件架构设计
 ---
 

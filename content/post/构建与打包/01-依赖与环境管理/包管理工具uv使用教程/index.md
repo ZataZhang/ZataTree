@@ -3,8 +3,9 @@ title: 包管理工具uv使用教程
 date: 2025-05-11
 image: images/index/index.png
 categories:
-    - Platforms_Tools
+    - 构建与打包
 tags:
+    - 依赖与环境管理
     - uv
 
 ---

@@ -4,8 +4,9 @@ description: ""
 date: 2025-03-13T10:36:03+08:00
 image: images/index/index.png
 categories:
-    - Library
+    - 数据科学
 tags:
+    - Transformers 全家桶
     - transformers
 ---
 

@@ -4,8 +4,9 @@ description: "Jev 是 TypeSafe AI 发布的「System One」决策模型：不生
 date: 2026-09-20T11:55:44+08:00
 image: images/index/index.svg
 categories:
-    - DeepLearning
+    - 深度学习
 tags:
+    - 模型与机制
     - models_and_strategies
 draft: false
 ---

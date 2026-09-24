@@ -5,8 +5,9 @@ date: 2026-09-22T09:51:00+08:00
 slug: "Agent-Tracing-基础：Trace-Span-与-OpenTelemetry-埋点"
 image: images/index/index.svg
 categories:
-    - Agent
+    - Agent 工程
 tags:
+    - 可观测与协议
     - Agent 工程实战
     - Agent Tracing
     - 可观测性
@@ -84,7 +85,7 @@ agent.run                    run.id=run-7f3a  session.id=s-12        [t=0.0 → 
 - "所有用了 A 模型的 run 平均耗时多少" → 模型名必须是属性（要聚合)。
 - "这次 run 重试了 3 次，每次间隔多久" → 重试是事件（要看时刻）。
 
-在 Agent 语境里，属性这块已经有一份现成的答案：**OpenTelemetry 的 GenAI 语义约定**（`gen_ai.*`）。模型名、token 用量、工具名、会话 id 该叫什么，规范里都钉死了，照着填就能被各种观测后端正确解析。这份约定的字段清单和几个已知的坑，我在 [Agent 埋点接 ARMS]({{< relref "post/Agent/Agent 工程实战/Agent 埋点接 ARMS：上报返回 success，控制台却是空的/index.md" >}}) 里已经逐条整理过，这里只补一条最容易踩的边界：
+在 Agent 语境里，属性这块已经有一份现成的答案：**OpenTelemetry 的 GenAI 语义约定**（`gen_ai.*`）。模型名、token 用量、工具名、会话 id 该叫什么，规范里都钉死了，照着填就能被各种观测后端正确解析。这份约定的字段清单和几个已知的坑，我在 [Agent 埋点接 ARMS]({{< relref "post/Agent 工程/04-可观测与协议/Agent 埋点接 ARMS：上报返回 success，控制台却是空的/index.md" >}}) 里已经逐条整理过，这里只补一条最容易踩的边界：
 
 > **属性会被当成聚合维度，所以基数要有意识。** `run.id`、`session.id` 这种每次都不一样的值，挂在 span 上当属性没问题（trace 是按 `trace_id` 检索的，不存在"按属性建索引"的压力）；但如果这些属性被顺手套进了 Metrics 的维度里，一张指标卡片就会被炸成几万条时间线。分界线不是"能不能当属性"，而是"这个字段会不会流进指标聚合"。同样地，`gen_ai.input.messages` 这类可能含用户隐私的字段，规范明确标成了 Opt-In，不该默认记录。
 
@@ -262,4 +263,4 @@ with tracer.start_as_current_span("remote.tool", context=ctx):
 
 ---
 
-> 基础篇到此，概念就这些。下一步是把它接到具体的观测后端上——`gen_ai.*` 字段怎么填、上报成功但看不到数据怎么办，这些实战里的坑见下一篇 [Agent 埋点接 ARMS]({{< relref "post/Agent/Agent 工程实战/Agent 埋点接 ARMS：上报返回 success，控制台却是空的/index.md" >}})。
+> 基础篇到此，概念就这些。下一步是把它接到具体的观测后端上——`gen_ai.*` 字段怎么填、上报成功但看不到数据怎么办，这些实战里的坑见下一篇 [Agent 埋点接 ARMS]({{< relref "post/Agent 工程/04-可观测与协议/Agent 埋点接 ARMS：上报返回 success，控制台却是空的/index.md" >}})。

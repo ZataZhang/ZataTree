@@ -7,13 +7,14 @@ description: "探索如何利用 AI 工具（Claude Code、Cursor、v0.dev、scr
 images:
   - images/cover.png
 tags:
-  - AI-Frontend
-  - Vibe-Coding
-  - Claude-Code
-  - Cursor
-  - Tailwind-CSS
+    - 实战与调试
+    - AI-Frontend
+    - Vibe-Coding
+    - Claude-Code
+    - Cursor
+    - Tailwind-CSS
 categories:
-  - Vibe-Coding
+    - Vibe Coding
 series:
   - AI 开发实战
 toc: true

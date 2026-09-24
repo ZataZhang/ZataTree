@@ -5,8 +5,9 @@ date: 2026-09-02T15:00:00+08:00
 slug: "让用户选择指定-Skill：从社区实践到生产级-API-设计"
 image: images/index/index.svg
 categories:
-    - Agent
+    - Agent 工程
 tags:
+    - 工程化实践
     - Agent 工程实战
 draft: false
 ---

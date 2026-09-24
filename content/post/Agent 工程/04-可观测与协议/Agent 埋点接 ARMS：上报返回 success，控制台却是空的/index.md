@@ -5,8 +5,9 @@ date: 2026-09-18T18:05:00+08:00
 slug: "Agent-埋点接-ARMS：上报返回-success，控制台却是空的"
 image: images/index/index.svg
 categories:
-    - Agent
+    - Agent 工程
 tags:
+    - 可观测与协议
     - Agent 工程实战
     - Agent Tracing
     - 可观测性
@@ -20,7 +21,7 @@ draft: false
 
 这篇文章把这个过程完整记下来。前面是排查（含三个可以复用的判别实验），后面是这次顺带做的一个具体问题：**对话里带附件时，span 应该怎么记**。
 
-> 前置概念（Trace 与 Span、父子关系、属性与事件的边界、上下文传递）见同系列 [Agent Tracing 基础：Trace、Span 与 OpenTelemetry 埋点]({{< relref "post/Agent/Agent 工程实战/Agent Tracing 基础：Trace、Span 与 OpenTelemetry 埋点/index.md" >}})。本篇不重复讲基础，直接从"接进 ARMS 之后为什么看不到"讲起。
+> 前置概念（Trace 与 Span、父子关系、属性与事件的边界、上下文传递）见同系列 [Agent Tracing 基础：Trace、Span 与 OpenTelemetry 埋点]({{< relref "post/Agent 工程/04-可观测与协议/Agent Tracing 基础：Trace、Span 与 OpenTelemetry 埋点/index.md" >}})。本篇不重复讲基础，直接从"接进 ARMS 之后为什么看不到"讲起。
 
 ## 一、`gen_ai.*` 到底是什么
 

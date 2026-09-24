@@ -4,8 +4,9 @@ description: "从环境变量到数据集评估：LangSmith 接入、自动追�
 date: 2025-05-30T16:15:40+08:00
 image: images/index/index.png
 categories:
-    - Agent
+    - RAG 与 LangChain
 tags:
+    - LangChain 基础
     - LangChain
     - Agent Tracing
 ---

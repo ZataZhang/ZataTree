@@ -6,16 +6,9 @@ image: images/index/index.png
 # slug: 文件夹名/index.md ## 必填，文件夹名/index.md
 # image: helena-hertz-wWZzXlDpMog-unsplash.jpg
 categories:
-    # - DeepLearning
-    # - Chart
-    # - Python
-    # - LLM
-    # - web
-    # - Library
-    # - PaperReading
-    # - Study
-    # - Other
-    - Knowledge
+    - 效率与文档
+tags:
+    - 写作与排版
 ---
 
 

@@ -4,8 +4,9 @@ description: ""
 date: 2025-11-14T22:35:11+08:00
 image: images/index/index.png
 categories:
-    - Knowledge
+    - 深度学习
 tags:
+    - 基础与方法
     - others
 ---
 

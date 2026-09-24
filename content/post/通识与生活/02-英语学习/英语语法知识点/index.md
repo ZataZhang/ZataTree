@@ -4,8 +4,9 @@ description: ""
 date: 2025-06-20T23:43:17+08:00
 image: images/index/index.png
 categories:
-    - Knowledge
+    - 通识与生活
 tags:
+    - 英语学习
     - English
 ---
 

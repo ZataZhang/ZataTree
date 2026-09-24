@@ -4,8 +4,9 @@ description: "从协议、架构到生产实践：全面解析 LangChain Deep Ag
 date: 2026-09-08T11:26:34+08:00
 image: images/index/index.png
 categories:
-    - Agent
+    - RAG 与 LangChain
 tags:
+    - LangChain 进阶
     - LangChain
 ---
 

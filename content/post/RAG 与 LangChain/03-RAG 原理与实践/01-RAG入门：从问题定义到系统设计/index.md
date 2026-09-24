@@ -4,8 +4,9 @@ description: 从0到1理解 RAG 的目标、核心组件、数据流，以及第
 date: 2026-03-25T15:40:00+08:00
 image: images/index/index.png
 categories:
-    - Agent
+    - RAG 与 LangChain
 tags:
+    - RAG 原理与实践
     - RAG
     - LLM
 ---

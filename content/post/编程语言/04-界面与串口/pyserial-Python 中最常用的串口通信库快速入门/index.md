@@ -4,8 +4,9 @@ description: ""
 date: 2025-04-03T10:15:25+08:00
 image: images/index/index.svg
 categories:
-    - Library
+    - 编程语言
 tags:
+    - 界面与串口
     - pyserial
 ---
 

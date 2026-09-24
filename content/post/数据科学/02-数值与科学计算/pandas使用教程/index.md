@@ -4,8 +4,9 @@ description: ""
 date: 2025-05-13T11:12:26+08:00
 image: images/index/index.png
 categories:
-    - Library
+    - 数据科学
 tags:
+    - 数值与科学计算
     - pandas
     - 教程
 ---

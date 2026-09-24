@@ -4,7 +4,7 @@ description: "Loki 只索引标签、不索引日志正文，LogQL 的全部语�
 date: 2026-09-09T09:00:00+08:00
 image: images/index/index.svg
 categories:
-    - Engineering
+    - 工程实践
 tags:
     - 可观测性
 draft: false

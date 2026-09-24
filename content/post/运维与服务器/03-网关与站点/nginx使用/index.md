@@ -5,13 +5,9 @@ date: 2025-02-24
 slug: Nginx使用 ## 必填，文件夹名
 image: image/index/index.png
 categories:
-    # - DeepLearning
-    # - Chart
-    # - Python
-    # - LLM
-    # - Library
-    # - PaperReading
-    - Platforms_Tools
+    - 运维与服务器
+tags:
+    - 网关与站点
 ---
 
 

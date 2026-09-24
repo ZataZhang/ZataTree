@@ -5,8 +5,9 @@ date: 2025-03-16T17:16:02+08:00
 image: images/index/index.png
 # image: images/index/index.png
 categories:
-    - Knowledge
+    - 运维与服务器
 tags:
+    - 服务器与系统
     - Linux
     - 教程
 ---

@@ -4,8 +4,9 @@ description: ""
 date: 2026-02-01T19:57:49+08:00
 image: images/index/index.png
 categories:
-    - Project_Application
+    - 软件试用
 tags:
+    - 终端与包管理
     - SoftTrial
 ---
 

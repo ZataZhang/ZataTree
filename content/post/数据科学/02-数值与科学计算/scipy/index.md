@@ -6,7 +6,9 @@ image: images/index/index.png
 slug: scipy
 # image: helena-hertz-wWZzXlDpMog-unsplash.jpg
 categories:
-    - Library
+    - 数据科学
+tags:
+    - 数值与科学计算
 ---
 
 # SCiPY

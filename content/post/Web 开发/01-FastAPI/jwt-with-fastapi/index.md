@@ -4,7 +4,7 @@ description: ""
 date: 2025-09-12T16:48:40+08:00
 image: images/index/index.png
 categories:
-    - Library
+    - Web 开发
 tags:
     - FastAPI
 ---

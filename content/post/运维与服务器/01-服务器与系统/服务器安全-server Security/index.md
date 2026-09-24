@@ -4,8 +4,9 @@ description: ""
 date: 2026-03-09T13:54:43+08:00
 image: images/index/index.png
 categories:
-    - Platforms_Tools
+    - 运维与服务器
 tags:
+    - 服务器与系统
     - Server Operations and Maintenance-服务器运维
 ---
 

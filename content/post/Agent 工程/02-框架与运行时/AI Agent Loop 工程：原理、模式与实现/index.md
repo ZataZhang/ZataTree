@@ -4,10 +4,10 @@ description: "深入解析 AI Agent 中 Loop(循环)机制的工程化设计:从
 date: 2026-06-26T15:40:07+08:00
 image: images/index/index.svg
 categories:
-    - Agent
+    - Agent 工程
 tags:
+    - 框架与运行时
     - Agent Orchestration
-    - Agent
     - LangChain
     - LangGraph
     - LLM

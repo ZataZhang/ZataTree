@@ -4,8 +4,9 @@ description: ""
 date: 2025-05-12T14:32:42+08:00
 image: images/index/index.png
 categories:
-    - Platforms_Tools
+    - 构建与打包
 tags:
+    - 依赖与环境管理
     - pipx
     - 教程
 ---

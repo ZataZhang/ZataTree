@@ -4,8 +4,9 @@ description: ""
 date: 2025-03-14T00:23:43+08:00
 image: images/index/index.png
 categories:
-    - Project_Application
+    - 运维与服务器
 tags:
+    - 服务器与系统
     - SSH
 ---
 

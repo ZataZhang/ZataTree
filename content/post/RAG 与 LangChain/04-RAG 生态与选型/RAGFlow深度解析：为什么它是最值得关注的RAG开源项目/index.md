@@ -4,8 +4,9 @@ description: RAGFlow 不只是另一个 RAG 框架，它的核心价值在于 De
 date: 2026-03-25T16:00:00+08:00
 image: images/index.png
 categories:
-    - Agent
+    - RAG 与 LangChain
 tags:
+    - RAG 生态与选型
     - RAG
     - RAGFlow
     - OpenSource
@@ -711,5 +712,5 @@ RAGFlow 不是"又一个 RAG 框架"，而是**从文档到答案的全流程解
 - Demo: https://ragflow.io
 
 **相关文章**：
-- [RAG 技术全景：从入门到进阶]({{< relref "post/Agent/RAG技术全景：从入门到进阶/index.md" >}})
-- [Graph RAG 开源项目全景：从微软 GraphRAG 到 LightRAG]({{< relref "post/Agent/GraphRAG开源项目全景：从微软GraphRAG到LightRAG/index.md" >}})
+- [RAG 技术全景：从入门到进阶]({{< relref "post/RAG 与 LangChain/04-RAG 生态与选型/RAG技术全景：从入门到进阶/index.md" >}})
+- [Graph RAG 开源项目全景：从微软 GraphRAG 到 LightRAG]({{< relref "post/RAG 与 LangChain/04-RAG 生态与选型/GraphRAG开源项目全景：从微软GraphRAG到LightRAG/index.md" >}})
