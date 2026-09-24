@@ -1,0 +1,93 @@
+{{- /*
+    分类 term 页（/categories/{书}/）——一本书的封面 + 整本目录树。
+
+    2026-09-24 新增：分类即书。页面分两块：
+    - 顶部：书名 + 描述 + 篇数/章数
+    - 下方：整本目录树，章 → 篇（按章序、篇内按 weight→date→title）
+      平铺书（无章节）只列文章。
+
+    章节集合从 content/post/{书}/ 的 NN- 目录名读（readDir 根是项目根）。
+    篇顺序：weight 升序（小的在前）→ date 升序 → title。
+*/ -}}
+{{ define "main" }}
+    {{- $book := .Title -}}
+    {{- $pages := .Pages -}}
+
+    <header class="tag-index-head">
+        <h1 class="section-term">{{ $book }}</h1>
+        {{ with .Params.description }}
+            <p class="section-description">{{ . }}</p>
+        {{ end }}
+    </header>
+
+    {{- /* 章节集合与序号 */ -}}
+    {{- $chapterSet := dict -}}
+    {{- range readDir (printf "content/post/%s" $book) -}}
+        {{- if .IsDir -}}
+            {{- if .Name | findRE `^\d+-` -}}
+                {{- $ch := .Name | replaceRE `^\d+-` "" -}}
+                {{- $ord := .Name | replaceRE `^(\d+)-.*` "$1" -}}
+                {{- $chapterSet = merge $chapterSet (dict $ch $ord) -}}
+            {{- end -}}
+        {{- end -}}
+    {{- end -}}
+
+    {{- /* 按章节分桶（用 Scratch，避免 dict 嵌套 slice 的类型问题） */ -}}
+    {{- range $pages -}}
+        {{- $ch := "" -}}
+        {{- range .GetTerms "tags" -}}
+            {{- $t := .Page.Title -}}
+            {{- if index $chapterSet $t -}}
+                {{- $ch = $t -}}
+            {{- end -}}
+        {{- end -}}
+        {{- $.Scratch.Add $ch (slice .) -}}
+    {{- end -}}
+
+    {{- $nCh := 0 -}}
+    {{- range $ch, $ord := $chapterSet -}}
+        {{- with $.Scratch.Get $ch -}}{{ $nCh = add $nCh 1 }}{{ end -}}
+    {{- end -}}
+
+    <p class="section-count" style="margin-bottom: var(--card-separation);">共 {{ len $pages }} 篇{{ if $nCh }} · {{ $nCh }} 章{{ end }}</p>
+
+    {{- if $nCh -}}
+        {{- /* 有章节：按章序遍历 */ -}}
+        {{- $ordered := slice -}}
+        {{- range $ch, $ord := $chapterSet -}}
+            {{- with $.Scratch.Get $ch -}}
+                {{- $ordered = $ordered | append (dict "name" $ch "ord" $ord "pages" .) -}}
+            {{- end -}}
+        {{- end -}}
+        {{- $ordered = sort $ordered "ord" "asc" -}}
+
+        <div class="book-toc">
+            {{- range $i, $chap := $ordered -}}
+                <section class="book-chapter">
+                    <h2 class="book-chapter__title">第 {{ add $i 1 }} 章 · {{ $chap.name }}</h2>
+                    <ol class="book-chapter__list">
+                        {{- range sort $chap.pages (slice "Weight" "Date" "Title") (slice "asc" "asc" "asc") -}}
+                            {{- $w := .Params.weight | default 0 -}}
+                            <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+                        {{- end -}}
+                    </ol>
+                </section>
+            {{- end -}}
+        </div>
+    {{- else -}}
+        {{- /* 平铺书 */ -}}
+        <div class="book-toc">
+            <ol class="book-chapter__list">
+                {{- range sort $pages (slice "Weight" "Date" "Title") (slice "asc" "asc" "asc") -}}
+                    <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+                {{- end -}}
+            </ol>
+        </div>
+    {{- end -}}
+
+    {{ partialCached "footer/footer" . }}
+{{ end }}
+
+{{ define "right-sidebar" }}
+    {{ partial "sidebar/right.html" (dict "Context" . "Scope" "homepage") }}
+{{ end }}

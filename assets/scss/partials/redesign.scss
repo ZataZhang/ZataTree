@@ -1334,3 +1334,60 @@ main.main {
         display: none;
     }
 }
+
+/* ── 篇尾续读（book chain）───────────────────────────────────── */
+.book-chain-nav {
+    margin: var(--card-separation) 0;
+}
+
+.book-chain-next {
+    display: block;
+    padding: 16px 20px;
+    background: var(--card-background);
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--shadow-l1);
+    transition: box-shadow 0.2s;
+
+    &:hover {
+        box-shadow: var(--shadow-l2);
+    }
+}
+
+.book-chain-next__label {
+    display: block;
+    font-size: 1.3rem;
+    color: var(--card-text-color-tertiary);
+    margin-bottom: 4px;
+}
+
+.book-chain-next__title {
+    display: block;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--card-text-color-main);
+}
+
+.book-chain-nav--end {
+    text-align: center;
+    padding: 24px;
+    color: var(--card-text-color-tertiary);
+
+    p { margin-bottom: 8px; }
+    a { color: var(--accent-color); }
+}
+
+.book-chain-divider {
+    margin: calc(var(--card-separation) * 2) 0 var(--card-separation);
+    text-align: center;
+
+    hr {
+        border: none;
+        border-top: 1px solid var(--card-separator-color);
+        margin-bottom: 12px;
+    }
+}
+
+.book-chain-label {
+    font-size: 1.3rem;
+    color: var(--card-text-color-tertiary);
+}

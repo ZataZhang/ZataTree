@@ -195,7 +195,67 @@
         initScrollTop();
         initSearchShortcut();
         initTocFolding();
+        initBookChain();
     });
+
+    /* ── 篇尾续读（scroll chaining） ──────────────────────────────
+       滑到当前文章底部时，fetch 同书同章的下一篇，提取其 <article>
+       插入页面，pushState 更新 URL。数据由 #book-chain div 注入。
+       到底时显示「已是本书最后一篇」。 */
+    function initBookChain() {
+        try {
+            const el = document.getElementById('book-chain');
+            if (!el || el.dataset.isLast === 'true') return;
+
+            const nextUrl = el.dataset.nextUrl;
+            if (!nextUrl) return;
+
+            let loading = false;
+            let loaded = false;
+
+            function onScroll() {
+                if (loaded || loading) return;
+                const doc = document.documentElement;
+                const scrollBottom = doc.scrollHeight - doc.scrollTop - doc.clientHeight;
+                if (scrollBottom > 800) return;
+
+                loading = true;
+                fetch(nextUrl)
+                    .then(r => r.text())
+                    .then(html => {
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(html, 'text/html');
+                        const article = doc.querySelector('article.main-article');
+                        if (!article) return;
+
+                        /* 插入分隔线 + 下一篇 */
+                        const divider = document.createElement('div');
+                        divider.className = 'book-chain-divider';
+                        divider.innerHTML = `<hr><p class="book-chain-label">下一篇：${el.dataset.nextTitle}${el.dataset.nextChapter ? '（' + el.dataset.nextChapter + '）' : ''}</p>`;
+
+                        const main = document.querySelector('main.main');
+                        if (!main) return;
+                        main.appendChild(divider);
+                        main.appendChild(article.cloneNode(true));
+
+                        /* 更新 URL（不跳转） */
+                        history.pushState({}, '', nextUrl);
+                        document.title = doc.title;
+
+                        /* 重新跑代码块折叠、TOC 等 */
+                        initCodeMoreBox();
+                        initTocFolding();
+
+                        loaded = true;
+                    })
+                    .catch(() => { loading = false; });
+            }
+
+            window.addEventListener('scroll', onScroll, { passive: true });
+        } catch (e) {
+            console.error('book-chain error:', e);
+        }
+    }
 </script>
 
 {{/* 仅当页面包含 mermaid 代码块时加载渲染脚本（标记由 render-codeblock-mermaid.html 写入 Page Store） */}}
