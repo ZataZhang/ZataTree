@@ -140,7 +140,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 按 `content/post/` 的实际目录结构生成，括号内为该分类的文章数。**本段由 `python3 tools/readme_index.py` 自动生成，请勿手工编辑** —— 增删文章后重新运行该脚本即可。
 
 <!-- BEGIN:CONTENT-INDEX -->
-## Agent (41)
+## Agent (43)
 
 ### Agent Orchestration
 
@@ -164,7 +164,9 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [Agent 埋点接 ARMS：上报返回 success，控制台却是空的](content/post/Agent/Agent%20工程实战/Agent%20埋点接%20ARMS：上报返回%20success，控制台却是空的/)
 - [Agent 工具没调用，先查模型到底能看见什么](content/post/Agent/Agent%20工程实战/Agent%20工具没调用：一次真实链路验收的三层误判/)
 - [Agent 工程实战开篇：从 Demo 到生产还有多远](content/post/Agent/Agent%20工程实战/Agent%20工程实战开篇：从%20Demo%20到生产还有多远/)
+- [Agent 生产工程全景手册：从 Runtime 到业务闭环](content/post/Agent/Agent%20工程实战/Agent生产工程全景手册/)
 - [OpenAI Responses API与Chat Completions API区别详解](content/post/Agent/Agent%20工程实战/OpenAI%20Responses%20API与Chat%20Completions%20API区别详解/)
+- [Session、Thread、Run：一条消息为什么是一个 Run](content/post/Agent/Agent%20工程实战/Session、Thread、Run：一条消息为什么是一个%20Run/)
 - [数据库初始化与迁移：从创建那一刻就要钉死的三件事](content/post/Agent/Agent%20工程实战/数据库初始化与迁移：从创建那一刻就要钉死的三件事/)
 - [给 Agent 接入 Web Search：四种做法，和一条我试过之后放弃的路](content/post/Agent/Agent%20工程实战/给%20Agent%20接入%20Web%20Search：四种做法，和一条我试过之后放弃的路/)
 - [让用户选择指定 Skill：从社区实践到生产级 API 设计](content/post/Agent/Agent%20工程实战/让用户选择指定%20Skill：从社区实践到生产级%20API%20设计/)

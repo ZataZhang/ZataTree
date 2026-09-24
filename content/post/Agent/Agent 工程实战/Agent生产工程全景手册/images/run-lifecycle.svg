@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360">
+  <rect width="1200" height="360" rx="24" fill="#0b1220"/>
+  <text x="55" y="58" fill="#f8fafc" font-family="sans-serif" font-size="28" font-weight="700">一次 Run 的生命周期与恢复边界</text>
+  <g font-family="sans-serif" font-size="16" text-anchor="middle">
+    <g fill="#172b49" stroke="#60a5fa" stroke-width="2">
+      <rect x="45" y="115" width="135" height="72" rx="14"/><rect x="220" y="115" width="135" height="72" rx="14"/><rect x="395" y="115" width="135" height="72" rx="14"/><rect x="570" y="115" width="135" height="72" rx="14"/><rect x="745" y="115" width="135" height="72" rx="14"/><rect x="920" y="115" width="225" height="72" rx="14"/>
+    </g>
+    <g fill="#f8fafc"><text x="112" y="158">接收 / 鉴权</text><text x="287" y="158">排队 / 租约</text><text x="462" y="158">准备沙箱</text><text x="637" y="148">Agent Loop</text><text x="637" y="170">模型 ↔ 工具</text><text x="812" y="158">验收 / 审批</text><text x="1032" y="148">终态与交付</text><text x="1032" y="170">成功 / 失败 / 取消</text></g>
+    <g stroke="#94a3b8" stroke-width="3" fill="none" stroke-linecap="round"><path d="M182 151h32m-8-8 8 8-8 8M357 151h32m-8-8 8 8-8 8M532 151h32m-8-8 8 8-8 8M707 151h32m-8-8 8 8-8 8M882 151h32m-8-8 8 8-8 8"/></g>
+  </g>
+  <path d="M635 205v55H287v-55" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-dasharray="8 7"/>
+  <path d="M287 205l-7 11h14z" fill="#f59e0b"/>
+  <text x="460" y="290" fill="#fcd34d" font-family="sans-serif" font-size="15" text-anchor="middle">崩溃恢复：从持久化步骤继续；副作用先幂等检查或对账</text>
+  <text x="600" y="330" fill="#9fb3d1" font-family="sans-serif" font-size="14" text-anchor="middle">状态转换、预算消耗、审批和交付结果都要留下关联事件</text>
+</svg>

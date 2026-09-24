@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="500" viewBox="0 0 1200 500">
+  <rect width="1200" height="500" rx="24" fill="#0b1220"/>
+  <text x="60" y="62" fill="#f8fafc" font-family="sans-serif" font-size="30" font-weight="700">生产级 Agent 平台：三个责任面</text>
+  <text x="60" y="94" fill="#9fb3d1" font-family="sans-serif" font-size="17">控制谁能做什么 · 在隔离环境执行 · 用证据验证结果</text>
+  <g font-family="sans-serif">
+    <rect x="60" y="135" width="1080" height="90" rx="16" fill="#172b49" stroke="#5b87bf" stroke-width="2"/>
+    <text x="88" y="174" fill="#93c5fd" font-size="22" font-weight="700">控制面</text>
+    <text x="270" y="174" fill="#f8fafc" font-size="18">身份与策略</text><text x="465" y="174" fill="#f8fafc" font-size="18">配置版本</text><text x="645" y="174" fill="#f8fafc" font-size="18">队列与调度</text><text x="855" y="174" fill="#f8fafc" font-size="18">模型路由与配额</text>
+    <text x="270" y="201" fill="#9fb3d1" font-size="14">确定任务边界、权限、优先级和预算</text>
+    <rect x="60" y="245" width="1080" height="105" rx="16" fill="#12352f" stroke="#34d399" stroke-width="2"/>
+    <text x="88" y="287" fill="#6ee7b7" font-size="22" font-weight="700">执行面</text>
+    <text x="270" y="284" fill="#f8fafc" font-size="18">工作流 Engine</text><text x="485" y="284" fill="#f8fafc" font-size="18">Agent Runtime</text><text x="695" y="284" fill="#f8fafc" font-size="18">Tool Gateway</text><text x="885" y="284" fill="#f8fafc" font-size="18">隔离 Worker / Sandbox</text>
+    <text x="270" y="315" fill="#a7f3d0" font-size="14">推进状态、执行模型和工具、处理超时/恢复/审批</text>
+    <rect x="60" y="370" width="1080" height="85" rx="16" fill="#382449" stroke="#c084fc" stroke-width="2"/>
+    <text x="88" y="411" fill="#d8b4fe" font-size="22" font-weight="700">证据面</text>
+    <text x="270" y="408" fill="#f8fafc" font-size="18">事件与审计</text><text x="475" y="408" fill="#f8fafc" font-size="18">Trace / 指标</text><text x="700" y="408" fill="#f8fafc" font-size="18">评测与回归</text><text x="905" y="408" fill="#f8fafc" font-size="18">业务结果</text>
+    <text x="270" y="434" fill="#e9d5ff" font-size="14">解释发生了什么、是否合格、改进是否有效</text>
+  </g>
+  <path d="M600 226v14m0 0-8-8m8 8 8-8M600 351v14m0 0-8-8m8 8 8-8" fill="none" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

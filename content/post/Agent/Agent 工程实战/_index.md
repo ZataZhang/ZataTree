@@ -9,6 +9,7 @@ slug: "Agent 工程实战"
 
 ## 系列目录
 
+**系列总纲：** [Agent 生产工程全景手册：从 Runtime 到业务闭环]({{< relref "post/Agent/Agent 工程实战/Agent生产工程全景手册/index.md" >}})
 1. [Agent 工程实战开篇:从 Demo 到生产还有多远]({{< relref "post/Agent/Agent 工程实战/Agent 工程实战开篇：从 Demo 到生产还有多远/index.md" >}})
 2. [数据库初始化与迁移：从创建那一刻就要钉死的三件事]({{< relref "post/Agent/Agent 工程实战/数据库初始化与迁移：从创建那一刻就要钉死的三件事/index.md" >}})
    - 配套速查：[数据库初始化原则](./数据库初始化与迁移：从创建那一刻就要钉死的三件事/数据库初始化原则.md)

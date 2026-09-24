@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-label="会话、记忆、执行三层身份">
+<rect width="1200" height="560" fill="#0b1220"/>
+<text x="40" y="58" font-family="sans-serif" font-size="32" font-weight="700" fill="#f8fafc">会话、记忆、执行：三层身份</text>
+
+<g font-family="sans-serif">
+<rect x="40" y="95" width="520" height="96" rx="14" fill="#17263d" stroke="#5b87bf" stroke-width="2"/>
+<rect x="40" y="95" width="8" height="96" rx="4" fill="#5b87bf"/>
+<text x="70" y="130" font-size="25" font-weight="700" fill="#f8fafc">Session · 一段对话</text>
+<text x="70" y="160" font-size="18" fill="#b9c9df">chat_session · 标题、owner、消息历史</text>
+<text x="70" y="184" font-size="18" fill="#9fb3d1">用户可见，长期可继续</text>
+
+<path d="M300 191 L300 219" stroke="#5b87bf" stroke-width="2"/>
+<path d="M294 213 L300 221 L306 213" fill="none" stroke="#5b87bf" stroke-width="2"/>
+
+<rect x="40" y="221" width="520" height="96" rx="14" fill="#17263d" stroke="#8b75d7" stroke-width="2"/>
+<rect x="40" y="221" width="8" height="96" rx="4" fill="#8b75d7"/>
+<text x="70" y="256" font-size="25" font-weight="700" fill="#f8fafc">Thread · 模型的连续记忆</text>
+<text x="70" y="286" font-size="18" fill="#b9c9df">conversation_thread · checkpointer 线程</text>
+<text x="70" y="310" font-size="18" fill="#9fb3d1">后端内部，前端不维护</text>
+
+<path d="M300 317 L300 345" stroke="#8b75d7" stroke-width="2"/>
+<path d="M294 339 L300 347 L306 339" fill="none" stroke="#8b75d7" stroke-width="2"/>
+
+<rect x="40" y="347" width="520" height="112" rx="14" fill="#17263d" stroke="#38b6a8" stroke-width="2"/>
+<rect x="40" y="347" width="8" height="112" rx="4" fill="#38b6a8"/>
+<text x="70" y="382" font-size="25" font-weight="700" fill="#f8fafc">Run · 一次执行</text>
+<text x="70" y="412" font-size="18" fill="#b9c9df">agent_run · 快照、状态、事件流</text>
+<text x="70" y="436" font-size="18" fill="#9fb3d1">单次、有终态：取消 / 幂等 / 计费的单位</text>
+
+<text x="40" y="510" font-size="18" fill="#9fb3d1">一条消息落进系统，就是一次 Run；</text>
+<text x="40" y="536" font-size="18" fill="#9fb3d1">一次发送 = 新快照 + 新事件流 + 新终态</text>
+</g>
+
+<g font-family="sans-serif">
+<rect x="640" y="95" width="520" height="96" rx="14" fill="#17263d" stroke="#5b87bf" stroke-width="2"/>
+<rect x="640" y="95" width="8" height="96" rx="4" fill="#5b87bf"/>
+<text x="670" y="130" font-size="23" font-weight="700" fill="#f8fafc">root Run · session_id = sess_xxx</text>
+<text x="670" y="160" font-size="18" fill="#b9c9df">用户发起，出现在会话历史里</text>
+<text x="670" y="184" font-size="18" fill="#9fb3d1">root_run_id = 自己</text>
+
+<path d="M760 191 L700 249" stroke="#5b87bf" stroke-width="2"/>
+<path d="M700 243 L699 252 L708 250" fill="none" stroke="#5b87bf" stroke-width="2"/>
+<path d="M1100 191 L1160 249" stroke="#5b87bf" stroke-width="2"/>
+<path d="M1152 250 L1161 252 L1160 243" fill="none" stroke="#5b87bf" stroke-width="2"/>
+
+<rect x="640" y="252" width="240" height="104" rx="14" fill="#17263d" stroke="#38b6a8" stroke-width="2"/>
+<rect x="640" y="252" width="8" height="104" rx="4" fill="#38b6a8"/>
+<text x="668" y="286" font-size="21" font-weight="700" fill="#f8fafc">child Run</text>
+<text x="668" y="314" font-size="17" fill="#b9c9df">session_id = NULL</text>
+<text x="668" y="338" font-size="17" fill="#9fb3d1">独立 thread / 事件 / 取消</text>
+
+<rect x="920" y="252" width="240" height="104" rx="14" fill="#17263d" stroke="#38b6a8" stroke-width="2"/>
+<rect x="920" y="252" width="8" height="104" rx="4" fill="#38b6a8"/>
+<text x="948" y="286" font-size="21" font-weight="700" fill="#f8fafc">child Run</text>
+<text x="948" y="314" font-size="17" fill="#b9c9df">session_id = NULL</text>
+<text x="948" y="338" font-size="17" fill="#9fb3d1">目标 Agent 与资料不同</text>
+
+<rect x="640" y="392" width="520" height="120" rx="14" fill="#101c30" stroke="#33465f" stroke-width="2"/>
+<text x="668" y="426" font-size="19" font-weight="700" fill="#f8fafc">父子关系不写在 Session 上</text>
+<text x="668" y="456" font-size="17" fill="#b9c9df">root_run_id 指向所属根执行，parent_run_id 指向直接父节点</text>
+<text x="668" y="484" font-size="17" fill="#9fb3d1">刷新后从持久化记录重建树，重启后未完成节点收敛为 interrupted</text>
+</g>
+</svg>

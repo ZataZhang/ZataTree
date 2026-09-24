@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="430" viewBox="0 0 1200 430">
+  <rect width="1200" height="430" rx="24" fill="#0b1220"/>
+  <text x="55" y="58" fill="#f8fafc" font-family="sans-serif" font-size="28" font-weight="700">Agent 质量闭环：从任务样本到安全发布</text>
+  <g font-family="sans-serif" text-anchor="middle">
+    <g fill="#172b49" stroke="#5b87bf" stroke-width="2">
+      <rect x="50" y="125" width="200" height="95" rx="16"/><rect x="315" y="125" width="200" height="95" rx="16"/><rect x="580" y="125" width="200" height="95" rx="16"/><rect x="845" y="125" width="300" height="95" rx="16"/>
+    </g>
+    <g fill="#f8fafc" font-size="19" font-weight="700"><text x="150" y="163">固定任务集</text><text x="415" y="163">受控运行</text><text x="680" y="163">评分与归因</text><text x="995" y="163">门禁 / 灰度 / 回滚</text></g>
+    <g fill="#9fb3d1" font-size="14"><text x="150" y="191">代码、环境、验收、权限</text><text x="415" y="191">固定模型和配置版本</text><text x="680" y="191">质量、成本、方差、安全</text><text x="995" y="191">达到阈值才扩大流量</text></g>
+    <g stroke="#94a3b8" stroke-width="3" fill="none" stroke-linecap="round"><path d="M252 172h57m-9-8 9 8-9 8M517 172h57m-9-8 9 8-9 8M782 172h57m-9-8 9 8-9 8"/></g>
+  </g>
+  <path d="M1000 242v78H150v-82" fill="none" stroke="#34d399" stroke-width="2.5" stroke-dasharray="8 7"/>
+  <path d="M150 238l-7 11h14z" fill="#34d399"/>
+  <text x="575" y="306" fill="#a7f3d0" font-family="sans-serif" font-size="15" text-anchor="middle">线上失败与人工接管经隐私审查后补入数据集 → 失败分类 → 针对性改进</text>
+  <text x="575" y="370" fill="#9fb3d1" font-family="sans-serif" font-size="14" text-anchor="middle">分别报告成功率、人工投入、耗时、成本、安全事件和重复运行方差</text>
+</svg>
