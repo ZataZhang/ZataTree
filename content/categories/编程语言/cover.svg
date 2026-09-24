@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1414" viewBox="0 0 1000 1414" role="img" aria-label="《编程语言》封面：活字样张风">
+  <defs>
+    <pattern id="rule" width="1000" height="34" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="33.5" x2="1000" y2="33.5" stroke="#E2DCCB" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="spineG" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E3A8A"/><stop offset="100%" stop-color="#38BDF8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 样张纸：暖白 + 极淡的横格 -->
+  <rect width="1000" height="1414" fill="#F7F4EB"/>
+  <rect x="62" width="938" height="1414" fill="url(#rule)" opacity="0.75"/>
+  <rect x="96" y="0" width="1" height="1414" fill="#D8CDBC" opacity="0.6"/>
+
+  <!-- 书脊 -->
+  <rect x="0" y="0" width="62" height="1414" fill="url(#spineG)"/>
+  <rect x="0" y="0" width="6" height="1414" fill="#FFFFFF" opacity="0.18"/>
+  <text x="34" y="500" transform="rotate(-90 34 500)" text-anchor="middle" font-family="serif"
+        font-size="30" font-weight="700" letter-spacing="4" fill="#FFFFFF">编程语言</text>
+  <text x="34" y="1330" text-anchor="middle" font-family="monospace" font-size="14" letter-spacing="2" fill="#FFFFFF" opacity="0.85">No.03</text>
+
+  <!-- 眉题 -->
+  <text x="130" y="168" font-family="monospace" font-size="19" letter-spacing="6" fill="#8A93A6">TYPE SPECIMEN</text>
+  <text x="904" y="168" text-anchor="end" font-family="monospace" font-size="19" letter-spacing="3" fill="#8A93A6">语法细节与坑</text>
+  <line x1="130" y1="192" x2="904" y2="192" stroke="#16233F" stroke-width="2"/>
+
+  <!-- 主标题 -->
+  <text x="126" y="352" font-family="serif" font-size="158" font-weight="700" letter-spacing="4" fill="#16233F">编程语言</text>
+  <rect x="130" y="372" width="640" height="10" fill="#38BDF8" opacity="0.55"/>
+  <text x="130" y="430" font-family="monospace" font-size="23" letter-spacing="9" fill="#1E3A8A">PROGRAMMING LANGUAGES</text>
+
+  <!-- 字形样张格 -->
+  <g font-family="monospace" text-anchor="middle">
+    <g>
+      <rect x="130" y="474" width="180" height="146" fill="#FFFFFF" stroke="#C9CFDA" stroke-width="1.5"/>
+      <text x="220" y="580" font-size="76" font-weight="700" fill="#1E3A8A">{}</text>
+      <text x="142" y="608" text-anchor="start" font-size="13" letter-spacing="1" fill="#98A2B3">BRACE / 代码块</text>
+    </g>
+    <g>
+      <rect x="322" y="474" width="180" height="146" fill="#FFFFFF" stroke="#C9CFDA" stroke-width="1.5"/>
+      <text x="412" y="580" font-size="76" font-weight="700" fill="#1E3A8A">&lt;&gt;</text>
+      <text x="334" y="608" text-anchor="start" font-size="13" letter-spacing="1" fill="#98A2B3">ANGLE / 泛型</text>
+    </g>
+    <g>
+      <rect x="514" y="474" width="180" height="146" fill="#1E3A8A"/>
+      <text x="604" y="580" font-size="76" font-weight="700" fill="#F7F4EB">=&gt;</text>
+      <text x="526" y="608" text-anchor="start" font-size="13" letter-spacing="1" fill="#9DC1F5">ARROW / 闭包</text>
+    </g>
+    <g>
+      <rect x="706" y="474" width="180" height="146" fill="#FFFFFF" stroke="#C9CFDA" stroke-width="1.5"/>
+      <text x="796" y="580" font-size="76" font-weight="700" fill="#0EA5E9">::</text>
+      <text x="718" y="608" text-anchor="start" font-size="13" letter-spacing="1" fill="#98A2B3">SCOPE / 作用域</text>
+    </g>
+    <g>
+      <rect x="130" y="632" width="180" height="146" fill="#FFFFFF" stroke="#C9CFDA" stroke-width="1.5"/>
+      <text x="220" y="738" font-size="76" font-weight="700" fill="#1E3A8A">fn</text>
+      <text x="132" y="766" text-anchor="start" font-size="13" letter-spacing="1" fill="#98A2B3">DEF / 函数</text>
+    </g>
+    <g>
+      <rect x="322" y="632" width="180" height="146" fill="#FFFFFF" stroke="#C9CFDA" stroke-width="1.5"/>
+      <text x="412" y="738" font-size="76" font-weight="700" fill="#1E3A8A">[]</text>
+      <text x="334" y="766" text-anchor="start" font-size="13" letter-spacing="1" fill="#98A2B3">SLICE / 切片</text>
+    </g>
+    <g>
+      <rect x="514" y="632" width="180" height="146" fill="#FFFFFF" stroke="#C9CFDA" stroke-width="1.5"/>
+      <text x="604" y="738" font-size="76" font-weight="700" fill="#0EA5E9">;</text>
+      <text x="526" y="766" text-anchor="start" font-size="13" letter-spacing="1" fill="#98A2B3">SEMI / 那个坑</text>
+    </g>
+    <g>
+      <rect x="706" y="632" width="180" height="146" fill="#FFFFFF" stroke="#C9CFDA" stroke-width="1.5"/>
+      <text x="796" y="738" font-size="76" font-weight="700" fill="#1E3A8A">λ</text>
+      <text x="718" y="766" text-anchor="start" font-size="13" letter-spacing="1" fill="#98A2B3">LAMBDA / 求值</text>
+    </g>
+  </g>
+
+  <!-- 代码样张 -->
+  <g>
+    <rect x="130" y="812" width="756" height="86" fill="#0F1B33"/>
+    <rect x="130" y="812" width="6" height="86" fill="#38BDF8"/>
+    <text x="158" y="848" font-family="monospace" font-size="25"><tspan fill="#F472B6">def</tspan><tspan fill="#F8FAFC"> solve</tspan><tspan fill="#94A3B8">(xs: </tspan><tspan fill="#7DD3FC">list</tspan><tspan fill="#94A3B8">[</tspan><tspan fill="#7DD3FC">int</tspan><tspan fill="#94A3B8">]) -&gt; </tspan><tspan fill="#7DD3FC">int</tspan><tspan fill="#F8FAFC">:</tspan></text>
+    <text x="158" y="882" font-family="monospace" font-size="25"><tspan fill="#F8FAFC">    </tspan><tspan fill="#F472B6">return</tspan><tspan fill="#F8FAFC"> max(xs)  </tspan><tspan fill="#64748B"># 边界这里踩过</tspan></text>
+  </g>
+
+  <!-- 章序 -->
+  <text x="130" y="962" font-family="monospace" font-size="18" letter-spacing="5" fill="#8A93A6">CONTENTS · 章序</text>
+  <line x1="130" y1="980" x2="904" y2="980" stroke="#C9CFDA" stroke-width="1.5"/>
+  <g font-family="serif">
+    <g>
+      <text x="130" y="1038" font-family="monospace" font-size="22" fill="#0EA5E9">01</text>
+      <text x="184" y="1038" font-size="34" font-weight="700" fill="#16233F">语言基础</text>
+      <line x1="336" y1="1030" x2="898" y2="1030" stroke="#C9CFDA" stroke-width="1.5" stroke-dasharray="2 7"/>
+    </g>
+    <g>
+      <text x="130" y="1096" font-family="monospace" font-size="22" fill="#0EA5E9">02</text>
+      <text x="184" y="1096" font-size="34" font-weight="700" fill="#16233F">包与工程化</text>
+      <line x1="370" y1="1088" x2="898" y2="1088" stroke="#C9CFDA" stroke-width="1.5" stroke-dasharray="2 7"/>
+    </g>
+    <g>
+      <text x="130" y="1154" font-family="monospace" font-size="22" fill="#0EA5E9">03</text>
+      <text x="184" y="1154" font-size="34" font-weight="700" fill="#16233F">常用库</text>
+      <line x1="302" y1="1146" x2="898" y2="1146" stroke="#C9CFDA" stroke-width="1.5" stroke-dasharray="2 7"/>
+    </g>
+    <g>
+      <text x="130" y="1212" font-family="monospace" font-size="22" fill="#0EA5E9">04</text>
+      <text x="184" y="1212" font-size="34" font-weight="700" fill="#16233F">界面与串口</text>
+      <line x1="370" y1="1204" x2="898" y2="1204" stroke="#C9CFDA" stroke-width="1.5" stroke-dasharray="2 7"/>
+    </g>
+    <g>
+      <text x="130" y="1270" font-family="monospace" font-size="22" fill="#0EA5E9">05</text>
+      <text x="184" y="1270" font-size="34" font-weight="700" fill="#16233F">数据与 ORM</text>
+      <line x1="371" y1="1262" x2="898" y2="1262" stroke="#C9CFDA" stroke-width="1.5" stroke-dasharray="2 7"/>
+    </g>
+  </g>
+
+  <!-- 牌记 -->
+  <line x1="130" y1="1322" x2="904" y2="1322" stroke="#16233F" stroke-width="2"/>
+  <text x="130" y="1372" font-family="monospace" font-size="22" letter-spacing="2" fill="#16233F">5 章 · 29 篇</text>
+  <text x="517" y="1372" text-anchor="middle" font-family="monospace" font-size="20" letter-spacing="7" fill="#98A2B3">AaBb 0123 &amp;@#</text>
+  <text x="904" y="1372" text-anchor="end" font-family="monospace" font-size="22" letter-spacing="2" fill="#8A93A6">zata.cc</text>
+</svg>

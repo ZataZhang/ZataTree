@@ -5,4 +5,8 @@ slug: "面试八股"
 style:
     background: "#238377"
     color: "#fff"
+book:
+    tagline: "考点速查手册"
+    accent: "#78350F"
+    accent2: "#FDBA74"
 ---

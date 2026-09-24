@@ -1709,6 +1709,41 @@ main.main {
     }
 }
 
+/* --- 书页真封面 ---------------------------------------------------------
+   只在 front matter 写了 book.cover 时出现（.book-hero--cover）。
+   桌面端左图右文，窄屏收成一列、封面限宽，别把书名挤到屏幕外。
+   圆角左小右大 + 左侧内阴影，和首页书卡那本占位书保持同一种开本。
+   ------------------------------------------------------------------------- */
+
+.book-hero--cover {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+
+    @include respond(md) {
+        grid-template-columns: 224px minmax(0, 1fr);
+        gap: 30px;
+        align-items: start;
+    }
+}
+
+.book-hero__cover {
+    margin: 0;
+    width: 168px;
+
+    @include respond(md) {
+        width: auto;
+    }
+
+    img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 3px 6px 6px 3px;
+        box-shadow: var(--shadow-l1), 0 14px 28px -18px rgba(16, 24, 40, 0.6);
+    }
+}
+
 /* --- 目录卡片 ----------------------------------------------------------- */
 
 .book-toc {
@@ -1856,5 +1891,197 @@ main.main {
     .book-entry__link {
         margin: 0 -6px;
         padding: 8px 6px;
+    }
+}
+
+
+/* =========================================================================
+   12. 首页「分类小书」——嵌在「最新文章」栏头右侧的精选书块
+   -------------------------------------------------------------------------
+   栏头原本右侧是一整片空白，书架单独开一条又要把首页往下推 200 多 px，
+   所以书块就填进这片空白：2×2 小卡，整块只跟着栏头的高度走。
+   窄屏放不下两栏并排时（见第 8 节的断点）书块退回栏头下方占满整行。
+
+   封面目前是 CSS 画的书脊：分类目录里还没有封面图，先用 book.accent →
+   book.accent2 的渐变加一道书脊高光顶上；真封面到位（content/categories/{书}/
+   放图 + front matter 写 book.cover）后模板换成 <img>，末尾的 --img 分支接管。
+   ========================================================================= */
+
+.section-head__books {
+    /* 给一个基准宽（460px = 两列小卡 + 间距），而不是 let it shrink-to-fit：
+       flex-basis 为 auto 时，1fr 网格会反过来被内容缩成 282px，卡片挤到 136px。
+       空间不够时 flex-shrink 让它先退，退到下面那条 wrap 断点就整块换行。 */
+    flex: 0 1 460px;
+    min-width: 0;
+    margin-left: auto;
+}
+
+.section-head__books-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.section-head__books-label {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--card-text-color-secondary);
+}
+
+.section-head__books-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--brand-blue-deep);
+
+    svg {
+        width: 13px;
+        height: 13px;
+        transition: transform 0.2s ease;
+    }
+
+    &:hover svg,
+    &:focus-visible svg {
+        transform: translateX(2px);
+    }
+}
+
+.book-mini-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px 10px;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    /* li 默认 min-width: auto，不显式清零的话长书名会把轨道顶出去而不是省略号收尾 */
+    > li {
+        min-width: 0;
+    }
+}
+
+.book-mini {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    padding: 5px 8px 5px 6px;
+    border: 1px solid var(--card-separator-color);
+    border-radius: 10px;
+    background: var(--card-background);
+    text-decoration: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+        border-color: var(--book-accent);
+        box-shadow: 0 2px 4px rgba(16, 24, 40, 0.05), 0 10px 20px -16px rgba(16, 24, 40, 0.35);
+        transform: translateY(-1px);
+        text-decoration: none;
+    }
+}
+
+/* 占位书脊。34×48 是 1:1.4 的开本，比文字矮一点，
+   所以卡片高度由文字决定，四本书并排也不会把栏头撑高。 */
+.book-mini__cover {
+    position: relative;
+    flex: 0 0 auto;
+    display: block;
+    width: 34px;
+    height: 48px;
+    border-radius: 2px 4px 4px 2px;
+    background: linear-gradient(150deg, var(--book-accent), var(--book-accent-2));
+    /* 第一条 inset = 书脊高光，第二条 = 右缘暗边，最后一条 = 落在卡片上的投影 */
+    box-shadow:
+        inset 4px 0 0 rgba(255, 255, 255, 0.18),
+        inset -1px 0 0 rgba(11, 18, 32, 0.2),
+        0 3px 7px -4px rgba(16, 24, 40, 0.55);
+}
+
+.book-mini__text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.book-mini__name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--card-text-color-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.book-mini__count {
+    font-size: 1.1rem;
+    line-height: 1.3;
+    color: var(--card-text-color-tertiary);
+}
+
+/* 真封面：沿用占位书脊的尺寸，只把画出来的那套换成图 */
+.book-mini__cover--img {
+    border-radius: 3px;
+    background: none;
+    box-shadow: 0 3px 7px -4px rgba(16, 24, 40, 0.55);
+    object-fit: cover;
+}
+
+[data-scheme="dark"] .book-mini {
+    &:hover,
+    &:focus-visible {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.35), 0 10px 20px -16px rgba(0, 0, 0, 0.7);
+    }
+}
+
+/* 1440 以下主区放不下「标题 + 460px 书块」并排，书块换到栏头下方占满整行 */
+@media (max-width: 1439px) {
+    .section-head {
+        flex-wrap: wrap;
+    }
+
+    .section-head__books {
+        flex: 1 1 100%;
+        margin-left: 0;
+    }
+
+    .section-head__books-head {
+        justify-content: flex-start;
+    }
+
+    .book-mini-grid {
+        /* ⚠️ auto-fit 配 minmax(160px, 260px) 时，Chromium 按「上限」而不是下限算能放几列
+           （360px 容器 + 260 上限 → 只排 1 列），所以这里上限必须是 1fr。 */
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    }
+}
+
+/* 平板竖屏这一档：auto-fit 会排成 3+1，留一本孤零零在第二行。
+   直接钉成 2×2 并给网格封顶，免得卡片被拉到 375px 宽、中间全是空的。
+   ⚠️ 必须排在上面那条 1439 之后：两条选择器权重相同，靠后者生效。 */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .book-mini-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        max-width: 620px;
+    }
+}
+
+@media (max-width: 767px) {
+    .section-head__books-head {
+        margin-bottom: 4px;
+    }
+
+    .book-mini {
+        padding: 4px 6px;
+    }
+
+    .book-mini__name {
+        font-size: 1.2rem;
     }
 }

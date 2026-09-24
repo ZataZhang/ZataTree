@@ -5,4 +5,9 @@ slug: "运维与服务器"
 style:
     background: "#238377"
     color: "#fff"
+book:
+    tagline: "把服务稳住"
+    accent: "#334155"
+    accent2: "#94A3B8"
+    cover: cover.svg
 ---

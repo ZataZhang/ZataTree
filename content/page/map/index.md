@@ -5,14 +5,6 @@ date: 2026-09-16T21:00:00+08:00
 layout: "map"
 slug: "map"
 url: "/map/"
-menu:
-    main:
-        # 导航里显示英文，页面标题仍保持中文（其它页也是这样：Tags 页的
-        # 标题是「标签云」）。菜单项的 name 会覆盖链接文字。
-        name: Map
-        weight: -100
-        params:
-            icon: categories
 
 # 分类分组：把重复命名的分类归并成真实语义分组。
 # terms 里写的是实际存在的分类 slug（Hugo 会统一转小写）。

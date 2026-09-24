@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1414" viewBox="0 0 1000 1414" role="img" aria-label="《软件试用》封面：贴纸册风">
+  <defs>
+    <pattern id="binder" width="30" height="30" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="1.6" fill="#D6CBF2"/>
+    </pattern>
+    <linearGradient id="spineS" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7C3AED"/><stop offset="100%" stop-color="#C4B5FD"/>
+    </linearGradient>
+    <filter id="pop" x="-30%" y="-30%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="7" stdDeviation="8" flood-color="#2E1065" flood-opacity="0.2"/>
+    </filter>
+    <filter id="pop2" x="-30%" y="-30%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#2E1065" flood-opacity="0.16"/>
+    </filter>
+  </defs>
+
+  <rect width="1000" height="1414" fill="#F5F1FE"/>
+  <rect x="62" width="938" height="1414" fill="url(#binder)"/>
+
+  <!-- 书脊 -->
+  <rect x="0" y="0" width="62" height="1414" fill="url(#spineS)"/>
+  <rect x="0" y="0" width="6" height="1414" fill="#FFFFFF" opacity="0.22"/>
+  <text x="34" y="520" transform="rotate(-90 34 520)" text-anchor="middle" font-family="sans-serif"
+        font-size="29" font-weight="900" letter-spacing="4" fill="#FFFFFF">软件试用</text>
+  <text x="34" y="1330" text-anchor="middle" font-family="monospace" font-size="14" letter-spacing="2" fill="#FFFFFF" opacity="0.9">TRIAL</text>
+
+  <!-- 眉题 -->
+  <text x="118" y="150" font-family="monospace" font-size="19" letter-spacing="6" fill="#8B7BB8">TOOL TRIALS · 08 款</text>
+
+  <!-- 标题贴纸 -->
+  <g transform="rotate(-1.8 470 300)" filter="url(#pop)">
+    <rect x="112" y="188" width="700" height="212" rx="18" fill="#FFFFFF"/>
+    <rect x="112" y="188" width="14" height="212" rx="7" fill="#7C3AED"/>
+    <text x="158" y="326" font-family="sans-serif" font-size="112" font-weight="900" letter-spacing="2" fill="#2E1065">软件试用</text>
+    <text x="160" y="374" font-family="sans-serif" font-size="27" font-weight="700" fill="#7C3AED">好用工具清点 · 试过才留下</text>
+  </g>
+
+  <!-- 图章 -->
+  <g transform="rotate(11 838 250)" opacity="0.85">
+    <circle cx="838" cy="250" r="66" fill="none" stroke="#E11D48" stroke-width="4"/>
+    <circle cx="838" cy="250" r="55" fill="none" stroke="#E11D48" stroke-width="1.6" stroke-dasharray="5 5"/>
+    <text x="838" y="242" text-anchor="middle" font-family="monospace" font-size="24" font-weight="700" letter-spacing="2" fill="#E11D48">TRIED</text>
+    <text x="838" y="272" text-anchor="middle" font-family="sans-serif" font-size="21" letter-spacing="3" fill="#E11D48">已用过</text>
+  </g>
+
+  <!-- 贴纸格 -->
+  <g filter="url(#pop2)">
+    <!-- 终端 -->
+    <g transform="rotate(-3 190 480)">
+      <rect x="118" y="452" width="144" height="144" rx="34" fill="#1E1B3A"/>
+      <path d="M150,506 l20,16 l-20,16" fill="none" stroke="#C4B5FD" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+      <line x1="182" y1="546" x2="228" y2="546" stroke="#A78BFA" stroke-width="7" stroke-linecap="round"/>
+    </g>
+    <!-- 包管理 -->
+    <g transform="rotate(2.5 360 480)">
+      <rect x="288" y="452" width="144" height="144" rx="34" fill="#FFFFFF"/>
+      <path d="M360,478 l52,26 v52 l-52,26 l-52,-26 v-52 Z" fill="none" stroke="#7C3AED" stroke-width="7" stroke-linejoin="round"/>
+      <path d="M308,504 l52,26 l52,-26 M360,530 v52" fill="none" stroke="#C4B5FD" stroke-width="5"/>
+    </g>
+    <!-- 部署 -->
+    <g transform="rotate(-2 530 480)">
+      <rect x="458" y="452" width="144" height="144" rx="34" fill="#F59E0B"/>
+      <path d="M494,558 h72" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round"/>
+      <path d="M530,530 V480" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round"/>
+      <path d="M508,502 l22,-24 22,24" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    <!-- 文档 -->
+    <g transform="rotate(3 700 480)">
+      <rect x="628" y="452" width="144" height="144" rx="34" fill="#FFFFFF"/>
+      <path d="M672,486 h56 l24,24 v58 h-80 Z" fill="none" stroke="#14B8A6" stroke-width="7" stroke-linejoin="round"/>
+      <path d="M728,486 v24 h24" fill="none" stroke="#14B8A6" stroke-width="6"/>
+      <line x1="688" y1="536" x2="736" y2="536" stroke="#5EEAD4" stroke-width="6" stroke-linecap="round"/>
+      <line x1="688" y1="554" x2="716" y2="554" stroke="#5EEAD4" stroke-width="6" stroke-linecap="round"/>
+    </g>
+    <!-- 标注 -->
+    <g transform="rotate(2 190 650)">
+      <rect x="118" y="622" width="144" height="144" rx="34" fill="#F43F5E"/>
+      <path d="M158,730 l-8,26 26,-8 56,-56 -18,-18 Z" fill="#FFFFFF"/>
+      <path d="M222,680 l18,18" stroke="#9F1239" stroke-width="5"/>
+    </g>
+    <!-- 效率 -->
+    <g transform="rotate(-2.5 360 650)">
+      <rect x="288" y="622" width="144" height="144" rx="34" fill="#0EA5E9"/>
+      <polyline points="318,712 344,682 366,698 402,656" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="402" cy="656" r="9" fill="#FFFFFF"/>
+    </g>
+    <!-- 自托管 -->
+    <g transform="rotate(3 530 650)">
+      <rect x="458" y="622" width="144" height="144" rx="34" fill="#FFFFFF"/>
+      <path d="M498,700 a26,26 0 0,1 52,-6 a22,22 0 0,1 22,22 h-96 a20,20 0 0,1 22,-16 Z" fill="none" stroke="#7C3AED" stroke-width="7" stroke-linejoin="round"/>
+      <line x1="506" y1="736" x2="554" y2="736" stroke="#C4B5FD" stroke-width="7" stroke-linecap="round"/>
+    </g>
+    <!-- 桌面 -->
+    <g transform="rotate(-3 700 650)">
+      <rect x="628" y="622" width="144" height="144" rx="34" fill="#1E1B3A"/>
+      <circle cx="700" cy="694" r="38" fill="none" stroke="#C4B5FD" stroke-width="7"/>
+      <path d="M700,694 L722,666" stroke="#A78BFA" stroke-width="7" stroke-linecap="round"/>
+      <circle cx="700" cy="694" r="6" fill="#F59E0B"/>
+    </g>
+  </g>
+
+  <!-- 章序 -->
+  <text x="118" y="856" font-family="monospace" font-size="18" letter-spacing="5" fill="#8B7BB8">CHAPTERS · 章序</text>
+  <line x1="118" y1="874" x2="904" y2="874" stroke="#C4B5FD" stroke-width="2"/>
+  <g font-family="sans-serif">
+    <circle cx="128" cy="922" r="7" fill="#1E1B3A"/>
+    <text x="152" y="932" font-size="33" font-weight="700" fill="#2E1065">AI 工具试用</text>
+    <line x1="378" y1="924" x2="898" y2="924" stroke="#C4B5FD" stroke-width="1.6" stroke-dasharray="2 7"/>
+
+    <circle cx="128" cy="982" r="7" fill="#7C3AED"/>
+    <text x="152" y="992" font-size="33" font-weight="700" fill="#2E1065">终端与包管理</text>
+    <line x1="406" y1="984" x2="898" y2="984" stroke="#C4B5FD" stroke-width="1.6" stroke-dasharray="2 7"/>
+
+    <circle cx="128" cy="1042" r="7" fill="#F59E0B"/>
+    <text x="152" y="1052" font-size="33" font-weight="700" fill="#2E1065">部署与自托管</text>
+    <line x1="406" y1="1044" x2="898" y2="1044" stroke="#C4B5FD" stroke-width="1.6" stroke-dasharray="2 7"/>
+
+    <circle cx="128" cy="1102" r="7" fill="#14B8A6"/>
+    <text x="152" y="1112" font-size="33" font-weight="700" fill="#2E1065">文档与标注</text>
+    <line x1="378" y1="1104" x2="898" y2="1104" stroke="#C4B5FD" stroke-width="1.6" stroke-dasharray="2 7"/>
+
+    <circle cx="128" cy="1162" r="7" fill="#0EA5E9"/>
+    <text x="152" y="1172" font-size="33" font-weight="700" fill="#2E1065">桌面效率工具</text>
+    <line x1="406" y1="1164" x2="898" y2="1164" stroke="#C4B5FD" stroke-width="1.6" stroke-dasharray="2 7"/>
+  </g>
+
+  <!-- 牌记 -->
+  <line x1="118" y1="1310" x2="904" y2="1310" stroke="#7C3AED" stroke-width="2"/>
+  <text x="118" y="1362" font-family="monospace" font-size="22" letter-spacing="2" fill="#2E1065">5 章 · 30 篇</text>
+  <text x="904" y="1362" text-anchor="end" font-family="monospace" font-size="22" letter-spacing="2" fill="#8B7BB8">zata.cc</text>
+</svg>

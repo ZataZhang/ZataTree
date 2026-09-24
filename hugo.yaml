@@ -94,6 +94,8 @@ params:
                   - 持续成长
         latestTitle: 最新文章          # 首页栏头标题
         latestSubtitle: 记录技术的温度，分享成长的轨迹
+        shelfTitle: 分类小书           # 首页栏头右侧的书块标签
+        shelfCount: 4                  # 摆几本精选小书（书架页前 N 本）
         sidebarQuote:                  # 左栏底部引言
             text: 代码如诗，技术亦是生活。
             author: 扎塔-Zata

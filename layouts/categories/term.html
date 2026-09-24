@@ -12,17 +12,30 @@
 {{ define "main" }}
     {{- $tree := partial "book/tree.html" (dict "Book" .Title) -}}
     {{- $nCh := len $tree.chapters -}}
+    {{- /* 真封面：content/categories/{书}/ 放图 + front matter 写 book.cover，
+           首页书卡（book-shelf.html）和这里用的是同一个字段，两处不会走偏。 */ -}}
+    {{- $cover := false -}}
+    {{- with .Params.book.cover -}}
+        {{- $cover = $.Resources.GetMatch . -}}
+    {{- end -}}
 
-    <header class="book-hero">
-        <p class="book-hero__kicker">本书目录</p>
-        <h1 class="book-hero__title">{{ .Title }}</h1>
-        {{ with .Params.description }}
-            <p class="book-hero__lede">{{ . }}</p>
+    <header class="book-hero{{ with $cover }} book-hero--cover{{ end }}">
+        {{ with $cover }}
+            <figure class="book-hero__cover">
+                <img src="{{ .RelPermalink }}" alt="《{{ $.Title }}》封面" loading="eager" decoding="async">
+            </figure>
         {{ end }}
-        <p class="book-hero__meta">
-            <span class="book-hero__stat"><b>{{ len $tree.flatPages }}</b> 篇</span>
-            {{- if $nCh }}<span class="book-hero__stat"><b>{{ $nCh }}</b> 章</span>{{ end }}
-        </p>
+        <div class="book-hero__body">
+            <p class="book-hero__kicker">本书目录</p>
+            <h1 class="book-hero__title">{{ .Title }}</h1>
+            {{ with .Params.description }}
+                <p class="book-hero__lede">{{ . }}</p>
+            {{ end }}
+            <p class="book-hero__meta">
+                <span class="book-hero__stat"><b>{{ len $tree.flatPages }}</b> 篇</span>
+                {{- if $nCh }}<span class="book-hero__stat"><b>{{ $nCh }}</b> 章</span>{{ end }}
+            </p>
+        </div>
     </header>
 
     <div class="book-toc">

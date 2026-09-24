@@ -3,6 +3,7 @@
 
     卡片网格上方加栏头，首页 body 加专用 class 以限定横屏样式。
     分页、排序、右栏 scope 保持主题原样。
+    「分类小书」填进栏头右侧的空档（栏头原本右边是全空的），只在第一页出现。
 */ -}}
 {{ define "body-class" }}home-page{{ end }}
 
@@ -24,6 +25,10 @@
             <h2 class="section-head__title">{{ .Site.Params.brand.latestTitle | default "最新文章" }}</h2>
             <p class="section-head__sub">{{ .Site.Params.brand.latestSubtitle | default "记录技术的温度，分享成长的轨迹" }}</p>
         </div>
+
+        {{ if eq $pag.PageNumber 1 }}
+            {{ partial "book-shelf.html" . }}
+        {{ end }}
     </section>
 
     <section class="article-list">

@@ -5,4 +5,8 @@ slug: "项目实战"
 style:
     background: "#238377"
     color: "#fff"
+book:
+    tagline: "从零做到能交付"
+    accent: "#BE123C"
+    accent2: "#FDA4AF"
 ---

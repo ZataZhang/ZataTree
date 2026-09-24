@@ -1,0 +1,91 @@
+{{- /*
+    首页「分类小书」：嵌在「最新文章」栏头右侧的精选书块。
+
+    为什么塞在栏头右侧而不是单独一条：栏头那行原本右侧全空，单独再开一条
+    书架就是把首页往下推 200 多 px。现在整块只占栏头的高度。
+
+    数据源就是 .Site.Taxonomies.categories —— 分类即书，不另建内容。
+    排序与书架页 layouts/page/categories.html 完全一致（近 N 天更新篇数 →
+    最近更新日 → 书名，稳定排序连排三趟，所以主键最后排），
+    于是这里的精选 = 书架页开头那几本，两处永远对得上。
+
+    封面现在是 CSS 画的小书脊（分类目录里还没有封面图）。以后要给某本书换真封面：
+    图片放进 content/categories/{书}/，front matter 写 book.cover: 文件名，
+    这里就会用 <img> 取代画出来的书脊。
+*/ -}}
+{{- $brand := .Site.Params.brand -}}
+{{- $count := int ($brand.shelfCount | default 4) -}}
+{{- $windowDays := 180 -}}
+{{- $cutoff := now.AddDate 0 0 (int (mul -1 $windowDays)) -}}
+{{- $shelfPage := .Site.GetPage "/categories" -}}
+
+{{- $rows := slice -}}
+{{- range .Site.Taxonomies.categories -}}
+    {{- $page := .Page -}}
+    {{- $recent := 0 -}}
+    {{- $newest := 0 -}}
+    {{- range .Pages -}}
+        {{- $ts := .Lastmod.Unix -}}
+        {{- if gt $ts $newest }}{{ $newest = $ts }}{{ end -}}
+        {{- if ge $ts $cutoff.Unix }}{{ $recent = add $recent 1 }}{{ end -}}
+    {{- end -}}
+
+    {{- $book := $page.Params.book | default dict -}}
+    {{- $cover := false -}}
+    {{- with $book.cover -}}
+        {{- $cover = $page.Resources.GetMatch . -}}
+    {{- end -}}
+
+    {{- $rows = $rows | append (dict
+        "href" $page.RelPermalink
+        "title" $page.Title
+        "tagline" (default "" $book.tagline)
+        "accent" (default "#5B87BF" $book.accent)
+        "accent2" (default "#22D3EE" $book.accent2)
+        "cover" $cover
+        "count" (len .Pages)
+        "recent" $recent
+        "newest" $newest) -}}
+{{- end -}}
+
+{{- $rows = sort $rows "title" "asc" -}}
+{{- $rows = sort $rows "newest" "desc" -}}
+{{- $rows = sort $rows "recent" "desc" -}}
+{{- $rows = first $count $rows -}}
+
+{{- /* 英文版没有分类条目，别留一个空块在栏头右侧。 */ -}}
+{{- if $rows -}}
+    <div class="section-head__books">
+        <div class="section-head__books-head">
+            <span class="section-head__books-label">{{ $brand.shelfTitle | default "分类小书" }}</span>
+            {{ with $shelfPage }}
+                <a class="section-head__books-all" href="{{ .RelPermalink }}">
+                    全部小书
+                    <span aria-hidden="true">{{ partial "helper/icon.html" "arrow-right" }}</span>
+                </a>
+            {{ end }}
+        </div>
+
+        <ul class="book-mini-grid">
+            {{- range $rows }}
+                <li>
+                    <a class="book-mini" href="{{ .href }}"
+                       style="--book-accent: {{ .accent }}; --book-accent-2: {{ .accent2 }}"
+                       {{ with .tagline }}title="{{ . }}"{{ end }}>
+                        {{- if .cover }}
+                            <img class="book-mini__cover book-mini__cover--img" src="{{ .cover.RelPermalink }}"
+                                 alt="《{{ .title }}》封面" width="34" height="48" loading="lazy" decoding="async">
+                        {{- else }}
+                            {{/* 占位封面：还没有分类封面图，先画一道书脊顶上。 */}}
+                            <span class="book-mini__cover" aria-hidden="true"></span>
+                        {{- end }}
+                        <span class="book-mini__text">
+                            <span class="book-mini__name">{{ .title }}</span>
+                            <span class="book-mini__count">{{ .count }} 篇</span>
+                        </span>
+                    </a>
+                </li>
+            {{- end }}
+        </ul>
+    </div>
+{{- end -}}

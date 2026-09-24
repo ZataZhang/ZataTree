@@ -5,4 +5,8 @@ slug: "阅读笔记"
 style:
     background: "#238377"
     color: "#fff"
+book:
+    tagline: "读完留下的几页"
+    accent: "#6D28D9"
+    accent2: "#DDD6FE"
 ---

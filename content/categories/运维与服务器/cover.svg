@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1414" viewBox="0 0 1000 1414" role="img" aria-label="《运维与服务器》封面：工程蓝图风">
+  <defs>
+    <pattern id="bp-minor" width="25" height="25" patternUnits="userSpaceOnUse">
+      <path d="M25 0 V25 M0 25 H25" fill="none" stroke="#12405F" stroke-width="0.8"/>
+    </pattern>
+    <pattern id="bp-major" width="125" height="125" patternUnits="userSpaceOnUse">
+      <path d="M125 0 V125 M0 125 H125" fill="none" stroke="#1B5A80" stroke-width="1.4"/>
+    </pattern>
+    <linearGradient id="bp-bg" x1="0%" y1="0%" x2="60%" y2="100%">
+      <stop offset="0%" stop-color="#0C2C46"/><stop offset="100%" stop-color="#061A2C"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1000" height="1414" fill="url(#bp-bg)"/>
+  <rect width="1000" height="1414" fill="url(#bp-minor)"/>
+  <rect width="1000" height="1414" fill="url(#bp-major)" opacity="0.8"/>
+
+  <!-- 图纸边框 -->
+  <rect x="86" y="40" width="878" height="1334" fill="none" stroke="#7FD3F7" stroke-width="2" opacity="0.75"/>
+  <rect x="96" y="50" width="858" height="1314" fill="none" stroke="#7FD3F7" stroke-width="0.8" opacity="0.4"/>
+  <g stroke="#7FD3F7" stroke-width="2" opacity="0.7">
+    <line x1="86" y1="70" x2="106" y2="70"/><line x1="106" y1="40" x2="106" y2="60"/>
+    <line x1="944" y1="70" x2="924" y2="70"/><line x1="924" y1="40" x2="924" y2="60"/>
+    <line x1="86" y1="1344" x2="106" y2="1344"/><line x1="106" y1="1354" x2="106" y2="1334"/>
+    <line x1="944" y1="1344" x2="924" y2="1344"/><line x1="924" y1="1354" x2="924" y2="1334"/>
+  </g>
+
+  <!-- 书脊 -->
+  <rect x="0" y="0" width="62" height="1414" fill="#04121F"/>
+  <line x1="14" y1="60" x2="14" y2="1354" stroke="#7FD3F7" stroke-width="1" opacity="0.5"/>
+  <line x1="50" y1="60" x2="50" y2="1354" stroke="#7FD3F7" stroke-width="1" opacity="0.5"/>
+  <text x="34" y="560" transform="rotate(-90 34 560)" text-anchor="middle" font-family="sans-serif"
+        font-size="27" font-weight="700" letter-spacing="4" fill="#B8E6FF">运维与服务器</text>
+  <text x="34" y="1330" text-anchor="middle" font-family="monospace" font-size="13" letter-spacing="1" fill="#7FD3F7" opacity="0.9">DWG-04</text>
+
+  <!-- 图名 -->
+  <text x="130" y="132" font-family="monospace" font-size="19" letter-spacing="5" fill="#7FD3F7">DRAWING No.04 · 把服务稳住</text>
+  <text x="128" y="252" font-family="sans-serif" font-size="104" font-weight="700" letter-spacing="3" fill="#F2F8FF">运维与服务器</text>
+  <line x1="130" y1="286" x2="900" y2="286" stroke="#7FD3F7" stroke-width="2.5"/>
+  <text x="130" y="330" font-family="monospace" font-size="22" letter-spacing="8" fill="#9ECDE8">SERVERS &amp; OPERATIONS</text>
+
+  <!-- 机柜立面图 -->
+  <g fill="none" stroke="#B8E6FF" stroke-width="2.5">
+    <rect x="150" y="404" width="330" height="676" rx="8"/>
+    <rect x="168" y="422" width="294" height="640" rx="4" stroke-width="1.4" opacity="0.6"/>
+  </g>
+  <g>
+    <g fill="none" stroke="#7FD3F7" stroke-width="1.8">
+      <rect x="180" y="440" width="270" height="62" rx="5"/>
+      <rect x="180" y="518" width="270" height="62" rx="5"/>
+      <rect x="180" y="596" width="270" height="62" rx="5"/>
+      <rect x="180" y="674" width="270" height="62" rx="5"/>
+      <rect x="180" y="752" width="270" height="62" rx="5"/>
+      <rect x="180" y="830" width="270" height="62" rx="5"/>
+      <rect x="180" y="908" width="270" height="62" rx="5"/>
+      <rect x="180" y="986" width="270" height="62" rx="5"/>
+    </g>
+    <g>
+      <circle cx="200" cy="471" r="6" fill="#34D399"/><circle cx="220" cy="471" r="6" fill="#7FD3F7" opacity="0.5"/>
+      <circle cx="200" cy="549" r="6" fill="#34D399"/><circle cx="220" cy="549" r="6" fill="#7FD3F7" opacity="0.5"/>
+      <circle cx="200" cy="627" r="6" fill="#34D399"/><circle cx="220" cy="627" r="6" fill="#7FD3F7" opacity="0.5"/>
+      <circle cx="200" cy="705" r="6" fill="#FBBF24"/><circle cx="220" cy="705" r="6" fill="#7FD3F7" opacity="0.5"/>
+      <circle cx="200" cy="783" r="6" fill="#34D399"/><circle cx="220" cy="783" r="6" fill="#7FD3F7" opacity="0.5"/>
+      <circle cx="200" cy="861" r="6" fill="#34D399"/><circle cx="220" cy="861" r="6" fill="#7FD3F7" opacity="0.5"/>
+      <circle cx="200" cy="939" r="6" fill="#34D399"/><circle cx="220" cy="939" r="6" fill="#7FD3F7" opacity="0.5"/>
+      <circle cx="200" cy="1017" r="6" fill="#34D399"/><circle cx="220" cy="1017" r="6" fill="#7FD3F7" opacity="0.5"/>
+    </g>
+    <g stroke="#4E86AC" stroke-width="3">
+      <path d="M300,458 V484 M320,458 V484 M340,458 V484 M360,458 V484"/>
+      <path d="M300,536 V562 M320,536 V562 M340,536 V562 M360,536 V562"/>
+      <path d="M300,614 V640 M320,614 V640 M340,614 V640 M360,614 V640"/>
+      <path d="M300,692 V718 M320,692 V718 M340,692 V718 M360,692 V718"/>
+      <path d="M300,770 V796 M320,770 V796 M340,770 V796 M360,770 V796"/>
+      <path d="M300,848 V874 M320,848 V874 M340,848 V874 M360,848 V874"/>
+      <path d="M300,926 V952 M320,926 V952 M340,926 V952 M360,926 V952"/>
+      <path d="M300,1004 V1030 M320,1004 V1030 M340,1004 V1030 M360,1004 V1030"/>
+    </g>
+  </g>
+
+  <!-- 尺寸标注 -->
+  <g stroke="#7FD3F7" stroke-width="1.6">
+    <line x1="126" y1="404" x2="126" y2="1080"/>
+    <path d="M126,404 l-5,12 h10 Z" fill="#7FD3F7" stroke="none"/>
+    <path d="M126,1080 l-5,-12 h10 Z" fill="#7FD3F7" stroke="none"/>
+    <line x1="118" y1="404" x2="150" y2="404" opacity="0.7"/>
+    <line x1="118" y1="1080" x2="150" y2="1080" opacity="0.7"/>
+  </g>
+  <text x="112" y="750" transform="rotate(-90 112 750)" text-anchor="middle" font-family="monospace" font-size="20" letter-spacing="3" fill="#9ECDE8">42U</text>
+
+  <!-- 引出标注 -->
+  <g font-family="monospace" font-size="21" fill="#DCEFFF">
+    <g>
+      <circle cx="450" cy="471" r="5" fill="#7FD3F7"/>
+      <path d="M450,471 H556 V452 H636" fill="none" stroke="#7FD3F7" stroke-width="1.6"/>
+      <text x="644" y="459">systemd · 服务常驻</text>
+    </g>
+    <g>
+      <circle cx="450" cy="627" r="5" fill="#7FD3F7"/>
+      <path d="M450,627 H596 V608 H676" fill="none" stroke="#7FD3F7" stroke-width="1.6"/>
+      <text x="684" y="615">nginx · 反向代理</text>
+    </g>
+    <g>
+      <circle cx="450" cy="783" r="5" fill="#7FD3F7"/>
+      <path d="M450,783 H566 V764 H646" fill="none" stroke="#7FD3F7" stroke-width="1.6"/>
+      <text x="654" y="771">docker · 容器编排</text>
+    </g>
+    <g>
+      <circle cx="450" cy="1017" r="5" fill="#7FD3F7"/>
+      <path d="M450,1017 H606 V998 H686" fill="none" stroke="#7FD3F7" stroke-width="1.6"/>
+      <text x="694" y="1005">postgres · 数据落盘</text>
+    </g>
+    <g>
+      <path d="M370,705 h96" stroke="#FBBF24" stroke-width="1.6" stroke-dasharray="4 4"/>
+      <text x="474" y="712" fill="#FBBF24">← 备份失败过一次</text>
+    </g>
+  </g>
+
+  <!-- 可用性曲线 -->
+  <g>
+    <rect x="556" y="820" width="348" height="150" fill="#08243B" fill-opacity="0.75" stroke="#7FD3F7" stroke-width="1.6"/>
+    <text x="572" y="850" font-family="monospace" font-size="18" letter-spacing="2" fill="#9ECDE8">UPTIME 30D</text>
+    <text x="888" y="850" text-anchor="end" font-family="monospace" font-size="20" fill="#34D399">99.98%</text>
+    <polyline points="572,950 604,940 636,946 668,920 700,930 732,904 764,916 796,892 828,900 860,878 890,886"
+            fill="none" stroke="#34D399" stroke-width="2.6" stroke-linejoin="round"/>
+    <line x1="572" y1="958" x2="890" y2="958" stroke="#4E86AC" stroke-width="1"/>
+  </g>
+
+  <!-- 图纸说明（章序） -->
+  <text x="130" y="1136" font-family="monospace" font-size="18" letter-spacing="5" fill="#7FD3F7">NOTES · 章序</text>
+  <line x1="130" y1="1152" x2="520" y2="1152" stroke="#7FD3F7" stroke-width="1.4"/>
+  <g font-family="sans-serif" font-size="27" fill="#E8F3FF">
+    <text x="130" y="1196"><tspan font-family="monospace" font-size="20" fill="#9ECDE8">1  </tspan>服务器与系统</text>
+    <text x="130" y="1240"><tspan font-family="monospace" font-size="20" fill="#9ECDE8">2  </tspan>网络与代理</text>
+    <text x="356" y="1196"><tspan font-family="monospace" font-size="20" fill="#9ECDE8">4  </tspan>容器化部署</text>
+    <text x="356" y="1240"><tspan font-family="monospace" font-size="20" fill="#9ECDE8">5  </tspan>存储与数据库</text>
+    <text x="130" y="1284"><tspan font-family="monospace" font-size="20" fill="#9ECDE8">3  </tspan>网关与站点</text>
+  </g>
+
+  <!-- 图签栏 -->
+  <g>
+    <rect x="580" y="1172" width="324" height="152" fill="none" stroke="#7FD3F7" stroke-width="2"/>
+    <line x1="580" y1="1210" x2="904" y2="1210" stroke="#7FD3F7" stroke-width="1.2"/>
+    <line x1="580" y1="1248" x2="904" y2="1248" stroke="#7FD3F7" stroke-width="1.2"/>
+    <line x1="580" y1="1286" x2="904" y2="1286" stroke="#7FD3F7" stroke-width="1.2"/>
+    <line x1="742" y1="1172" x2="742" y2="1324" stroke="#7FD3F7" stroke-width="1.2"/>
+    <g font-family="monospace" font-size="19" fill="#DCEFFF">
+      <text x="594" y="1200" fill="#7FD3F7">图号</text><text x="756" y="1200">DWG-04</text>
+      <text x="594" y="1238" fill="#7FD3F7">章节</text><text x="756" y="1238">5 章</text>
+      <text x="594" y="1276" fill="#7FD3F7">篇数</text><text x="756" y="1276">27 篇</text>
+      <text x="594" y="1314" fill="#7FD3F7">更新</text><text x="756" y="1314">2026-09</text>
+    </g>
+  </g>
+
+  <text x="130" y="1352" font-family="monospace" font-size="18" letter-spacing="2" fill="#6FA8C8">比例 1:100 · 单位 mm · Zata 制图</text>
+  <text x="904" y="1352" text-anchor="end" font-family="monospace" font-size="18" letter-spacing="2" fill="#6FA8C8">zata.cc</text>
+</svg>

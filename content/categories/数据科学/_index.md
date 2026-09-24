@@ -5,4 +5,8 @@ slug: "数据科学"
 style:
     background: "#238377"
     color: "#fff"
+book:
+    tagline: "数据与训练接口"
+    accent: "#0F766E"
+    accent2: "#5EEAD4"
 ---
