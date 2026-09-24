@@ -13,6 +13,8 @@
 :root {
     --brand-blue: #3b82f6;
     --brand-blue-soft: rgba(59, 130, 246, 0.1);
+    /* --brand-blue 在白底上只有 3.7:1，正文尺寸的 hover 文字要用深一档的 */
+    --brand-blue-deep: #1d4ed8;
     --site-muted: var(--body-text-color);
     --card-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 8px 24px -12px rgba(16, 24, 40, 0.12);
 }
@@ -20,6 +22,7 @@
 [data-scheme="dark"] {
     --brand-blue: #60a5fa;
     --brand-blue-soft: rgba(96, 165, 250, 0.14);
+    --brand-blue-deep: #93c5fd;
     --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px -12px rgba(0, 0, 0, 0.5);
 }
 
@@ -1390,4 +1393,222 @@ main.main {
 .book-chain-label {
     font-size: 1.3rem;
     color: var(--card-text-color-tertiary);
+}
+
+/* =========================================================================
+   11. 书页（/categories/{书}/）—— 封面 + 整本目录树
+   -------------------------------------------------------------------------
+   模板 layouts/categories/term.html。改版前这页一条 CSS 都没有：目录就是
+   浏览器默认的 <h2> + <ol>，35 篇摊在灰底上，层级全靠字号。
+
+   这里沿用站点既有语言（白卡片、--card-border-radius、--shadow-l1），
+   核心的一条决定是「两列对齐」：章号徽章和篇序号同宽同位，所以每一章里
+   所有标题的左缘、以及章标题的左缘，是同一个 x —— 目录因此是一条竖线，
+   而不是每章重新起一列。序号的等宽数字（tabular-nums）让 01/02/10 不抖动。
+
+   对比度：卡片上的次级文字用 --card-text-color-secondary/-tertiary（配白底调的）；
+   徽章用主题的 --accent-color / --accent-color-text 这一对 —— 明暗两套都过 AA，
+   和 /map/ 体量带是同一套 token。
+   ========================================================================= */
+
+.book-hero {
+    margin-bottom: 26px;
+}
+
+.book-hero__kicker {
+    margin: 0 0 8px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    color: var(--brand-blue-deep);
+}
+
+.book-hero__title {
+    margin: 0 0 10px;
+    font-size: 2.8rem;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    color: var(--card-text-color-main);
+
+    @include respond(md) {
+        font-size: 3.4rem;
+    }
+}
+
+.book-hero__lede {
+    margin: 0 0 16px;
+    max-width: 60ch;
+    font-size: 1.5rem;
+    line-height: 1.7;
+    color: var(--site-muted);
+}
+
+.book-hero__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px 22px;
+    margin: 0;
+    padding-top: 14px;
+    border-top: 1px solid var(--card-separator-color);
+    font-size: 1.3rem;
+    color: var(--site-muted);
+
+    b {
+        margin-right: 4px;
+        font-size: 1.8rem;
+        font-variant-numeric: tabular-nums;
+        color: var(--card-text-color-main);
+    }
+}
+
+/* --- 目录卡片 ----------------------------------------------------------- */
+
+.book-toc {
+    background: var(--card-background);
+    border: 1px solid var(--card-separator-color);
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--shadow-l1);
+    /* 章之间用分隔线而不是间距，所以溢出的圆角自己裁 */
+    overflow: hidden;
+}
+
+.book-toc__chapters,
+.book-chapter__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.book-chapter {
+    padding: 16px 22px 15px;
+
+    & + & {
+        border-top: 1px solid var(--card-separator-color);
+    }
+}
+
+.book-chapter__head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 8px;
+}
+
+.book-chapter__num {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 11px;
+    background: var(--accent-color);
+    color: var(--accent-color-text);
+    font-family: var(--code-font-family);
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+.book-chapter__title {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--card-text-color-main);
+}
+
+.book-chapter__count {
+    flex: 0 0 auto;
+    font-size: 1.2rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--card-text-color-tertiary);
+}
+
+/* --- 篇 ---------------------------------------------------------------- */
+
+.book-chapter__list {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.book-entry__link {
+    /* 负外边距把 hover 底色顶到卡片内边距之外，正内边距再把它拉回来：
+       序号左缘因此和章号徽章左缘严格对齐（22 - 10 + 10 = 22）。 */
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin: 0 -10px;
+    padding: 8px 10px;
+    border-radius: 9px;
+    text-decoration: none;
+    transition: background-color 0.18s ease;
+
+    &:hover,
+    &:focus-visible {
+        background: var(--brand-blue-soft);
+        outline: none;
+    }
+}
+
+.book-entry__idx {
+    flex: 0 0 auto;
+    width: 40px;
+    text-align: center;
+    font-family: var(--code-font-family);
+    font-size: 1.2rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--card-text-color-tertiary);
+    transition: color 0.18s ease;
+}
+
+.book-entry__title {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-size: 1.5rem;
+    line-height: 1.5;
+    color: var(--card-text-color-main);
+}
+
+/* 焦点环画在行上，而不是让浏览器给链接套一圈默认 outline */
+.book-entry__link:focus-visible {
+    box-shadow: 0 0 0 2px var(--brand-blue);
+}
+
+.book-entry__link:hover .book-entry__idx,
+.book-entry__link:focus-visible .book-entry__idx,
+.book-entry__link:hover .book-entry__title,
+.book-entry__link:focus-visible .book-entry__title {
+    color: var(--brand-blue-deep);
+}
+
+@media (max-width: 767px) {
+    .book-chapter {
+        padding: 14px 16px 13px;
+    }
+
+    .book-chapter__num,
+    .book-entry__idx {
+        width: 34px;
+    }
+
+    .book-chapter__num {
+        height: 34px;
+        border-radius: 9px;
+        font-size: 1.35rem;
+    }
+
+    .book-chapter__head,
+    .book-entry__link {
+        gap: 11px;
+    }
+
+    .book-entry__link {
+        margin: 0 -6px;
+        padding: 8px 6px;
+    }
 }

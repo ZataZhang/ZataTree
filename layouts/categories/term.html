@@ -8,19 +8,16 @@
 
     章节集合从 content/post/{书}/ 的 NN- 目录名读（readDir 根是项目根）。
     篇顺序：weight 升序（小的在前）→ date 升序 → title。
+
+    2026-09-24 改版：目录原来没有任何 CSS（浏览器默认 <ol>）。现在卡片化，
+    章号徽章与篇序号共用同一列宽，"标题左缘成一条竖线"。样式见
+    assets/scss/partials/redesign.scss 第 11 节。
 */ -}}
 {{ define "main" }}
     {{- $book := .Title -}}
     {{- $pages := .Pages -}}
 
-    <header class="tag-index-head">
-        <h1 class="section-term">{{ $book }}</h1>
-        {{ with .Params.description }}
-            <p class="section-description">{{ . }}</p>
-        {{ end }}
-    </header>
-
-    {{- /* 章节集合与序号 */ -}}
+    {{- /* 章节集合与序号（序号取目录名里的 NN，不是遍历下标） */ -}}
     {{- $chapterSet := dict -}}
     {{- range readDir (printf "content/post/%s" $book) -}}
         {{- if .IsDir -}}
@@ -32,7 +29,11 @@
         {{- end -}}
     {{- end -}}
 
-    {{- /* 按章节分桶（用 Scratch，避免 dict 嵌套 slice 的类型问题） */ -}}
+    {{- /* 按章节分桶。
+       用模板局部 dict 而不是 $.Scratch：Page 的 Scratch 在同一页被重复渲染时
+       （hugo server 的增量重建、以及构建期的 RSS/别名等二次渲染）不会清空，
+       累加会把每篇算成 N 篇。局部变量每次渲染都从零开始。 */ -}}
+    {{- $buckets := dict -}}
     {{- range $pages -}}
         {{- $ch := "" -}}
         {{- range .GetTerms "tags" -}}
@@ -41,49 +42,80 @@
                 {{- $ch = $t -}}
             {{- end -}}
         {{- end -}}
-        {{- $.Scratch.Add $ch (slice .) -}}
+        {{- $list := index $buckets $ch -}}
+        {{- if not $list -}}{{- $list = slice -}}{{- end -}}
+        {{- $buckets = merge $buckets (dict $ch ($list | append .)) -}}
     {{- end -}}
 
     {{- $nCh := 0 -}}
     {{- range $ch, $ord := $chapterSet -}}
-        {{- with $.Scratch.Get $ch -}}{{ $nCh = add $nCh 1 }}{{ end -}}
+        {{- with index $buckets $ch -}}{{ $nCh = add $nCh 1 }}{{ end -}}
     {{- end -}}
 
-    <p class="section-count" style="margin-bottom: var(--card-separation);">共 {{ len $pages }} 篇{{ if $nCh }} · {{ $nCh }} 章{{ end }}</p>
+    <header class="book-hero">
+        <p class="book-hero__kicker">本书目录</p>
+        <h1 class="book-hero__title">{{ $book }}</h1>
+        {{ with .Params.description }}
+            <p class="book-hero__lede">{{ . }}</p>
+        {{ end }}
+        <p class="book-hero__meta">
+            <span class="book-hero__stat"><b>{{ len $pages }}</b> 篇</span>
+            {{- if $nCh }}<span class="book-hero__stat"><b>{{ $nCh }}</b> 章</span>{{ end }}
+        </p>
+    </header>
 
-    {{- if $nCh -}}
-        {{- /* 有章节：按章序遍历 */ -}}
-        {{- $ordered := slice -}}
-        {{- range $ch, $ord := $chapterSet -}}
-            {{- with $.Scratch.Get $ch -}}
-                {{- $ordered = $ordered | append (dict "name" $ch "ord" $ord "pages" .) -}}
+    <div class="book-toc">
+        {{- if $nCh -}}
+            {{- /* 有章节：按章序遍历 */ -}}
+            {{- $ordered := slice -}}
+            {{- range $ch, $ord := $chapterSet -}}
+                {{- with index $buckets $ch -}}
+                    {{- $ordered = $ordered | append (dict "name" $ch "ord" $ord "pages" .) -}}
+                {{- end -}}
             {{- end -}}
-        {{- end -}}
-        {{- $ordered = sort $ordered "ord" "asc" -}}
+            {{- $ordered = sort $ordered "ord" "asc" -}}
 
-        <div class="book-toc">
-            {{- range $i, $chap := $ordered -}}
-                <section class="book-chapter">
-                    <h2 class="book-chapter__title">第 {{ add $i 1 }} 章 · {{ $chap.name }}</h2>
-                    <ol class="book-chapter__list">
-                        {{- range sort $chap.pages (slice "Weight" "Date" "Title") (slice "asc" "asc" "asc") -}}
-                            {{- $w := .Params.weight | default 0 -}}
-                            <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
-                        {{- end -}}
-                    </ol>
-                </section>
-            {{- end -}}
-        </div>
-    {{- else -}}
-        {{- /* 平铺书 */ -}}
-        <div class="book-toc">
-            <ol class="book-chapter__list">
-                {{- range sort $pages (slice "Weight" "Date" "Title") (slice "asc" "asc" "asc") -}}
-                    <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+            <ol class="book-toc__chapters">
+                {{- range $chap := $ordered -}}
+                    {{- $items := sort $chap.pages (slice "Weight" "Date" "Title") (slice "asc" "asc" "asc") -}}
+                    <li class="book-chapter">
+                        <div class="book-chapter__head">
+                            <span class="book-chapter__num">{{ $chap.ord }}</span>
+                            <h2 class="book-chapter__title">{{ $chap.name }}</h2>
+                            <span class="book-chapter__count">{{ len $items }} 篇</span>
+                        </div>
+                        <ol class="book-chapter__list">
+                            {{- range $j, $p := $items -}}
+                                <li class="book-entry">
+                                    <a class="book-entry__link" href="{{ $p.RelPermalink }}">
+                                        <span class="book-entry__idx">{{ printf "%02d" (add $j 1) }}</span>
+                                        <span class="book-entry__title">{{ $p.Title }}</span>
+                                    </a>
+                                </li>
+                            {{- end -}}
+                        </ol>
+                    </li>
                 {{- end -}}
             </ol>
-        </div>
-    {{- end -}}
+        {{- else -}}
+            {{- /* 平铺书：没有章节层，整本一个列表 */ -}}
+            {{- $items := sort $pages (slice "Weight" "Date" "Title") (slice "asc" "asc" "asc") -}}
+            <ol class="book-toc__chapters">
+                <li class="book-chapter">
+                    <ol class="book-chapter__list">
+                        {{- range $j, $p := $items -}}
+                            <li class="book-entry">
+                                <a class="book-entry__link" href="{{ $p.RelPermalink }}">
+                                    <span class="book-entry__idx">{{ printf "%02d" (add $j 1) }}</span>
+                                    <span class="book-entry__title">{{ $p.Title }}</span>
+                                </a>
+                            </li>
+                        {{- end -}}
+                    </ol>
+                </li>
+            </ol>
+        {{- end -}}
+    </div>
 
     {{ partialCached "footer/footer" . }}
 {{ end }}
