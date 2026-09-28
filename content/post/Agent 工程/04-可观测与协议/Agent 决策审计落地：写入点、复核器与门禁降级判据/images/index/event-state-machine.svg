@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="470" viewBox="0 0 1200 470" role="img" aria-label="五个事件类型构成的决策状态机：plan_created 开头、检查成对、verdict_issued 结尾，裁决失效靠追加 decision_invalidated">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="470" viewBox="0 0 1200 470" role="img" aria-label="决策审计核心检查事件链示意：plan_created、check_started、check_finished 和 verdict_issued；检查尝试按 check_execution_id 配对，决策失效追加 decision_invalidated。固定门禁、人审与动作回执是附加事件">
   <rect width="1200" height="470" rx="24" fill="#0B1220"/>
-  <text x="60" y="68" fill="#F8FAFC" font-family="sans-serif" font-size="34" font-weight="700">五个事件类型：读取端校验的状态机</text>
+  <text x="60" y="68" fill="#F8FAFC" font-family="sans-serif" font-size="34" font-weight="700">核心检查事件链（简化状态机）</text>
   <g font-family="sans-serif">
     <rect x="70" y="150" width="240" height="100" rx="18" fill="#132B2A" stroke="#52C3B1" stroke-width="2"/>
     <text x="94" y="190" fill="#F8FAFC" font-size="21" font-weight="700">plan_created</text>
@@ -35,9 +35,9 @@
     <path d="M1050 250v66" stroke="#A78BFA" stroke-width="3" stroke-linecap="round" stroke-dasharray="8 8" fill="none"/>
     <path d="M1039 308l11 14 11-14" stroke="#A78BFA" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
 
-    <text x="70" y="356" fill="#F8FAFC" font-size="18" font-weight="700">读取端的校验规则</text>
-    <text x="70" y="388" fill="#9FB3D1" font-size="16">以 plan_created 开头，以 verdict_issued 结尾</text>
-    <text x="70" y="414" fill="#9FB3D1" font-size="16">每个 check_started 都有配对的 check_finished</text>
+    <text x="70" y="356" fill="#F8FAFC" font-size="18" font-weight="700">简化图省略的附加事件</text>
+    <text x="70" y="388" fill="#9FB3D1" font-size="16">gate_evaluated、human_review_requested / resolved</text>
+    <text x="70" y="414" fill="#9FB3D1" font-size="16">action_committed 记录执行回执，不等同于 verdict</text>
   </g>
-  <text x="60" y="446" fill="#9FB3D1" font-family="sans-serif" font-size="17">追加式存储没有「改」与「删」：裁决失效靠追加事件表达，读取端按这个状态机识别有效序列。</text>
+  <text x="60" y="446" fill="#9FB3D1" font-family="sans-serif" font-size="17">每次检查重试使用新的 check_execution_id；追加式存储不改写旧裁决，失效时追加 decision_invalidated。</text>
 </svg>
