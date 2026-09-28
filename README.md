@@ -147,7 +147,6 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [AI agent介绍：基于大模型的人工智能代理](content/post/Agent%20工程/01-入门与全景/AI%20agent介绍：基于大模型的人工智能代理/)
 - [Agent 工程实战开篇：从 Demo 到生产还有多远](content/post/Agent%20工程/01-入门与全景/Agent%20工程实战开篇：从%20Demo%20到生产还有多远/)
 - [Agent 生产工程全景手册：从 Runtime 到业务闭环](content/post/Agent%20工程/01-入门与全景/Agent生产工程全景手册/)
-- [MASS：多智能体系统的提示词与拓扑如何协同优化](content/post/Agent%20工程/01-入门与全景/MASS：多智能体系统的提示词与拓扑如何协同优化/)
 
 ### 02-框架与运行时
 
@@ -156,6 +155,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [AI Agent Loop 工程：原理、模式与实现](content/post/Agent%20工程/02-框架与运行时/AI%20Agent%20Loop%20工程：原理、模式与实现/)
 - [Agent 用户记忆与 Skill 沉淀：开源项目参考与架构设计](content/post/Agent%20工程/02-框架与运行时/Agent%20用户记忆与%20Skill%20沉淀：开源项目参考与架构设计/)
 - [Gliding Horse Agent OS 介绍：Rust 构建的工业级 AI Agent 操作系统](content/post/Agent%20工程/02-框架与运行时/Gliding%20Horse%20Agent%20OS%20介绍/)
+- [MASS：多智能体系统的提示词与拓扑如何协同优化](content/post/Agent%20工程/02-框架与运行时/MASS：多智能体系统的提示词与拓扑如何协同优化/)
 - [主流 Agent 框架对比与多框架统一接口设计](content/post/Agent%20工程/02-框架与运行时/主流%20Agent%20框架对比与多框架统一接口设计/)
 - [内置 Agent 放哪：一个 is_runnable 陷阱与三类事实源](content/post/Agent%20工程/02-框架与运行时/内置%20Agent%20放哪：一个%20is_runnable%20陷阱与三类事实源/)
 - [Agent 记忆模块深度技术文档](content/post/Agent%20工程/02-框架与运行时/记忆模块技术文档/)
