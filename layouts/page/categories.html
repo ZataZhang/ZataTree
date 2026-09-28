@@ -1,9 +1,8 @@
 {{- /*
     分类索引页（/categories/）——书架。
 
-    2026-09-24 改版：分类即书、tag 即章节。每本书（分类）下面列它的章节，
-    章节由「该书文章的 tags 与目录第二层名求交集」得出（章节在磁盘上就是
-    content/post/{书}/{NN-章节}/ 这一层），自由标签不再出现在书架页。
+    2026-09-28 改版：分类即书，章节由文章所在的数字编号目录确定；tag 只表示主题。
+    章节目录位于 content/post/{书}/{NN-章节}/，与书页目录、文章目录共用 book/tree.html。
 
     - 章节按磁盘目录的 NN- 序号排序（即 CHAPTERS 里定的章序），不是按文章数；
     - 数字是「该章的文章数」；平铺书（无章节层）显示「N 篇 · 平铺」；
@@ -46,42 +45,17 @@
             {{- $recent := .recent -}}
             {{- $book := .title -}}
 
-            {{- /* 该书在磁盘上的章节集合：content/post/{书}/ 下带 NN- 前缀的目录。
-                   readDir 的根是项目根（不是 content/），所以路径要带 content/ 前缀。
-                   顺便记下 NN- 序号，排序时按章序而不是字典序。 */ -}}
-            {{- $bookDir := printf "content/post/%s" $book -}}
-            {{- $chapterSet := dict -}}
-            {{- range readDir $bookDir -}}
-                {{- if .IsDir -}}
-                    {{- if .Name | findRE `^\d+-` -}}
-                        {{- $ch := .Name | replaceRE `^\d+-` "" -}}
-                        {{- $ord := .Name | replaceRE `^(\d+)-.*` "$1" -}}
-                        {{- $chapterSet = merge $chapterSet (dict $ch $ord) -}}
-                    {{- end -}}
-                {{- end -}}
-            {{- end -}}
-
-            {{- /* 文章 tag 与章节求交集，统计每章篇数；GetTerms 而不是 .Params.tags，
-                   后者是原始字符串，对不上 Hugo 归一化后的词条 */ -}}
-            {{- $acc := dict -}}
-            {{- range $term.Pages -}}
-                {{- range .GetTerms "tags" -}}
-                    {{- $ch := .Page.Title -}}
-                    {{- if index $chapterSet $ch -}}
-                        {{- $n := 1 -}}
-                        {{- with index $acc $ch -}}
-                            {{- $n = add .count 1 -}}
-                        {{- end -}}
-                        {{- $acc = merge $acc (dict $ch (dict "title" $ch "count" $n "href" .Page.RelPermalink "ord" (index $chapterSet $ch))) -}}
-                    {{- end -}}
-                {{- end -}}
-            {{- end -}}
-
+            {{- /* 章节统计沿用书籍目录的同一份树，避免书架和文章目录各自推断章节。 */ -}}
+            {{- $tree := partial "book/tree.html" (dict "Book" $book) -}}
             {{- $rows := slice -}}
-            {{- range $ch, $t := $acc -}}
-                {{- $rows = $rows | append $t -}}
+            {{- range $tree.chapters -}}
+                {{- $first := index .pages 0 -}}
+                {{- $rows = $rows | append (dict
+                    "title" .name
+                    "count" (len .pages)
+                    "href" $first.RelPermalink
+                    "ord" .ord) -}}
             {{- end -}}
-            {{- $rows = sort $rows "ord" "asc" -}}
 
             <section class="cat-index-item">
                 <header class="cat-index-item__head">

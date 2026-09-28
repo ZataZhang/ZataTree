@@ -1,0 +1,41 @@
+{{- /*
+    覆盖主题的 page/search.html。
+
+    唯一改动：打包入口从主题的 ts/search.tsx 换成项目的 ts/search-ext.ts
+    （后者 import 前者并替换掉 Search.render，给结果补一枚分类胶囊）。
+    JSXFactory 必须留着 —— 被打进包里的主题那份仍是 JSX，编译时要同一个工厂函数。
+    其余与主题一致。
+*/ -}}
+{{ define "body-class" }}template-search{{ end }}
+{{ define "head" }}
+    {{- with .OutputFormats.Get "json" -}} 
+        <link rel="preload" href="{{ .RelPermalink }}" as="fetch" crossorigin="anonymous">
+    {{- end -}}
+{{ end }}
+{{ define "main" }}
+<form action="{{ .RelPermalink }}" class="search-form"{{ with .OutputFormats.Get "json" -}} data-json="{{ .RelPermalink }}"{{- end }}>
+    <p>
+        <label>{{ T "search.title" }}</label>
+        <input name="keyword" placeholder="{{ T `search.placeholder` }}" />
+    </p>
+
+    <button title="{{ T `search.title` }}">
+        {{ partial "helper/icon" "search" }}
+    </button>
+</form>
+
+<div class="search-result">
+    <h3 class="search-result--title section-title"></h3>
+    <div class="search-result--list article-list--compact"></div>
+</div>
+
+<script>
+    window.searchResultTitleTemplate = "{{ T `search.resultTitle` }}"
+</script>
+
+{{- $opts := dict "minify" hugo.IsProduction "JSXFactory" "createElement" -}}
+{{- $searchScript := resources.Get "ts/search-ext.ts" | js.Build $opts -}}
+<script type="text/javascript" src="{{ $searchScript.RelPermalink }}" defer></script>
+
+{{ partialCached "footer/footer" . }}
+{{ end }}

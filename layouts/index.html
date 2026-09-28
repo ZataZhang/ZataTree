@@ -26,6 +26,13 @@
             <p class="section-head__sub">{{ .Site.Params.brand.latestSubtitle | default "记录技术的温度，分享成长的轨迹" }}</p>
         </div>
 
+        {{/* 搜索框的第二处渲染。右栏在 1280 以下整条隐藏，搜索框跟着不见，
+             而栏头右侧此时正好是全空的（分类小书换到了下一行）—— 显示哪一份由
+             CSS 的 .section-head__search 决定，任何时刻页面上只有一份可见。 */}}
+        <div class="section-head__search">
+            {{ partial "widget/search.html" (dict "Context" . "Params" dict) }}
+        </div>
+
         {{ if eq $pag.PageNumber 1 }}
             {{ partial "book-shelf.html" . }}
         {{ end }}

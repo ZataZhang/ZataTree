@@ -2,11 +2,11 @@
 title: AI agent介绍：基于大模型的人工智能代理
 description: ""
 date: 2025-05-07T14:34:02+08:00
+weight: 10
 image: images/index/index.png
 categories:
     - Agent 工程
 tags:
-    - 入门与全景
     - others
 ---
 

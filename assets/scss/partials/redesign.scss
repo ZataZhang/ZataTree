@@ -543,7 +543,8 @@ main.main {
     }
 }
 
-.mobile-toc-close { display: none; }
+.mobile-toc-close,
+.mobile-toc-trigger { display: none; }
 
 /* 竖屏平板与窄桌面：三栏会把文章挤到约 500px，段落与代码难读。
    沿用主题在手机宽度下隐藏右栏的方式，把目录留给宽屏。 */
@@ -1350,6 +1351,94 @@ main.main {
     }
 }
 
+/* ---- 搜索框的第二个落点：栏头右侧 ----------------------------------------
+   右栏在 1280 以下整条隐藏（主题的 lg 断点，加上第 5 节为窄桌面补的那条），
+   挂在右栏里的搜索框跟着不见，手机上更是完全没有搜索入口。
+   而 1439 以下「分类小书」换到了下一行，栏头右侧正好空着 —— 就是那片空档。
+   模板里两份 DOM（layouts/index.html 的 .section-head__search 与右栏部件），
+   靠这里保证任何时刻只有一份可见，⌘K 再按可见的那份聚焦。 */
+.section-head__search {
+    display: none;
+}
+
+@media (max-width: 1279px) {
+    .section-head__search {
+        display: block;
+        /* 栏头是 icon + text(flex:1) + 这里，text 会自己让出右侧空间，
+           所以不用再写 margin-left:auto。360px 是 ⌘K 提示不挤、
+           标题不被压到两行的一个平衡点；放不下就整块换行（栏头 wrap）。 */
+        flex: 0 1 360px;
+        min-width: 0;
+    }
+}
+
+@media (max-width: 767px) {
+    /* 手机上标题和搜索框排不进同一行，让它独占一行，⌘K 提示对触屏没有意义 */
+    .section-head__search {
+        flex: 1 1 100%;
+
+        .search-form__kbd {
+            display: none;
+        }
+    }
+}
+
+/* --- 搜索结果条目的分类胶囊 ------------------------------------------------
+   数据来自 layouts/page/search.json（补了 category / categoryColor），
+   渲染见 assets/ts/search-ext.ts。
+   主题给 .article-category a 的是文章卡片那档尺寸（8/16 内边距、1.4rem 字），
+   放进搜索结果这种一行高的小卡会把整行撑起来，所以收到标签云同一档。
+   颜色不用统一的 --accent-color，而是读那本书自己的强调色：
+   配方与 assets/scss/custom.scss 第 2 节相同 —— 往黑里压 30% 再配白字，
+   最浅的一本（#238377）也有 4.78:1，过 AA。 */
+
+/* 先修一处既有缺陷（加胶囊前就有，实测隐藏全部胶囊仍 417 > 390）：
+   条目是 .article-details + 50px 缩略图的一行 flex，主题没给 details 设 min-width:0，
+   预览里那些不可断的长 token（deepagents==0.7.15、URL、连续符号）就把 min-content
+   顶宽，缩略图被整行挤到视口外，手机上搜索页出现横向滚动。
+   min-width:0 允许收缩 + anywhere 让长串真的能断开，两个都要。 */
+.article-list--compact {
+    .article-details {
+        min-width: 0;
+    }
+
+    .article-title,
+    .article-preview {
+        overflow-wrap: anywhere;
+    }
+}
+
+.search-result--list .article-category {
+    gap: 6px;
+
+    a {
+        padding: 2px 9px;
+        border-radius: 7px;
+        font-size: 1.15rem;
+        font-weight: 600;
+        background-color: var(--accent-color);
+        color: var(--accent-color-text);
+    }
+
+    /* 有分类色才走自定义配方。没写颜色的分类留给上面那条主题配色。 */
+    a[style] {
+        --chip: color-mix(in srgb, var(--chip-raw) 70%, #000);
+        background-color: var(--chip);
+        /* 白字是写死的，因为底色由我们算，不跟 --accent-color-text 走。
+           实测 7.80:1。 */
+        color: #f8fafc;
+    }
+}
+
+/* 暗色方案下卡片底是 #424242，上面那颗压暗的胶囊和它只有 1.29:1，
+   边界几乎看不见。这里反过来往白里提亮、文字改用深色 —— 和主题暗色下
+   「浅底 + 深色字」的胶囊是同一个方向。实测：胶囊 vs 卡片 4.34:1，
+   文字 vs 胶囊 7.71:1。 */
+[data-scheme="dark"] .search-result--list .article-category a[style] {
+    --chip: color-mix(in srgb, var(--chip-raw) 62%, #fff);
+    color: #0b1220;
+}
+
 /* =========================================================================
    8. 响应式
    ========================================================================= */
@@ -1725,7 +1814,8 @@ main.main {
     margin: var(--card-separation) 0;
 }
 
-.book-chain-next {
+.book-chain-next,
+.book-chain-prev {
     display: block;
     padding: 16px 20px;
     background: var(--card-background);
@@ -1753,6 +1843,15 @@ main.main {
 }
 
 .book-chain-nav--end {
+    text-align: center;
+    padding: 24px;
+    color: var(--card-text-color-tertiary);
+
+    p { margin-bottom: 8px; }
+    a { color: var(--accent-color); }
+}
+
+.book-chain-end {
     text-align: center;
     padding: 24px;
     color: var(--card-text-color-tertiary);

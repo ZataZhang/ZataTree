@@ -2,12 +2,12 @@
 title: "Agent 生产工程全景手册：从 Runtime 到业务闭环"
 description: "深入讲解生产级 Agent 的 Runtime、工作流、评测、模型工程、安全与平台运营，提供架构图、状态模型、质量闭环和验收方法。"
 date: 2026-09-23T16:48:35+08:00
+weight: 30
 slug: "agent-production-engineering-handbook"
 image: images/index/index.svg
 categories:
     - Agent 工程
 tags:
-    - 入门与全景
     - Agent 工程实战
 draft: false
 ---

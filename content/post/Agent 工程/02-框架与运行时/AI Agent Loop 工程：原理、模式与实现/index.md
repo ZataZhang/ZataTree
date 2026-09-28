@@ -2,11 +2,11 @@
 title: "AI Agent Loop 工程：原理、模式与实现"
 description: "深入解析 AI Agent 中 Loop(循环)机制的工程化设计:从 ReAct、Reflection、Reflexion、Plan-and-Execute 到 CAMEL,系统讲解循环的组成要素、终止条件、记忆机制、状态管理,以及如何基于 LangGraph 落地生产级 Agent Loop。"
 date: 2026-06-26T15:40:07+08:00
+weight: 30
 image: images/index/index.svg
 categories:
     - Agent 工程
 tags:
-    - 框架与运行时
     - Agent Orchestration
     - LangChain
     - LangGraph

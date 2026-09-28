@@ -2,12 +2,12 @@
 title: "E2B 迁到阿里云云沙箱：能跑通，但别急着上生产"
 description: "把已有 E2B 应用搬到阿里云函数计算云沙箱的完整记录：三个环境变量就能跑通，但 Team / API Key / RAM 权限三层鉴权的边界、四档兼容清单、五个静默失效的接口、base 与 code-interpreter-v1 的默认值差异、browser / All-In-One 模板的 CDP 与鉴权细节、Snapshot 的命名与超时规则、六类配额约束，才是决定能不能上生产的东西。"
 date: 2026-09-21T19:00:00+08:00
+weight: 30
 slug: "E2B 迁到阿里云云沙箱：能跑通，但别急着上生产"
 image: images/index/index.svg
 categories:
     - Agent 工程
 tags:
-    - 沙箱与执行环境
     - Agent Orchestration
     - Sandbox
     - E2B

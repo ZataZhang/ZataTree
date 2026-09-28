@@ -2,12 +2,12 @@
 title: Agent Tracing 基础：Trace、Span 与 OpenTelemetry 埋点
 description: "用一次『慢』的 Agent Run 讲清 Trace、Span、父子关系、属性与事件的分工，Traces/Metrics/Logs 三根柱子各自回答什么问题，以及 OpenTelemetry 的埋点 API、上下文传递在 Agent 场景下会断在哪里（含 2026-03 Span Event API 弃用的影响）。"
 date: 2026-09-22T09:51:00+08:00
+weight: 50
 slug: "Agent-Tracing-基础：Trace-Span-与-OpenTelemetry-埋点"
 image: images/index/index.svg
 categories:
     - Agent 工程
 tags:
-    - 可观测与协议
     - Agent 工程实战
     - Agent Tracing
     - 可观测性

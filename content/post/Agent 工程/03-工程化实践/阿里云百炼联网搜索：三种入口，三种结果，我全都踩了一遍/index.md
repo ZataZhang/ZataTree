@@ -2,12 +2,12 @@
 title: "阿里云百炼联网搜索：三种入口，三种结果，我全都踩了一遍"
 description: "同一个百炼模型，联网搜索至少有三条入口：Chat Completions 的 enable_search、Responses API 的 web_search 工具、以及 MCP 广场的联网搜索 MCP。它们的能力、计费和踩坑完全不同。本文按我实测的顺序，把每条路的真实行为写清楚。"
 date: 2026-09-07T19:40:00+08:00
+weight: 80
 slug: "阿里云百炼联网搜索：三种入口，三种结果，我全都踩了一遍"
 image: images/index/index.svg
 categories:
     - Agent 工程
 tags:
-    - 工程化实践
     - Agent 工程实战
 draft: false
 ---

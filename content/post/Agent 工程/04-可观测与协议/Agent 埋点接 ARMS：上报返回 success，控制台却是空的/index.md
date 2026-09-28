@@ -2,12 +2,12 @@
 title: Agent 埋点接 ARMS：上报返回 success，控制台却是空的
 description: "把 Agent Run 的 span 树接进阿里云 ARMS 的完整过程：gen_ai 语义约定怎么填、为什么 200 success 也可能是假象、地域和入口这两个坑怎么踩出来的、以及对话里带附件时 span 该怎么记。"
 date: 2026-09-18T18:05:00+08:00
+weight: 40
 slug: "Agent-埋点接-ARMS：上报返回-success，控制台却是空的"
 image: images/index/index.svg
 categories:
     - Agent 工程
 tags:
-    - 可观测与协议
     - Agent 工程实战
     - Agent Tracing
     - 可观测性

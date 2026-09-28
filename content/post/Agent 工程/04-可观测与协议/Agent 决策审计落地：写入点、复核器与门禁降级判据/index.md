@@ -2,13 +2,13 @@
 title: "Agent 决策审计落地：写入点、复核器与门禁降级判据"
 description: "对照相邻工程的 Canonical Agent Run 事件管线与 Temporal、LangGraph、OPA、OpenTelemetry 等开源实践，拆清执行事实、审计裁决与 Trace 的边界，并补上事务写入、重试幂等、隐私控制、复核器、影子评估和门禁降级的统计判据。"
 date: 2026-09-24T14:15:00+08:00
+weight: 80
 lastmod: 2026-09-28T16:12:44+08:00
 slug: "agent-decision-audit-implementation"
 image: images/index/index.svg
 categories:
     - Agent 工程
 tags:
-    - 可观测与协议
     - Agent 工程实战
     - Agent Tracing
     - 可观测性

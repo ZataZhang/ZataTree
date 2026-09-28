@@ -2,12 +2,12 @@
 title: "${VAR} 是谁的环境变量：一条只写不读的凭据带走平台密钥"
 description: "langchain-mcp-adapters 会用后端进程自己的 os.environ 展开 stdio MCP 环境变量里的 ${VAR}。管理员可写、平台不可读的凭据字段因此成了密钥外带通道。记录这条链路的拼装方式、写入与装配两道防线，以及顺手推翻的两条关于子进程环境的断言。"
 date: 2026-09-24T14:30:00+08:00
+weight: 100
 slug: "mcp-stdio-env-expansion-secret-exfiltration"
 image: images/index/index.svg
 categories:
     - Agent 工程
 tags:
-    - 工程化实践
     - Agent 工程实战
     - MCP
     - Agent Security

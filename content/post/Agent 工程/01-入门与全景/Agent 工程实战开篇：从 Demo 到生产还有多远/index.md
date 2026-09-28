@@ -2,12 +2,12 @@
 title: "Agent 工程实战开篇：从 Demo 到生产还有多远"
 description: "为什么同样的 Agent 代码在笔记本上跑得通，到线上就崩——梳理把 AI Agent 从 Demo 变成产品过程中最常见的工程陷阱与解决思路"
 date: 2026-07-23T10:31:54+08:00
+weight: 20
 slug: "Agent 工程实战开篇：从 Demo 到生产还有多远"
 image: images/index/index.svg
 categories:
     - Agent 工程
 tags:
-    - 入门与全景
     - Agent 工程实战
 draft: false
 ---

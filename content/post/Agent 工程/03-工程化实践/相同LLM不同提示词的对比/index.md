@@ -2,12 +2,12 @@
 title: 相同LLM不同提示词的对比
 description: ""
 date: 2025-03-07T16:10:38+08:00
+weight: 10
 image: images/index/index.png
 # image: images/index/index.png
 categories:
     - Agent 工程
 tags:
-    - 工程化实践
     - others
 ---
 

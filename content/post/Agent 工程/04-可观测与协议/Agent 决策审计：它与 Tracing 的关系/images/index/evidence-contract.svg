@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="500" viewBox="0 0 1200 500" role="img" aria-label="决策审计记录如何引用输入、检查结果与证据产物">
+<rect width="1200" height="500" fill="#0b1220"/>
+<text x="40" y="48" font-family="sans-serif" font-size="30" font-weight="700" fill="#f8fafc">记录保存事实，证据按引用关联</text>
+<g font-family="sans-serif">
+  <rect x="40" y="88" width="300" height="260" rx="16" fill="#17263d" stroke="#5b87bf" stroke-width="2"/>
+  <text x="66" y="124" font-size="22" font-weight="700" fill="#f8fafc">决策输入</text>
+  <text x="66" y="165" font-size="18" fill="#b9c9df">source_revision</text>
+  <text x="66" y="194" font-size="16" fill="#9fb3d1">改了哪些文件、配置与依赖</text>
+  <text x="66" y="235" font-size="18" fill="#b9c9df">risk_facts</text>
+  <text x="66" y="264" font-size="16" fill="#9fb3d1">哪些风险由 diff 或需求支持</text>
+  <text x="66" y="305" font-size="18" fill="#b9c9df">policy_version</text>
+  <text x="66" y="332" font-size="16" fill="#9fb3d1">本次评估采用哪套规则</text>
+
+  <rect x="450" y="88" width="300" height="260" rx="16" fill="#211d3a" stroke="#8b75d7" stroke-width="2"/>
+  <text x="476" y="124" font-size="22" font-weight="700" fill="#f8fafc">决策事件</text>
+  <text x="476" y="165" font-size="18" fill="#c9c2eb">plan_created</text>
+  <text x="476" y="194" font-size="16" fill="#b9c9df">选择项、跳过项与理由</text>
+  <text x="476" y="235" font-size="18" fill="#c9c2eb">check_finished</text>
+  <text x="476" y="264" font-size="16" fill="#b9c9df">结果由执行器写入</text>
+  <text x="476" y="305" font-size="18" fill="#c9c2eb">verdict_issued</text>
+  <text x="476" y="332" font-size="16" fill="#b9c9df">复核结论与最终权限动作分开</text>
+
+  <rect x="860" y="88" width="300" height="260" rx="16" fill="#173a36" stroke="#38b6a8" stroke-width="2"/>
+  <text x="886" y="124" font-size="22" font-weight="700" fill="#f8fafc">证据产物</text>
+  <text x="886" y="165" font-size="18" fill="#8ed9cc">evidence_ref</text>
+  <text x="886" y="194" font-size="16" fill="#b9c9df">报告、日志、截图或制品地址</text>
+  <text x="886" y="235" font-size="18" fill="#8ed9cc">digest + 环境描述</text>
+  <text x="886" y="264" font-size="16" fill="#b9c9df">标识具体字节与执行条件</text>
+  <text x="886" y="305" font-size="16" fill="#f2bd72">摘要证明字节相同，不证明结果真实</text>
+  <path d="M345 217h94m-10-8 10 8-10 8" fill="none" stroke="#7185a5" stroke-width="2"/>
+  <path d="M755 217h94m-10-8 10 8-10 8" fill="none" stroke="#7185a5" stroke-width="2"/>
+
+  <rect x="40" y="386" width="1120" height="66" rx="12" fill="#131d2d" stroke="#52647e" stroke-width="2"/>
+  <text x="64" y="414" font-size="18" font-weight="700" fill="#f8fafc">Trace / logs</text>
+  <text x="200" y="414" font-size="17" fill="#b9c9df">提供跨度、调用顺序、耗时和错误细节；用 trace_id 关联，不替代 revision、决策和证据契约。</text>
+  <text x="64" y="440" font-size="15" fill="#9fb3d1">图：自绘。审计事件保留稳定字段与产物引用，原始大文件按权限和保留期存放。</text>
+</g>
+</svg>

@@ -2,12 +2,12 @@
 title: "Agent Runtime 详解：从模型循环到可恢复的企业执行系统"
 description: "用一个业务任务拆解 Agent Runtime 的执行循环、状态、工具、权限、持久化、取消、恢复与可观测性，并说明它和模型、Business Agent、Adapter、Harness 的边界。"
 date: 2026-09-22T10:17:24+08:00
+weight: 70
 slug: agent-runtime-explained
 image: images/index/index.svg
 categories:
     - Agent 工程
 tags:
-    - 框架与运行时
     - Agent Orchestration
     - Agent 工程实战
 draft: false

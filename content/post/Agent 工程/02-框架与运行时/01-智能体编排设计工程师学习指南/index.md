@@ -2,11 +2,11 @@
 title: "智能体编排设计工程师学习指南"
 description: "深入解析智能体编排设计工程师这一新兴岗位的职责、技能要求与发展路径，从 LLM 框架到多智能体协作的完整学习地图。"
 date: 2025-06-17T11:00:00+08:00
+weight: 20
 image: images/index/index.png
 categories:
     - Agent 工程
 tags:
-    - 框架与运行时
     - Agent Orchestration
     - LangChain
     - LangGraph

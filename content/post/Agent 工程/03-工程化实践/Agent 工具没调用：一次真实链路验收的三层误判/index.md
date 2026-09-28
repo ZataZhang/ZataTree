@@ -2,12 +2,12 @@
 title: "Agent 工具没调用，先查模型到底能看见什么"
 description: "一次真实 Agent Run 验收从零工具调用、Playwright 挂起走到正确的两轮模型与两次工具调用。记录工具可见性、流式空尾片段和证据分层这三个排查点。"
 date: 2026-09-22T11:45:00+08:00
+weight: 90
 slug: "agent-tool-call-visibility-and-tracing-validation"
 image: images/index/index.svg
 categories:
     - Agent 工程
 tags:
-    - 工程化实践
     - Agent 工程实战
     - Playwright
     - E2E-Testing

@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-label="一次业务任务在代码版本变化前后的两轮决策、执行与裁决">
+<rect width="1200" height="520" fill="#0b1220"/>
+<text x="40" y="48" font-family="sans-serif" font-size="30" font-weight="700" fill="#f8fafc">一次业务任务可能经历多轮决策与执行</text>
+<rect x="40" y="68" width="1120" height="46" rx="10" fill="#17263d" stroke="#5b87bf" stroke-width="2"/>
+<text x="60" y="98" font-family="sans-serif" font-size="19" font-weight="700" fill="#f8fafc">run_id · run-17：处理数据库连接池配置变更</text>
+<g font-family="sans-serif" font-size="16">
+  <rect x="40" y="135" width="205" height="122" rx="12" fill="#211d3a" stroke="#8b75d7" stroke-width="2"/>
+  <text x="58" y="166" font-size="17" font-weight="700" fill="#f8fafc">decision_id · dec-42</text>
+  <text x="58" y="194" fill="#c9c2eb">revision A · policy v3</text>
+  <text x="58" y="222" fill="#b9c9df">计划：单测 + DB 冒烟</text>
+  <text x="58" y="244" fill="#b9c9df">跳过：浏览器 E2E</text>
+  <path d="M252 196h30m-8-8 8 8-8 8" fill="none" stroke="#7185a5" stroke-width="2"/>
+  <rect x="290" y="135" width="185" height="122" rx="12" fill="#17263d" stroke="#5b87bf" stroke-width="2"/>
+  <text x="307" y="166" font-size="19" font-weight="700" fill="#f8fafc">attempt-1</text>
+  <text x="307" y="196" fill="#b9c9df">单测：passed</text>
+  <text x="307" y="224" fill="#f2bd72">DB 冒烟：unavailable</text>
+  <text x="307" y="246" fill="#b9c9df">缺少预发凭据</text>
+  <path d="M482 196h30m-8-8 8 8-8 8" fill="none" stroke="#7185a5" stroke-width="2"/>
+  <rect x="520" y="135" width="170" height="122" rx="12" fill="#17263d" stroke="#52647e" stroke-width="2"/>
+  <text x="538" y="166" font-size="19" font-weight="700" fill="#f8fafc">trace · 00A</text>
+  <text x="538" y="196" fill="#b9c9df">planner → runner</text>
+  <text x="538" y="224" fill="#b9c9df">命令、耗时、错误</text>
+  <text x="538" y="246" fill="#9fb3d1">诊断细节</text>
+  <path d="M697 196h30m-8-8 8 8-8 8" fill="none" stroke="#7185a5" stroke-width="2"/>
+  <rect x="735" y="135" width="180" height="122" rx="12" fill="#3a2b1c" stroke="#e7a84e" stroke-width="2"/>
+  <text x="753" y="166" font-size="19" font-weight="700" fill="#f8fafc">verdict</text>
+  <text x="753" y="200" font-size="20" font-weight="700" fill="#f2bd72">升级人工</text>
+  <text x="753" y="230" fill="#b9c9df">证据不完整</text>
+  <text x="753" y="250" fill="#b9c9df">不能支持放行</text>
+  <path d="M930 196h30m-8-8 8 8-8 8" fill="none" stroke="#7185a5" stroke-width="2"/>
+  <rect x="968" y="135" width="192" height="122" rx="12" fill="#17263d" stroke="#52647e" stroke-width="2"/>
+  <text x="986" y="166" font-size="18" font-weight="700" fill="#f8fafc">代码更新</text>
+  <text x="986" y="196" fill="#b9c9df">revision A → B</text>
+  <text x="986" y="224" fill="#f2bd72">dec-42 失效</text>
+  <text x="986" y="246" fill="#9fb3d1">重新评估</text>
+
+  <path d="M1064 263v28H144v20m-8-8 8 8 8-8" fill="none" stroke="#7185a5" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="488" y="286" fill="#9fb3d1">同一 run_id 继续；代码版本变化后创建新决策</text>
+
+  <rect x="40" y="324" width="205" height="122" rx="12" fill="#211d3a" stroke="#8b75d7" stroke-width="2"/>
+  <text x="58" y="355" font-size="17" font-weight="700" fill="#f8fafc">decision_id · dec-43</text>
+  <text x="58" y="383" fill="#c9c2eb">revision B · policy v3</text>
+  <text x="58" y="411" fill="#b9c9df">新计划：含 DB 冒烟</text>
+  <text x="58" y="433" fill="#b9c9df">不继承旧裁决</text>
+  <path d="M252 385h30m-8-8 8 8-8 8" fill="none" stroke="#7185a5" stroke-width="2"/>
+  <rect x="290" y="324" width="185" height="122" rx="12" fill="#17263d" stroke="#5b87bf" stroke-width="2"/>
+  <text x="307" y="355" font-size="19" font-weight="700" fill="#f8fafc">attempt-2</text>
+  <text x="307" y="385" fill="#b9c9df">单测：passed</text>
+  <text x="307" y="413" fill="#8ed9cc">DB 冒烟：passed</text>
+  <text x="307" y="435" fill="#b9c9df">证据已归档</text>
+  <path d="M482 385h30m-8-8 8 8-8 8" fill="none" stroke="#7185a5" stroke-width="2"/>
+  <rect x="520" y="324" width="170" height="122" rx="12" fill="#17263d" stroke="#52647e" stroke-width="2"/>
+  <text x="538" y="355" font-size="19" font-weight="700" fill="#f8fafc">trace · 00B</text>
+  <text x="538" y="385" fill="#b9c9df">新一轮工具调用</text>
+  <text x="538" y="413" fill="#b9c9df">对应 revision B</text>
+  <text x="538" y="435" fill="#9fb3d1">与 00A 分开</text>
+  <path d="M697 385h30m-8-8 8 8-8 8" fill="none" stroke="#7185a5" stroke-width="2"/>
+  <rect x="735" y="324" width="180" height="122" rx="12" fill="#173a36" stroke="#38b6a8" stroke-width="2"/>
+  <text x="753" y="355" font-size="19" font-weight="700" fill="#f8fafc">verdict</text>
+  <text x="753" y="389" font-size="20" font-weight="700" fill="#8ed9cc">支持放行</text>
+  <text x="753" y="419" fill="#b9c9df">匹配 revision B</text>
+  <text x="753" y="439" fill="#b9c9df">条件全部满足</text>
+  <rect x="968" y="324" width="192" height="122" rx="12" fill="#17263d" stroke="#52647e" stroke-width="2"/>
+  <text x="986" y="355" font-size="18" font-weight="700" fill="#f8fafc">授权边界</text>
+  <text x="986" y="385" fill="#b9c9df">verifier 只给结论</text>
+  <text x="986" y="413" fill="#b9c9df">放行器检查策略</text>
+  <text x="986" y="435" fill="#9fb3d1">策略决定能否合并</text>
+</g>
+<text x="40" y="490" font-family="sans-serif" font-size="17" fill="#9fb3d1">图：自绘。标识之间的关系用于关联记录；trace_id 不能代替业务任务、决策版本或代码版本。</text>
+</svg>

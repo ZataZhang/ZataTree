@@ -2,11 +2,11 @@
 title: "Agent 用户记忆与 Skill 沉淀：开源项目参考与架构设计"
 description: "对比 Mem0、Letta、Zep、Graphiti、LangGraph、Agent Skills、OpenHands 与 Voyager，梳理可治理用户记忆和可演进 Skill 的架构设计。"
 date: 2026-08-31T18:00:00+08:00
+weight: 60
 image: images/index/index.svg
 categories:
     - Agent 工程
 tags:
-    - 框架与运行时
     - Agent Orchestration
     - Memory
     - Agent Skills

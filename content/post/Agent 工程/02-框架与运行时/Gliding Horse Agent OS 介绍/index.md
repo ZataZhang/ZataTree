@@ -2,11 +2,11 @@
 title: "Gliding Horse Agent OS 介绍：Rust 构建的工业级 AI Agent 操作系统"
 description: "全面介绍 doiito/gliding_horse —— 一个用 Rust 编写的工业级多智能体编排框架,涵盖 PDCA 7 级自适应调度、5W2H 本体、CPU 缓存启发的 4 层记忆、JSON-LD 数据总线、Oxigraph 统一知识图谱、自演化 Skill Graph、Center/Edge 联邦架构,以及 Software Engineering Team 与 Gliding Code 两个旗舰应用。"
 date: 2026-06-29T10:00:00+08:00
+weight: 40
 image: images/index/index.svg
 categories:
     - Agent 工程
 tags:
-    - 框架与运行时
     - Agent Orchestration
     - Rust
     - MultiAgent

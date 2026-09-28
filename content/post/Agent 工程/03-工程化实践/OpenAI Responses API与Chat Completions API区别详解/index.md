@@ -2,11 +2,11 @@
 title: OpenAI Responses API与Chat Completions API区别详解
 description: 对比 OpenAI Responses API 与 Chat Completions API 的核心差异、能力边界、迁移成本与选型建议
 date: 2026-09-07T18:05:39+08:00
+weight: 70
 image: images/index/index.svg
 categories:
     - Agent 工程
 tags:
-    - 工程化实践
     - OpenAI API
 draft: false
 ---

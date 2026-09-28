@@ -2,11 +2,11 @@
 title: "Agent 沙箱选型指南：隔离边界、产品对比与判断标准"
 description: "从 Docker、gVisor、Wasm 到 E2B、Daytona、Modal、Runloop、Deno Sandbox 与 AgentCore，讲清 Agent 沙箱的隔离边界、产品特点和选型方法。"
 date: 2026-09-02T18:00:00+08:00
+weight: 10
 image: images/index/index.svg
 categories:
     - Agent 工程
 tags:
-    - 沙箱与执行环境
     - Agent Orchestration
     - Sandbox
     - Agent Security

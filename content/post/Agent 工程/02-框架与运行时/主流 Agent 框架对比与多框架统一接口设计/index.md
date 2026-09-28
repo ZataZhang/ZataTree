@@ -2,11 +2,11 @@
 title: "主流 Agent 框架对比与多框架统一接口设计"
 description: "对比 Deep Agents、LangGraph、LangChain create_agent、OpenAI Agents SDK、PydanticAI、Google ADK 与 Microsoft Agent Framework，并给出多框架共存时的统一请求、响应、流式事件和会话设计。"
 date: 2026-08-31T16:00:00+08:00
+weight: 50
 image: images/index/index.svg
 categories:
     - Agent 工程
 tags:
-    - 框架与运行时
     - Agent Orchestration
     - LangGraph
     - Deep Agents

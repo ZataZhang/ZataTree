@@ -138,14 +138,19 @@
         window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    /* ⌘K / Ctrl+K 聚焦右栏搜索框（对应设计稿里的快捷键提示）*/
+    /* ⌘K / Ctrl+K 聚焦搜索框（对应设计稿里的快捷键提示）。
+       页面上可能同时存在两份 .search-form —— 右栏那份和栏头那份，
+       任一时刻只有一份不被 display:none 掉。所以在按下时才挑可见的那个：
+       对隐藏的输入框调 focus() 是静默失败，表现就是快捷键「没反应」。 */
     function initSearchShortcut() {
         try {
-            const input = document.querySelector('.search-form input[name="keyword"]');
-            if (!input) return;
+            const inputs = [...document.querySelectorAll('.search-form input[name="keyword"]')];
+            if (!inputs.length) return;
 
             document.addEventListener('keydown', (e) => {
                 if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+                    const input = inputs.find((el) => el.offsetParent !== null);
+                    if (!input) return;
                     e.preventDefault();
                     input.focus();
                     input.select();

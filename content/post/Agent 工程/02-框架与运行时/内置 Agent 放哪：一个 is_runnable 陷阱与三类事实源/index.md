@@ -2,12 +2,12 @@
 title: "内置 Agent 放哪：一个 is_runnable 陷阱与三类事实源"
 description: "从「内置 Agent 在目录里永远显示不可用」这个陷阱出发，一路讨论内置 Agent / Runtime / Skill / MCP 的定义放哪、权限怎么给，最后沉淀成 Agent 平台的三类事实源判断规则。"
 date: 2026-09-22T18:39:16+08:00
+weight: 80
 slug: builtin-agent-source-of-truth
 image: images/index/index.svg
 categories:
     - Agent 工程
 tags:
-    - 框架与运行时
     - Agent Orchestration
     - Agent 工程实战
 draft: false

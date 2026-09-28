@@ -2,11 +2,11 @@
 title: "Cua 框架详解：给任何 Agent 一台可操控的电脑"
 description: "深入解析 22.6k star 的开源计算机使用框架 trycua/cua：Rust 驱动、MCP 接入、Apple Silicon 本地虚拟化、云桌面舰队与评测基准，手把手把 Claude Code 接上真实桌面。"
 date: 2026-09-14T16:00:00+08:00
+weight: 20
 image: images/index/index.svg
 categories:
     - Agent 工程
 tags:
-    - 沙箱与执行环境
     - ComputerUse
     - MCP
     - 桌面自动化

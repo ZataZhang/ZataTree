@@ -2,11 +2,11 @@
 title: n8n
 description: ""
 date: 2025-12-23T23:36:46+08:00
+weight: 10
 image: images/index/index.png
 categories:
     - Agent 工程
-tags:
-    - 应用与集成
+
 ---
 
 

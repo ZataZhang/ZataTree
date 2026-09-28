@@ -13,9 +13,8 @@
       chapterOf  map[RelPermalink]章名，平铺书为空
       flat       本书没有章节层
 
-    章 = content/post/{书}/NN-章节名/ 的目录名；篇 = frontmatter 的 tags 里
-    带该章名的篇。用 frontmatter 原值而不是 term 页标题：term 标题会过 Hugo
-    的 titleCaseStyle，原值才是迁移时约定的那个真源。
+    章 = content/post/{书}/NN-章节名/ 的目录名；篇 = 文件位于该章节目录中的文章。
+    目录结构是章节归属的唯一来源，tags 仅用于主题检索。
 
     ⚠️ 排序只能一次一个键，反复排、最后排的才是主键，所以键的优先级要倒着写。
        早先这里写的是 sort $pages (slice "Weight" "Date" "Title") (slice "asc" ×3)，
@@ -32,24 +31,45 @@
 {{- end -}}
 
 {{- $chapters := slice -}}
+{{- $chapterByDir := dict -}}
 {{- range readDir (printf "content/post/%s" $book) -}}
     {{- if and .IsDir (.Name | findRE `^\d+-`) -}}
-        {{- $chapters = $chapters | append (dict
+        {{- $chapter := dict
+            "dir" .Name
             "name" (.Name | replaceRE `^\d+-` "")
-            "ord" (.Name | replaceRE `^(\d+)-.*` "$1")) -}}
+            "ord" (.Name | replaceRE `^(\d+)-.*` "$1") -}}
+        {{- $chapters = $chapters | append $chapter -}}
+        {{- $chapterByDir = merge $chapterByDir (dict .Name $chapter) -}}
     {{- end -}}
 {{- end -}}
 {{- $chapters = sort $chapters "ord" "asc" -}}
 
-{{- /* 先给每篇算出所属章；没有章的（平铺书、或 tag 没对上）排到最后 */ -}}
+{{- /* 从文章文件路径确定章节；没有章节目录的平铺文章排到最后。 */ -}}
 {{- $rows := slice -}}
+{{- $seenAgentWeights := dict -}}
 {{- range $p := $pages -}}
     {{- $ord := "99" -}}
-    {{- /* 内层 range 会把点号换成章，这里必须用 $p 取这篇的 tags */ -}}
-    {{- range $c := $chapters -}}
-        {{- if in ($p.Params.tags | default (slice)) $c.name -}}
-            {{- $ord = $c.ord -}}
+    {{- $chapterName := "" -}}
+    {{- $parts := split $p.File.Dir "/" -}}
+    {{- if ge (len $parts) 3 -}}
+        {{- $chapterDir := index $parts 2 -}}
+        {{- with index $chapterByDir $chapterDir -}}
+            {{- $ord = .ord -}}
+            {{- $chapterName = .name -}}
         {{- end -}}
+    {{- end -}}
+    {{- if eq $book "Agent 工程" -}}
+        {{- if not $chapterName -}}
+            {{- errorf "Agent 工程 article %q must live inside a numbered chapter directory" $p.File.Path -}}
+        {{- end -}}
+        {{- if not $p.Params.weight -}}
+            {{- errorf "Agent 工程 article %q must define a positive weight" $p.File.Path -}}
+        {{- end -}}
+        {{- $weightKey := printf "%s:%v" $chapterName $p.Params.weight -}}
+        {{- if index $seenAgentWeights $weightKey -}}
+            {{- errorf "Agent 工程 chapter %q has duplicate weight %v at %q" $chapterName $p.Params.weight $p.File.Path -}}
+        {{- end -}}
+        {{- $seenAgentWeights = merge $seenAgentWeights (dict $weightKey true) -}}
     {{- end -}}
     {{- $rows = $rows | append (dict
         "page" $p

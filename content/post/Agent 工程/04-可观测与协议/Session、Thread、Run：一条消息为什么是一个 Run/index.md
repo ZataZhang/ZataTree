@@ -2,12 +2,12 @@
 title: "Session、Thread、Run：一条消息为什么是一个 Run"
 description: "Agent 系统里同时存在 session_id、thread_id 和 run_id，看起来像三个重复的 ID。本文从一张表定义里的可空外键出发，讲清三层身份各自回答什么问题，以及为什么执行、快照、取消、幂等和计费的单位只能是 Run。"
 date: 2026-09-23T23:11:14+08:00
+weight: 70
 slug: "session-thread-run"
 image: images/index/index.svg
 categories:
     - Agent 工程
 tags:
-    - 可观测与协议
     - Agent 工程实战
     - Agent Orchestration
 draft: false

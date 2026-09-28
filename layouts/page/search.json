@@ -1,0 +1,49 @@
+{{- /*
+    覆盖主题的 page/search.json（搜索索引）。
+
+    唯一改动：每条结果多带两个字段，供搜索结果列表显示「这篇属于哪本书」——
+        category      分类（书）名
+        categoryColor 该书在 content/categories/{书}/_index.md 里定义的强调色
+                      （和文章卡片上那枚分类胶囊同一个来源，颜色才一致）
+
+    多出来的字段不参与搜索匹配（search.tsx 只读 title / content），
+    所以不会改变命中结果和排序。
+*/ -}}
+{{- $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections -}}
+{{- $notHidden := where .Site.RegularPages "Params.hidden" "!=" true -}}
+{{- $filtered := ($pages | intersect $notHidden) -}}
+
+{{- $result := slice -}}
+
+{{- range $filtered -}}
+    {{- $data := dict "title" .Title "date" .Date "permalink" .Permalink "content" (.Plain) -}}
+
+    {{- $terms := .GetTerms "categories" -}}
+    {{- if $terms -}}
+        {{- $cat := index $terms 0 -}}
+        {{- $catData := dict "category" (or $cat.LinkTitle $cat.Title) -}}
+        {{- with $cat.Params.style -}}
+            {{- with .background -}}
+                {{- $catData = merge $catData (dict "categoryColor" .) -}}
+            {{- end -}}
+        {{- end -}}
+        {{- $data = merge $data $catData -}}
+    {{- end -}}
+
+    {{- $image := partialCached "helper/image" (dict "Context" . "Type" "articleList") .RelPermalink "articleList" -}}
+    {{- if $image.exists -}}
+        {{- $imagePermalink := "" -}}
+        {{- if and $image.resource (default true .Page.Site.Params.imageProcessing.cover.enabled) -}}
+            {{- $thumbnail := $image.resource.Fill "120x120" -}}
+            {{- $imagePermalink = (absURL $thumbnail.Permalink) -}}
+        {{- else -}}
+            {{- $imagePermalink = $image.permalink -}}
+        {{- end -}}
+
+        {{- $data = merge $data (dict "image" (absURL $imagePermalink)) -}}
+    {{- end -}}
+
+    {{- $result = $result | append $data -}}
+{{- end -}}
+
+{{ jsonify $result }}

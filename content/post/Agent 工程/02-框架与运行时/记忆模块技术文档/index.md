@@ -2,11 +2,11 @@
 title: "Agent 记忆模块深度技术文档"
 description: "深入解析智能体记忆系统的架构设计、实现方案与最佳实践，从短期记忆到长期记忆的完整技术栈详解"
 date: 2025-06-17T11:00:00+08:00
+weight: 10
 image: images/index/index.png
 categories:
     - Agent 工程
 tags:
-    - 框架与运行时
     - Agent Orchestration
     - 记忆模块
     - Memory
