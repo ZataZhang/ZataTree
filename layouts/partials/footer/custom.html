@@ -54,6 +54,27 @@
 </style>
 
 <script>
+    /* 手机文章目录抽屉：复用右栏现有目录，链接跳转后自动关闭。 */
+    (() => {
+        const trigger = document.querySelector('[data-mobile-toc-trigger]');
+        const toc = document.querySelector('.right-sidebar .widget--toc');
+        if (!trigger || !toc) return;
+        const sidebar = trigger.closest('.right-sidebar');
+        const close = () => {
+            document.body.classList.remove('mobile-toc-open');
+            trigger.setAttribute('aria-expanded', 'false');
+        };
+        trigger.addEventListener('click', () => {
+            document.body.classList.add('mobile-toc-open');
+            trigger.setAttribute('aria-expanded', 'true');
+        });
+        sidebar.querySelector('[data-mobile-toc-close]')?.addEventListener('click', close);
+        sidebar.querySelectorAll('#TableOfContents a, .widget-book a').forEach(link => link.addEventListener('click', close));
+        document.addEventListener('keydown', event => { if (event.key === 'Escape') close(); });
+        window.matchMedia('(min-width: 768px)').addEventListener('change', close);
+    })();
+</script>
+<script>
     function initCodeMoreBox() {
         try {
             const codeBlocks = document.querySelectorAll(".highlight");

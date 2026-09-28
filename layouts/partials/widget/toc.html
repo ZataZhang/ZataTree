@@ -25,7 +25,10 @@
     {{- end -}}
 
     <section class="widget archives">
-        <h2 class="widget-title section-title">{{ T "article.tableOfContents" }}</h2>
+        <div class="mobile-toc-heading">
+            <h2 class="widget-title section-title">{{ T "article.tableOfContents" }}</h2>
+            <button class="mobile-toc-close" type="button" aria-label="关闭目录" data-mobile-toc-close>×</button>
+        </div>
 
         {{- if $tree -}}
             <div class="widget-tabs" role="tablist" aria-label="目录范围">
@@ -87,4 +90,8 @@
             </div>
         {{- end -}}
     </section>
+    <button class="mobile-toc-trigger" type="button" aria-label="打开文章目录" aria-expanded="false" data-mobile-toc-trigger>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 6h16M4 12h16M4 18h16" /></svg>
+        <span>目录</span>
+    </button>
 {{ end }}
