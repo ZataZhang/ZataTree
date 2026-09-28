@@ -140,10 +140,11 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 按 `content/post/` 的实际目录结构生成，括号内为该分类的文章数。**本段由 `python3 tools/readme_index.py` 自动生成，请勿手工编辑** —— 增删文章后重新运行该脚本即可。
 
 <!-- BEGIN:CONTENT-INDEX -->
-## Agent 工程 (36)
+## Agent 工程 (38)
 
 ### 01-入门与全景
 
+- [2026 年 AI Agent 现状：一次带出处的全景清点](content/post/Agent%20工程/01-入门与全景/2026年AI%20Agent现状：一次带出处的全景清点/)
 - [AI agent介绍：基于大模型的人工智能代理](content/post/Agent%20工程/01-入门与全景/AI%20agent介绍：基于大模型的人工智能代理/)
 - [Agent 工程实战开篇：从 Demo 到生产还有多远](content/post/Agent%20工程/01-入门与全景/Agent%20工程实战开篇：从%20Demo%20到生产还有多远/)
 - [Agent 生产工程全景手册：从 Runtime 到业务闭环](content/post/Agent%20工程/01-入门与全景/Agent生产工程全景手册/)
@@ -154,6 +155,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [Agent Runtime 详解：从模型循环到可恢复的企业执行系统](content/post/Agent%20工程/02-框架与运行时/20260922101724_Agent%20Runtime详解/)
 - [AI Agent Loop 工程：原理、模式与实现](content/post/Agent%20工程/02-框架与运行时/AI%20Agent%20Loop%20工程：原理、模式与实现/)
 - [Agent 用户记忆与 Skill 沉淀：开源项目参考与架构设计](content/post/Agent%20工程/02-框架与运行时/Agent%20用户记忆与%20Skill%20沉淀：开源项目参考与架构设计/)
+- [Agent 自进化开源盘点：什么能跑，什么在腐烂，什么被门控救回来](content/post/Agent%20工程/02-框架与运行时/Agent%20自进化开源盘点：什么能跑什么在腐烂/)
 - [Gliding Horse Agent OS 介绍：Rust 构建的工业级 AI Agent 操作系统](content/post/Agent%20工程/02-框架与运行时/Gliding%20Horse%20Agent%20OS%20介绍/)
 - [MASS：多智能体系统的提示词与拓扑如何协同优化](content/post/Agent%20工程/02-框架与运行时/MASS：多智能体系统的提示词与拓扑如何协同优化/)
 - [主流 Agent 框架对比与多框架统一接口设计](content/post/Agent%20工程/02-框架与运行时/主流%20Agent%20框架对比与多框架统一接口设计/)

@@ -2,7 +2,7 @@
 title: "MASS：多智能体系统的提示词与拓扑如何协同优化"
 description: "拆解 ICLR 2026 论文 Multi-Agent System Search（MASS）：为什么多智能体设计不能只堆 Agent 或只搜拓扑，三阶段如何联动，以及论文实验、成本和适用边界。"
 date: 2026-09-28T10:30:00+08:00
-weight: 40
+weight: 90
 slug: "mass-multi-agent-system-search"
 image: images/index/index.svg
 categories:
