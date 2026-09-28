@@ -16,6 +16,10 @@
             {{- if eq $p.RelPermalink $.RelPermalink -}}{{- $myIdx = $i -}}{{- end -}}
         {{- end -}}
 
+        {{- $prev := false -}}
+        {{- if gt $myIdx 0 -}}
+            {{- $prev = index $order (sub $myIdx 1) -}}
+        {{- end -}}
         {{- $next := false -}}
         {{- if and (ge $myIdx 0) (lt (add $myIdx 1) (len $order)) -}}
             {{- $next = index $order (add $myIdx 1) -}}
@@ -23,7 +27,11 @@
 
         {{- /* with 把点号绑到了 term 集合上，取本篇自己要用 $ */ -}}
         {{- $myChapter := index $tree.chapterOf $.RelPermalink | default "" -}}
+        {{- $prevChapter := "" -}}
         {{- $nextChapter := "" -}}
+        {{- with $prev -}}
+            {{- $prevChapter = index $tree.chapterOf .RelPermalink | default "" -}}
+        {{- end -}}
         {{- with $next -}}
             {{- $nextChapter = index $tree.chapterOf .RelPermalink | default "" -}}
         {{- end -}}
@@ -38,18 +46,24 @@
              data-is-last="{{ not $next }}"
         ></div>
 
-        {{- if $next -}}
         <nav class="book-chain-nav">
+            {{- with $prev -}}
+            <a href="{{ .RelPermalink }}" class="book-chain-prev">
+                <span class="book-chain-next__label">上一篇{{ if $prevChapter }} · {{ $prevChapter }}{{ end }}</span>
+                <span class="book-chain-next__title">{{ .Title }}</span>
+            </a>
+            {{- end -}}
+            {{- if $next -}}
             <a href="{{ $next.RelPermalink }}" class="book-chain-next">
                 <span class="book-chain-next__label">下一篇{{ if $nextChapter }} · {{ $nextChapter }}{{ end }}</span>
                 <span class="book-chain-next__title">{{ $next.Title }}</span>
             </a>
+            {{- else -}}
+            <div class="book-chain-end">
+                <p>已是《{{ $tree.book }}》最后一篇</p>
+                <a href="{{ $term.RelPermalink }}">回到《{{ $tree.book }}》目录</a>
+            </div>
+            {{- end -}}
         </nav>
-        {{- else -}}
-        <nav class="book-chain-nav book-chain-nav--end">
-            <p>已是《{{ $tree.book }}》最后一篇</p>
-            <a href="{{ $term.RelPermalink }}">回到《{{ $tree.book }}》目录</a>
-        </nav>
-        {{- end -}}
     {{- end -}}
 {{ end }}
