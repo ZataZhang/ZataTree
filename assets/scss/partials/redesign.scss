@@ -1289,9 +1289,33 @@ main.main {
 /* 侧栏在窄屏收起，横幅文字也跟着收。
    主题的 respond() 只做 min-width，这里要低于 md（768px），所以写原生媒体查询。 */
 @media (max-width: 767px) {
+    /* ---- 窄屏宽度收敛：正文不再横向溢出 ------------------------------------
+       主题的 .on-phone--column 在 md 以下把 .main-container 转成 column。
+       column 之后两件事同时坏掉：
+         1. .content-area 的 flex-grow:1 只作用在主轴（此时是高度），宽度没人给了；
+         2. .main-container 上的 align-items:flex-start 让交叉轴（宽度）不再拉伸，
+            于是 .content-area 改成按内容的 max-content 定宽 —— 一屏最宽的封面图、
+            代码块把整条链（content-row → main → 正文）顶到 1875px，
+            手机上看就是一张需要左右推的桌面版。
+       宽度在这里显式钉回容器宽度，column 模式下 align-items 就不再参与算宽。 */
+    .main-container > .content-area {
+        width: 100%;
+        min-width: 0;
+    }
+
+    /* .content-row 自己也是 column + align-items:flex-start（第 1 节为桌面三栏写的），
+       同一个坑要再下一道。 */
+    .content-row > main.main {
+        width: 100%;
+        min-width: 0;
+    }
+
     .brand-banner {
         min-height: 0;
         padding: 16px 10px 14px;
+        /* 桌面横幅与正文留 26px；窄屏横幅已经是 column 排布、下方紧接着文章卡片，
+           这 26px 是白给的。 */
+        margin-bottom: 14px;
         flex-direction: column;
         align-items: flex-start;
         gap: 12px;
@@ -1301,6 +1325,41 @@ main.main {
         }
     }
 
+    /* ---- 窄屏页头：侧栏身份区整块收起 --------------------------------------
+       头像 + 站名 + 副标题 + 引言竹影，是桌面那条通高侧栏的内容；手机上侧栏
+       横过来堆在正文之前，这一整块 427px（引言光 min-height 就 236px，那是拿来
+       填桌面栏底空白的）加上下面 90px 的横幅，正文要滚到 557px 才露头。
+       同一份身份横幅已经写着（Zata + 标语），所以这里整块收掉，正文提到首屏。
+
+       两处不能跟着丢：
+         - GitHub 图标。社交链接（.menu-social）在 #main-menu 之外，是侧栏的常驻行，
+           不在汉堡展开的那份菜单里；整块 display:none 就等于手机上没有 GitHub 入口。
+           → 提到右上角与汉堡并排，横向占位、纵向零成本。
+         - 汉堡本身。它 #toggle-menu 是 position:absolute，锚在最近的定位祖先上；
+           侧栏不设 relative 的话它会一直贴到视口右边缘。这里给侧栏一个定位上下文，
+           让它退回内容右缘（和下方卡片对齐）。点开后的菜单（首页/分类/标签/语言/暗色）
+           照常工作 —— 它是 #main-menu，靠 JS 内联样式展开，不受这里影响。 */
+    .left-sidebar {
+        position: relative;
+        min-height: 44px;
+        padding: 0;
+        margin-bottom: 4px;
+    }
+
+    .left-sidebar > header,
+    .left-sidebar .sidebar-quote {
+        display: none;
+    }
+
+    .left-sidebar .menu-social {
+        position: absolute;
+        top: 10px;
+        /* 52 = 汉堡按钮 44 的位 + 10 的间隙，两个点触区不挨着 */
+        right: 52px;
+        z-index: 2;
+        gap: 6px;
+    }
+
     .brand-banner__right {
         display: none;
     }
@@ -1308,6 +1367,15 @@ main.main {
     .brand-mark {
         font-size: 3.4rem;
     }
+}
+
+/* 正文里的宽元素：自己横滚，而不是把页面顶宽。
+   .table-wrapper / pre 主题已经给了 overflow-x:auto，mermaid 是本站后加的，
+   它渲染出的 <svg> 按 viewBox 的固有宽度出图，比正文宽就得有自己的滚动条 ——
+   手机上不给就是整页横滚，桌面上会把 main 顶宽挤到右栏。 */
+.article-content .mermaid {
+    max-width: 100%;
+    overflow-x: auto;
 }
 
 
