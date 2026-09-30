@@ -378,12 +378,62 @@
         update();
     }
 
+    /* ── 手机端表格等比缩放 ──────────────────────────────────────
+       宽表在窄屏上要么被压扁、要么横向滚动；滚动 + 钉首列实测首列要占
+       近六成屏宽，滚过去之后剩下的列基本看不见（2026-09-30 第一版弃用）。
+       最终方案：按「容器宽 / 表格自然宽」算 zoom 系数，整张表等比缩到
+       正好放下 —— 列结构完整，代价是字号跟着变小，细看时双指放大页面。
+
+       用 zoom 而不是 transform：zoom 参与布局，高度自动跟着缩，不用像
+       transform 那样手动补偿 wrapper 高度。Firefox 126+ 起支持，更老的
+       浏览器没有 zoom 就留在滚动兜底（custom.scss 第 8 节）。
+       篇尾续读会往文档里插新文章，接完同样要对新表格跑一遍。 */
+    /* 缩放逻辑只装配一次（监听器挂一遍），initTableFit() 只是触发重算：
+       篇尾续读每接一篇都会调它，重复 addEventListener 会越积越多。 */
+    const ztFitAllTables = (() => {
+        const mobile = window.matchMedia('(max-width: 768px)');
+
+        function fit(wrapper) {
+            const table = wrapper.querySelector('table');
+            if (!table) return;
+            table.style.zoom = '';
+            if (!mobile.matches) return;
+            /* 可用宽是 wrapper 的内容盒：clientWidth 含左右 padding（主题给
+               .table-wrapper 留了 20px），不算掉的话缩放系数会偏大 12%，
+               表格右缘会被裁掉一条 */
+            const cs = getComputedStyle(wrapper);
+            const avail = wrapper.clientWidth
+                - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+            const natural = table.scrollWidth;
+            if (natural <= avail) return;
+            table.style.zoom = avail / natural;
+            /* zoom 的亚像素取整可能还差一两像素，按实际渲染宽再收一次 */
+            const rendered = table.getBoundingClientRect().width;
+            if (rendered > avail + 1) table.style.zoom = (avail / natural) * (avail / rendered);
+        }
+
+        function fitAll() {
+            document.querySelectorAll('.article-content .table-wrapper').forEach(fit);
+        }
+
+        /* 字体加载完成会改变列宽（font-display: swap），量一次真实的 */
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitAll);
+        mobile.addEventListener('change', fitAll);
+        window.addEventListener('resize', fitAll);
+        return fitAll;
+    })();
+
+    function initTableFit() {
+        ztFitAllTables();
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
         initCodeMoreBox();
         initScrollTop();
         initSearchShortcut();
         initTocFolding();
         initTocTabs();
+        initTableFit();
         initBookChain();
     });
 
@@ -525,6 +575,7 @@
                     renderTail();
                     syncSidebar(doc, url, prefix);
                     initCodeMoreBox();
+                    initTableFit();
                     window.ztRenderMermaid && window.ztRenderMermaid();
                 } catch (error) {
                     console.error('book-chain error:', error);
