@@ -192,6 +192,77 @@ textarea {
 }
 
 
+/* 8. Mobile tables ---------------------------------------------------------
+   The theme wraps tables in .table-wrapper { overflow-x: auto }, but it also
+   pins the table at width: 100%, so the wrapper never actually overflows.
+   On narrow screens the table gets squeezed instead, and a repo name like
+   `ShengranHu/ADAS` wraps one character per line (手机截图 2026-09-30).
+   Three cascade-only fixes (theme is vendored, nothing touches it):
+   a) inline code in cells keeps its token shape — that alone forces the
+      wrapper to scroll instead of letting the column collapse;
+   b) wide tables (>= 5 columns, detected with :has) get a readable floor
+      width so the other columns stop fighting for space;
+   c) the first column is pinned with a solid background, so 仓库 names
+      stay visible while the rest of the table scrolls underneath. */
+.article-content {
+    td code,
+    th code {
+        white-space: nowrap;
+    }
+
+    .table-wrapper {
+        -webkit-overflow-scrolling: touch;
+    }
+
+    th:first-child,
+    td:first-child {
+        position: sticky;
+        left: 0;
+        z-index: 1;
+        background: var(--card-background);
+    }
+
+    /* 斑马行的偶数行有自己的底色（--tr-even-background-color），钉住的首列
+       必须跟上，否则横向滚动时底层内容会从半透明的单元格下透出来。
+       特异性 (0,3,2) 高于上面的 (0,2,1)，排序即可，无需 !important。 */
+    tr:nth-child(even) td:first-child {
+        background: var(--tr-even-background-color);
+    }
+
+    @media (max-width: 768px) {
+        table:has(td:nth-child(5)) {
+            min-width: 540px;
+        }
+
+        /* 会滚动的宽表直接去掉左 padding，让表格贴边，缝隙就不存在了。
+           同时弃用 collapse 边框模型：Chromium 下 collapse + sticky 会把
+           滚过的单元格文字画到钉住的单元格上（6 倍放大截图实测，
+           2026-09-30），separate + spacing 0 没有这个问题。 */
+        .table-wrapper:has(table td:nth-child(5)) {
+            padding-left: 0;
+
+            table {
+                border-collapse: separate;
+                border-spacing: 0;
+                /* 首列不再画自己的左边框，外框由表格补上 */
+                border-left: 1px solid var(--table-border-color);
+            }
+
+            /* separate 下相邻单元格各自画边框，竖线会变成 2px；
+               每列只保留右/下边框，首列缺失的左外框由 table 补上。 */
+            th,
+            td {
+                border-width: 0 1px 1px 0;
+            }
+
+            thead th {
+                border-top: 1px solid var(--table-border-color);
+            }
+        }
+    }
+}
+
+
 /* Page-specific stylesheets live beside this file. */
 @import "partials/map.scss";
 @import "partials/redesign.scss";

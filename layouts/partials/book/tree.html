@@ -50,7 +50,9 @@
 {{- range $p := $pages -}}
     {{- $ord := "99" -}}
     {{- $chapterName := "" -}}
-    {{- $parts := split $p.File.Dir "/" -}}
+    {{- /* Windows 上 Hugo 的 File.Dir 是反斜杠分隔（Linux CI 不受影响），
+           统一成正斜杠再切分，否则本地 Windows 构建会把所有文章判成无章节。 */ -}}
+    {{- $parts := split (replace $p.File.Dir "\\" "/") "/" -}}
     {{- if ge (len $parts) 3 -}}
         {{- $chapterDir := index $parts 2 -}}
         {{- with index $chapterByDir $chapterDir -}}
