@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="470" viewBox="0 0 960 470" role="img" aria-label="给 Agent 用的 CLI 的三层契约">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B1220"/>
+      <stop offset="1" stop-color="#121C33"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="960" height="470" rx="16" fill="url(#bg)"/>
+  <text x="48" y="58" font-family="sans-serif" font-size="24" font-weight="700" fill="#F8FAFC">给 Agent 用的 CLI：三层契约</text>
+  <text x="48" y="86" font-family="sans-serif" font-size="15" fill="#9FB3D1">缺一层，Agent 就在那一层摔跤</text>
+
+  <!-- Layer 1 -->
+  <rect x="48" y="112" width="864" height="92" rx="12" fill="#16233D" stroke="#5B87BF" stroke-width="1.5"/>
+  <rect x="48" y="112" width="10" height="92" rx="5" fill="#5B87BF"/>
+  <text x="82" y="150" font-family="sans-serif" font-size="19" font-weight="700" fill="#DCE7F7">发现层 · Discovery</text>
+  <text x="82" y="180" font-family="monospace" font-size="14" fill="#9FB3D1">--help  ·  稳定命令树  ·  运行时 schema  ·  随包 SKILL.md</text>
+  <text x="880" y="166" text-anchor="end" font-family="sans-serif" font-size="14" fill="#7FA6D9">我该用什么？</text>
+
+  <!-- Layer 2 -->
+  <rect x="48" y="220" width="864" height="92" rx="12" fill="#16233D" stroke="#8E7CC3" stroke-width="1.5"/>
+  <rect x="48" y="220" width="10" height="92" rx="5" fill="#8E7CC3"/>
+  <text x="82" y="258" font-family="sans-serif" font-size="19" font-weight="700" fill="#DCE7F7">执行层 · Execution</text>
+  <text x="82" y="288" font-family="monospace" font-size="14" fill="#9FB3D1">非交互默认  ·  幂等  ·  --dry-run  ·  语义退出码  ·  stdout/stderr 分离</text>
+  <text x="880" y="274" text-anchor="end" font-family="sans-serif" font-size="14" fill="#B3A4DE">我跑对了吗？</text>
+
+  <!-- Layer 3 -->
+  <rect x="48" y="328" width="864" height="92" rx="12" fill="#16233D" stroke="#3FB6A8" stroke-width="1.5"/>
+  <rect x="48" y="328" width="10" height="92" rx="5" fill="#3FB6A8"/>
+  <text x="82" y="366" font-family="sans-serif" font-size="19" font-weight="700" fill="#DCE7F7">解析层 · Parsing</text>
+  <text x="82" y="396" font-family="monospace" font-size="14" fill="#9FB3D1">--json  ·  稳定字段  ·  默认高信号  ·  分页 / 限量</text>
+  <text x="880" y="382" text-anchor="end" font-family="sans-serif" font-size="14" fill="#7FD6CA">结果能消费吗？</text>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="430" viewBox="0 0 960 430" role="img" aria-label="iar 逐条对账：执行层达标，解析层留白">
+  <rect x="0" y="0" width="960" height="430" rx="16" fill="#0B1220"/>
+  <text x="48" y="56" font-family="sans-serif" font-size="23" font-weight="700" fill="#F8FAFC">iar 逐条对账</text>
+  <text x="48" y="83" font-family="sans-serif" font-size="14" fill="#9FB3D1">执行层已经很「给 Agent 用」，解析层还停在「给人看」</text>
+
+  <!-- Left: execution done -->
+  <rect x="48" y="108" width="416" height="278" rx="12" fill="#12251F" stroke="#3FB6A8" stroke-width="1.4"/>
+  <text x="76" y="146" font-family="sans-serif" font-size="17" font-weight="700" fill="#7FD6CA">执行层 · 达标</text>
+  <g font-family="sans-serif" font-size="14" fill="#DCE7F7">
+    <text x="76" y="186">✓  非交互默认（--yes + isatty 守卫）</text>
+    <text x="76" y="220">✓  TTY-aware（面板 → 前缀文本）</text>
+    <text x="76" y="254">✓  --dry-run 覆盖写操作</text>
+    <text x="76" y="288">✓  输出有边界（日志尾部窗口）</text>
+    <text x="76" y="322">✓  随包发 operator SKILL.md</text>
+    <text x="76" y="356">✓  提交前安全校验（禁带凭据）</text>
+  </g>
+
+  <!-- Right: parsing gaps -->
+  <rect x="496" y="108" width="416" height="278" rx="12" fill="#2A1E14" stroke="#E0A458" stroke-width="1.4"/>
+  <text x="524" y="146" font-family="sans-serif" font-size="17" font-weight="700" fill="#F0B67A">解析层 · 欠账</text>
+  <g font-family="sans-serif" font-size="14" fill="#F3E3D3">
+    <text x="524" y="186">△  结构化输出：只有两处，旗标不统一</text>
+    <text x="524" y="220">△  字段口径不一致（--output vs --json）</text>
+    <text x="524" y="254">✕  语义退出码：几乎只有 0 / 1 / 2</text>
+    <text x="524" y="288">✕  无失败分类（找不到 / 权限 / 冲突）</text>
+    <text x="524" y="322">✕  无运行时 schema 自省入口</text>
+    <text x="524" y="356">✕  默认输出未做机器契约化</text>
+  </g>
+</svg>

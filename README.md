@@ -140,7 +140,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 按 `content/post/` 的实际目录结构生成，括号内为该分类的文章数。**本段由 `python3 tools/readme_index.py` 自动生成，请勿手工编辑** —— 增删文章后重新运行该脚本即可。
 
 <!-- BEGIN:CONTENT-INDEX -->
-## Agent 工程 (38)
+## Agent 工程 (39)
 
 ### 01-入门与全景
 
@@ -172,6 +172,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [数据库初始化与迁移：从创建那一刻就要钉死的三件事](content/post/Agent%20工程/03-工程化实践/数据库初始化与迁移：从创建那一刻就要钉死的三件事/)
 - [相同LLM不同提示词的对比](content/post/Agent%20工程/03-工程化实践/相同LLM不同提示词的对比/)
 - [给 Agent 接入 Web Search：四种做法，和一条我试过之后放弃的路](content/post/Agent%20工程/03-工程化实践/给%20Agent%20接入%20Web%20Search：四种做法，和一条我试过之后放弃的路/)
+- [给 Agent 用的 CLI 怎么写：一次逐条对账](content/post/Agent%20工程/03-工程化实践/给%20Agent%20用的%20CLI%20怎么写：一次逐条对账/)
 - [让用户选择指定 Skill：从社区实践到生产级 API 设计](content/post/Agent%20工程/03-工程化实践/让用户选择指定%20Skill：从社区实践到生产级%20API%20设计/)
 - [阿里云百炼联网搜索：三种入口，三种结果，我全都踩了一遍](content/post/Agent%20工程/03-工程化实践/阿里云百炼联网搜索：三种入口，三种结果，我全都踩了一遍/)
 
