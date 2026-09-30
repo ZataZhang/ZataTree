@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="430" viewBox="0 0 1200 430" role="img" aria-label="日志成熟度阶梯">
+  <defs>
+    <linearGradient id="lad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38b6a8"/><stop offset="100%" stop-color="#A78BFA"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="430" fill="#0b1220"/>
+  <text x="40" y="56" font-family="sans-serif" font-size="30" font-weight="700" fill="#f8fafc">从文本日志到可回放会话：五级阶梯</text>
+
+  <g font-family="sans-serif">
+    <rect x="40" y="332" width="200" height="62" rx="12" fill="#0e1730" stroke="#3b4a68" stroke-width="2"/>
+    <text x="60" y="360" font-size="20" font-weight="700" fill="#f8fafc">L0 · 文本日志</text>
+    <text x="60" y="384" font-size="15" fill="#9fb3d1">print / logging 到文件</text>
+
+    <rect x="270" y="266" width="200" height="62" rx="12" fill="#0e1730" stroke="#3b4a68" stroke-width="2"/>
+    <text x="290" y="294" font-size="20" font-weight="700" fill="#f8fafc">L1 · 结构化</text>
+    <text x="290" y="318" font-size="15" fill="#9fb3d1">JSON 行 + 级别 + 字段</text>
+
+    <rect x="500" y="200" width="200" height="62" rx="12" fill="#0e1730" stroke="#5b87bf" stroke-width="2"/>
+    <text x="520" y="228" font-size="20" font-weight="700" fill="#f8fafc">L2 · 可关联</text>
+    <text x="520" y="252" font-size="15" fill="#9fb3d1">run_id / trace_id 贯穿</text>
+
+    <rect x="730" y="134" width="200" height="62" rx="12" fill="#0e1730" stroke="#7C9CF5" stroke-width="2"/>
+    <text x="750" y="162" font-size="20" font-weight="700" fill="#f8fafc">L3 · 事件化</text>
+    <text x="750" y="186" font-size="15" fill="#9fb3d1">每步是事件点，非文本</text>
+
+    <rect x="960" y="68" width="200" height="62" rx="12" fill="#17263d" stroke="url(#lad)" stroke-width="2.5"/>
+    <text x="980" y="96" font-size="20" font-weight="700" fill="#f8fafc">L4 · 可回放</text>
+    <text x="980" y="120" font-size="15" fill="#cbd8ec">append-only + 不变量</text>
+  </g>
+
+  <g fill="none" stroke="url(#lad)" stroke-width="2.5" stroke-linecap="round">
+    <path d="M240 363 L270 363 L270 327"/>
+    <path d="M470 297 L500 297 L500 261"/>
+    <path d="M700 231 L730 231 L730 195"/>
+    <path d="M930 165 L960 165 L960 129"/>
+  </g>
+  <g fill="#A78BFA">
+    <path d="M270 327 l-6 -10 12 0 z"/>
+    <path d="M500 261 l-6 -10 12 0 z"/>
+    <path d="M730 195 l-6 -10 12 0 z"/>
+    <path d="M960 129 l-6 -10 12 0 z"/>
+  </g>
+
+  <text x="40" y="172" font-family="sans-serif" font-size="18" fill="#9fb3d1">每上一级，都不是「多打一行日志」，</text>
+  <text x="40" y="200" font-family="sans-serif" font-size="18" fill="#9fb3d1">而是换一个更稳定的「读者」：</text>
+  <text x="40" y="228" font-family="sans-serif" font-size="18" fill="#cbd8ec">人 → 机器 → 复核者 → 模型自己。</text>
+</svg>

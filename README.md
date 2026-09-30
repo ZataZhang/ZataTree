@@ -140,7 +140,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 按 `content/post/` 的实际目录结构生成，括号内为该分类的文章数。**本段由 `python3 tools/readme_index.py` 自动生成，请勿手工编辑** —— 增删文章后重新运行该脚本即可。
 
 <!-- BEGIN:CONTENT-INDEX -->
-## Agent 工程 (39)
+## Agent 工程 (40)
 
 ### 01-入门与全景
 
@@ -184,6 +184,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [Agent 决策审计落地：写入点、复核器与门禁降级判据](content/post/Agent%20工程/04-可观测与协议/Agent%20决策审计落地：写入点、复核器与门禁降级判据/)
 - [Agent 决策审计：它与 Tracing 的关系](content/post/Agent%20工程/04-可观测与协议/Agent%20决策审计：它与%20Tracing%20的关系/)
 - [Agent 埋点接 ARMS：上报返回 success，控制台却是空的](content/post/Agent%20工程/04-可观测与协议/Agent%20埋点接%20ARMS：上报返回%20success，控制台却是空的/)
+- [Agent 日志的两种世界观：从 DeepSeek Harness 的会话日志说起](content/post/Agent%20工程/04-可观测与协议/Agent%20日志的两种世界观：从%20DeepSeek%20Harness%20的会话日志说起/)
 - [Session、Thread、Run：一条消息为什么是一个 Run](content/post/Agent%20工程/04-可观测与协议/Session、Thread、Run：一条消息为什么是一个%20Run/)
 - [全量解码与增量解码：原理、区别以及应用](content/post/Agent%20工程/04-可观测与协议/全量解码与增量解码：原理、区别以及应用/)
 

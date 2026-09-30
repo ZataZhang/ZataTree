@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="470" viewBox="0 0 1200 470" role="img" aria-label="日志的两种世界观对比">
+  <rect width="1200" height="470" fill="#0b1220"/>
+  <text x="40" y="56" font-family="sans-serif" font-size="30" font-weight="700" fill="#f8fafc">同一份「日志」，两种世界观</text>
+
+  <rect x="40" y="88" width="540" height="330" rx="16" fill="#101a2e" stroke="#7C9CF5" stroke-width="2"/>
+  <rect x="40" y="88" width="8" height="330" rx="4" fill="#7C9CF5"/>
+  <text x="72" y="130" font-family="sans-serif" font-size="24" font-weight="700" fill="#f8fafc">世界观 A · 日志是会话状态</text>
+  <text x="72" y="160" font-family="sans-serif" font-size="18" fill="#9fb3d1">DeepSeek Harness（Session 一等核心包）</text>
+  <g font-family="sans-serif" font-size="19" fill="#cbd8ec">
+    <circle cx="80" cy="196" r="4" fill="#7C9CF5"/><text x="96" y="203">日志是核心子系统，不是工具层配件</text>
+    <circle cx="80" cy="232" r="4" fill="#7C9CF5"/><text x="96" y="239">append-only，状态可从日志重放</text>
+    <circle cx="80" cy="268" r="4" fill="#7C9CF5"/><text x="96" y="275">循环每一步都是可订阅事件点</text>
+    <circle cx="80" cy="304" r="4" fill="#7C9CF5"/><text x="96" y="311">凡模型可见，必能从日志重建</text>
+    <circle cx="80" cy="340" r="4" fill="#7C9CF5"/><text x="96" y="347">有稳定身份：session / seq / parent</text>
+    <circle cx="80" cy="376" r="4" fill="#7C9CF5"/><text x="96" y="383">可插拔：日志本身也是一种能力</text>
+  </g>
+
+  <rect x="620" y="88" width="540" height="330" rx="16" fill="#101a2e" stroke="#38b6a8" stroke-width="2"/>
+  <rect x="620" y="88" width="8" height="330" rx="4" fill="#38b6a8"/>
+  <text x="652" y="130" font-family="sans-serif" font-size="24" font-weight="700" fill="#f8fafc">世界观 B · 日志是运维输出</text>
+  <text x="652" y="160" font-family="sans-serif" font-size="18" fill="#9fb3d1">多数项目的默认形态（stdlib logging）</text>
+  <g font-family="sans-serif" font-size="19" fill="#cbd8ec">
+    <circle cx="660" cy="196" r="4" fill="#38b6a8"/><text x="676" y="203">日志是 import 副作用带来的工具</text>
+    <circle cx="660" cy="232" r="4" fill="#38b6a8"/><text x="676" y="239">覆写式文本文件，只能顺序翻看</text>
+    <circle cx="660" cy="268" r="4" fill="#38b6a8"/><text x="676" y="275">记录的是「发生了什么」的自由文本</text>
+    <circle cx="660" cy="304" r="4" fill="#38b6a8"/><text x="676" y="311">模型看到了什么，不保证被记录</text>
+    <circle cx="660" cy="340" r="4" fill="#38b6a8"/><text x="676" y="347">时间戳即关联键，缺少稳定 ID</text>
+    <circle cx="660" cy="376" r="4" fill="#38b6a8"/><text x="676" y="383">handler / 格式 / 轮转全部硬编码</text>
+  </g>
+
+  <text x="40" y="450" font-family="sans-serif" font-size="19" fill="#9fb3d1">两套都不是「错的」——差别在于：读者是人，还是下一次运行的模型与复核者。</text>
+</svg>

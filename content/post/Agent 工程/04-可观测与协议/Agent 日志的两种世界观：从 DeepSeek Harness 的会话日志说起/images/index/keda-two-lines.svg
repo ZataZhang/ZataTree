@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-label="keda 的两套日志互不相通">
+  <rect width="1200" height="420" fill="#0b1220"/>
+  <text x="40" y="56" font-family="sans-serif" font-size="30" font-weight="700" fill="#f8fafc">真实项目体检：两条线，却没有交叉引用</text>
+  <text x="40" y="88" font-family="sans-serif" font-size="18" fill="#9fb3d1">keda 同时存在「文本日志」与「生命周期账本」，但没有共同的关联键</text>
+
+  <rect x="40" y="120" width="500" height="210" rx="16" fill="#101a2e" stroke="#38b6a8" stroke-width="2"/>
+  <rect x="40" y="120" width="8" height="210" rx="4" fill="#38b6a8"/>
+  <text x="72" y="162" font-family="sans-serif" font-size="22" font-weight="700" fill="#f8fafc">app 日志 · 纯文本</text>
+  <g font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="15" fill="#cbd8ec">
+    <text x="72" y="200">2026-09-30 13:12:04 - backend.x - INFO</text>
+    <text x="72" y="224">  - runner.py:88 - processed Issue #4</text>
+    <text x="72" y="256" fill="#9fb3d1">daily file: logs/app-2026-09-30.log</text>
+    <text x="72" y="280" fill="#9fb3d1">14 天保留 · 启动时清理一次</text>
+    <text x="72" y="304" fill="#9fb3d1">无 request_id / trace_id / 稳定 run id</text>
+  </g>
+
+  <rect x="660" y="120" width="500" height="210" rx="16" fill="#101a2e" stroke="#7C9CF5" stroke-width="2"/>
+  <rect x="660" y="120" width="8" height="210" rx="4" fill="#7C9CF5"/>
+  <text x="692" y="162" font-family="sans-serif" font-size="22" font-weight="700" fill="#f8fafc">生命周期账本 · SQLite</text>
+  <g font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="15" fill="#cbd8ec">
+    <text x="692" y="200">prd_lifecycle_runs(run_id PK, repo_id,</text>
+    <text x="692" y="224">  prd_path, outcome, history_complete)</text>
+    <text x="692" y="256" fill="#9fb3d1">prd_lifecycle_events(run_id, event_key,</text>
+    <text x="692" y="280" fill="#9fb3d1">  phase, actor, occurred_at, detail_json)</text>
+    <text x="692" y="304" fill="#9fb3d1">UNIQUE(run_id, event_key) · INSERT OR IGNORE</text>
+  </g>
+
+  <line x1="540" y1="225" x2="660" y2="225" stroke="#f472b6" stroke-width="2.5" stroke-dasharray="8 8"/>
+  <circle cx="600" cy="225" r="26" fill="#0e1730" stroke="#f472b6" stroke-width="2.5"/>
+  <text x="600" y="235" font-family="sans-serif" font-size="30" font-weight="700" fill="#f472b6" text-anchor="middle">?</text>
+
+  <rect x="40" y="352" width="1120" height="46" rx="12" fill="#17263d" stroke="#A78BFA" stroke-width="2"/>
+  <text x="64" y="382" font-family="sans-serif" font-size="19" fill="#f8fafc">缺口不在「加不加 handler」，而在两条线之间没有共同的 <tspan fill="#A78BFA" font-weight="700">身份与关联键</tspan>。</text>
+</svg>

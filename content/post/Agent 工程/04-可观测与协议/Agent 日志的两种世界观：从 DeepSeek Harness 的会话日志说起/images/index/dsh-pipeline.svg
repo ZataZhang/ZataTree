@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="440" viewBox="0 0 1200 440" role="img" aria-label="DeepSeek Harness 事件流水线与会话日志">
+  <defs>
+    <linearGradient id="acc" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#7C9CF5"/><stop offset="100%" stop-color="#A78BFA"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="440" fill="#0b1220"/>
+  <text x="40" y="56" font-family="sans-serif" font-size="30" font-weight="700" fill="#f8fafc">循环的每一步，都是一个可订阅事件点</text>
+  <text x="40" y="88" font-family="sans-serif" font-size="18" fill="#9fb3d1">DeepSeek Harness · Turn flow（转写自其架构文档）</text>
+
+  <g font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="16" fill="#e6eefc" text-anchor="middle">
+    <rect x="40" y="120" width="168" height="60" rx="12" fill="#101a2e" stroke="#3b4a68" stroke-width="2"/><text x="124" y="156">turn/start</text>
+    <rect x="232" y="120" width="168" height="60" rx="12" fill="#101a2e" stroke="#3b4a68" stroke-width="2"/><text x="316" y="156">step/start</text>
+    <rect x="424" y="120" width="168" height="60" rx="12" fill="#101a2e" stroke="url(#acc)" stroke-width="2.5"/><text x="508" y="156">agent/request</text>
+    <rect x="616" y="120" width="168" height="60" rx="12" fill="#101a2e" stroke="#3b4a68" stroke-width="2"/><text x="700" y="156">llm/stream</text>
+    <rect x="808" y="120" width="168" height="60" rx="12" fill="#101a2e" stroke="url(#acc)" stroke-width="2.5"/><text x="892" y="156">tool/execute</text>
+    <rect x="1000" y="120" width="160" height="60" rx="12" fill="#101a2e" stroke="#3b4a68" stroke-width="2"/><text x="1080" y="156">step/end</text>
+  </g>
+  <g stroke="#7C9CF5" stroke-width="2.5" fill="none" stroke-linecap="round">
+    <path d="M208 150 l14 0 M216 144 l7 6 -7 6"/>
+    <path d="M400 150 l14 0 M408 144 l7 6 -7 6"/>
+    <path d="M592 150 l14 0 M600 144 l7 6 -7 6"/>
+    <path d="M784 150 l14 0 M792 144 l7 6 -7 6"/>
+    <path d="M976 150 l14 0 M984 144 l7 6 -7 6"/>
+  </g>
+  <text x="508" y="106" font-family="sans-serif" font-size="15" fill="#A78BFA" text-anchor="middle">模型请求</text>
+  <text x="892" y="106" font-family="sans-serif" font-size="15" fill="#A78BFA" text-anchor="middle">权限 / 记忆 / 策略 在此挂载</text>
+
+  <rect x="40" y="232" width="1120" height="96" rx="14" fill="#0e1730" stroke="#2c3a58" stroke-width="2"/>
+  <text x="64" y="266" font-family="sans-serif" font-size="20" font-weight="700" fill="#f8fafc">append-only Session Event Log</text>
+  <text x="64" y="294" font-family="sans-serif" font-size="17" fill="#9fb3d1">只追加、不覆写 · 会话状态可重放 · 父子会话与事件派生都有显式引用</text>
+  <g font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="15" fill="#cbd8ec">
+    <rect x="64" y="306" width="120" height="0" fill="none"/>
+  </g>
+  <g font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="15">
+    <rect x="920" y="248" width="52" height="26" rx="6" fill="#152238" stroke="#3b4a68"/><text x="946" y="266" fill="#9FB3D1" text-anchor="middle">seq1</text>
+    <rect x="980" y="248" width="52" height="26" rx="6" fill="#152238" stroke="#3b4a68"/><text x="1006" y="266" fill="#9FB3D1" text-anchor="middle">seq2</text>
+    <rect x="1040" y="248" width="52" height="26" rx="6" fill="#152238" stroke="#3b4a68"/><text x="1066" y="266" fill="#9FB3D1" text-anchor="middle">seq3</text>
+    <rect x="1100" y="248" width="36" height="26" rx="6" fill="#152238" stroke="#7C9CF5"/><text x="1118" y="266" fill="#9FB3D1" text-anchor="middle">…</text>
+  </g>
+
+  <rect x="40" y="352" width="1120" height="62" rx="14" fill="#17263d" stroke="#A78BFA" stroke-width="2"/>
+  <text x="64" y="390" font-family="sans-serif" font-size="19" fill="#f8fafc">运行时不变量：<tspan fill="#A78BFA" font-weight="700">Model-visible means logged</tspan> — 任何进入模型请求的内容，都必须能从日志重建。</text>
+</svg>
