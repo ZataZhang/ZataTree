@@ -299,7 +299,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [企业AI工具平台架构设计：拥抱快速变化的AI生态](content/post/工程实践/03-DevOps%20与平台/ai-platform-architecture/)
 - [开发问题与解法笔记](content/post/工程实践/03-DevOps%20与平台/开发问题与解法笔记/)
 
-## 开发工具链 (27)
+## 开发工具链 (28)
 
 ### 01-Git 与 GitHub
 
@@ -336,6 +336,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [CC Switch 详解：一个应用管住八个 AI 编程 CLI](content/post/开发工具链/04-终端与编辑器/cc-switch-guide/)
 - [copier-using](content/post/开发工具链/04-终端与编辑器/copier-using/)
 - [Herdr 详解：给 AI Agent 用的终端运行时](content/post/开发工具链/04-终端与编辑器/herdr-ai-agent-terminal-runtime/)
+- [VelaTerm 深度调研：把 iTerm2 和 Codex 装进同一个窗口的 ADE](content/post/开发工具链/04-终端与编辑器/velaterm-ade-deep-dive/)
 - [为 AI 而写的 CLI 设计指南：原则、避坑与难点](content/post/开发工具链/04-终端与编辑器/为AI而写的CLI设计指南/)
 
 ### 05-AI 与创作工具

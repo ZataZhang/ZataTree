@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="520" viewBox="0 0 1000 520" role="img" aria-label="Clef 的推理流程：冻结的 Qwen 主干做一次 prefill，joint schema head 读完隐状态后联合打分，最后按问题各自 softmax">
+  <defs>
+    <marker id="arw" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#64748B"/>
+    </marker>
+    <marker id="arwv" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#8B5CF6"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1000" height="520" rx="16" fill="#0B1220"/>
+
+  <!-- ① inputs -->
+  <rect x="48" y="48" width="300" height="52" rx="8" fill="#131C2E" stroke="#475569"/>
+  <text x="198" y="80" font-family="sans-serif" font-size="15" fill="#E2E8F0" text-anchor="middle">state（文本 / JSON）</text>
+
+  <rect x="372" y="48" width="200" height="52" rx="8" fill="#131C2E" stroke="#475569"/>
+  <text x="472" y="80" font-family="sans-serif" font-size="15" fill="#E2E8F0" text-anchor="middle">images ≤ 4</text>
+
+  <rect x="596" y="48" width="356" height="52" rx="8" fill="#131C2E" stroke="#475569"/>
+  <text x="774" y="80" font-family="sans-serif" font-size="15" fill="#E2E8F0" text-anchor="middle">questions（输出空间，1–64 个问题）</text>
+
+  <line x1="500" y1="100" x2="500" y2="130" stroke="#64748B" marker-end="url(#arw)"/>
+
+  <!-- ② frozen backbone -->
+  <rect x="48" y="134" width="904" height="80" rx="10" fill="#17203A" stroke="#8B5CF6" stroke-width="2"/>
+  <text x="500" y="168" font-family="sans-serif" font-size="17" fill="#E2E8F0" text-anchor="middle">冻结的 Qwen 主干（27B / 9B）+ vision encoder</text>
+  <text x="500" y="194" font-family="sans-serif" font-size="14" fill="#A78BFA" text-anchor="middle">prefill-only pass —— 不 decode 任何一个 token</text>
+
+  <text x="926" y="162" font-family="monospace" font-size="12" fill="#64748B" text-anchor="end">requires_grad = False</text>
+  <text x="926" y="180" font-family="monospace" font-size="12" fill="#64748B" text-anchor="end">+ rank-256 LoRA</text>
+
+  <line x1="500" y1="214" x2="500" y2="244" stroke="#8B5CF6" marker-end="url(#arwv)"/>
+  <text x="512" y="234" font-family="sans-serif" font-size="13" fill="#64748B">final hidden states</text>
+
+  <!-- ③ joint schema head -->
+  <rect x="48" y="248" width="904" height="156" rx="10" fill="#0E1730" stroke="#8B5CF6" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="68" y="276" font-family="sans-serif" font-size="15" fill="#A78BFA">joint schema head（唯一被训练的小 transformer）</text>
+
+  <rect x="68" y="290" width="288" height="96" rx="8" fill="#131C2E" stroke="#475569"/>
+  <text x="212" y="322" font-family="sans-serif" font-size="14" fill="#22D3EE" text-anchor="middle">① evidence routing</text>
+  <text x="212" y="346" font-family="sans-serif" font-size="12.5" fill="#94A3B8" text-anchor="middle">每个候选项各抽</text>
+  <text x="212" y="366" font-family="sans-serif" font-size="12.5" fill="#94A3B8" text-anchor="middle">与自己相关的证据</text>
+
+  <rect x="376" y="290" width="288" height="96" rx="8" fill="#131C2E" stroke="#475569"/>
+  <text x="520" y="322" font-family="sans-serif" font-size="14" fill="#22D3EE" text-anchor="middle">② joint cross-field attention</text>
+  <text x="520" y="346" font-family="sans-serif" font-size="12.5" fill="#94A3B8" text-anchor="middle">各选项互相 attend，</text>
+  <text x="520" y="366" font-family="sans-serif" font-size="12.5" fill="#94A3B8" text-anchor="middle">并回看原始 payload</text>
+
+  <rect x="684" y="290" width="248" height="96" rx="8" fill="#131C2E" stroke="#475569"/>
+  <text x="808" y="322" font-family="sans-serif" font-size="14" fill="#22D3EE" text-anchor="middle">③ schema-bound scoring</text>
+  <text x="808" y="346" font-family="sans-serif" font-size="12.5" fill="#94A3B8" text-anchor="middle">每个 option 出一个 logit</text>
+  <text x="808" y="366" font-family="sans-serif" font-size="12.5" fill="#94A3B8" text-anchor="middle">只有 valid choice 参与</text>
+
+  <line x1="500" y1="404" x2="500" y2="434" stroke="#8B5CF6" marker-end="url(#arwv)"/>
+  <text x="512" y="424" font-family="sans-serif" font-size="13" fill="#64748B">每个问题各自 softmax</text>
+
+  <!-- ④ typed outputs -->
+  <rect x="48" y="438" width="285" height="52" rx="8" fill="#17203A" stroke="#22D3EE"/>
+  <text x="190" y="470" font-family="monospace" font-size="14" fill="#E2E8F0" text-anchor="middle">noul → P(true)</text>
+
+  <rect x="357" y="438" width="285" height="52" rx="8" fill="#17203A" stroke="#22D3EE"/>
+  <text x="499" y="470" font-family="monospace" font-size="14" fill="#E2E8F0" text-anchor="middle">choice → 每个选项的概率</text>
+
+  <rect x="666" y="438" width="286" height="52" rx="8" fill="#17203A" stroke="#22D3EE"/>
+  <text x="809" y="470" font-family="monospace" font-size="14" fill="#E2E8F0" text-anchor="middle">score → 加权后的小数</text>
+</svg>
