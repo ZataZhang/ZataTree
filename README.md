@@ -140,7 +140,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 按 `content/post/` 的实际目录结构生成，括号内为该分类的文章数。**本段由 `python3 tools/readme_index.py` 自动生成，请勿手工编辑** —— 增删文章后重新运行该脚本即可。
 
 <!-- BEGIN:CONTENT-INDEX -->
-## Agent 工程 (40)
+## Agent 工程 (41)
 
 ### 01-入门与全景
 
@@ -166,6 +166,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 
 - [Agent 内容输出规范：本地给路径，远程给协议](content/post/Agent%20工程/03-工程化实践/Agent%20内容输出规范：本地给路径，远程给协议/)
 - [Agent 工具没调用，先查模型到底能看见什么](content/post/Agent%20工程/03-工程化实践/Agent%20工具没调用：一次真实链路验收的三层误判/)
+- [Coding Agent 评测体系：公开基准怎么读，自己那套怎么搭](content/post/Agent%20工程/03-工程化实践/Coding%20Agent%20评测体系：公开基准怎么读，自己那套怎么搭/)
 - [${VAR} 是谁的环境变量：一条只写不读的凭据带走平台密钥](content/post/Agent%20工程/03-工程化实践/MCP%20环境变量展开：一条只写不读的凭据带走平台密钥/)
 - [OpenAI Responses API与Chat Completions API区别详解](content/post/Agent%20工程/03-工程化实践/OpenAI%20Responses%20API与Chat%20Completions%20API区别详解/)
 - [ai返回数据的格式不稳定，存在解析错误的问题](content/post/Agent%20工程/03-工程化实践/ai返回数据的格式不稳定，存在解析错误的问题/)

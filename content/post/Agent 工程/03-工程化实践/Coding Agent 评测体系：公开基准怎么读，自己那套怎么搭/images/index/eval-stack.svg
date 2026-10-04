@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 330" width="900" height="330" font-family="sans-serif">
+  <defs>
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="#1E2A40"/>
+    </pattern>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,1 L9,5 L0,9 z" fill="#7FA6D8"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="330" fill="#0B1220"/>
+  <rect width="900" height="330" fill="url(#dots)"/>
+
+  <!-- 标题 -->
+  <text x="46" y="38" fill="#F8FAFC" font-size="19" font-weight="600">一个 agent 分数，是四层的联合产物</text>
+  <text x="46" y="60" fill="#8FA6C4" font-size="13">换掉下面任何一层，数字都会动</text>
+
+  <!-- 四层 -->
+  <g>
+    <rect x="46" y="86" width="470" height="48" rx="8" fill="#16233A" stroke="#3D5878"/>
+    <rect x="46" y="86" width="5" height="48" rx="2" fill="#5B87BF"/>
+    <text x="72" y="115" fill="#F8FAFC" font-size="16" font-weight="600">模型</text>
+    <text x="140" y="115" fill="#9FB3D1" font-size="13">权重 · 采样温度 · 推理强度档位</text>
+  </g>
+  <g>
+    <rect x="46" y="142" width="470" height="48" rx="8" fill="#16233A" stroke="#3D5878"/>
+    <rect x="46" y="142" width="5" height="48" rx="2" fill="#7A6FB8"/>
+    <text x="72" y="171" fill="#F8FAFC" font-size="16" font-weight="600">脚手架 harness</text>
+    <text x="196" y="171" fill="#9FB3D1" font-size="13">系统提示 · 工具集 · 检索 · 重试 · 步数上限</text>
+  </g>
+  <g>
+    <rect x="46" y="198" width="470" height="48" rx="8" fill="#16233A" stroke="#3D5878"/>
+    <rect x="46" y="198" width="5" height="48" rx="2" fill="#4E9A94"/>
+    <text x="72" y="227" fill="#F8FAFC" font-size="16" font-weight="600">运行时</text>
+    <text x="140" y="227" fill="#9FB3D1" font-size="13">CPU / 内存 · 配额执行方式 · 超时 · 网络</text>
+  </g>
+  <g>
+    <rect x="46" y="254" width="470" height="48" rx="8" fill="#16233A" stroke="#3D5878"/>
+    <rect x="46" y="254" width="5" height="48" rx="2" fill="#B58A5B"/>
+    <text x="72" y="283" fill="#F8FAFC" font-size="16" font-weight="600">判分器</text>
+    <text x="140" y="283" fill="#9FB3D1" font-size="13">测试集 · 阈值 · 是否人工校验 · 部分分</text>
+  </g>
+
+  <!-- 箭头 -->
+  <path d="M528,278 C610,278 620,190 656,190" fill="none" stroke="#7FA6D8" stroke-width="2" marker-end="url(#ar)"/>
+
+  <!-- 右侧结论 -->
+  <rect x="668" y="140" width="186" height="100" rx="10" fill="#12203A" stroke="#5B87BF" stroke-width="1.5"/>
+  <text x="761" y="176" fill="#F8FAFC" font-size="22" font-weight="700" text-anchor="middle">分数</text>
+  <text x="761" y="204" fill="#9FB3D1" font-size="12" text-anchor="middle">不存在「模型的分数」，</text>
+  <text x="761" y="222" fill="#9FB3D1" font-size="12" text-anchor="middle">只有「系统的分数」</text>
+</svg>

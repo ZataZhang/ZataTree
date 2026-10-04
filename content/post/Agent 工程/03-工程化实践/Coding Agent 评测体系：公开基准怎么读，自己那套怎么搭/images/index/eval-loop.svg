@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" width="900" height="360" font-family="sans-serif">
+  <defs>
+    <pattern id="dots3" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="#1E2A40"/>
+    </pattern>
+    <marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,1 L9,5 L0,9 z" fill="#7FA6D8"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="360" fill="#0B1220"/>
+  <rect width="900" height="360" fill="url(#dots3)"/>
+
+  <text x="46" y="38" fill="#F8FAFC" font-size="19" font-weight="600">评测集唯一能自己长大的方式：线上回流</text>
+  <text x="46" y="60" fill="#8FA6C4" font-size="13">trace 与评测用例同构，一次生产失败 = 复制一条 trace 变成一个用例</text>
+
+  <!-- 节点定义：上排 y=88 h=76；下排 y=214 h=76 -->
+  <g>
+    <rect x="46" y="88" width="230" height="76" rx="10" fill="#16233A" stroke="#3D5878"/>
+    <rect x="46" y="88" width="5" height="76" rx="2" fill="#5B87BF"/>
+    <text x="72" y="122" fill="#F8FAFC" font-size="16" font-weight="600">1 · 生产运行</text>
+    <text x="72" y="146" fill="#9FB3D1" font-size="12.5">每个 run 全量 trace：模型调用、</text>
+    <text x="72" y="163" fill="#9FB3D1" font-size="12.5">工具调用、参数、结果</text>
+  </g>
+  <g>
+    <rect x="335" y="88" width="230" height="76" rx="10" fill="#16233A" stroke="#3D5878"/>
+    <rect x="335" y="88" width="5" height="76" rx="2" fill="#4E9A94"/>
+    <text x="361" y="122" fill="#F8FAFC" font-size="16" font-weight="600">2 · 采样与归档</text>
+    <text x="361" y="146" fill="#9FB3D1" font-size="12.5">刻意挑尾部：过程与结果不一致、</text>
+    <text x="361" y="163" fill="#9FB3D1" font-size="12.5">自评置信度低、碰到敏感工具</text>
+  </g>
+  <g>
+    <rect x="624" y="88" width="230" height="76" rx="10" fill="#16233A" stroke="#3D5878"/>
+    <rect x="624" y="88" width="5" height="76" rx="2" fill="#B58A5B"/>
+    <text x="650" y="122" fill="#F8FAFC" font-size="16" font-weight="600">3 · 转写成用例</text>
+    <text x="650" y="146" fill="#9FB3D1" font-size="12.5">终态断言 + 轨迹不变量 + 冻结</text>
+    <text x="650" y="163" fill="#9FB3D1" font-size="12.5">fixture / seed，可重置</text>
+  </g>
+  <g>
+    <rect x="624" y="214" width="230" height="76" rx="10" fill="#16233A" stroke="#3D5878"/>
+    <rect x="624" y="214" width="5" height="76" rx="2" fill="#7A6FB8"/>
+    <text x="650" y="248" fill="#F8FAFC" font-size="16" font-weight="600">4 · 冻结评测集</text>
+    <text x="650" y="272" fill="#9FB3D1" font-size="12.5">含 1/5「不该做成」的用例 +</text>
+    <text x="650" y="289" fill="#9FB3D1" font-size="12.5">至少一条提示注入用例</text>
+  </g>
+  <g>
+    <rect x="335" y="214" width="230" height="76" rx="10" fill="#16233A" stroke="#3D5878"/>
+    <rect x="335" y="214" width="5" height="76" rx="2" fill="#C06B6B"/>
+    <text x="361" y="248" fill="#F8FAFC" font-size="16" font-weight="600">5 · 门禁回归</text>
+    <text x="361" y="272" fill="#9FB3D1" font-size="12.5">每任务跑 k 次，看分布：成功率、</text>
+    <text x="361" y="289" fill="#9FB3D1" font-size="12.5">pass^k、成本、违规数</text>
+  </g>
+  <g>
+    <rect x="46" y="214" width="230" height="76" rx="10" fill="#16233A" stroke="#3D5878"/>
+    <rect x="46" y="214" width="5" height="76" rx="2" fill="#5B87BF"/>
+    <text x="72" y="248" fill="#F8FAFC" font-size="16" font-weight="600">6 · 放行 / 灰度</text>
+    <text x="72" y="272" fill="#9FB3D1" font-size="12.5">pass@1 涨但 pass^k 跌 ——</text>
+    <text x="72" y="289" fill="#9FB3D1" font-size="12.5">判为退步，不放行</text>
+  </g>
+
+  <!-- 连线 -->
+  <path d="M276,126 L329,126" stroke="#7FA6D8" stroke-width="2" marker-end="url(#ar3)"/>
+  <path d="M565,126 L618,126" stroke="#7FA6D8" stroke-width="2" marker-end="url(#ar3)"/>
+  <path d="M739,164 L739,208" stroke="#7FA6D8" stroke-width="2" marker-end="url(#ar3)"/>
+  <path d="M624,252 L571,252" stroke="#7FA6D8" stroke-width="2" marker-end="url(#ar3)"/>
+  <path d="M335,252 L282,252" stroke="#7FA6D8" stroke-width="2" marker-end="url(#ar3)"/>
+  <path d="M161,214 L161,170" stroke="#7FA6D8" stroke-width="2" marker-end="url(#ar3)"/>
+
+  <text x="161" y="330" fill="#8FA6C4" font-size="12.5" text-anchor="middle">闭环</text>
+  <text x="450" y="336" fill="#5B6B85" font-size="11.5" text-anchor="middle">评测 harness 与生产埋点输出同一种结构，回流才成立</text>
+</svg>
