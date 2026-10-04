@@ -404,10 +404,11 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [python程序打包exe使用教程](content/post/构建与打包/02-打包发布/PythonGUI-打包成exe/)
 - [setuptools-打包python项目为egg / 安装库函数](content/post/构建与打包/02-打包发布/setuptools-打包python项目为egg/)
 
-## 深度学习 (21)
+## 深度学习 (22)
 
 ### 01-模型与机制
 
+- [Clef 与 Clef-flash：决策模型第一次有了开源权重](content/post/深度学习/01-模型与机制/Clef%20与%20Clef-flash：决策模型第一次有了开源权重/)
 - [DeepSeek_NSA](content/post/深度学习/01-模型与机制/Deepseek_NSA/)
 - [ICL-上下文学习](content/post/深度学习/01-模型与机制/ICL-上下文学习/)
 - [Jev：不写字的决策模型，和它真正适合解决的问题](content/post/深度学习/01-模型与机制/Jev：不写字的决策模型，和它真正适合解决的问题/)

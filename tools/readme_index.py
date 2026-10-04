@@ -66,6 +66,10 @@ def iter_index_files() -> list[Path]:
     untracked, so a locally regenerated index could mention a path that is
     absent from the commit, and CI — which recomputes the index from its own
     checkout — would then disagree with the committed README.
+
+    The practical consequence: `git add` new articles *before* regenerating,
+    otherwise they are silently left out of the index.  warn_untracked() below
+    makes that mistake visible instead of letting CI fail 30 seconds later.
     """
     try:
         result = subprocess.run(
@@ -80,7 +84,45 @@ def iter_index_files() -> list[Path]:
     # -z emits raw paths with no quoting, which keeps non-ASCII names intact.
     names = result.stdout.decode("utf-8").split("\0")
     # Plain "index.md" only: section metadata is "_index.md".
-    return sorted(REPO / name for name in names if name.endswith("/index.md"))
+    # Sort on the posix form: sorting Path objects directly would follow the
+    # host platform, and PureWindowsPath compares case-insensitively (and uses
+    # "\\" as separator) while PurePosixPath does not, so the same tree could
+    # be ordered differently on a Windows workstation and on the Linux runner.
+    return sorted(
+        (REPO / name for name in names if name.endswith("/index.md")),
+        key=lambda p: p.as_posix(),
+    )
+
+
+def warn_untracked() -> None:
+    """Print a warning for index.md files that git does not track yet.
+
+    These are excluded from the regenerated index, which is exactly the
+    situation that makes a locally regenerated README disagree with CI.
+    """
+    try:
+        result = subprocess.run(
+            ["git", "ls-files", "-z", "--others", "--exclude-standard",
+             "--", "content/post"],
+            cwd=REPO,
+            capture_output=True,
+            check=True,
+        )
+    except (OSError, subprocess.CalledProcessError):
+        return
+    pending = [
+        name for name in result.stdout.decode("utf-8").split("\0")
+        if name.endswith("/index.md")
+    ]
+    if not pending:
+        return
+    print(
+        f"warning: {len(pending)} untracked index.md will be missing from the "
+        f"index; `git add` them first:",
+        file=sys.stderr,
+    )
+    for name in sorted(pending)[:10]:
+        print(f"  {name}", file=sys.stderr)
 
 
 def build_tree() -> Node:
@@ -166,6 +208,7 @@ def main() -> int:
         print(f"markers not found in {README}", file=sys.stderr)
         return 1
 
+    warn_untracked()
     index = build_index()
     updated = re.sub(
         re.escape(BEGIN) + r".*?" + re.escape(END),
