@@ -140,7 +140,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 按 `content/post/` 的实际目录结构生成，括号内为该分类的文章数。**本段由 `python3 tools/readme_index.py` 自动生成，请勿手工编辑** —— 增删文章后重新运行该脚本即可。
 
 <!-- BEGIN:CONTENT-INDEX -->
-## Agent 工程 (41)
+## Agent 工程 (42)
 
 ### 01-入门与全景
 
@@ -197,6 +197,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 
 ### 06-应用与集成
 
+- [Agent 做视频开源盘点：五条路线，和它们共同的架构骨架](content/post/Agent%20工程/06-应用与集成/Agent%20做视频开源盘点：五条路线，和它们共同的架构骨架/)
 - [n8n](content/post/Agent%20工程/06-应用与集成/n8n/)
 - [nl2sql](content/post/Agent%20工程/06-应用与集成/nl2sql/)
 - [openclaw](content/post/Agent%20工程/06-应用与集成/openclaw/)

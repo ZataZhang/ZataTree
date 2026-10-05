@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="486" viewBox="0 0 1000 486" role="img" aria-label="Agent 做视频的共同骨架：流程合同、能力发现、质量门禁与检查点">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B1220"/>
+      <stop offset="1" stop-color="#101B31"/>
+    </linearGradient>
+    <pattern id="dots" width="18" height="18" patternUnits="userSpaceOnUse">
+      <circle cx="1.1" cy="1.1" r="1.1" fill="#1C2B45"/>
+    </pattern>
+    <marker id="arw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5B87BF"/>
+    </marker>
+    <marker id="arwR" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#22D3EE"/>
+    </marker>
+  </defs>
+
+  <rect width="1000" height="486" fill="url(#bg)"/>
+  <rect width="1000" height="486" fill="url(#dots)"/>
+
+  <text x="24" y="34" font-family="sans-serif" font-size="21" font-weight="700" fill="#F8FAFC">Agent 做视频的共同骨架：代码只给能力，决策交给文档</text>
+  <text x="24" y="56" font-family="sans-serif" font-size="12" fill="#9FB3D1">OpenMontage · video-use · HyperFrames 三条路线收敛出的同一套结构 · 2026-10-05 核对 README 原文</text>
+
+  <!-- band 1 : the agent -->
+  <rect x="24" y="74" width="820" height="52" rx="9" fill="#152238" stroke="#7C9CF5" stroke-width="1.8"/>
+  <text x="42" y="105" font-family="sans-serif" font-size="15" font-weight="700" fill="#F8FAFC">Coding Agent 本身就是编排器</text>
+  <text x="330" y="105" font-family="ui-monospace,Menlo,monospace" font-size="12.5" fill="#9FB3D1">Claude Code / Cursor / Codex —— "There is no code orchestrator"</text>
+
+  <!-- band 2 : three things it must read -->
+  <g>
+    <rect x="24" y="160" width="266" height="80" rx="9" fill="#152238" stroke="#22D3EE" stroke-width="1.6"/>
+    <text x="40" y="184" font-family="ui-monospace,Menlo,monospace" font-size="12.5" fill="#22D3EE">pipeline_defs/*.yaml</text>
+    <text x="40" y="205" font-family="sans-serif" font-size="13.5" font-weight="700" fill="#F8FAFC">① 流程合同</text>
+    <text x="40" y="225" font-family="sans-serif" font-size="11.5" fill="#9FB3D1">阶段 / 输入输出 / 成功判据</text>
+
+    <rect x="300" y="160" width="266" height="80" rx="9" fill="#152238" stroke="#A78BFA" stroke-width="1.6"/>
+    <text x="316" y="184" font-family="ui-monospace,Menlo,monospace" font-size="12.5" fill="#C4B5FD">skills/*.md</text>
+    <text x="316" y="205" font-family="sans-serif" font-size="13.5" font-weight="700" fill="#F8FAFC">② 导演手册</text>
+    <text x="316" y="225" font-family="sans-serif" font-size="11.5" fill="#9FB3D1">每阶段怎么执行 · 质量线</text>
+
+    <rect x="576" y="160" width="268" height="80" rx="9" fill="#152238" stroke="#60A5FA" stroke-width="1.6"/>
+    <text x="592" y="184" font-family="ui-monospace,Menlo,monospace" font-size="12.5" fill="#93C5FD">tool_registry · provider_menu</text>
+    <text x="592" y="205" font-family="sans-serif" font-size="13.5" font-weight="700" fill="#F8FAFC">③ 能力发现前置</text>
+    <text x="592" y="225" font-family="sans-serif" font-size="11.5" fill="#9FB3D1">能用哪些 provider · 多少钱</text>
+  </g>
+
+  <text x="464" y="146" font-family="sans-serif" font-size="11.5" fill="#9FB3D1">读 · 写</text>
+  <line x1="434" y1="126" x2="434" y2="156" stroke="#5B87BF" stroke-width="1.6" marker-end="url(#arw)"/>
+  <line x1="452" y1="156" x2="452" y2="130" stroke="#5B87BF" stroke-width="1.6" marker-end="url(#arw)"/>
+
+  <!-- band 3 : execution -->
+  <rect x="24" y="272" width="820" height="54" rx="9" fill="#152238" stroke="#5B87BF" stroke-width="1.6"/>
+  <text x="42" y="294" font-family="sans-serif" font-size="13" font-weight="700" fill="#F8FAFC">执行层：Python 只提供工具与持久化</text>
+  <text x="42" y="314" font-family="ui-monospace,Menlo,monospace" font-size="11.5" fill="#9FB3D1">FFmpeg · TTS · 生成 API（Kling/Veo/FLUX）· Remotion / HyperFrames 确定性渲染 · CLIP 检索实拍素材</text>
+  <line x1="156" y1="240" x2="156" y2="268" stroke="#5B87BF" stroke-width="1.6" marker-end="url(#arw)"/>
+  <line x1="710" y1="240" x2="710" y2="268" stroke="#5B87BF" stroke-width="1.6" marker-end="url(#arw)"/>
+
+  <!-- band 4 : gates -->
+  <rect x="24" y="358" width="596" height="66" rx="9" fill="#152238" stroke="#22D3EE" stroke-width="1.8"/>
+  <text x="42" y="382" font-family="sans-serif" font-size="13.5" font-weight="700" fill="#F8FAFC">④ 质量门禁：自检不过，不许把片子端给你</text>
+  <text x="42" y="404" font-family="sans-serif" font-size="11.5" fill="#9FB3D1">schema 校验 → pre-compose validation → 渲染 → ffprobe / 抽帧 / 音频电平 / 字幕</text>
+
+  <rect x="634" y="358" width="210" height="66" rx="9" fill="#101B31" stroke="#334155" stroke-width="1.4"/>
+  <text x="650" y="382" font-family="sans-serif" font-size="13" font-weight="700" fill="#F8FAFC">通过 · 交付</text>
+  <text x="650" y="404" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="#22D3EE">final.mp4</text>
+  <line x1="620" y1="391" x2="630" y2="391" stroke="#5B87BF" stroke-width="1.6" marker-end="url(#arw)"/>
+
+  <!-- rework loop -->
+  <path d="M 320 424 L 320 452 L 96 452 L 96 330" fill="none" stroke="#22D3EE" stroke-width="1.6" stroke-dasharray="6 5" marker-end="url(#arwR)"/>
+  <text x="332" y="450" font-family="sans-serif" font-size="11.5" fill="#22D3EE">不通过 · 自动返工</text>
+
+  <!-- right side channels -->
+  <g font-family="sans-serif">
+    <rect x="856" y="74" width="120" height="350" rx="9" fill="#101B31" stroke="#334155" stroke-width="1.4"/>
+    <text x="868" y="96" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="#9FB3D1">旁路（同一骨架</text>
+    <text x="868" y="112" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="#9FB3D1">到处都在）</text>
+
+    <rect x="868" y="128" width="96" height="62" rx="7" fill="#152238" stroke="#60A5FA" stroke-width="1.4"/>
+    <text x="878" y="150" font-family="sans-serif" font-size="12" font-weight="700" fill="#F8FAFC">Checkpoint</text>
+    <text x="878" y="168" font-family="sans-serif" font-size="10.5" fill="#9FB3D1">JSON 状态</text>
+    <text x="878" y="182" font-family="sans-serif" font-size="10.5" fill="#9FB3D1">断点可续跑</text>
+
+    <rect x="868" y="200" width="96" height="62" rx="7" fill="#152238" stroke="#A78BFA" stroke-width="1.4"/>
+    <text x="878" y="222" font-family="sans-serif" font-size="12" font-weight="700" fill="#F8FAFC">决策日志</text>
+    <text x="878" y="240" font-family="sans-serif" font-size="10.5" fill="#9FB3D1">7 维打分</text>
+    <text x="878" y="254" font-family="sans-serif" font-size="10.5" fill="#9FB3D1">可审计回放</text>
+
+    <rect x="868" y="272" width="96" height="62" rx="7" fill="#152238" stroke="#22D3EE" stroke-width="1.4"/>
+    <text x="878" y="294" font-family="sans-serif" font-size="12" font-weight="700" fill="#F8FAFC">审批门</text>
+    <text x="878" y="312" font-family="sans-serif" font-size="10.5" fill="#9FB3D1">剧本 / 分镜</text>
+    <text x="878" y="326" font-family="sans-serif" font-size="10.5" fill="#9FB3D1">渲染前确认</text>
+
+    <rect x="868" y="344" width="96" height="66" rx="7" fill="#152238" stroke="#5B87BF" stroke-width="1.4"/>
+    <text x="878" y="366" font-family="sans-serif" font-size="12" font-weight="700" fill="#F8FAFC">预算治理</text>
+    <text x="878" y="384" font-family="sans-serif" font-size="10.5" fill="#9FB3D1">先估价再跑</text>
+    <text x="878" y="400" font-family="sans-serif" font-size="10.5" fill="#9FB3D1">spend cap</text>
+  </g>
+</svg>
