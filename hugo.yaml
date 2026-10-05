@@ -1,8 +1,8 @@
 baseURL: https://www.zata.cc/           # 定义网站的基础 URL，所有相对链接基于此生成，通常是域名
 languageCode: en-us                     # 指定默认语言代码（如 en-us 表示美国英语）
 theme: hugo-theme-stack                 # 指定使用的 Hugo 主题名称
-title: Example Site                     # 网站的默认标题，显示在浏览器标签页或页面中
-copyright: Example Person               # 网站版权声明，通常显示在页脚
+title: 扎塔-Zata                         # 网站的默认标题，显示在浏览器标签页或页面中
+copyright: 扎塔-Zata                     # 网站版权声明，显示在页脚
 timeout: 6000
 
 # Theme i18n support
@@ -16,7 +16,7 @@ hasCJKLanguage: false                   # 是否启用 CJK 语言（中文、日
 languages:
     en:
         languageName: English           # 语言名称为“英语”
-        title: Example Site             # 英文版本的网站标题
+        title: 扎塔-Zata                 # 英文版本的网站标题（原为主题默认 Example Site）
         weight: 1                       # 语言优先级，数字越小优先级越高
         params:
             sidebar:
@@ -174,7 +174,7 @@ params:
             siteName: ""               # Cactus 的站点名称（需唯一，未设置）
 
         giscus:
-            repo: zata-zhangtao/ZataTree # Giscus 的仓库（未设置）
+            repo: ZataZhang/ZataTree # Giscus 的仓库（账号改名后必须是 ZataZhang，写旧名 zata-zhangtao 会报 "giscus is not installed"）
             repoID: R_kgDON7mZJg        # Giscus 的仓库 ID（未设置）
             category: Announcements                   # Giscus 的分类（未设置）
             categoryID: DIC_kwDON7mZJs4Cnk-l                 # Giscus 的分类 ID（未设置）
@@ -183,6 +183,7 @@ params:
             darkTheme:                 # Giscus 的暗色主题（未设置）
             reactionsEnabled: 1        # Giscus 是否启用反应（启用）
             emitMetadata: 0            # Giscus 是否输出元数据（关闭）
+            lang: zh-CN                # Giscus 界面语言（默认 en，这里改中文）
 
         gitalk:
             owner:                     # Gitalk 的拥有者（未设置）
@@ -247,7 +248,7 @@ menu:
     social:
         - identifier: github           # 社交链接：GitHub
           name: GitHub                 # 显示名称
-          url: https://github.com/zata-zhangtao/ZataTree  # 链接地址
+          url: https://github.com/ZataZhang/ZataTree  # 链接地址（账号已改名为 ZataZhang）
           params:
               icon: brand-github       # 图标名称
 
