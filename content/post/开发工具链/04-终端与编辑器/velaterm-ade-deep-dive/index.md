@@ -3,6 +3,7 @@ title: "VelaTerm 深度调研：把 iTerm2 和 Codex 装进同一个窗口的 AD
 description: "VelaTerm 是一款开源（MIT）的多智能体开发环境：会话树管理九种编程 Agent、递归分屏终端、vspawn 派生子会话、vsearch/vtell 跨会话通信、Plan/Execute 拆任务、vkb 知识库，外加 SSH/浏览器/手机三路远程访问。本文基于官网、GitHub 仓库与第三方评测做一轮完整调研：产品定位、功能全景、技术架构、版本节奏、成熟度风险与竞品对比。"
 date: 2026-09-30T20:00:00+08:00
 slug: velaterm-ade-deep-dive
+image: images/index/index.svg
 categories:
     - 开发工具链
 tags:
