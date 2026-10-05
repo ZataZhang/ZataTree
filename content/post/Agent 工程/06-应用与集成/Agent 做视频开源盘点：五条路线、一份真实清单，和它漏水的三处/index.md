@@ -39,7 +39,7 @@ draft: false
 
 信源分级沿用我[《Agent 自进化开源盘点》]({{< relref "post/Agent 工程/02-框架与运行时/Agent 自进化开源盘点：什么能跑什么在腐烂/index.md" >}})里定的规矩：**一手**是我直查了 GitHub API、仓库文件树或 README 原文；**转述**只在二手渠道看到、没连上原始出处；**未核**的不作为论据。star / push / 许可证 / `created_at` 统一是 **2026-10-05** 从 GitHub API 拉的，文件树来自 `git/trees?recursive=1`，引文来自 `raw.githubusercontent.com`。
 
-有一件事要先交代：我本来想在本地真跑一次 HyperFrames 渲染，用两次输出的哈希验证它「同输入必得同输出」的承诺，但自动模式的安全策略不允许拉取未审的第三方包直接执行，**所以渲染这一段是 README 原文加 issue 交叉印证，没有本机实测**。下面凡是没跑过的我都会写明。
+还有一件事：这条路线我不是只读文档。我把 `heygen-com/hyperframes` clone 下来读了它的契约与 lint 规则，另外按它 README 描述的写法**手写了一个 924 行的等价实现**（HTML 时间轴 + 逐帧 seek 渲染器 + FFmpeg 编码），用它渲了一条 50 秒竖版解说片，并且真的去验证了「同输入同输出」这句话——**结果第一遍没通过，第二遍查出了原因**，完整过程在「确定性实测」那一节。凡是没跑过的我仍然会标明。
 
 ## 这条赛道的时间形状
 
@@ -370,7 +370,9 @@ Agent 入口的做法和 video-use 一模一样，值得单独注意：它在仓
 
 上面那四条听起来很干净。但把三个项目的 issue 翻一遍，会发现这套架构**新长出了两类以前没有的 bug**。
 
-**裂缝一：文档本身成了 bug 源。** HyperFrames 的 **#5025** 标题是 "Skills: 10 cross-skill contradictions and 11 wrong facts or broken paths"——有人核对那 21 个 skill，报出 **10 处互相矛盾、11 处事实错误或路径失效**（一手，未修复状态）。这和 OpenMontage 那 1,098 个 Markdown 是同一道题的两面：**当编排逻辑住在文档里，文档的一致性就是系统的正确性，而文档没有类型检查器。** 代码有编译器，Markdown 没有。
+**裂缝一：文档本身成了 bug 源。** HyperFrames 的 **#5025** 标题是 "Skills: 10 cross-skill contradictions and 11 wrong facts or broken paths"——有人核对那 21 个 skill，报出 **10 处互相矛盾、11 处事实错误或路径失效**（一手，未修复状态）。这和 OpenMontage 那 1,098 个 Markdown 是同一道题的两面：**当编排逻辑住在文档里，文档的一致性就是系统的正确性。**
+
+这里我要更正自己一个判断。我原本写「代码有编译器，Markdown 没有」，读完官方仓库才发现这句话说过头了——它有 `packages/lint`，规则是具名的：`gsap_animates_clip_element`、`gsap_infinite_repeat`、`gsap_css_transform_conflict`、`standalone_composition_wrapped_in_template`、`gsap_timeline_registered_before_async_build`。**文档式契约的 linter 是写得出来的。** 但 #5025 报的 10 处矛盾它一条都不会响：那些是**跨文件的语义分歧**，不是单条可判定的规则。所以真正的分界线不是「有没有编译器」，而是**这条约束能不能被写成局部可判定的谓词**——能，就进 lint；不能，就只能靠人读，而人读的面积随文档数量线性增长。
 
 **裂缝二：能力发现会说谎。** OpenMontage 的 **#637**："diagram_gen reports AVAILABLE without mermaid-cli and silently renders mermaid source"——registry 报告该工具可用，但依赖的 mermaid-cli 根本没装，于是它**静默降级**，把 mermaid 源码当画面渲染出来（一手）。这条正好打在「能力发现前置」这套设计的要害上：`support_envelope` 只检查了「我注册了什么」，没检查「这个能力真的跑得通吗」。**门禁的前提是探针诚实**，而探针最容易在缺依赖时选择继续。
 
@@ -400,7 +402,7 @@ Agent 入口的做法和 video-use 一模一样，值得单独注意：它在仓
 
 **没有调度器，比换个调度器更值得注意。** 传统做法是拿状态机画编排；OpenMontage 直接删掉中央编排器，把编排职责交给读得懂 manifest 的 LLM。代价是可预测性变差，所以它必须用 schemas、contract tests、checkpoint、`max_send_backs: 3`、`max_wall_time_minutes: 20` 把这些不确定性一圈圈钉回来。**这套「用文档编排」的取舍比视频本身更通用**——任何长流程 Agent 应用都会撞上同一道题。
 
-**文档规模到一定量级，它自己就成了最大的 bug 面。** 这是我看完 #5025 之后改的主意。我原本以为「700 个 skill 文件」是纯粹的加分项，但 21 个 skill 就能被查出 10 处矛盾，1,098 个 Markdown 的漂移面积可想而知。**代码有编译器，文档没有**——这条路线接下来真正的竞争，可能是谁先给 skill 文档做出 linter 和一致性检查。
+**文档规模到一定量级，它自己就成了最大的 bug 面。** 这是我看完 #5025 之后改的主意。我原本以为「700 个 skill 文件」是纯粹的加分项，但 21 个 skill 就能被查出 10 处矛盾，1,098 个 Markdown 的漂移面积可想而知。更正一处：我原以为这条路线缺的是 linter，读完官方仓库发现 `packages/lint` 已经存在且规则具名——**所以缺口不在工具，而在约束的性质**：单文件内可判定的违规能被拦住，跨文件的语义分歧拦不住。这条路线接下来真正的竞争，是看谁先找到「跨文档一致性」的可判定子集，把它也做成 lint。
 
 **确定性是入场券，不是加分项。** HyperFrames 全部设计（逐帧 seek、无构建步骤、lint 在 render 前）都在买这一件事。视频模型给的是概率，渲染层如果也给概率，这个流水线永远进不了 CI，也永远说不清「昨天那版是怎么出来的」。
 
