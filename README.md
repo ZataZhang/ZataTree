@@ -197,7 +197,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 
 ### 06-应用与集成
 
-- [Agent 做视频开源盘点：五条路线，和它们共同的架构骨架](content/post/Agent%20工程/06-应用与集成/Agent%20做视频开源盘点：五条路线，和它们共同的架构骨架/)
+- [Agent 做视频开源盘点：五条路线、一份真实清单，和它漏水的三处](content/post/Agent%20工程/06-应用与集成/Agent%20做视频开源盘点：五条路线、一份真实清单，和它漏水的三处/)
 - [n8n](content/post/Agent%20工程/06-应用与集成/n8n/)
 - [nl2sql](content/post/Agent%20工程/06-应用与集成/nl2sql/)
 - [openclaw](content/post/Agent%20工程/06-应用与集成/openclaw/)
