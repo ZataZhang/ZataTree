@@ -1,6 +1,6 @@
 ---
 title: "Agent 做视频开源盘点：五条路线、一份真实清单，和它漏水的三处"
-description: "把 GitHub 上「让 Agent 自己做完一条视频」的开源系统按技术路线清点，并直接下钻到仓库内部：OpenMontage 的 2143 个文件与 269 行 pipeline manifest 原文、video-use 的 12 条 Hard Rules、HyperFrames 的确定性渲染承诺、1502 行供应商成本表换算出的每条片子多少钱，以及三个项目 issue 里暴露的架构级裂缝。star / push / 许可证 / 文件树均为 2026-10-05 一手核对。"
+description: "把 GitHub 上「让 Agent 自己做完一条视频」的开源系统按技术路线清点，并直接下钻到仓库内部：OpenMontage 的 2143 个文件与 269 行 pipeline manifest 原文、video-use 的 12 条 Hard Rules、1502 行供应商成本表换算出的每条片子多少钱、三个项目 issue 里暴露的架构级裂缝；最后按 HyperFrames 的契约手写了一个 924 行等价实现做实测，连做两次归因都被消融推翻。star / push / 许可证 / 文件树均为 2026-10-05 一手核对。"
 date: 2026-10-05T16:08:40+08:00
 weight: 40
 slug: "agentic-video-production-landscape"
@@ -382,6 +382,57 @@ Agent 入口的做法和 video-use 一模一样，值得单独注意：它在仓
 
 还有一条值得单独拎出来，因为它不是技术问题：OpenMontage 的 **#626** 是一个安全公告——"fake 'OpenMontage-app' installer repo circulating"，**有假冒本项目的安装仓库在流传**（一手）。热门 Agent 工具已经出现供应链仿冒，而这恰恰是因为「把一段 URL 发给 Agent 让它自己装」成了标准交付方式：**你交付的是安装指令，而攻击者也可以。** 装之前先核对仓库归属，别把来路不明的 raw URL 直接贴给 Agent。
 
+## 附：我按它的契约手写了一遍，然后两次归因都错了
+
+读到这里，「同输入必得同输出」这句话我还是不太想只凭 README 引用。所以我把它验了一遍——过程比结论值得记，因为**我连着错了两次**。
+
+官方 CLI 没跑起来（先是被权限策略挡住 `npx`，之后发现仓库是 bun monorepo 而本机没装 bun）。于是我 clone 了 `heygen-com/hyperframes`（296MB / 8786 文件）读它的契约，然后按契约自己写了一个：HTML 上写 `data-start` / `data-duration` / `data-track-index`，运行时把画面写成时间 `t` 的纯函数，Playwright 逐帧 `seekTo(t)` 截图，FFmpeg 编码。924 行，渲出一条 50 秒竖版解说片。
+
+**先说契约对不上的地方**，这是我读源码才知道的：
+
+| 我的写法 | 官方契约 |
+| --- | --- |
+| 根节点没写 `data-composition-id` | 必需，且要和 `window.__timelines[<id>]` 的 key 对上 |
+| 自创 `data-anim` / `data-at` / `data-dur` 进度函数 | 官方是注册一条 **paused 的 GSAP timeline**，靠它可 seek |
+| 正文用了 `<br>` 断行 | 官方明令禁止（短展示标题才算例外） |
+| 我只有 visibility 开关 | 官方有 `packages/lint`，规则具名 |
+
+### 第一次归因：渲染环境
+
+第一版不加任何浏览器参数，全片连渲两遍，**163 / 1427 帧字节不同**——每帧只差 16 个像素、最大色阶差 1/255，位置固定在一列文字边缘。看着就是字形抗锯齿在漂。
+
+然后我在源码里找到了强力佐证：`packages/engine/src/services/browserManager.ts:896` 固定给 Chromium 传 `--font-render-hinting=none`、`--force-color-profile=srgb`、`--disable-accelerated-2d-canvas`；`htmlCompiler.ts:1154` 的注释写着 "Force subpixel glyph positioning so chrome-headless-shell (BeginFrame) and screenshot paths match"；`core/src/fonts/deterministicFonts.ts` 干脆把字体嵌成 data URI，理由是「依赖 host-OS 字体替换就是环境依赖」。
+
+我把那三个参数加上，重渲两遍，1497 帧逐字节一致。**于是宣布修好。**
+
+### 消融把它打掉了
+
+加一个对照只要 15 分钟，而我没加。补做之后：
+
+```text
+变体            两遍哈希          一致?
+none        c229a6c0b90e     ✓
+hint-only   c229a6c0b90e     ✓
+srgb-only   c229a6c0b90e     ✓
+nogpu-only  c229a6c0b90e     ✓
+hint+srgb   c229a6c0b90e     ✓
+all3        c229a6c0b90e     ✓
+```
+
+两个事实同时成立：**不加任何参数也能逐字节复现**，而且**六个变体哈希完全相同**——这三个参数对当前这个页面没有改变任何一个像素。所以「加上参数后两遍一致」根本不是证据，无参数也一样。
+
+### 第二次归因也不成立
+
+我曾用 10 帧、35 帧的小窗口测不出漂移，就反过来怀疑第一次归因错了。这个反推同样站不住：**小样本既不能证实、也不能证伪一个只在长任务里出现的现象**，它只能说明「这个窗口内没出现」。
+
+### 现在的状态
+
+唯一站得住的，是早期那次 `take1` 与 `take2` 确实不同。之后多次全长渲染都能复现，所以差异要么来自当时那个页面版本（之后我改过接线和 CSS），要么是一个还没抓到的偶发条件——我最后一次想复现它的时候，渲染跑到第 1121 帧浏览器自己崩了，那也算没做完的实验，不拿来当证据。
+
+**教训只有一条：一次观测到的差异不构成因果，而没有对照组的「修好了」比不修更糟。** 我在同一条链上把相关当因果用了两次，第二次尤其糟，因为「加了参数 + 两遍一致」这个组合看起来太像证据了。
+
+不过官方那三个参数的存在仍然有价值——它不是对我这个现象的解释，而是对「**他们把什么当成风险**」的一手证据：字体文件、色域、hinting、两条渲染路径的次像素差异，全都被显式钉进代码。这正好接上前面那句更正：**能被写成局部可判定约束的东西，他们都写成了 lint 或启动参数；剩下没解决的，才是文档规模的问题。**
+
 ## 怎么选
 
 | 你手上有什么 | 走哪条 | 具体 |
@@ -404,7 +455,9 @@ Agent 入口的做法和 video-use 一模一样，值得单独注意：它在仓
 
 **文档规模到一定量级，它自己就成了最大的 bug 面。** 这是我看完 #5025 之后改的主意。我原本以为「700 个 skill 文件」是纯粹的加分项，但 21 个 skill 就能被查出 10 处矛盾，1,098 个 Markdown 的漂移面积可想而知。更正一处：我原以为这条路线缺的是 linter，读完官方仓库发现 `packages/lint` 已经存在且规则具名——**所以缺口不在工具，而在约束的性质**：单文件内可判定的违规能被拦住，跨文件的语义分歧拦不住。这条路线接下来真正的竞争，是看谁先找到「跨文档一致性」的可判定子集，把它也做成 lint。
 
-**确定性是入场券，不是加分项。** HyperFrames 全部设计（逐帧 seek、无构建步骤、lint 在 render 前）都在买这一件事。视频模型给的是概率，渲染层如果也给概率，这个流水线永远进不了 CI，也永远说不清「昨天那版是怎么出来的」。
+**确定性是入场券，不是加分项。** HyperFrames 全部设计（逐帧 seek、无构建步骤、lint 在 render 前、字体嵌成 data URI、色域和 hinting 钉进启动参数）都在买这一件事。视频模型给的是概率，渲染层如果也给概率，这个流水线永远进不了 CI，也永远说不清「昨天那版是怎么出来的」。
+
+**别在没有对照组的情况下宣布修好。** 这条是我自己踩的，写在上面那节里。「加了参数 + 两遍一致」是这一轮里看起来最强的证据，也是最没用的——因为我从没测过「不加参数会不会也一致」。消融一跑，六个变体给出同一个哈希。**能证伪自己的那一步，比能支持自己的那一步便宜，也更值钱。**
 
 **成本表是架构的一部分。** `budget_default_usd: 2.00` 之所以是 2 美元，因为 Veo 3 要 $0.40/秒。不懂这层价格结构，就会设计出「60 秒全镜头生成」的必然破产方案。**「未知价格不当作免费」这条工程纪律，比任何提示词技巧都值钱。**
 
@@ -421,6 +474,7 @@ Agent 入口的做法和 video-use 一模一样，值得单独注意：它在仓
 - [calesthio/OpenMontage](https://github.com/calesthio/OpenMontage) · [animated-explainer.yaml](https://github.com/calesthio/OpenMontage/blob/main/pipeline_defs/animated-explainer.yaml) · [asset-director.md](https://github.com/calesthio/OpenMontage/blob/main/skills/pipelines/explainer/asset-director.md) · [docs/PROVIDERS.md](https://github.com/calesthio/OpenMontage/blob/main/docs/PROVIDERS.md)
 - 安全公告与能力发现缺陷：[OpenMontage #626](https://github.com/calesthio/OpenMontage/issues/626) · [#637](https://github.com/calesthio/OpenMontage/issues/637)
 - [heygen-com/hyperframes](https://github.com/heygen-com/hyperframes) · [skill 一致性问题 #5025](https://github.com/heygen-com/hyperframes/issues/5025)
+- 附录实测引用的源码位置（浅克隆后本地核对）：[browserManager.ts:896 的启动参数](https://github.com/heygen-com/hyperframes/blob/main/packages/engine/src/services/browserManager.ts) · [deterministicFonts.ts](https://github.com/heygen-com/hyperframes/blob/main/packages/core/src/fonts/deterministicFonts.ts) · [htmlCompiler.ts 的次像素注释](https://github.com/heygen-com/hyperframes/blob/main/packages/producer/src/services/htmlCompiler.ts) · [packages/lint](https://github.com/heygen-com/hyperframes/tree/main/packages/lint) · [skills/hyperframes-core/references/determinism-rules.md](https://github.com/heygen-com/hyperframes/blob/main/skills/hyperframes-core/references/determinism-rules.md)
 - [browser-use/video-use](https://github.com/browser-use/video-use) · [SKILL.md](https://github.com/browser-use/video-use/blob/main/SKILL.md) · [边界咔哒声 #162](https://github.com/browser-use/video-use/issues/162)
 - [Vincentwei1021/video-shotcraft](https://github.com/Vincentwei1021/video-shotcraft) · [harry0703/MoneyPrinterTurbo](https://github.com/harry0703/MoneyPrinterTurbo)
 - [HKUDS/ViMax](https://github.com/HKUDS/ViMax) · [HITsz-TMG/VideoClaw](https://github.com/HITsz-TMG/VideoClaw) · [HKUDS/VideoAgent](https://github.com/HKUDS/VideoAgent)
