@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="360" viewBox="0 0 1000 360" role="img" aria-label="标准 RL 在训练时更新权重，JitRL 在推理时调制 logits">
+  <defs>
+    <marker id="a1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#475569"/>
+    </marker>
+    <marker id="a2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#8B5CF6"/>
+    </marker>
+    <marker id="a3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#22D3EE"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1000" height="360" rx="16" fill="#0B1220"/>
+
+  <!-- lane 1 : standard RL -->
+  <text x="40" y="112" font-family="sans-serif" font-size="17" fill="#94A3B8">标准 RL</text>
+
+  <rect x="170" y="78" width="160" height="56" rx="8" fill="#131C2E" stroke="#475569"/>
+  <text x="250" y="112" font-family="sans-serif" font-size="15" fill="#E2E8F0" text-anchor="middle">历史轨迹</text>
+  <line x1="334" y1="106" x2="344" y2="106" stroke="#475569" stroke-width="1.5" marker-end="url(#a1)"/>
+
+  <rect x="348" y="78" width="160" height="56" rx="8" fill="#131C2E" stroke="#475569"/>
+  <text x="428" y="112" font-family="sans-serif" font-size="15" fill="#E2E8F0" text-anchor="middle">梯度更新 θ</text>
+  <line x1="512" y1="106" x2="522" y2="106" stroke="#475569" stroke-width="1.5" marker-end="url(#a1)"/>
+
+  <rect x="526" y="78" width="160" height="56" rx="8" fill="#131C2E" stroke="#475569"/>
+  <text x="606" y="112" font-family="sans-serif" font-size="15" fill="#E2E8F0" text-anchor="middle">冻结权重</text>
+  <line x1="690" y1="106" x2="700" y2="106" stroke="#475569" stroke-width="1.5" marker-end="url(#a1)"/>
+
+  <rect x="704" y="78" width="200" height="56" rx="8" fill="#131C2E" stroke="#475569"/>
+  <text x="804" y="112" font-family="sans-serif" font-size="15" fill="#94A3B8" text-anchor="middle">推理时不再变</text>
+
+  <text x="170" y="166" font-family="sans-serif" font-size="14" fill="#64748B">改进发生在训练阶段；换环境或攒够新经验，得再跑一轮，还有灾难性遗忘风险</text>
+
+  <!-- lane 2 : JitRL -->
+  <text x="40" y="266" font-family="sans-serif" font-size="17" fill="#A78BFA">JitRL</text>
+
+  <rect x="170" y="232" width="160" height="56" rx="8" fill="#17203A" stroke="#8B5CF6"/>
+  <text x="250" y="266" font-family="sans-serif" font-size="15" fill="#E2E8F0" text-anchor="middle">记忆库 M</text>
+  <line x1="334" y1="260" x2="344" y2="260" stroke="#8B5CF6" stroke-width="1.5" marker-end="url(#a2)"/>
+
+  <rect x="348" y="232" width="160" height="56" rx="8" fill="#17203A" stroke="#8B5CF6"/>
+  <text x="428" y="266" font-family="sans-serif" font-size="15" fill="#E2E8F0" text-anchor="middle">检索 N(s)</text>
+  <line x1="512" y1="260" x2="522" y2="260" stroke="#8B5CF6" stroke-width="1.5" marker-end="url(#a2)"/>
+
+  <rect x="526" y="232" width="160" height="56" rx="8" fill="#17203A" stroke="#8B5CF6"/>
+  <text x="606" y="266" font-family="sans-serif" font-size="15" fill="#E2E8F0" text-anchor="middle">估优势 Â</text>
+  <line x1="690" y1="260" x2="700" y2="260" stroke="#22D3EE" stroke-width="1.5" marker-end="url(#a3)"/>
+
+  <rect x="704" y="232" width="200" height="56" rx="8" fill="#17203A" stroke="#22D3EE"/>
+  <text x="804" y="266" font-family="monospace" font-size="15" fill="#22D3EE" text-anchor="middle">z' = z + β·Â</text>
+
+  <text x="170" y="320" font-family="sans-serif" font-size="14" fill="#64748B">权重全程冻结；策略改进搬到选动作那一刻，改的是输出分布而不是参数</text>
+</svg>

@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="400" viewBox="0 0 1000 400" role="img" aria-label="JitRL 的闭环：推理时读记忆调制 logits，回合结束时把带回报的三元组写回记忆">
+  <defs>
+    <marker id="c1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#22D3EE"/>
+    </marker>
+    <marker id="c2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#A78BFA"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1000" height="400" rx="16" fill="#0B1220"/>
+
+  <!-- memory bank -->
+  <rect x="40" y="110" width="180" height="220" rx="10" fill="#131C2E" stroke="#5B87BF" stroke-width="1.5"/>
+  <text x="130" y="196" font-family="sans-serif" font-size="16" fill="#E2E8F0" text-anchor="middle">非参数记忆库</text>
+  <text x="130" y="226" font-family="monospace" font-size="14" fill="#9FB3D1" text-anchor="middle">M = (s, a, G)</text>
+  <text x="130" y="252" font-family="sans-serif" font-size="13" fill="#64748B" text-anchor="middle">权重之外唯一</text>
+  <text x="130" y="272" font-family="sans-serif" font-size="13" fill="#64748B" text-anchor="middle">可写的部分</text>
+
+  <!-- lane 1: inference -->
+  <text x="250" y="96" font-family="sans-serif" font-size="14" fill="#22D3EE">① 推理时：读</text>
+
+  <line x1="224" y1="138" x2="244" y2="138" stroke="#22D3EE" stroke-width="1.5" marker-end="url(#c1)"/>
+  <rect x="250" y="110" width="170" height="56" rx="8" fill="#17203A" stroke="#8B5CF6"/>
+  <text x="335" y="144" font-family="sans-serif" font-size="15" fill="#E2E8F0" text-anchor="middle">检索邻居 N(s)</text>
+
+  <line x1="424" y1="138" x2="444" y2="138" stroke="#22D3EE" stroke-width="1.5" marker-end="url(#c1)"/>
+  <rect x="450" y="110" width="180" height="56" rx="8" fill="#17203A" stroke="#8B5CF6"/>
+  <text x="540" y="144" font-family="sans-serif" font-size="15" fill="#E2E8F0" text-anchor="middle">估价值与优势 Â</text>
+
+  <line x1="634" y1="138" x2="654" y2="138" stroke="#22D3EE" stroke-width="1.5" marker-end="url(#c1)"/>
+  <rect x="660" y="110" width="150" height="56" rx="8" fill="#17203A" stroke="#22D3EE"/>
+  <text x="735" y="144" font-family="monospace" font-size="14" fill="#22D3EE" text-anchor="middle">z' = z + β·Â</text>
+
+  <line x1="814" y1="138" x2="834" y2="138" stroke="#22D3EE" stroke-width="1.5" marker-end="url(#c1)"/>
+  <rect x="840" y="110" width="130" height="56" rx="8" fill="#17203A" stroke="#8B5CF6"/>
+  <text x="905" y="144" font-family="sans-serif" font-size="15" fill="#E2E8F0" text-anchor="middle">选动作 a</text>
+
+  <line x1="905" y1="170" x2="905" y2="248" stroke="#A78BFA" stroke-width="1.5" marker-end="url(#c2)"/>
+  <text x="915" y="214" font-family="sans-serif" font-size="13" fill="#64748B">一局结束</text>
+
+  <!-- lane 2: memory update -->
+  <text x="250" y="240" font-family="sans-serif" font-size="14" fill="#A78BFA">② 回合结束：写</text>
+
+  <rect x="840" y="254" width="130" height="56" rx="8" fill="#17203A" stroke="#8B5CF6"/>
+  <text x="905" y="288" font-family="sans-serif" font-size="15" fill="#E2E8F0" text-anchor="middle">轨迹 τ</text>
+
+  <line x1="836" y1="282" x2="816" y2="282" stroke="#A78BFA" stroke-width="1.5" marker-end="url(#c2)"/>
+  <rect x="560" y="254" width="250" height="56" rx="8" fill="#17203A" stroke="#8B5CF6"/>
+  <text x="685" y="288" font-family="sans-serif" font-size="15" fill="#E2E8F0" text-anchor="middle">Evaluator 打步级奖励 r</text>
+
+  <line x1="556" y1="282" x2="536" y2="282" stroke="#A78BFA" stroke-width="1.5" marker-end="url(#c2)"/>
+  <rect x="330" y="254" width="200" height="56" rx="8" fill="#17203A" stroke="#8B5CF6"/>
+  <text x="430" y="288" font-family="sans-serif" font-size="15" fill="#E2E8F0" text-anchor="middle">折扣累加 G</text>
+
+  <line x1="326" y1="282" x2="228" y2="282" stroke="#A78BFA" stroke-width="1.5" marker-end="url(#c2)"/>
+
+  <text x="40" y="366" font-family="sans-serif" font-size="13" fill="#64748B">WebArena 的开源实现里，打分器会先看到基准判定的这局成败，再给每一步打分；整套方法的价值尺度挂在这个打分器上</text>
+</svg>

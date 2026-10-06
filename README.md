@@ -140,7 +140,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 按 `content/post/` 的实际目录结构生成，括号内为该分类的文章数。**本段由 `python3 tools/readme_index.py` 自动生成，请勿手工编辑** —— 增删文章后重新运行该脚本即可。
 
 <!-- BEGIN:CONTENT-INDEX -->
-## Agent 工程 (42)
+## Agent 工程 (43)
 
 ### 01-入门与全景
 
@@ -157,6 +157,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [Agent 用户记忆与 Skill 沉淀：开源项目参考与架构设计](content/post/Agent%20工程/02-框架与运行时/Agent%20用户记忆与%20Skill%20沉淀：开源项目参考与架构设计/)
 - [Agent 自进化开源盘点：什么能跑，什么在腐烂，什么被门控救回来](content/post/Agent%20工程/02-框架与运行时/Agent%20自进化开源盘点：什么能跑什么在腐烂/)
 - [Gliding Horse Agent OS 介绍：Rust 构建的工业级 AI Agent 操作系统](content/post/Agent%20工程/02-框架与运行时/Gliding%20Horse%20Agent%20OS%20介绍/)
+- [JitRL：不训参数也能边用边学，前提是有人告诉它这局成没成](content/post/Agent%20工程/02-框架与运行时/JitRL：不训一个参数，把策略改进搬到推理那一刻/)
 - [MASS：多智能体系统的提示词与拓扑如何协同优化](content/post/Agent%20工程/02-框架与运行时/MASS：多智能体系统的提示词与拓扑如何协同优化/)
 - [主流 Agent 框架对比与多框架统一接口设计](content/post/Agent%20工程/02-框架与运行时/主流%20Agent%20框架对比与多框架统一接口设计/)
 - [内置 Agent 放哪：一个 is_runnable 陷阱与三类事实源](content/post/Agent%20工程/02-框架与运行时/内置%20Agent%20放哪：一个%20is_runnable%20陷阱与三类事实源/)
