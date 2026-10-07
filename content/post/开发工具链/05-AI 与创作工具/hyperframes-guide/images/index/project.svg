@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="480" viewBox="0 0 1200 480">
+<rect width="1200" height="480" fill="#0B1220"/>
+<text x="56" y="70" font-family="sans-serif" font-size="32" fill="#F8FAFC">工程入口与引用文件一起交付</text>
+<rect x="56" y="142" width="248" height="160" rx="16" fill="#17253B" stroke="#5B87BF" stroke-width="2"/>
+<text x="78" y="193" font-family="sans-serif" font-size="25" fill="#F8FAFC">index.html</text>
+<text x="78" y="240" font-family="sans-serif" font-size="19" fill="#B8CCE8">全片入口与时间轴</text>
+<path d="M313 222h22m-8-7 8 7-8 7" stroke="#22D3EE" stroke-width="3" fill="none"/>
+<rect x="344" y="142" width="248" height="160" rx="16" fill="#17253B" stroke="#5B87BF" stroke-width="2"/>
+<text x="366" y="193" font-family="sans-serif" font-size="25" fill="#F8FAFC">场景文件</text>
+<text x="366" y="240" font-family="sans-serif" font-size="19" fill="#B8CCE8">开场 / 图表 / 结尾</text>
+<path d="M601 222h22m-8-7 8 7-8 7" stroke="#22D3EE" stroke-width="3" fill="none"/>
+<rect x="632" y="142" width="248" height="160" rx="16" fill="#17253B" stroke="#5B87BF" stroke-width="2"/>
+<text x="654" y="193" font-family="sans-serif" font-size="25" fill="#F8FAFC">媒体素材</text>
+<text x="654" y="240" font-family="sans-serif" font-size="19" fill="#B8CCE8">图片 / 视频 / 音轨</text>
+<path d="M889 222h22m-8-7 8 7-8 7" stroke="#22D3EE" stroke-width="3" fill="none"/>
+<rect x="920" y="142" width="248" height="160" rx="16" fill="#17253B" stroke="#5B87BF" stroke-width="2"/>
+<text x="942" y="193" font-family="sans-serif" font-size="25" fill="#F8FAFC">工程依赖</text>
+<text x="942" y="240" font-family="sans-serif" font-size="19" fill="#B8CCE8">字体 / 动画库 / 配置</text>
+<text x="56" y="370" font-family="sans-serif" font-size="22" fill="#B8CCE8">箭头表示阅读工程时的检查顺序；资源由入口或子场景引用。</text>
+<text x="56" y="406" font-family="sans-serif" font-size="22" fill="#B8CCE8">保留路径关系，才能继续编辑并在另一台机器恢复。</text>
+</svg>

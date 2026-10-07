@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="480" viewBox="0 0 1200 480">
+<rect width="1200" height="480" fill="#0B1220"/>
+<text x="56" y="70" font-family="sans-serif" font-size="32" fill="#F8FAFC">人工与 AI 在同一个工程里迭代</text>
+<rect x="56" y="142" width="248" height="160" rx="16" fill="#17253B" stroke="#5B87BF" stroke-width="2"/>
+<text x="78" y="193" font-family="sans-serif" font-size="25" fill="#F8FAFC">AI 制作</text>
+<text x="78" y="240" font-family="sans-serif" font-size="19" fill="#B8CCE8">场景与时间轴</text>
+<path d="M313 222h22m-8-7 8 7-8 7" stroke="#22D3EE" stroke-width="3" fill="none"/>
+<rect x="344" y="142" width="248" height="160" rx="16" fill="#17253B" stroke="#5B87BF" stroke-width="2"/>
+<text x="366" y="193" font-family="sans-serif" font-size="25" fill="#F8FAFC">Studio 微调</text>
+<text x="366" y="240" font-family="sans-serif" font-size="19" fill="#B8CCE8">布局 / 时长 / 动画</text>
+<path d="M601 222h22m-8-7 8 7-8 7" stroke="#22D3EE" stroke-width="3" fill="none"/>
+<rect x="632" y="142" width="248" height="160" rx="16" fill="#17253B" stroke="#5B87BF" stroke-width="2"/>
+<text x="654" y="193" font-family="sans-serif" font-size="25" fill="#F8FAFC">检查与预览</text>
+<text x="654" y="240" font-family="sans-serif" font-size="19" fill="#B8CCE8">事实 / 音画 / 转场</text>
+<path d="M889 222h22m-8-7 8 7-8 7" stroke="#22D3EE" stroke-width="3" fill="none"/>
+<rect x="920" y="142" width="248" height="160" rx="16" fill="#17253B" stroke="#5B87BF" stroke-width="2"/>
+<text x="942" y="193" font-family="sans-serif" font-size="25" fill="#F8FAFC">导出与留档</text>
+<text x="942" y="240" font-family="sans-serif" font-size="19" fill="#B8CCE8">成片 + 可编辑工程</text>
+<text x="56" y="370" font-family="sans-serif" font-size="22" fill="#B8CCE8">需要跨场景调整或复杂源码修改时，把上下文交回 AI。</text>
+<text x="56" y="406" font-family="sans-serif" font-size="22" fill="#B8CCE8">每轮编辑后检查运动中的画面，再导出最终文件。</text>
+</svg>

@@ -1,0 +1,26 @@
+[
+  {
+    "file": "studio-overview-official.jpg",
+    "source_image": "https://static.heygen.ai/hyperframes-oss/docs/images/studio/overview-v1.jpg",
+    "source_page": "https://hyperframes.mintlify.app/studio/index",
+    "author": "HeyGen / HyperFrames",
+    "retrieved": "2026-10-07",
+    "kind": "official documentation screenshot; not locally captured"
+  },
+  {
+    "file": "studio-timeline-official.jpg",
+    "source_image": "https://static.heygen.ai/hyperframes-oss/docs/images/studio/timeline-v1.jpg",
+    "source_page": "https://hyperframes.mintlify.app/studio/timeline",
+    "author": "HeyGen / HyperFrames",
+    "retrieved": "2026-10-07",
+    "kind": "official documentation screenshot; not locally captured"
+  },
+  {
+    "file": "studio-export-official.jpg",
+    "source_image": "https://static.heygen.ai/hyperframes-oss/docs/images/studio/export-v1.jpg",
+    "source_page": "https://hyperframes.heygen.com/studio/export",
+    "author": "HeyGen / HyperFrames",
+    "retrieved": "2026-10-07",
+    "kind": "official documentation screenshot; not locally captured"
+  }
+]

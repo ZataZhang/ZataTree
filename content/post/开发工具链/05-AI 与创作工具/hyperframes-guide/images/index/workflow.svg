@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="480" viewBox="0 0 1200 480">
+<rect width="1200" height="480" fill="#0B1220"/>
+<text x="56" y="70" font-family="sans-serif" font-size="32" fill="#F8FAFC">输入经过制作，形成可编辑的视频工程</text>
+<rect x="56" y="142" width="248" height="160" rx="16" fill="#17253B" stroke="#5B87BF" stroke-width="2"/>
+<text x="78" y="193" font-family="sans-serif" font-size="25" fill="#F8FAFC">原始输入</text>
+<text x="78" y="240" font-family="sans-serif" font-size="19" fill="#B8CCE8">文章 / 想法 / 录音</text>
+<path d="M313 222h22m-8-7 8 7-8 7" stroke="#22D3EE" stroke-width="3" fill="none"/>
+<rect x="344" y="142" width="248" height="160" rx="16" fill="#17253B" stroke="#5B87BF" stroke-width="2"/>
+<text x="366" y="193" font-family="sans-serif" font-size="25" fill="#F8FAFC">制作计划</text>
+<text x="366" y="240" font-family="sans-serif" font-size="19" fill="#B8CCE8">剧本 / 分镜 / 音轨</text>
+<path d="M601 222h22m-8-7 8 7-8 7" stroke="#22D3EE" stroke-width="3" fill="none"/>
+<rect x="632" y="142" width="248" height="160" rx="16" fill="#17253B" stroke="#5B87BF" stroke-width="2"/>
+<text x="654" y="193" font-family="sans-serif" font-size="25" fill="#F8FAFC">视频工程</text>
+<text x="654" y="240" font-family="sans-serif" font-size="19" fill="#B8CCE8">HTML / 场景 / 素材</text>
+<path d="M889 222h22m-8-7 8 7-8 7" stroke="#22D3EE" stroke-width="3" fill="none"/>
+<rect x="920" y="142" width="248" height="160" rx="16" fill="#17253B" stroke="#5B87BF" stroke-width="2"/>
+<text x="942" y="193" font-family="sans-serif" font-size="25" fill="#F8FAFC">输出视频</text>
+<text x="942" y="240" font-family="sans-serif" font-size="19" fill="#B8CCE8">MP4 / 其他格式</text>
+<text x="56" y="370" font-family="sans-serif" font-size="22" fill="#B8CCE8">AI 负责把内容与计划制作成工程；HyperFrames 渲染工程。</text>
+<text x="56" y="406" font-family="sans-serif" font-size="22" fill="#B8CCE8">Studio 与 AI 都可继续修改工程。</text>
+</svg>

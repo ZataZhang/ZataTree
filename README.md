@@ -302,7 +302,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [企业AI工具平台架构设计：拥抱快速变化的AI生态](content/post/工程实践/03-DevOps%20与平台/ai-platform-architecture/)
 - [开发问题与解法笔记](content/post/工程实践/03-DevOps%20与平台/开发问题与解法笔记/)
 
-## 开发工具链 (28)
+## 开发工具链 (29)
 
 ### 01-Git 与 GitHub
 
@@ -346,6 +346,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 
 - [用 AI 把文章做成口播视频：三条路线、工具盘点与落地管线](content/post/开发工具链/05-AI%20与创作工具/ai-article-to-video/)
 - [Blender 详解：奥斯卡和 AI Agent 为什么都选了它](content/post/开发工具链/05-AI%20与创作工具/blender-complete-guide/)
+- [HyperFrames 功能全景：能制作什么、编辑到什么程度，以及如何交付](content/post/开发工具链/05-AI%20与创作工具/hyperframes-guide/)
 
 ## 效率与文档 (10)
 
