@@ -21,6 +21,11 @@
   /* 重命名既不增也不删，单给一套蓝色：沿用增删那对「浅底 + 深字」的用法。 */
   --rename: oklch(0.62 0.11 256 / 18%);
   --rename-mark: oklch(0.48 0.13 256);
+  /* Changes 段（未暂存/未跟踪）文件名的淡绿：比 --add-mark 浅一档，名字读起来还是正文，
+     但和 Staged Changes 里默认色的文件名并排时一眼可分。 */
+  --name-unstaged: oklch(0.55 0.09 152);
+  /* 树的缩进参考线：比边框再淡一层，只在有层级的地方由 JS 按深度画出来。 */
+  --indent-guide: color-mix(in oklab, var(--muted-foreground) 24%, transparent);
   --code-bg: oklch(0.995 0.002 250);
   --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
 }
@@ -160,6 +165,16 @@ button, input, select { font: inherit; color: inherit; }
 }
 .node .caret { width: 12px; flex: none; color: var(--muted-foreground); font-size: 10px; }
 .node .name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* 目录行（.is-dir 由 buildDirectoryRow 加）：名字加一档字重，段标题 → 目录 → 文件三层的
+   中间层看得出来。 */
+.node.is-dir .name { color: var(--foreground); font-weight: 620; }
+/* Changes 段的文件名淡绿。color 写在 .name 自己身上，选中行的主色（写在行按钮上）盖不住它
+   ——选中后名字仍是淡绿，与 VSCode 的 git 着色行为一致。 */
+.node .name.name-unstaged { color: var(--name-unstaged); }
+.node .rename-source {
+  min-width: 0; overflow: hidden; color: var(--muted-foreground); font-size: 10.5px;
+  text-overflow: ellipsis; white-space: nowrap;
+}
 .node .stat { margin-left: auto; display: inline-flex; gap: 5px; font-family: var(--mono); font-size: 11px; }
 .stat .add { color: var(--add-mark); }
 .stat .del { color: var(--del-mark); }

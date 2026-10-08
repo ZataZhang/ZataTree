@@ -9,19 +9,24 @@
 本文件开头的这段说明与守卫测试里的相应条目都已同步改写；再要开新
 的写口之前请先读这两处，别把它当成「顺手就能加」。
 特别地，未跟踪文件的改动**不**靠 ``git add -N`` 取得：那一条会写索引，而我们读它靠的是
-``git diff --no-index -- /dev/null <文件>``。
+``git diff --no-index -- /dev/null <文件>``。唯一的例外是「工作区删除 + 未跟踪新文件」这种
+用普通 ``mv`` 造出来的重命名：它在真实索引上永远配不出对，因此另起一个落在系统临时目录的
+一次性索引（``GIT_INDEX_FILE``），只在该临时索引里 ``git add -N`` 求配对——真实索引一次都
+不写，临时索引用完即删（见 :func:`_scratch_index_environment`）。
 
 改动视图按 `git status` 的三段口径划分，每段的数据源都是真实 ``git``，且与终端逐项一致：
 
 - 已暂存：``git diff --cached``（HEAD ↔ 索引）。
 - 未暂存：``git diff``（索引 ↔ 工作区）。
 - 未跟踪：``git ls-files --others --exclude-standard`` 列出文件；点开某个文件时才用
-  ``git diff --no-index -- /dev/null <文件>`` 求它的逐行 diff。
+  ``git diff --no-index -- /dev/null <文件>`` 求它的逐行 diff。被上面那次一次性索引认作
+  某处删除的重命名目的地时，列出与点开都改走重命名口径（状态 ``R`` + 旧路径 + 真实增删）。
 
 界面显示的文件集合与增删统计不做二次推断，必须与同参数的终端输出逐项一致。唯一**不向界面
 提供**的是未跟踪文件的 ``+N -M``：``git`` 的列表类命令都不报这个数，逐文件取一次在未跟踪
 文件多时会让页面卡住（实测 800 个文件约 7 秒）。界面上那两列留空，并在分区上标出
-``stats_available=false``；不提供与二进制是两件事，不共用同一个空值。
+``stats_available=false``；不提供与二进制是两件事，不共用同一个空值。配对成立的重命名是这条
+的例外——它的两个数来自一次性索引上的 ``--numstat``，是真实改动量而不是整篇新增。
 
 未跟踪一段沿用文件树的目录剪枝（见 :data:`_PRUNED_DIRECTORY_NAMES`）：派生项目忘了把
 依赖目录写进 ``.gitignore`` 时，整棵依赖树既不该进文件树，也不该淹没改动列表。
@@ -31,6 +36,12 @@
 diff 先在不带 pathspec 的完整 diff 上查出旧路径，再把新旧两条路径一起交给 ``git``
 （见 :func:`_lookup_rename_source`）。界面上显示的仍是新路径，与终端 ``--name-only``
 一致；旧路径只作为「重命名自何处」的出处。
+
+``-M`` 只对 ``git diff`` 收在眼里的路径有效，而它从不收录未跟踪文件——因此普通 ``mv``
+（删除 + 未跟踪新文件）在真实索引上配不出对，``git status`` 自己也只给 `` D`` 加 ``??``
+两行。这类配对由一次性索引补齐：那边的路径以「待加入」登记后，``-M`` 就能按内容相似度
+把它和删除配起来（见 :func:`_detect_worktree_rename_sources` 与
+:func:`_build_untracked_diff`）。配对只是**呈现**上的合并，未跟踪那段列出的路径集合不变。
 
 预览有两条独立的路，都**默认不生效**，只在界面上被显式要求时才出力：
 
@@ -57,9 +68,14 @@ diff 先在不带 pathspec 的完整 diff 上查出旧路径，再把新旧两�
 
 from __future__ import annotations
 
+import os
 import posixpath
 import re
+import shutil
 import subprocess
+import tempfile
+from collections.abc import Iterator, Sequence
+from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path, PurePosixPath
 from urllib.parse import quote
@@ -90,6 +106,14 @@ _SECTION_DIFF_ARGUMENT_PREFIXES: dict[str, tuple[str, ...]] = {
 
 #: 未跟踪文件的路径与 ``/dev/null`` 相比，因此它整篇都是新增行。
 _UNTRACKED_DIFF_LEFT_PATH = "/dev/null"
+
+#: ``git`` 用来指定索引文件的环境变量。改它就能把 ``git add`` 引到一次性索引上，真实索引
+#: 一次都不碰——这是「只读」边界得以保住的关键（见 :func:`_scratch_index_environment`）。
+_SCRATCH_INDEX_ENVIRONMENT_KEY = "GIT_INDEX_FILE"
+
+#: 一次性索引的临时目录前缀。目录落在系统临时目录里，**绝不能落进仓库**：那会自己多出一个
+#: 未跟踪文件，还会把文件树和改动列表一起弄脏。
+_SCRATCH_INDEX_DIRECTORY_PREFIX = "view-scratch-index-"
 
 #: ``git diff --no-index`` 在「两边有差异」时退出码为 ``1``（同 ``diff`` 语义），而那正是
 #: 我们要的正常结果；``0`` 表示两边一致，``>1`` 才是真的出错。把它按成功接纳，否则每个
@@ -674,30 +698,44 @@ def build_changes_payload(repository_root: Path) -> WorkspacePayload:
     界面上把后两段合并成一段「Changes」显示，但这里仍按
     三段给：三段的 git 口径不同（HEAD↔索引 / 索引↔工作区 / 未跟踪），单文件 diff 与暂存动作
     都要知道自己面对的是哪一种，合并只发生在显示层。
+
+    未跟踪那一段的**路径集合**仍与 ``git ls-files --others`` 逐项一致，只是其中被认出是某处
+    工作区删除的重命名目的地时改成 ``R`` 形态（带旧路径与真实增删）。已暂存的改动先算出来，
+    是因为「哪些删除可以配对」得拿真实未暂存分区去核对，不能只信一次性索引那个以 ``HEAD``
+    为底的视图。
     """
+    changed_files_by_section: dict[str, list[dict[str, object]]] = {
+        section_name: _collect_index_section_files(repository_root, section_name)
+        for section_name in _SECTION_DIFF_ARGUMENT_PREFIXES
+    }
+
+    # 未跟踪那一段只列文件、不给 +N -M。git 的列表类命令都不为未跟踪文件报统计，
+    # 唯一口径是逐个文件跑一次 ``--no-index --numstat``；本机实测每个文件约 8ms，
+    # 800 个未跟踪文件要 7 秒左右（并发跑到 8 路也只降到 4 秒，瓶颈在进程创建），
+    # 页面会像卡死。逐行 diff 仍由 ``--no-index`` 在点击时才取一次。
+    #
+    # ``add`` / ``del`` 留 ``None`` 表示「本轮不提供」，由段级的 ``has_stats`` 与另外两段
+    # 区分开——**不提供**与**二进制**在界面上是两件事，不能共用同一个 ``None``。配对成立的
+    # 重命名是例外：它的两个数来自一次性索引上的真实 ``--numstat``。
+    untracked_paths = _collect_untracked_file_paths(repository_root)
+    worktree_rename_by_new_path = _detect_worktree_rename_sources(
+        repository_root,
+        [entry["path"] for entry in changed_files_by_section["unstaged"] if entry["status"] == "D"],
+        untracked_paths,
+    )
+    changed_files_by_section["untracked"] = [
+        _build_untracked_entry(untracked_path, worktree_rename_by_new_path.get(untracked_path))
+        for untracked_path in untracked_paths
+    ]
+
     sections: list[dict[str, object]] = []
     for section_name, section_label in _SECTION_LABELS.items():
-        if section_name in _SECTION_DIFF_ARGUMENT_PREFIXES:
-            changed_files = _collect_index_section_files(repository_root, section_name)
-            has_stats = True
-        else:
-            # 未跟踪那一段只列文件、不给 +N -M。git 的列表类命令都不为未跟踪文件报统计，
-            # 唯一口径是逐个文件跑一次 ``--no-index --numstat``；本机实测每个文件约 8ms，
-            # 800 个未跟踪文件要 7 秒左右（并发跑到 8 路也只降到 4 秒，瓶颈在进程创建），
-            # 页面会像卡死。逐行 diff 仍由 ``--no-index`` 在点击时才取一次。
-            #
-            # ``add`` / ``del`` 留 ``None`` 表示「本轮不提供」，由 ``has_stats`` 与另外两段
-            # 区分开——**不提供**与**二进制**在界面上是两件事，不能共用同一个 ``None``。
-            changed_files = [
-                {"path": untracked_path, "status": "A", "add": None, "del": None}
-                for untracked_path in _collect_untracked_file_paths(repository_root)
-            ]
-            has_stats = False
+        changed_files = changed_files_by_section[section_name]
         sections.append(
             {
                 "section": section_name,
                 "label": section_label,
-                "stats_available": has_stats,
+                "stats_available": section_name in _SECTION_DIFF_ARGUMENT_PREFIXES,
                 "files": changed_files,
                 "totals": _total_changed_files(changed_files),
             }
@@ -729,10 +767,10 @@ def _collect_index_section_files(
     """
     section_arguments = _SECTION_DIFF_ARGUMENT_PREFIXES[section_name]
     status_entry_by_path = _parse_status_entries(
-        _run_git(repository_root, *section_arguments, "--name-status", "-z")
+        _run_git(repository_root, *section_arguments, "-M", "--name-status", "-z")
     )
     numstat_by_path = _parse_numstat_entries(
-        _run_git(repository_root, *section_arguments, "--numstat", "-z")
+        _run_git(repository_root, *section_arguments, "-M", "--numstat", "-z")
     )
 
     changed_files: list[dict[str, object]] = []
@@ -742,11 +780,118 @@ def _collect_index_section_files(
             {
                 "path": changed_path,
                 "status": status_entry_by_path[changed_path][0],
+                "rename_from": status_entry_by_path[changed_path][1],
                 "add": added_count,
                 "del": deleted_count,
             }
         )
     return changed_files
+
+
+#: 一次性索引里的重命名条目在返回值里的形状：新路径 -> (旧路径, 新增行数, 删除行数)。
+_WorktreeRenameEntry = tuple[str, int | None, int | None]
+
+
+def _detect_worktree_rename_sources(
+    repository_root: Path,
+    deleted_paths: list[str],
+    untracked_paths: list[str],
+) -> dict[str, _WorktreeRenameEntry]:
+    """认出「工作区删除 + 未跟踪新文件」这种普通 ``mv`` 造出来的重命名。
+
+    ``-M`` 只对 ``git diff`` 收在眼里的路径有效，而它从不收录未跟踪文件，所以这类配对只能靠
+    一次性索引补齐（见 :func:`_scratch_index_environment`）。产出的键是**新路径**：界面上显示
+    ``R`` 的那一行永远是目的地，与终端 ``--name-only`` 的口径一致。
+
+    配对结果还要与真实未暂存分区交叉核对：一次性索引以 ``HEAD`` 为底，会把「已暂存的删除」也
+    看成工作区删除，只信它就会把已经进过索引的重命名误报成工作区改动。因此只有「新路径确实未
+    跟踪、且旧路径确实在真实未暂存分区里是 ``D``」的条目才算数。
+
+    这是纯增益的一步：配不出来、``git`` 报错、仓库没有 HEAD，都只是退回今天的行为（新文件照旧
+    算整篇新增），绝不因此让整个改动列表失败。
+
+    Args:
+        repository_root (Path): 仓库根绝对路径。
+        deleted_paths (list[str]): 真实未暂存分区里的删除路径。
+        untracked_paths (list[str]): 未跟踪文件路径，同时也是待登记的候选。
+
+    Returns:
+        dict[str, _WorktreeRenameEntry]: 新路径 -> (旧路径, 新增行数, 删除行数)。两侧任一为空、
+            或配不出对时为 ``{}``。
+    """
+    if not deleted_paths or not untracked_paths:
+        return {}
+
+    try:
+        with _scratch_index_environment(repository_root, untracked_paths) as environment_overrides:
+            status_entry_by_path = _parse_status_entries(
+                _run_git(
+                    repository_root,
+                    "diff",
+                    "-M",
+                    "--name-status",
+                    "-z",
+                    environment_overrides=environment_overrides,
+                )
+            )
+            numstat_by_path = _parse_numstat_entries(
+                _run_git(
+                    repository_root,
+                    "diff",
+                    "-M",
+                    "--numstat",
+                    "-z",
+                    environment_overrides=environment_overrides,
+                )
+            )
+    except WorkspaceCommandError:
+        return {}
+
+    deleted_path_set = set(deleted_paths)
+    untracked_path_set = set(untracked_paths)
+    rename_by_new_path: dict[str, _WorktreeRenameEntry] = {}
+    for new_path, (status_letter, rename_source) in status_entry_by_path.items():
+        if status_letter != "R" or rename_source is None:
+            continue
+        if new_path not in untracked_path_set or rename_source not in deleted_path_set:
+            continue
+        added_count, deleted_count = numstat_by_path.get(new_path, (None, None))
+        rename_by_new_path[new_path] = (rename_source, added_count, deleted_count)
+    return rename_by_new_path
+
+
+def _build_untracked_entry(
+    untracked_path: str, worktree_rename_entry: _WorktreeRenameEntry | None
+) -> dict[str, object]:
+    """把一条未跟踪文件整理成改动条目。
+
+    Args:
+        untracked_path (str): 仓库相对路径。
+        worktree_rename_entry (_WorktreeRenameEntry | None): 该路径是某处删除的重命名目的地时
+            给出 (旧路径, 新增行数, 删除行数)；否则为 ``None``。
+
+    Returns:
+        dict[str, object]: 改动条目。配对成立时是带旧路径与真实增删的 ``R``，否则是既有的
+            ``A`` 且 ``add`` / ``del`` 为 ``None``（未跟踪文件没有可信的统计来源）。``rename_from``
+            两种情形都给出，让条目形状保持一致。
+    """
+    if worktree_rename_entry is None:
+        return {
+            "path": untracked_path,
+            "status": "A",
+            "rename_from": None,
+            "add": None,
+            "del": None,
+        }
+
+    rename_source, added_count, deleted_count = worktree_rename_entry
+    return {
+        "path": untracked_path,
+        "status": "R",
+        "rename_from": rename_source,
+        "add": added_count,
+        "del": deleted_count,
+    }
 
 
 def _total_changed_files(
@@ -758,6 +903,84 @@ def _total_changed_files(
         "add": sum(entry["add"] or 0 for entry in changed_files),
         "del": sum(entry["del"] or 0 for entry in changed_files),
     }
+
+
+def _has_worktree_deletion(repository_root: Path) -> bool:
+    """工作区里是否存在被删除的受控文件；没有删除就配不出任何重命名。
+
+    只用来短路：常态（没有删除）下省掉建一次性索引的那几步。``--diff-filter=D`` 无输出即无
+    删除，因此这里不必再开 ``-M``——未跟踪文件本来就不在这个 diff 里。
+    """
+    return bool(
+        _run_git(repository_root, "diff", "--name-status", "-z", "--diff-filter=D").strip("\0")
+    )
+
+
+def _run_untracked_whole_file_diff(repository_root: Path, normalized_relative_path: str) -> str:
+    """把一份未跟踪文件整篇对着 ``/dev/null`` 求 diff。"""
+    return _run_git(
+        repository_root,
+        "diff",
+        "--no-index",
+        "--",
+        _UNTRACKED_DIFF_LEFT_PATH,
+        normalized_relative_path,
+        allowed_exit_codes=_DIFF_NO_INDEX_EXIT_CODES,
+    )
+
+
+def _build_untracked_diff(
+    repository_root: Path, normalized_relative_path: str
+) -> tuple[str | None, str]:
+    """给出未跟踪文件的逐行 diff，并回答它是不是某处工作区重命名的目的地。
+
+    普通未跟踪文件整篇对着 ``/dev/null`` 求 diff。但「工作区删除 + 未跟踪新文件」这种普通
+    ``mv`` 必须先认出配对：否则同一个文件在改动列表里同时以「删除」与「整篇新增」出现两次，
+    正文也整篇算成新增行，真正改动的那几行反而看不见。识别与改动列表共用同一套一次性索引
+    （见 :func:`_detect_worktree_rename_sources`）。
+
+    接口是无状态的：界面上直接点开某个未跟踪新文件时也走这里，不依赖先调过一次
+    ``/api/changes``。
+
+    Args:
+        repository_root (Path): 仓库根绝对路径。
+        normalized_relative_path (str): 界面显示的那条（新）路径的仓库相对路径。
+
+    Returns:
+        tuple[str | None, str]: 重命名来源与 diff 正文；不是重命名、或配对这一步出岔子时为
+            ``None`` 加整篇新增的正文。
+    """
+    if not _has_worktree_deletion(repository_root):
+        return None, _run_untracked_whole_file_diff(repository_root, normalized_relative_path)
+
+    try:
+        with _scratch_index_environment(
+            repository_root, [normalized_relative_path]
+        ) as environment_overrides:
+            # 查配对必须在**不带 pathspec 的完整 diff** 上做，理由同 :func:`_lookup_rename_source`。
+            rename_source = _lookup_rename_source(
+                repository_root,
+                ("diff",),
+                normalized_relative_path,
+                environment_overrides=environment_overrides,
+            )
+            if rename_source is None:
+                return None, _run_untracked_whole_file_diff(
+                    repository_root, normalized_relative_path
+                )
+            # 与未暂存分区同一条道理：新旧两条路径要一起作为 pathspec，配对才成立。
+            return rename_source, _run_git(
+                repository_root,
+                "diff",
+                "-M",
+                "--",
+                rename_source,
+                normalized_relative_path,
+                environment_overrides=environment_overrides,
+            )
+    except WorkspaceCommandError:
+        # 配对是纯增益：认不出来就退回「整篇新增」，不让它把这次 diff 变成 500。
+        return None, _run_untracked_whole_file_diff(repository_root, normalized_relative_path)
 
 
 def build_diff_payload(
@@ -789,20 +1012,11 @@ def build_diff_payload(
 
     normalized_relative_path = Path(requested_path).as_posix()
     if section_name == "untracked":
-        # 未跟踪文件没有可配对的旧路径，也没有索引侧可以比较；它整篇对着 /dev/null 求
-        # diff。文件已被删除时提前拒绝，否则 git 的非零退出会变成 500 而不是明确应答。
+        # 未跟踪文件多半没有可配对的旧路径，那就整篇对着 /dev/null 求 diff。文件已被删除时
+        # 提前拒绝，否则 git 的非零退出会变成 500 而不是明确应答。
         if not resolved_path.is_file():
             return build_refusal_payload(404, f"未找到文件：{normalized_relative_path}")
-        rename_source = None
-        diff_text = _run_git(
-            repository_root,
-            "diff",
-            "--no-index",
-            "--",
-            _UNTRACKED_DIFF_LEFT_PATH,
-            normalized_relative_path,
-            allowed_exit_codes=_DIFF_NO_INDEX_EXIT_CODES,
-        )
+        rename_source, diff_text = _build_untracked_diff(repository_root, normalized_relative_path)
     else:
         section_arguments = _SECTION_DIFF_ARGUMENT_PREFIXES[section_name]
         rename_source = _lookup_rename_source(
@@ -1080,7 +1294,10 @@ def _parse_status_entries(status_output: str) -> dict[str, tuple[str, str | None
 
 
 def _lookup_rename_source(
-    repository_root: Path, section_arguments: tuple[str, ...], changed_path: str
+    repository_root: Path,
+    section_arguments: tuple[str, ...],
+    changed_path: str,
+    environment_overrides: dict[str, str] | None = None,
 ) -> str | None:
     """查出 ``changed_path`` 是否由某条旧路径重命名而来，是则返回该旧路径。
 
@@ -1091,12 +1308,20 @@ def _lookup_rename_source(
         repository_root (Path): 仓库根绝对路径。
         section_arguments (tuple[str, ...]): 该分区的 ``git diff`` 参数前缀。
         changed_path (str): 仓库相对的新路径。
+        environment_overrides (dict[str, str] | None): 环境变量覆盖；未跟踪那一侧靠它把
+            查询放到一次性索引上（见 :func:`_scratch_index_environment`）。
 
     Returns:
         str | None: 重命名来源的仓库相对路径；不是重命名时为 ``None``。
     """
     status_entry_by_path = _parse_status_entries(
-        _run_git(repository_root, *section_arguments, "--name-status", "-z")
+        _run_git(
+            repository_root,
+            *section_arguments,
+            "--name-status",
+            "-z",
+            environment_overrides=environment_overrides,
+        )
     )
     status_entry = status_entry_by_path.get(changed_path)
     return status_entry[1] if status_entry else None
@@ -1221,6 +1446,7 @@ def _run_git(
     repository_root: Path,
     *git_arguments: str,
     allowed_exit_codes: frozenset[int] = frozenset({0}),
+    environment_overrides: dict[str, str] | None = None,
 ) -> str:
     """在仓库根执行一次 ``git`` 命令并返回标准输出。
 
@@ -1232,6 +1458,9 @@ def _run_git(
         *git_arguments (str): 传给 ``git`` 的参数（不含 ``git`` 本身）。
         allowed_exit_codes (frozenset[int]): 视为成功的退出码。默认只认 ``0``；``git
             diff --no-index`` 这类「有差异即退出 1」的子命令由调用方显式放宽。
+        environment_overrides (dict[str, str] | None): 追加到当前环境上的变量，``None``
+            表示完全继承。目前只有 :func:`_scratch_index_environment` 用它改
+            ``GIT_INDEX_FILE``，好让 ``git add`` 落在一次性索引上而不是真实索引上。
 
     Returns:
         str: 命令的标准输出。
@@ -1246,9 +1475,58 @@ def _run_git(
         text=True,
         encoding="utf-8",
         check=False,
+        env={**os.environ, **environment_overrides} if environment_overrides else None,
     )
     if completed_process.returncode not in allowed_exit_codes:
         raise WorkspaceCommandError(
             f"git {' '.join(git_arguments)} 执行失败：{completed_process.stderr.strip()}"
         )
     return completed_process.stdout
+
+
+@contextmanager
+def _scratch_index_environment(
+    repository_root: Path, intent_to_add_paths: Sequence[str]
+) -> Iterator[dict[str, str]]:
+    """给 ``git`` 一个一次性索引，用来把未跟踪文件纳入重命名配对。
+
+    ``git diff`` 从不收录未跟踪文件，所以「工作区删除 + 未跟踪新文件」这种普通 ``mv`` 在真实
+    索引上永远配不出对。``git add -N`` 能把路径以「待加入」的形式登记进索引，之后 ``-M`` 就
+    能按内容相似度把它与删除配起来。
+
+    ``git add -N`` 本身是一条写操作，因此这里**绝不指向真实索引**：索引文件落在系统临时目录
+    下的一个新目录里（落进仓库会自己多出一个未跟踪文件），退出时整个目录删掉。
+
+    临时索引以 ``HEAD`` 为底，所以它给出的是「HEAD ↔ 工作区」的视图。这个视图**不能**当成
+    改动列表用（已暂存的改动在那里会以未暂存的形态出现）；它只用来回答「哪条未跟踪路径是
+    某处删除的重命名目的地」，调用方还得拿真实分区去交叉核对。
+
+    Args:
+        repository_root (Path): 仓库根绝对路径。
+        intent_to_add_paths (Sequence[str]): 登记成「待加入」的仓库相对路径，一次批量传入。
+
+    Yields:
+        dict[str, str]: 传给 :func:`_run_git` 的环境变量覆盖。
+
+    Raises:
+        WorkspaceCommandError: ``git read-tree`` 或 ``git add -N`` 失败。
+    """
+    scratch_index_directory = Path(tempfile.mkdtemp(prefix=_SCRATCH_INDEX_DIRECTORY_PREFIX))
+    # 目录里只放一个由 git 自己创建的索引文件（含它的 .lock），退出时整目录删除即可，
+    # 不必逐个猜 git 留下了什么。
+    scratch_index_path = scratch_index_directory / "index"
+    environment_overrides = {_SCRATCH_INDEX_ENVIRONMENT_KEY: str(scratch_index_path)}
+    try:
+        _run_git(repository_root, "read-tree", "HEAD", environment_overrides=environment_overrides)
+        if intent_to_add_paths:
+            _run_git(
+                repository_root,
+                "add",
+                "-N",
+                "--",
+                *intent_to_add_paths,
+                environment_overrides=environment_overrides,
+            )
+        yield environment_overrides
+    finally:
+        shutil.rmtree(scratch_index_directory, ignore_errors=True)
