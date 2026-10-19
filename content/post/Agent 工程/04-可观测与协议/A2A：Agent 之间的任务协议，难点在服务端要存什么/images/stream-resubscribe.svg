@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#1a1a2e"/><stop offset="100%" style="stop-color:#16213e"/></linearGradient>
+    <marker id="arrow" markerWidth="12" markerHeight="10" refX="11" refY="5" orient="auto"><path d="M0,0 L12,5 L0,10 Z" fill="#cbd5e0"/></marker>
+  </defs>
+  <rect width="900" height="480" rx="16" fill="url(#bg)"/>
+  <rect x="0" y="0" width="900" height="60" rx="16" fill="#0f0f23"/>
+  <rect x="0" y="40" width="900" height="20" fill="#0f0f23"/>
+  <text x="450" y="38" text-anchor="middle" fill="#e2e8f0" font-size="20" font-weight="bold">断线续取：先给 Task 快照，再给新事件</text>
+
+  <rect x="120" y="80" width="160" height="40" rx="10" fill="#667eea"/>
+  <text x="200" y="106" text-anchor="middle" fill="#fff" font-size="15" font-weight="bold">客户端</text>
+  <rect x="620" y="80" width="160" height="40" rx="10" fill="#667eea"/>
+  <text x="700" y="106" text-anchor="middle" fill="#fff" font-size="15" font-weight="bold">服务端</text>
+  <line x1="200" y1="120" x2="200" y2="455" stroke="#4a5568" stroke-width="2" stroke-dasharray="5 5"/>
+  <line x1="700" y1="120" x2="700" y2="455" stroke="#4a5568" stroke-width="2" stroke-dasharray="5 5"/>
+
+  <line x1="202" y1="150" x2="698" y2="150" stroke="#cbd5e0" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="450" y="142" text-anchor="middle" fill="#e2e8f0" font-size="13">SendStreamingMessage</text>
+  <line x1="698" y1="185" x2="202" y2="185" stroke="#4facfe" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="450" y="177" text-anchor="middle" fill="#4facfe" font-size="13">流以 Task 开头（或只回一条 Message 就关闭）</text>
+  <line x1="698" y1="218" x2="202" y2="218" stroke="#4facfe" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="450" y="210" text-anchor="middle" fill="#4facfe" font-size="13">statusUpdate / artifactUpdate …</text>
+
+  <text x="200" y="262" text-anchor="middle" fill="#f6ad55" font-size="22">✕</text>
+  <text x="450" y="262" text-anchor="middle" fill="#f6ad55" font-size="13">连接断开（本文设计：任务不随连接取消，服务端继续跑）</text>
+
+  <line x1="202" y1="292" x2="698" y2="292" stroke="#cbd5e0" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="450" y="284" text-anchor="middle" fill="#e2e8f0" font-size="13">SubscribeToTask（任务未到终态）</text>
+  <line x1="698" y1="324" x2="202" y2="324" stroke="#43e97b" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="450" y="316" text-anchor="middle" fill="#43e97b" font-size="13">第一个事件必须是当前 Task 快照</text>
+  <line x1="698" y1="354" x2="202" y2="354" stroke="#43e97b" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="450" y="346" text-anchor="middle" fill="#43e97b" font-size="13">之后只发新事件，直到终态</text>
+
+  <line x1="202" y1="398" x2="698" y2="398" stroke="#cbd5e0" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="450" y="390" text-anchor="middle" fill="#e2e8f0" font-size="13">SubscribeToTask（任务已到终态）</text>
+  <line x1="698" y1="430" x2="202" y2="430" stroke="#e53e3e" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="450" y="422" text-anchor="middle" fill="#fc8181" font-size="13">UnsupportedOperationError → 改用 GetTask 取结果</text>
+</svg>

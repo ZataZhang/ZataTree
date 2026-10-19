@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-label="配置中心、服务发现、密钥管理的边界">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1220"/><stop offset="1" stop-color="#121f35"/></linearGradient>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5b87bf"/><stop offset="1" stop-color="#22d3ee"/></linearGradient>
+    <linearGradient id="purple" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8b5cf6"/><stop offset="1" stop-color="#a78bfa"/></linearGradient>
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#26324a"/></pattern>
+  </defs>
+  <rect width="1200" height="520" fill="url(#bg)"/><rect width="1200" height="520" fill="url(#dots)" opacity=".55"/>
+  <text x="70" y="62" fill="#f8fafc" font-family="sans-serif" font-size="30" font-weight="700">同类工具其实分成三条线</text>
+  <text x="70" y="96" fill="#9fb3d1" font-family="sans-serif" font-size="17">先判断问题属于配置、发现、密钥还是协调，再比较产品。</text>
+  <g font-family="sans-serif">
+    <rect x="70" y="150" width="320" height="250" rx="20" fill="#101a2e" stroke="url(#blue)" stroke-width="3"/>
+    <text x="102" y="205" fill="#22d3ee" font-size="21" font-weight="700">配置中心</text>
+    <text x="102" y="248" fill="#f8fafc" font-size="22">Nacos · Apollo</text>
+    <text x="102" y="284" fill="#9fb3d1" font-size="17">版本、发布、回滚、监听</text>
+    <text x="102" y="318" fill="#9fb3d1" font-size="17">解决“应用怎么运行”</text>
+    <rect x="102" y="352" width="112" height="8" rx="4" fill="#22d3ee"/>
+    <rect x="440" y="150" width="320" height="250" rx="20" fill="#101a2e" stroke="url(#purple)" stroke-width="3"/>
+    <text x="472" y="205" fill="#a78bfa" font-size="21" font-weight="700">服务发现</text>
+    <text x="472" y="248" fill="#f8fafc" font-size="22">Consul · Nacos · K8s</text>
+    <text x="472" y="284" fill="#9fb3d1" font-size="17">注册、健康检查、实例查询</text>
+    <text x="472" y="318" fill="#9fb3d1" font-size="17">解决“服务现在在哪里”</text>
+    <rect x="472" y="352" width="112" height="8" rx="4" fill="#a78bfa"/>
+    <rect x="810" y="150" width="320" height="250" rx="20" fill="#101a2e" stroke="#f59e0b" stroke-width="3"/>
+    <text x="842" y="205" fill="#fbbf24" font-size="21" font-weight="700">密钥管理</text>
+    <text x="842" y="248" fill="#f8fafc" font-size="22">Vault · Infisical</text>
+    <text x="842" y="284" fill="#9fb3d1" font-size="17">权限、轮换、审计、动态凭证</text>
+    <text x="842" y="318" fill="#9fb3d1" font-size="17">解决“谁能看到秘密”</text>
+    <rect x="842" y="352" width="112" height="8" rx="4" fill="#fbbf24"/>
+  </g>
+  <path d="M390 276h50M760 276h50" stroke="#3b4a68" stroke-width="3" stroke-dasharray="8 8"/>
+  <text x="70" y="468" fill="#64748b" font-family="ui-monospace,monospace" font-size="16">zata.cc · configuration landscape</text>
+</svg>

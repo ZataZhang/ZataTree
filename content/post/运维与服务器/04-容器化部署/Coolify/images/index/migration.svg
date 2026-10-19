@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">Coolify 管理机迁移所需数据</title>
+  <desc id="desc">迁移 Coolify 控制面需要数据库备份、原 APP_KEY 和 SSH 私钥文件；目标机器恢复控制面，业务服务器上的数据库和持久卷需要单独备份。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#5b87bf"/></marker>
+    <style>
+      .h{font:700 30px sans-serif;fill:#10233f}.t{font:700 20px sans-serif;fill:#10233f}.s{font:16px sans-serif;fill:#445a76}.m{font:14px monospace;fill:#526b89}.box{fill:#f6f9fd;stroke:#9bb2cf;stroke-width:2}.main{fill:#e8f1ff;stroke:#5b87bf;stroke-width:3}.green{fill:#e9f7f1;stroke:#69a78e;stroke-width:2}.line{stroke:#5b87bf;stroke-width:3;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1200" height="520" rx="24" fill="#f8fafc"/>
+  <text x="56" y="62" class="h">恢复控制面，需要保留三类关键材料</text>
+  <rect x="60" y="142" width="280" height="86" rx="15" class="box"/><text x="88" y="179" class="t">Coolify 数据库备份</text><text x="88" y="207" class="s">项目 / 资源 / 设置</text>
+  <rect x="60" y="250" width="280" height="86" rx="15" class="box"/><text x="88" y="287" class="t">原实例 APP_KEY</text><text x="88" y="315" class="s">解密已保存的凭据</text>
+  <rect x="60" y="358" width="280" height="86" rx="15" class="box"/><text x="88" y="395" class="t">SSH Key 文件</text><text x="88" y="423" class="m">/data/coolify/ssh/keys/</text>
+  <path d="M340 185H476V262H530" class="line"/><path d="M340 293H530" class="line"/><path d="M340 401H476V324H530" class="line"/>
+  <rect x="542" y="210" width="280" height="150" rx="20" class="main"/><text x="582" y="260" class="t">新管理机</text><text x="582" y="296" class="s">恢复 Coolify 控制面</text><text x="582" y="330" class="m">核验服务器 SSH 连接</text>
+  <path d="M822 285H884" class="line"/>
+  <rect x="896" y="136" width="250" height="98" rx="16" class="green"/><text x="924" y="177" class="t">远程应用服务器</text><text x="924" y="207" class="s">authorized_keys 保持可用</text>
+  <rect x="896" y="322" width="250" height="98" rx="16" class="box"/><text x="924" y="363" class="t">业务数据另行迁移</text><text x="924" y="393" class="s">数据库 / 文件 / 持久卷</text>
+  <path d="M822 255H860V185H884" class="line"/>
+  <text x="60" y="486" class="m">控制台备份不包含应用数据库内容和 Docker 持久卷。</text>
+</svg>

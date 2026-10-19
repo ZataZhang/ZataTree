@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="710" viewBox="0 0 760 710" role="img" aria-labelledby="title desc">
+  <title id="title">Azure Responses API 请求依赖链</title>
+  <desc id="desc">LangChain Core 定义消息，langchain-openai 序列化为 Responses API 输入，openai SDK 发送到 Azure Foundry。缺少 type message 的问题发生在序列化层。</desc>
+  <defs>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#5B87BF"/>
+      <stop offset="1" stop-color="#22D3EE"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#79B6D7"/>
+    </marker>
+  </defs>
+  <rect width="760" height="710" rx="20" fill="#0B1220"/>
+  <circle cx="76" cy="170" r="1.5" fill="#26324A"/>
+  <circle cx="694" cy="398" r="1.5" fill="#26324A"/>
+  <circle cx="94" cy="590" r="1.5" fill="#26324A"/>
+
+  <rect x="105" y="35" width="550" height="105" rx="16" fill="#111C31" stroke="#405274" stroke-width="2"/>
+  <text x="380" y="77" text-anchor="middle" fill="#F8FAFC" font-family="sans-serif" font-size="23" font-weight="700">langchain-core</text>
+  <text x="380" y="111" text-anchor="middle" fill="#AAB9D0" font-family="sans-serif" font-size="17">定义 SystemMessage、HumanMessage 等消息对象</text>
+
+  <line x1="380" y1="145" x2="380" y2="183" stroke="#79B6D7" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="75" y="195" width="610" height="172" rx="18" fill="#111C31" stroke="url(#accent)" stroke-width="3"/>
+  <rect x="220" y="213" width="320" height="30" rx="15" fill="#183B53"/>
+  <text x="380" y="234" text-anchor="middle" fill="#8DE7F1" font-family="sans-serif" font-size="15" font-weight="700">SERIALIZATION BOUNDARY</text>
+  <text x="380" y="282" text-anchor="middle" fill="#F8FAFC" font-family="sans-serif" font-size="24" font-weight="700">langchain-openai</text>
+  <text x="380" y="318" text-anchor="middle" fill="#C7D5E8" font-family="monospace" font-size="20">type: "message"</text>
+  <text x="380" y="348" text-anchor="middle" fill="#67D5B2" font-family="sans-serif" font-size="16">缺字段 → Azure 返回 400</text>
+
+  <line x1="380" y1="372" x2="380" y2="410" stroke="#79B6D7" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="105" y="422" width="550" height="100" rx="16" fill="#111C31" stroke="#405274" stroke-width="2"/>
+  <text x="380" y="464" text-anchor="middle" fill="#F8FAFC" font-family="sans-serif" font-size="23" font-weight="700">openai SDK</text>
+  <text x="380" y="497" text-anchor="middle" fill="#AAB9D0" font-family="sans-serif" font-size="17">客户端与 HTTP 请求</text>
+
+  <line x1="380" y1="527" x2="380" y2="565" stroke="#79B6D7" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="105" y="577" width="550" height="100" rx="16" fill="#111C31" stroke="#405274" stroke-width="2"/>
+  <text x="380" y="619" text-anchor="middle" fill="#F8FAFC" font-family="sans-serif" font-size="23" font-weight="700">Azure AI Foundry</text>
+  <text x="380" y="652" text-anchor="middle" fill="#AAB9D0" font-family="sans-serif" font-size="17">校验 Responses API 输入项</text>
+</svg>

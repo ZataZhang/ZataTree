@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-label="Nacos 配置与服务发现运行链路">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1220"/><stop offset="1" stop-color="#121f35"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient>
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#26324a"/></pattern>
+  </defs>
+  <rect width="1200" height="520" fill="url(#bg)"/><rect width="1200" height="520" fill="url(#dots)" opacity=".55"/>
+  <text x="70" y="64" fill="#f8fafc" font-family="sans-serif" font-size="30" font-weight="700">配置从发布到应用的运行链路</text>
+  <text x="70" y="98" fill="#9fb3d1" font-family="sans-serif" font-size="17">Bootstrap 只负责找到 Nacos，业务配置由客户端读取并校验。</text>
+  <g font-family="sans-serif">
+    <rect x="70" y="190" width="190" height="122" rx="18" fill="#101a2e" stroke="#5b87bf" stroke-width="2.5"/>
+    <text x="104" y="232" fill="#22d3ee" font-size="18" font-weight="700">应用启动</text><text x="104" y="266" fill="#9fb3d1" font-size="16">地址、环境、凭据</text><text x="104" y="291" fill="#9fb3d1" font-size="16">最小 Bootstrap</text>
+    <rect x="340" y="190" width="190" height="122" rx="18" fill="#101a2e" stroke="#8b5cf6" stroke-width="2.5"/>
+    <text x="374" y="232" fill="#a78bfa" font-size="18" font-weight="700">读取配置</text><text x="374" y="266" fill="#9fb3d1" font-size="16">namespace / group</text><text x="374" y="291" fill="#9fb3d1" font-size="16">dataId / service</text>
+    <rect x="610" y="190" width="190" height="122" rx="18" fill="#101a2e" stroke="#22d3ee" stroke-width="2.5"/>
+    <text x="644" y="232" fill="#22d3ee" font-size="18" font-weight="700">缓存与监听</text><text x="644" y="266" fill="#9fb3d1" font-size="16">本地快照</text><text x="644" y="291" fill="#9fb3d1" font-size="16">长连接 / 轮询</text>
+    <rect x="880" y="190" width="250" height="122" rx="18" fill="#101a2e" stroke="#fbbf24" stroke-width="2.5"/>
+    <text x="914" y="232" fill="#fbbf24" font-size="18" font-weight="700">校验后应用</text><text x="914" y="266" fill="#9fb3d1" font-size="16">热更新、重建或重启</text><text x="914" y="291" fill="#9fb3d1" font-size="16">失败保留旧配置并报警</text>
+  </g>
+  <g stroke="url(#accent)" stroke-width="3" fill="none" stroke-linecap="round">
+    <path d="M260 251h80M530 251h80M800 251h80"/>
+    <path d="M328 251l-12-8M328 251l-12 8M598 251l-12-8M598 251l-12 8M868 251l-12-8M868 251l-12 8"/>
+  </g>
+  <path d="M705 330v74H230v-72M705 404h425v-72" fill="none" stroke="#334155" stroke-width="2" stroke-dasharray="8 8"/>
+  <text x="82" y="390" fill="#64748b" font-family="ui-monospace,monospace" font-size="16">配置发布：版本 / 灰度 / 回滚</text>
+  <text x="880" y="390" fill="#64748b" font-family="ui-monospace,monospace" font-size="16">故障策略：last-known-good</text>
+  <text x="70" y="474" fill="#64748b" font-family="ui-monospace,monospace" font-size="16">zata.cc · runtime delivery flow</text>
+</svg>

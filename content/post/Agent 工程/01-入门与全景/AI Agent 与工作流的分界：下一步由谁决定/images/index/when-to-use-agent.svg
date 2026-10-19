@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-label="选型判断：先问步骤能否事先枚举，再问有没有可验证的反馈信号">
+<defs>
+  <marker id="a-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+    <path d="M0 0 L10 5 L0 10 z" fill="#5b87bf"/>
+  </marker>
+  <marker id="a-teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+    <path d="M0 0 L10 5 L0 10 z" fill="#38b6a8"/>
+  </marker>
+  <marker id="a-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+    <path d="M0 0 L10 5 L0 10 z" fill="#e2a05a"/>
+  </marker>
+  <marker id="a-gray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+    <path d="M0 0 L10 5 L0 10 z" fill="#64748b"/>
+  </marker>
+</defs>
+<rect width="1200" height="420" fill="#0b1220"/>
+<text x="40" y="56" font-family="sans-serif" font-size="30" font-weight="700" fill="#f8fafc">该做工作流，还是 Agent？</text>
+
+<g font-family="sans-serif">
+  <rect x="50" y="160" width="250" height="84" rx="16" fill="#141f33" stroke="#3b4a68" stroke-width="2"/>
+  <text x="175" y="210" font-size="20" fill="#e6eefb" text-anchor="middle">步骤能事先枚举？</text>
+
+  <rect x="420" y="160" width="270" height="84" rx="16" fill="#141f33" stroke="#3b4a68" stroke-width="2"/>
+  <text x="555" y="210" font-size="20" fill="#e6eefb" text-anchor="middle">有可验证的反馈信号？</text>
+
+  <rect x="880" y="58" width="270" height="88" rx="16" fill="#141f33" stroke="#5b87bf" stroke-width="2.5"/>
+  <rect x="880" y="58" width="8" height="88" rx="4" fill="#5b87bf"/>
+  <text x="1022" y="98" font-size="24" font-weight="700" fill="#f8fafc" text-anchor="middle">工作流</text>
+  <text x="1022" y="126" font-size="17" fill="#b9c9df" text-anchor="middle">路径写死在代码里</text>
+
+  <rect x="880" y="158" width="270" height="88" rx="16" fill="#141f33" stroke="#38b6a8" stroke-width="2.5"/>
+  <rect x="880" y="158" width="8" height="88" rx="4" fill="#38b6a8"/>
+  <text x="1022" y="198" font-size="24" font-weight="700" fill="#f8fafc" text-anchor="middle">Agent</text>
+  <text x="1022" y="226" font-size="17" fill="#b9c9df" text-anchor="middle">模型自己决定下一步</text>
+
+  <rect x="880" y="276" width="270" height="88" rx="16" fill="#141f33" stroke="#e2a05a" stroke-width="2.5"/>
+  <rect x="880" y="276" width="8" height="88" rx="4" fill="#e2a05a"/>
+  <text x="1022" y="316" font-size="24" font-weight="700" fill="#f8fafc" text-anchor="middle">先别做 Agent</text>
+  <text x="1022" y="344" font-size="17" fill="#b9c9df" text-anchor="middle">先把反馈信号做出来</text>
+
+  <path d="M175 158 L175 102 L872 102" fill="none" stroke="#5b87bf" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-blue)"/>
+  <line x1="302" y1="202" x2="412" y2="202" stroke="#64748b" stroke-width="3" stroke-linecap="round" marker-end="url(#a-gray)"/>
+  <line x1="692" y1="202" x2="872" y2="202" stroke="#38b6a8" stroke-width="3" stroke-linecap="round" marker-end="url(#a-teal)"/>
+  <path d="M555 246 L555 320 L872 320" fill="none" stroke="#e2a05a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-amber)"/>
+
+  <text x="192" y="136" font-size="18" fill="#5b87bf">是</text>
+  <text x="352" y="192" font-size="18" fill="#64748b">否</text>
+  <text x="770" y="192" font-size="18" fill="#38b6a8">是</text>
+  <text x="570" y="284" font-size="18" fill="#e2a05a">否</text>
+</g>
+
+<text x="40" y="400" font-family="sans-serif" font-size="19" fill="#9fb3d1">第一种情况占了绝大多数：把控制权交给模型，只在路径写不死、结果可验证时才划算</text>
+</svg>

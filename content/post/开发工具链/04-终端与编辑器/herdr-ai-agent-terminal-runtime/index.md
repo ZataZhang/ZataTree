@@ -1,7 +1,8 @@
 ---
 title: Herdr 详解：给 AI Agent 用的终端运行时
-description: "Herdr 是 tmux 的 Agent 化改造：后台 server 保住终端、侧边栏汇总所有 Agent 的 working/blocked/done 状态、CLI 与 socket API 让 Agent 之间互相指挥。本文基于本机 herdr 0.9.0 的实测输出，讲清概念模型、鼠标键盘与复制模式、右键的归属、会话恢复的五条路径、状态语义、Agent 协作配方、插件从装到写、远程与手机用法、中文输入法开关与配置避坑。"
+description: "Herdr 是面向 AI Agent 的终端运行时。本文保留基于本机 0.9.0 的实测教程，并核对补充至 0.9.5：涵盖 server/client、Agent 状态与控制 API、会话恢复、插件、远程机器、输入法和版本迁移。"
 date: 2026-09-15T10:30:00+08:00
+lastmod: 2026-10-18
 slug: herdr-ai-agent-terminal-runtime
 image: images/index/index.svg
 categories:
@@ -19,7 +20,19 @@ draft: false
 
 Herdr 就是冲这些事来的。它的官方定位是"The runtime your coding agents live on"——**不是替代 Agent，而是给 Agent 提供它们运行于其中的那层终端基础设施**。用一句话概括：**Herdr 是把 tmux 按 Agent 的工作方式重新设计了一遍。**
 
-这篇文章基于我本机装的 **herdr 0.9.0**（stable 通道，protocol 22），把它的用法、概念模型和配置讲清楚，命令和输出都是实际跑出来的。（9 月 15 日补充：右键转发、复制模式、会话恢复的全景、插件从装到写、手机用法、中文输入法开关。同日二次补充：9.6.7 装了一个真插件的完整实录。）
+这篇文章的命令与实际输出，主体基于我本机安装的 **herdr 0.9.0**（stable 通道，protocol 22）。截至 **2026 年 10 月 18 日**，我对照官方发布说明补充了 0.9.1–0.9.5 的变化；新增版本说明是资料核对，不代表这些版本都在本机逐项复测。9 月 15 日的补充包括右键转发、复制模式、会话恢复、插件和手机用法；插件实装记录见 9.6.7 节。
+
+## 版本进度：实测基线是 0.9.0，稳定版已到 0.9.5
+
+截至 2026 年 10 月 18 日，Herdr 最新稳定版是 **v0.9.5**，于 10 月 14 日发布。同日还有一个 `preview` 预览构建；它属于预发布通道，本文以 stable 为准。0.9.0 之后的变化里，最影响旧教程的是远程机器 CLI 转发、插件更新命令、会话恢复可靠性，以及 Codex 和前缀键集成的修正。
+
+- **[0.9.1（9 月 16 日）](https://github.com/herdrdev/herdr/releases/tag/v0.9.1)：** 新增 `herdr --machine <label-or-id>`，可从 CLI 控制已保存 SSH 机器上的 Agent、窗格和 worktree，也支持连接 Windows SSH 主机。远程 CLI 转发要求本地 Herdr 和远端安装都更新；命令失败不会悄悄落到本机执行。
+- **[0.9.2（9 月 29 日）](https://github.com/herdrdev/herdr/releases/tag/v0.9.2)：** Agent 可以上报自己的恢复命令，`prefix` 可配置多个按键，远程机器增加状态检查和重连命令。旧的 `pane.graphics.*` 私有 API 已移除，使用它的桥接工具需要迁移到终端标准 Kitty Graphics 协议。
+- **[0.9.3（9 月 29 日）](https://github.com/herdrdev/herdr/releases/tag/v0.9.3)：** 修复 Escape 后接按键的转发问题；Ghostty / iTerm2 中用 Option+方向键按词移动、用 Escape 组合键换行等操作恢复正常。
+- **[0.9.4（10 月 13 日）](https://github.com/herdrdev/herdr/releases/tag/v0.9.4)：** 增加 GitHub 插件更新命令，改进系统关机保存与会话文件保护；关闭启动 Herdr 的 shell 不再顺带停掉 server。用 `herdr server stop` 或 `SIGTERM` 停止 server。Windows 上以管理员权限运行的 server 默认只接受管理员 client。
+- **[0.9.5（10 月 14 日）](https://github.com/herdrdev/herdr/releases/tag/v0.9.5)：** 修复 macOS 上 Tern、中文/日文/韩文输入法，以及 Ghostty `text:` 键位下的前缀快捷键问题；Codex 集成不再安装 turn hooks，状态改由屏幕检测；Claude Code 在命名会话里的提问现在能显示为 `blocked`。Codex 用户可运行 `herdr integration install codex` 更新集成。
+
+这些版本说明和 [10 月 14 日的 preview 构建](https://github.com/herdrdev/herdr/releases/tag/preview-2026-10-14-fbd2ae23927f)可以帮助区分稳定版与预览版。需要复现正文中的命令输出时，仍以对应章节标注的 0.9.0 实测环境为准。
 
 ---
 
@@ -167,9 +180,9 @@ Herdr 在这一点上比 tmux 多走了一步：**重启恢复**。server 重启
 | 情形 | 进程继续跑 | 布局 | 最近屏幕内容 | Agent 对话 |
 |---|---|---|---|---|
 | 分离再附着 | 是 | 是 | 是（活的终端） | 是（进程从没停） |
-| server 重启 | 否 | 是 | 仅在开了屏幕历史回放时 | 仅在装了原生会话恢复时 |
-| `herdr update`（不带 `--handoff`） | 兼容的 server 继续跑 | 重启后回来 | 仅在开了屏幕历史回放时 | 仅在装了原生会话恢复时 |
-| `herdr update --handoff` | 尽力保留 | 是 | 是（交接成功时来自活终端） | 是（同上） |
+| server 重启 | 否 | 是 | 仅在开了屏幕历史回放时 | 仅在 Agent 集成或 Agent 自行提供恢复命令时 |
+| `herdr update`（不带 `--handoff`） | 兼容的 server 继续跑 | 重启后回来 | 仅在开了屏幕历史回放时 | 仅在 Agent 集成或 Agent 自行提供恢复命令时 |
+| `herdr update --handoff` | 尽力保留 | 是 | 是（交接成功时来自活终端） | 有可用的恢复引用时 |
 
 两个默认不启用、但值得知道的能力：
 
@@ -324,6 +337,13 @@ show_agent_labels_on_pane_borders = true
 
 配置里的绑定语法是显式的：`prefix+n` 表示要先按前缀，`ctrl+alt+n` 才是终端模式下的直接快捷键。可以直接绑普通按键（比如 `n`），但**有风险**——它会拦截你所有输入，所以除非你确实想要一个无前缀的模式，否则都用 `prefix+`。
 
+从 0.9.2 起，前缀键也可以设成多个；它们进入的是同一个 prefix mode：
+
+```toml
+[keys]
+prefix = ["ctrl+b", "ctrl+space"]
+```
+
 ```toml
 [keys]
 prefix = "ctrl+b"
@@ -405,7 +425,7 @@ tab_bar_right_separator = " · "
 
 ## 八、关键一步：让状态真正准确——集成
 
-**如果你什么都不做，`agent list` 会是空的，状态全是 `unknown`。** 我上面贴的实测输出就是这样。这不是 bug，是设计：Herdr 需要 Agent 侧有一个 hook 主动上报状态。
+Herdr 可以通过屏幕内容识别部分 Agent，也可以安装集成来接收生命周期状态和原生会话引用。**在我记录的 0.9.0 环境里，当前运行的进程没有被识别，所以 `agent list` 为空、状态是 `unknown`**；这不是所有未安装集成的环境都会出现的结果。想要更可靠的状态和重启后恢复对话，应检查并安装对应集成。
 
 装法是一条命令：
 
@@ -436,9 +456,11 @@ grok: not installed (/Users/zata/.grok/hooks/herdr-agent-state.sh)
 ...
 ```
 
-有意思的是：它检测到我已经装了 Claude、Codex、Copilot、Kimi、OpenCode、Hermes 的集成，**但一个都没装 pi**。这正是我前面 `agent list` 为空的原因——我当前跑在 pane 里的那些进程，不是这几个装了集成的 Agent。装完集成后必须**在 Herdr 里重启那个 Agent**，hook 才会生效。
+有意思的是：它检测到我已经装了 Claude、Codex、Copilot、Kimi、OpenCode、Hermes 的集成，**但一个都没装 pi**。这份列表只说明哪些集成已安装，不代表 Herdr 会把所有 pane 进程都识别成 Agent；我当时运行的进程没有命中已安装集成，所以状态仍是 `unknown`。安装或更新集成后，要在 Herdr 里重启对应 Agent，集成才能接管新进程。
 
-集成除了报状态，还负责上报**原生会话引用**，这就是第 4 节"重启后恢复对话"依赖的东西。没装集成的 Agent，重启后只能恢复成一个普通 shell。
+集成除了报状态，还会提供**原生会话引用**，这是 Herdr 恢复 Agent 对话的一种方式。从 0.9.2 起，Agent 也可以自行上报恢复命令，不必依赖 Herdr 内置集成。若 Agent 既没有集成，也没有自行提供恢复命令，重启后 Herdr 只能恢复成一个普通 shell。
+
+**Codex 用户注意版本差异。** 0.9.5 起，Herdr 不再安装 Codex turn hooks，Codex 状态回到屏幕检测路径。升级后如看到旧 hook 的 timeout 警告，运行 `herdr integration install codex` 更新集成，并在 Herdr 里重启 Codex。
 
 Herdr 还有一份**给你自己的 Agent 看的技能文件**，装上之后 Agent 就知道怎么用 herdr 控制周边窗格：
 
@@ -721,7 +743,7 @@ herdr plugin unlink <plugin_id>
 四个容易踩的点：
 
 - **插件和启用状态是"当前用户全局"的**，不属于某个会话。任何会话里装或启用，其他会话立刻可见。0.7.3 时代在命名会话里装的插件需要重新装一次。
-- **v1 没有 `plugin update`**，刷新 = 重新 install（会替换托管的 checkout）。
+- **插件更新命令从 0.9.4 才加入。** `herdr plugin update` 更新所有从 GitHub 安装的插件，`herdr plugin update <plugin_id>` 更新指定插件；本地 `link` 的插件不会被它覆盖。运行中的插件窗格继续使用旧文件，新启动的插件命令使用更新后的文件。0.9.0 实测时还没有这个命令。
 - `install` 和 `link` 都会顺手把插件的 config / state 目录建好；只想拿路径就用 `herdr plugin config-dir <id>`。
 - 没有 server 在跑也能装、能 link——它们只是往全局插件表里注册，不等 server。
 
@@ -897,7 +919,7 @@ herdr plugin pane open --plugin herdr-file-viewer --entrypoint file-viewer --pla
 
 `--plugin` / `--entrypoint` 的取值来自这个插件的 manifest（`id = "herdr-file-viewer"`、`[[panes]] id = "file-viewer"`），它的两个 Unix action 是 `open-file-viewer` 和 `open-file-viewer-tab`（另有 `-windows` 后缀的两个，Windows 上要绑那两个）。
 
-想找更多，官方有一个[插件市场](https://herdr.dev/plugins/)：自动索引 GitHub 上打了 `herdr-plugin` topic、默认分支里有合法 manifest 的公开仓库，按热度、活跃度、最新排序——今天查这个 topic 下已经有 1161 个仓库。要留意它是**未审核的索引**：上榜只说明那个仓库给自己打了标签，不代表 Herdr 验过。装之前先读[信任与安全](https://herdr.dev/zh-cn/docs/plugins/)那一节，扫一眼 manifest 和它要跑的命令——`plugin install` 的那份预览就是为这个准备的。
+想找更多，官方有一个[插件市场](https://herdr.dev/plugins/)：自动索引 GitHub 上打了 `herdr-plugin` topic、默认分支里有合法 manifest 的公开仓库，按热度、活跃度和更新时间排序。要留意它是**未审核的索引**：上榜只说明那个仓库给自己打了标签，不代表 Herdr 验过。装之前先读[信任与安全](https://herdr.dev/zh-cn/docs/plugins/)那一节，扫一眼 manifest 和它要跑的命令——`plugin install` 的预览就是为这个准备的。
 
 #### 9.6.7 试装实录：herdr-file-viewer
 
@@ -1003,7 +1025,7 @@ $ herdr pane read wB:p7 --source detection --format text
 4. **"支持 markdown 渲染"这类话要看外部依赖。** 它的美化接的是外部 `glow` / `delta` / `bat`，我本机三个都没有，于是走纯文本 fallback。功能没坏，但和插件表里那句期待的不完全是一回事。装之前 `command -v glow` 扫一眼。
 5. **回滚是干净的。** `herdr plugin uninstall smarzban/herdr-file-viewer` 删托管 checkout，键位是自己加进 `config.toml` 的两段、手删，没有残留状态要清。
 
-顺带印证了 9.6.2 那句"v1 没有 `plugin update`"：`herdr plugin --help` 的十一个子命令里确实没有 `update`，刷新就是重新 `install`——而重新 install 会替换托管 checkout，连 `target/release/` 里的构建产物一起没，所以插件自己的状态一定要放在 state 目录而不是根目录。
+这次 0.9.0 实装记录里，`herdr plugin --help` 的子命令确实没有 `update`，当时刷新需要重新 `install`，托管 checkout 和其中的 `target/release/` 构建产物都会被替换。0.9.4 后可以改用 `herdr plugin update`；无论更新还是重装，插件自己的持久状态仍应放在 state 目录，而不是 checkout 根目录。
 
 这一节如果只记一句话：**插件不是"装了就有的功能"，而是"宿主给你挂载点、你自己把行为接上去"。** 它也解释了为什么 Herdr 本体能一直保持这么瘦。
 
@@ -1019,6 +1041,10 @@ herdr --remote workbox
 herdr machine add workbox --label "Build machine"
 herdr machine list
 herdr --remote-keybindings server   # 远程用服务器的按键绑定，而不是本地的
+
+# 无需打开远程 TUI，也能通过 CLI 控制已保存机器
+herdr --machine "Build machine" agent list
+herdr --machine "Build machine" pane list
 ```
 
 **"远程"有三种走法，先选对。** 差别不只是习惯：
@@ -1031,7 +1057,7 @@ herdr --remote-keybindings server   # 远程用服务器的按键绑定，而不
 
 第三种和第二种有一个实际差异值得知道：**先 ssh 再跑 herdr，Herdr 整个在远端运行，读不到你本地桌面的剪贴板**；而 `--remote` 时 client 在你本机，本地截图可以直接粘到远端 pane 里（`remote_image_paste` 默认绑 `ctrl+v`，只在 `--remote` 下生效）。要给远端的 Agent 贴图，只有这条路走得通。
 
-**手机上盯 Agent。** Herdr 没有手机 App，也没打算做 web dashboard——装个 SSH 客户端连上跑着任务的机器，敲 `herdr`，同一套持久会话就在窄屏里打开了。TUI 会自适应：侧边栏收成移动版切换器，Agent 行带上 tab 上下文，切工作区、看 pane、查状态都不用离开 SSH。iPhone 上官方点名 [moshi](https://getmoshi.app/) 用着顺。
+**手机上盯 Agent。** 截至 0.9.5，Herdr 还没有手机 App 或已发布的网页控制台；手机上仍可用 SSH 客户端连到运行 Herdr 的机器，再敲 `herdr` 附着会话。TUI 会自适应窄屏：侧边栏收成移动版切换器，Agent 行带上 tab 上下文。官方主页已将 Herdr Cloud 列为 Coming soon，目标是免去手动 SSH 连接；这项服务还不属于当前稳定版。iPhone 上官方文档举例推荐 [moshi](https://getmoshi.app/)。
 
 ![手机上经 SSH 附着同一个会话后的 switch 面板：spaces 段列出各工作区与 git 分支，agents 段能看到每个 Agent 的状态（working · codex、working · pi、idle · pi），底部是 settings / keybinds / reload config / detach 菜单（来源：herdr 官方文档）](images/index/herdr-mobile-switch.jpeg)
 
@@ -1167,9 +1193,9 @@ cjk_ime_agents = ["claude", "codex"]
 | 14 | 右键开不出 Herdr 菜单 | 该 pane 开了右键转发 | 右键**窗格边框**唤回菜单；或右键菜单里切回 "Use Herdr right-click menu" |
 | 15 | 对 brew / mise / Nix 安装跑 `herdr update` | 不生效或被拒 | 用各自的包管理器升级；只有直接安装能用 `herdr update` 和预览通道 |
 | 16 | 以为 server 重启后屏幕内容还在 | 恢复出的是空白新 shell | 屏幕回放要开 `[experimental] pane_history = true`，且其中内容按终端历史对待（可能有敏感输出） |
-| 17 | 中文输入法开着时 prefix 按键失灵 | prefix 命令不触发 | `switch_ascii_input_source_in_prefix = true`（macOS 可用；Windows 目前只处理韩文 IME） |
+| 17 | 中文输入法开着时 prefix 按键失灵 | prefix 命令不触发 | 先升级到 0.9.5；若仍需要切换输入源，再试 `switch_ascii_input_source_in_prefix = true`（Windows 目前只处理韩文 IME） |
 | 18 | 装完插件等它自己出现 | 什么都没发生 | 插件只声明 action 和窗格入口，要自己绑 `[[keys.command]] type = "plugin_action"` |
-| 19 | 以为插件只属于某个会话 | 别的窗口里也看到了 | 插件与启用状态是当前用户全局的；v1 也没有 `plugin update`，刷新靠重装 |
+| 19 | 以为插件只属于某个会话 | 别的窗口里也看到了 | 插件与启用状态是当前用户全局的；0.9.4 起 GitHub 安装的插件用 `herdr plugin update` 更新，本地 link 插件自行维护 |
 | 20 | 拿 `plugin pane open --help` 当选型依据 | 以为开不了 popup | 0.9.0 的 help 少列了 `popup` 和 `--width` / `--height`，以文档和源码为准 |
 
 ---
@@ -1203,6 +1229,8 @@ cjk_ime_agents = ["claude", "codex"]
 - [插件市场](https://herdr.dev/plugins/) —— GitHub 上 `herdr-plugin` 仓库的自动索引（未审核）
 - [插件作者文档](https://herdr.dev/zh-cn/docs/plugins/) —— manifest、命令、环境变量与信任模型的权威参考
 - [agent-guide.md](https://herdr.dev/agent-guide.md) —— 让 Agent 帮你装/排查 Herdr 的提示词指南
+- [v0.9.1](https://github.com/herdrdev/herdr/releases/tag/v0.9.1)、[v0.9.2](https://github.com/herdrdev/herdr/releases/tag/v0.9.2)、[v0.9.3](https://github.com/herdrdev/herdr/releases/tag/v0.9.3)、[v0.9.4](https://github.com/herdrdev/herdr/releases/tag/v0.9.4)、[v0.9.5](https://github.com/herdrdev/herdr/releases/tag/v0.9.5) —— 官方版本发布说明
+- [preview-2026-10-14](https://github.com/herdrdev/herdr/releases/tag/preview-2026-10-14-fbd2ae23927f) —— 预览通道构建；不等同于 stable
 
 > **图片来源**：文中截图取自 herdr 官方文档与 GitHub README 的演示素材（[herdr.dev/zh-cn/docs/how-to-work](https://herdr.dev/zh-cn/docs/how-to-work/) 与 [README](https://github.com/herdrdev/herdr) 中的演示视频，手机截图来自前者），项目以 Apache-2.0 授权。截图中的仓库名、分支名、模型名为官方演示环境内容。
 

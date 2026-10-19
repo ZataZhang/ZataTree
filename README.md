@@ -140,12 +140,12 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 按 `content/post/` 的实际目录结构生成，括号内为该分类的文章数。**本段由 `python3 tools/readme_index.py` 自动生成，请勿手工编辑** —— 增删文章后重新运行该脚本即可。
 
 <!-- BEGIN:CONTENT-INDEX -->
-## Agent 工程 (43)
+## Agent 工程 (45)
 
 ### 01-入门与全景
 
 - [2026 年 AI Agent 现状：一次带出处的全景清点](content/post/Agent%20工程/01-入门与全景/2026年AI%20Agent现状：一次带出处的全景清点/)
-- [AI agent介绍：基于大模型的人工智能代理](content/post/Agent%20工程/01-入门与全景/AI%20agent介绍：基于大模型的人工智能代理/)
+- [AI Agent 与工作流的分界：下一步由谁决定](content/post/Agent%20工程/01-入门与全景/AI%20Agent%20与工作流的分界：下一步由谁决定/)
 - [Agent 工程实战开篇：从 Demo 到生产还有多远](content/post/Agent%20工程/01-入门与全景/Agent%20工程实战开篇：从%20Demo%20到生产还有多远/)
 - [Agent 生产工程全景手册：从 Runtime 到业务闭环](content/post/Agent%20工程/01-入门与全景/Agent生产工程全景手册/)
 
@@ -171,6 +171,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [${VAR} 是谁的环境变量：一条只写不读的凭据带走平台密钥](content/post/Agent%20工程/03-工程化实践/MCP%20环境变量展开：一条只写不读的凭据带走平台密钥/)
 - [OpenAI Responses API与Chat Completions API区别详解](content/post/Agent%20工程/03-工程化实践/OpenAI%20Responses%20API与Chat%20Completions%20API区别详解/)
 - [ai返回数据的格式不稳定，存在解析错误的问题](content/post/Agent%20工程/03-工程化实践/ai返回数据的格式不稳定，存在解析错误的问题/)
+- [一个 Markdown 文件吃遍各家 Agent：SKILL.md 格式详解与协议演变](content/post/Agent%20工程/03-工程化实践/一个%20Markdown%20文件吃遍各家%20Agent：SKILL.md%20格式详解与协议演变/)
 - [数据库初始化与迁移：从创建那一刻就要钉死的三件事](content/post/Agent%20工程/03-工程化实践/数据库初始化与迁移：从创建那一刻就要钉死的三件事/)
 - [相同LLM不同提示词的对比](content/post/Agent%20工程/03-工程化实践/相同LLM不同提示词的对比/)
 - [给 Agent 接入 Web Search：四种做法，和一条我试过之后放弃的路](content/post/Agent%20工程/03-工程化实践/给%20Agent%20接入%20Web%20Search：四种做法，和一条我试过之后放弃的路/)
@@ -180,6 +181,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 
 ### 04-可观测与协议
 
+- [A2A：Agent 之间的任务协议，难点在服务端要存什么](content/post/Agent%20工程/04-可观测与协议/A2A：Agent%20之间的任务协议，难点在服务端要存什么/)
 - [AG-UI：当 Agent 学会了和前端说话](content/post/Agent%20工程/04-可观测与协议/AG-UI：当Agent学会了和前端说话/)
 - [Agent Run 流式协议：事件溯源、SSE 投影与断线恢复](content/post/Agent%20工程/04-可观测与协议/Agent%20Run%20流式协议：事件溯源、SSE%20投影与断线恢复/)
 - [Agent Tracing 基础：Trace、Span 与 OpenTelemetry 埋点](content/post/Agent%20工程/04-可观测与协议/Agent%20Tracing%20基础：Trace、Span%20与%20OpenTelemetry%20埋点/)
@@ -203,10 +205,11 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [nl2sql](content/post/Agent%20工程/06-应用与集成/nl2sql/)
 - [openclaw](content/post/Agent%20工程/06-应用与集成/openclaw/)
 
-## RAG 与 LangChain (17)
+## RAG 与 LangChain (18)
 
 ### 01-LangChain 基础
 
+- [Azure Responses API 的 400：langchain-openai 少了一个 type](content/post/RAG%20与%20LangChain/01-LangChain%20基础/Azure%20Responses%20API%20的%20400：langchain-openai%20少了一个%20type/)
 - [LangChain 与 MCP 极简教程：让 Agent 接入外部工具的另一种方式](content/post/RAG%20与%20LangChain/01-LangChain%20基础/LangChain与MCP极简教程/)
 - [LangChain 常见报错与排查指南](content/post/RAG%20与%20LangChain/01-LangChain%20基础/LangChain常见报错与排查/)
 - [LangChain 模型接入指南：OpenAI 兼容协议与多平台调用](content/post/RAG%20与%20LangChain/01-LangChain%20基础/LangChain模型接入指南/)
@@ -280,7 +283,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [flutter_tutorial](content/post/Web%20开发/04-前端与跨端/flutter_tutorial/)
 - [Refine: 当 API 即界面，CRUD 不再是体力活](content/post/Web%20开发/04-前端与跨端/refine-meta-framework/)
 
-## 工程实践 (11)
+## 工程实践 (12)
 
 ### 01-可观测性
 
@@ -301,6 +304,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [Woodpecker CI 使用教程](content/post/工程实践/03-DevOps%20与平台/Woodpecker-CI使用教程/)
 - [企业AI工具平台架构设计：拥抱快速变化的AI生态](content/post/工程实践/03-DevOps%20与平台/ai-platform-architecture/)
 - [开发问题与解法笔记](content/post/工程实践/03-DevOps%20与平台/开发问题与解法笔记/)
+- [配置中心与服务发现工具：从 .env 管理到 Nacos 深入理解](content/post/工程实践/03-DevOps%20与平台/配置中心与服务发现工具：从%20.env%20管理到%20Nacos%20深入理解/)
 
 ## 开发工具链 (29)
 

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#1a1a2e"/><stop offset="100%" style="stop-color:#16213e"/></linearGradient>
+    <linearGradient id="agent" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#667eea"/><stop offset="100%" style="stop-color:#764ba2"/></linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.3"/></filter>
+    <marker id="arrow" markerWidth="12" markerHeight="10" refX="11" refY="5" orient="auto"><path d="M0,0 L12,5 L0,10 Z" fill="#cbd5e0"/></marker>
+  </defs>
+  <rect width="900" height="400" rx="16" fill="url(#bg)"/>
+  <rect x="0" y="0" width="900" height="60" rx="16" fill="#0f0f23"/>
+  <rect x="0" y="40" width="900" height="20" fill="#0f0f23"/>
+  <text x="450" y="38" text-anchor="middle" fill="#e2e8f0" font-size="20" font-weight="bold">A2A 连同伴，MCP 连工具</text>
+
+  <rect x="40" y="150" width="200" height="110" rx="14" fill="url(#agent)" filter="url(#shadow)"/>
+  <text x="140" y="196" text-anchor="middle" fill="#fff" font-size="18" font-weight="bold">A2A Client</text>
+  <text x="140" y="222" text-anchor="middle" fill="#fff" font-size="13" opacity="0.9">发起任务的 Agent</text>
+
+  <rect x="350" y="150" width="200" height="110" rx="14" fill="url(#agent)" filter="url(#shadow)"/>
+  <text x="450" y="196" text-anchor="middle" fill="#fff" font-size="18" font-weight="bold">A2A Server</text>
+  <text x="450" y="222" text-anchor="middle" fill="#fff" font-size="13" opacity="0.9">对外不透明的 Agent</text>
+
+  <rect x="660" y="95" width="200" height="60" rx="12" fill="#2d3a5c" stroke="#43e97b" stroke-width="2"/>
+  <text x="760" y="132" text-anchor="middle" fill="#e2e8f0" font-size="15">工具 / API</text>
+  <rect x="660" y="175" width="200" height="60" rx="12" fill="#2d3a5c" stroke="#43e97b" stroke-width="2"/>
+  <text x="760" y="212" text-anchor="middle" fill="#e2e8f0" font-size="15">数据源</text>
+  <rect x="660" y="255" width="200" height="60" rx="12" fill="#2d3a5c" stroke="#43e97b" stroke-width="2"/>
+  <text x="760" y="292" text-anchor="middle" fill="#e2e8f0" font-size="15">其他外部资源</text>
+
+  <line x1="240" y1="205" x2="348" y2="205" stroke="#cbd5e0" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="294" y="190" text-anchor="middle" fill="#4facfe" font-size="14" font-weight="bold">A2A</text>
+  <text x="294" y="232" text-anchor="middle" fill="#a0aec0" font-size="12">Task / Message</text>
+
+  <line x1="550" y1="190" x2="658" y2="130" stroke="#cbd5e0" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="550" y1="205" x2="658" y2="205" stroke="#cbd5e0" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="550" y1="220" x2="658" y2="283" stroke="#cbd5e0" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="604" y="318" text-anchor="middle" fill="#43e97b" font-size="14" font-weight="bold">MCP</text><text x="604" y="338" text-anchor="middle" fill="#a0aec0" font-size="12">调用工具</text>
+
+  <text x="450" y="385" text-anchor="middle" fill="#a0aec0" font-size="12">依据 A2A 1.0 规范 Appendix B：Server Agent 可以再用 MCP 去调用底层工具</text>
+</svg>

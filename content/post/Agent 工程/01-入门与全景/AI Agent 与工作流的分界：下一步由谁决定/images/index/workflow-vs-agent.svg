@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="470" viewBox="0 0 1200 470" role="img" aria-label="工作流与 Agent 的分界：控制流写死在代码里，还是由模型在运行时决定">
+<rect width="1200" height="470" fill="#0b1220"/>
+<text x="40" y="56" font-family="sans-serif" font-size="30" font-weight="700" fill="#f8fafc">同一条线：下一步是谁决定的</text>
+
+<g font-family="sans-serif">
+  <rect x="40" y="84" width="530" height="320" rx="16" fill="#141f33" stroke="#5b87bf" stroke-width="2"/>
+  <rect x="40" y="84" width="8" height="320" rx="4" fill="#5b87bf"/>
+  <text x="72" y="128" font-size="26" font-weight="700" fill="#f8fafc">工作流 Workflow</text>
+  <text x="72" y="160" font-size="18" fill="#b9c9df">路径由代码预先写死</text>
+
+  <rect x="70" y="196" width="136" height="64" rx="12" fill="#0e1730" stroke="#3b4a68" stroke-width="2"/>
+  <text x="138" y="235" font-size="21" fill="#e6eefb" text-anchor="middle">步骤 1</text>
+  <rect x="237" y="196" width="136" height="64" rx="12" fill="#0e1730" stroke="#3b4a68" stroke-width="2"/>
+  <text x="305" y="235" font-size="21" fill="#e6eefb" text-anchor="middle">步骤 2</text>
+  <rect x="404" y="196" width="136" height="64" rx="12" fill="#0e1730" stroke="#3b4a68" stroke-width="2"/>
+  <text x="472" y="235" font-size="21" fill="#e6eefb" text-anchor="middle">步骤 3</text>
+
+  <line x1="212" y1="228" x2="230" y2="228" stroke="#5b87bf" stroke-width="3" stroke-linecap="round"/>
+  <path d="M237 228 l-11 -7 M237 228 l-11 7" stroke="#5b87bf" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <line x1="379" y1="228" x2="397" y2="228" stroke="#5b87bf" stroke-width="3" stroke-linecap="round"/>
+  <path d="M404 228 l-11 -7 M404 228 l-11 7" stroke="#5b87bf" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+  <text x="72" y="312" font-size="18" fill="#9fb3d1">谁决定下一步？动手之前，写代码的人已经定好了</text>
+  <text x="72" y="348" font-size="18" fill="#9fb3d1">可预测、好调试、只在决策点付推理费</text>
+  <text x="72" y="384" font-size="18" fill="#64748b">工具调用、RAG、记忆模块都改变不了这一点</text>
+</g>
+
+<g font-family="sans-serif">
+  <rect x="630" y="84" width="530" height="320" rx="16" fill="#141f33" stroke="#38b6a8" stroke-width="2"/>
+  <rect x="630" y="84" width="8" height="320" rx="4" fill="#38b6a8"/>
+  <text x="662" y="128" font-size="26" font-weight="700" fill="#f8fafc">Agent</text>
+  <text x="662" y="160" font-size="18" fill="#b9c9df">下一步由模型在运行时决定</text>
+
+  <rect x="790" y="190" width="210" height="60" rx="12" fill="#0e1730" stroke="#38b6a8" stroke-width="2"/>
+  <text x="895" y="228" font-size="22" fill="#e6eefb" text-anchor="middle">模型</text>
+  <rect x="750" y="310" width="290" height="60" rx="12" fill="#0e1730" stroke="#3b4a68" stroke-width="2"/>
+  <text x="895" y="348" font-size="21" fill="#e6eefb" text-anchor="middle">工具调用 + 观察结果</text>
+
+  <line x1="800" y1="254" x2="800" y2="304" stroke="#38b6a8" stroke-width="3" stroke-linecap="round"/>
+  <path d="M800 311 l-7 -11 M800 311 l7 -11" stroke="#38b6a8" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <line x1="990" y1="306" x2="990" y2="256" stroke="#38b6a8" stroke-width="3" stroke-linecap="round"/>
+  <path d="M990 249 l-7 11 M990 249 l7 11" stroke="#38b6a8" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+  <text x="895" y="288" font-size="17" fill="#b9c9df" text-anchor="middle">循环，直到给出答案</text>
+  <text x="662" y="392" font-size="18" fill="#9fb3d1">换来的灵活，代价是延迟、成本与不可调试</text>
+</g>
+
+<text x="40" y="444" font-family="sans-serif" font-size="19" fill="#9fb3d1">分界只有一句：控制流写死在代码里，还是运行时交给模型</text>
+</svg>

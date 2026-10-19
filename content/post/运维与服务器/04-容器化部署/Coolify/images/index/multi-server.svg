@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">Coolify 多服务器部署与流量入口</title>
+  <desc id="desc">构建服务器发布同一个容器镜像到两个应用服务器；外部负载均衡器把用户流量分配到应用实例，业务状态放在共享外部服务中。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#5b87bf"/></marker>
+    <style>
+      .h{font:700 30px sans-serif;fill:#10233f}.t{font:700 21px sans-serif;fill:#10233f}.s{font:16px sans-serif;fill:#445a76}.m{font:14px monospace;fill:#526b89}.box{fill:#f6f9fd;stroke:#9bb2cf;stroke-width:2}.blue{fill:#e8f1ff;stroke:#5b87bf;stroke-width:3}.green{fill:#e9f7f1;stroke:#69a78e;stroke-width:2}.line{stroke:#5b87bf;stroke-width:3;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1200" height="520" rx="24" fill="#f8fafc"/>
+  <text x="56" y="62" class="h">多台实例需要额外的流量与状态设计</text>
+  <rect x="60" y="178" width="220" height="112" rx="16" class="box"/><text x="89" y="220" class="t">构建 / 镜像仓库</text><text x="89" y="253" class="s">生成并分发同一镜像</text>
+  <path d="M280 235H370V153H426" class="line"/><path d="M370 235V317H426" class="line"/>
+  <text x="313" y="213" class="m">相同镜像</text>
+  <rect x="440" y="106" width="242" height="96" rx="16" class="blue"/><text x="470" y="146" class="t">应用实例 A</text><text x="470" y="177" class="s">主服务器</text>
+  <rect x="440" y="270" width="242" height="96" rx="16" class="blue"/><text x="470" y="310" class="t">应用实例 B</text><text x="470" y="341" class="s">附加服务器</text>
+  <rect x="780" y="178" width="170" height="112" rx="16" class="box"/><text x="804" y="220" class="t">外部负载均衡</text><text x="804" y="253" class="s">健康检查 / 分流</text>
+  <path d="M682 154H754V210H768" class="line"/><path d="M682 318H754V258H768" class="line"/>
+  <rect x="1010" y="178" width="145" height="112" rx="16" class="box"/><text x="1032" y="220" class="t">用户流量</text><text x="1032" y="253" class="s">DNS 指向入口</text>
+  <path d="M950 234H998" class="line"/>
+  <rect x="440" y="416" width="510" height="62" rx="14" class="green"/><text x="466" y="454" class="s">数据库、会话、上传文件等状态：外置或共享</text>
+  <text x="60" y="505" class="m">Coolify 会部署实例；多服务器功能本身不提供流量均衡，也不支持该应用页中的 Compose 配置。</text>
+</svg>

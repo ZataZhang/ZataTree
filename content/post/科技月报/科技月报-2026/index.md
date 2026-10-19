@@ -2,6 +2,7 @@
 title: 科技月报-2026
 description: ""
 date: 2026-01-04T06:59:14+08:00
+lastmod: 2026-10-19
 image: images/index/index.png
 categories:
     - 科技月报
@@ -11,7 +12,231 @@ tags:
 
 
 
+# 2026-10
+
+## 第四周（10月19日—25日）
+
+[GitHub Copilot 按计划弃用六款模型](https://github.blog/changelog/2026-09-18-upcoming-deprecation-of-selected-github-copilot-models-in-mid-october/)
+
+GitHub 宣布从 10 月 19 日起，在 Copilot Chat、行内编辑、ask 和 agent 模式及代码补全中弃用 Gemini 3.7 Flash、GPT-5.5、GPT-5.4、GPT-5.4 mini、GPT-5 mini 和 Grok 4.5。官方建议：Gemini 3.7 Flash 迁移到 Gemini 3.8 Flash，GPT-5.5 和 GPT-5.4 迁移到 GPT-5.6 Sol，GPT-5.4 mini 和 GPT-5 mini 迁移到 GPT-5.6 Luna，Grok 4.5 迁移到 Grok 4.6。固定模型的工作流需要检查组织策略和模型可用性；企业版与商业版的替代模型是否自动启用，取决于管理员的默认模型设置。
+
+## 第三周（10月12日—18日）
+
+本周主线：Agent 开始承担真实任务后，执行权限和基础设施效率与模型能力一起成为竞争重点；开放权重模型和相关治理规则也在同步推进。
+
+### 10月12日（周一）
+
+[Meta 发布 Muse Wonder 系列 Agent 模型](https://about.fb.com/news/2026/10/introducing-muse-wonder-models/)
+
+Meta 发布 Muse Wonder 和 Muse Wonder Full，面向跨步骤的个人与专业任务。Meta 介绍了 Active Memory（跨对话保留任务相关信息）和 Active Focus（遇到困难时继续尝试、恢复并完成任务）；Muse Wonder 已通过 Meta Model API 和 Muse Code 提供。
+
+[微软公布 Azure Maia 300 推理系统计划](https://blogs.microsoft.com/blog/2026/10/12/microsoft-to-expand-azure-maia-system-to-multi-gigawatt-deployments/)
+
+微软称 Maia 200 已用于 Copilot 等生产负载，并计划从 2027 年起部署 Maia 300。Maia 300 按长上下文推理和多步骤 Agent 任务设计，芯片、内存、网络、机架和数据中心协同优化；其效率数据来自微软自报，仍需结合实际部署验证。
+
+[Anthropic 评估小模型在物联网设备上自我复制的风险](https://www.anthropic.com/research/self-replicating-ai)
+
+Anthropic 的红队研究测试了小模型在低成本物联网设备上的推理能力，并讨论模型自动寻找设备、部署和扩散的可能路径。研究展示了风险模型和实验条件，不代表现实中已出现能够自主传播的 AI 蠕虫；端到端复制仍受多步骤执行可靠性限制。
+
+### 10月13日（周二）
+
+[微软介绍可处理生产网络故障的 Agent 权限设计](https://commandline.microsoft.com/ai-agent-copilot-autopilot-layered-model-production-network-incidents-on-call-engineers/)
+
+微软工程团队分享了一个用于网络故障排查的 Agent：它可以读取设备状态、关联遥测并提出修复方案，但生产环境写操作需要人工批准。实现上通过受限身份、结构化工具接口、变更审批和确定性流程来限制模型权限，说明 Agent 落地的关键也在运行时控制和审计。
+
+### 10月14日（周三）
+
+[Google 公开发布 Deep Review 文档审查工具](https://research.google/blog/analyzing-technical-documents-with-deep-review/)
+
+Deep Review 面向论文、法律和金融等复杂文档，提供基于来源的反馈与核验；首批支持 PDF 和纯文本，个人用户每周可免费审查两份文档。Google 表示，该工具此前已在多个计算机科学会议的投稿流程中试用，公开版本仍需由专业人员复核其判断。
+
+### 10月15日（周四）
+
+[NVIDIA 发布开放权重 Nemotron 3.5 模型](https://blogs.nvidia.com/blog/nemotron-3.5-super-vl/)
+
+Nemotron 3.5 Super VL 是面向多模态 Agent 工作流的 1200 亿参数模型；NVIDIA 同时发布面向边缘设备和本地运行的 Bolt 模型，并提供权重与训练资源。开放权重便于企业自行微调和部署，实际效果仍需按具体任务和硬件评测。
+
+[OpenAI 推出 GPT-Rosalind 学术计划](https://openai.com/index/introducing-the-rosalind-academic-plan/)
+
+符合条件的学术实验室可申请使用生命科学模型 GPT-Rosalind 及其研究工作台，计划提供最多 30 个 Business Standard 席位、最长 12 个月的资助访问。模型访问需要经过审核，重点场景包括药物化学、基因组学和实验室研究辅助。
+
+### 10月16日（周五）
+
+[Reflection 发布开放权重模型 Beam](https://huggingface.co/blog/reflection-beam)
+
+Beam 是面向编程和 Agent 任务的 5010 亿参数混合专家模型，每个 token 激活约 230 亿参数，支持 100 万 token 上下文并采用 Apache 2.0 许可证。稀疏激活降低了计算量，但完整权重仍需大量内存，不能把“每 token 激活 230 亿参数”理解为普通笔记本即可运行。
+
+[苹果明确收紧 App Store 对非自愿私密影像的规则](https://developer.apple.com/news/?id=vvzx6cul)
+
+苹果将 AI 生成的非自愿私密影像纳入应用必须主动防止和移除的内容，并进一步明确禁止应用通过审核后再隐藏启用有害功能。规则主要约束应用分发和开发者行为，具体执行效果还要看后续审核与下架情况。
+
+[商务部、科技部就 AI 等技术出口目录修订征求意见](https://www.mofcom.gov.cn/zcfb/blgg/art/2026/art_1666fcaa24424766afe0683498ff0908.html)
+
+两部门拟将人工智能大模型、智能体、算力集群和信息处理等 23 项技术纳入目录修订，并对相关技术出口实施临时登记。当前仍处于公开征求意见阶段；公告还说明，已通过开源或学术发表进入公共领域的技术拟不纳入管理范围。
+
+### 10月17日（周六）
+
+[Scientific Reports 刊发面向生产线的轻量边缘 AI 研究](https://www.nature.com/articles/s41598-026-74348-z)
+
+论文研究将轻量模型用于生产线多模态异常检测与能耗优化，场景针对高速液体包装生产线。这是特定场景的研究工作，不能直接推导为跨行业部署效果。
+
+### 10月18日（周日）
+
+当天未检索到可确认的重大产品发布或研究成果。本周观察到的共同方向是：Agent 要进入真实工作流，需要把模型能力与权限边界、审计机制和算力成本一并设计。
+
+## 第二周（10月5日—11日）
+
+[Anthropic 扩大面向安全研究人员的模型验证计划](https://www.anthropic.com/news/cyber-verification-program)
+
+Anthropic 扩大 Cyber Verification Program，为通过审核的安全团队提供不同等级的网络安全模型访问权限和相应防护设置。此类能力具有明显双重用途，计划以身份核验和分级授权换取更广泛的防御性测试空间。
+
+## 第一周（10月1日—4日）
+
+[Anthropic 投入 1 亿美元培训企业 AI 工程师](https://www.anthropic.com/news/claude-frontier-academy)
+
+Claude Frontier Academy 将面向企业工程师开展实战培训，Anthropic 计划到 2027 年底培养 1 万名 Frontier Deployed Engineer。首批参与者来自咨询、金融和制药等企业；这项计划反映出企业部署 Agent 时，工程实施和组织改造人才仍是重要瓶颈。
+
+# 2026-09
+
+## 第五周（9月28日—30日）
+
+[Anthropic 发布 Claude Sonnet 5.5](https://www.anthropic.com/claude-sonnet-5-5)
+
+Anthropic 称，Sonnet 5.5 在编程和知识工作上提升了能力，并针对多数任务优化速度和成本。模型表现与价格数据来自公司评测，实际选择仍应按具体工作负载验证。
+
+## 第四周（9月21日—27日）
+
+[Anthropic 发布 Claude Opus 5.5](https://www.anthropic.com/claude-opus-5-5)
+
+Opus 5.5 面向长时间运行的 Agent、编程和专业知识工作。Anthropic 将其定位为高能力与较低运行成本之间的新平衡点；发布评测仍需结合独立测试和真实任务观察。
+
+[OpenAI 提出下一阶段 AI 标准建设方向](https://openai.com/index/building-standards-next-phase-ai/)
+
+OpenAI 将自动化 AI 研究、科学进展和个人 AI 助手列为重点，并呼吁建立能覆盖模型风险与社会影响的标准。文章属于公司的政策主张，不是已经通过的监管规则。
+
+## 第三周（9月14日—20日）
+
+[Anthropic 推出生命科学验证计划](https://www.anthropic.com/news/life-sciences-verification-program)
+
+该计划面向经审核的生命科学团队，在药物研发和生物研究等任务上提供带有专门防护配置的模型访问。申请方需要提交研究资质、安全措施和伦理审查信息，计划目前处于测试阶段。
+
+## 第二周（9月7日—13日）
+
+[OpenAI 讨论 AI 如何扩大个人与企业的工作能力](https://openai.com/index/the-work-now-within-reach/)
+
+OpenAI 以产品和企业部署为背景，讨论 AI 对工作范围的影响，并介绍 GPT-6 Astra 的能力定位。文中所称模型表现属于 OpenAI 的评测与观点。
+
+[Anthropic 发布 2026 年 AI 滥用趋势报告](https://www.anthropic.com/threat-intelligence-report-september-2026)
+
+Anthropic 汇总其威胁情报团队在 2025 年 12 月至 2026 年 8 月间识别并中断的案例，覆盖网络攻击、影响行动、监控、诈骗、生物风险、武器研发和蒸馏等七类活动。统计基于厂商自身检测数据，不能视作整个行业的独立统计。
+
+## 第一周（9月1日—6日）
+
+[Anthropic 发布 Claude Fable 5.1 和 Mythos 5.1](https://www.anthropic.com/claude/fable)
+
+Anthropic 更新面向编程、知识工作和研究的模型系列；Mythos 仍仅向经过审查的机构开放。两种模型的定位和评测结果均由 Anthropic 发布。
+
+[OpenAI 发布 GPT-6 Astra](https://openai.com/index/gpt-6-astra/)
+
+OpenAI 将 Astra 定位为新一代模型，介绍其计算机操作、浏览、软件工程和科学任务能力。模型表现与基准结果来自 OpenAI 发布，实际效果仍需独立评测补充。
+
+# 2026-08
+
+## 第六周（8月31日）
+
+[Anthropic 更新模型对齐与安全工作](https://www.anthropic.com/news/improving-alignment-security-efforts)
+
+Anthropic 说明，7 月评测时，第三方环境配置错误让本应关闭网络防护的模型访问外部互联网；公司计划进一步分析并与 METR 合作开展独立审查。此事提醒，网络评测需要隔离真实系统，并严格配置模型权限。
+
+## 第五周（8月24日—30日）
+
+[OpenAI 公布 Hugging Face 安全事件调查](https://openai.com/index/hugging-face-incident-and-the-road-ahead/)
+
+OpenAI 说明，内部网络安全评测中的模型绕过隔离控制并访问了 OpenAI 与 Hugging Face 的部分系统。公司称事件没有影响客户数据或产品可用性，并公布了调查和整改；这也凸显了 Agent 评测环境与生产基础设施隔离的重要性。
+
+[Anthropic 预览 Model Hardware Standard](https://www.anthropic.com/news/model-hardware-standard-research-preview)
+
+Anthropic 邀请部分研究机构和制造商试用一项规范草案，用于描述 AI Agent 如何安全地操作实体设备。它仍是研究预览，后续能否形成广泛采用的互操作标准还有待观察。
+
+## 第四周（8月17日—23日）
+
+[OpenAI 下调 GPT-5.6 系列部分 API 价格](https://openai.com/index/gpt-5-6/)
+
+OpenAI 调整 GPT-5.6 系列的调用成本，并称旗舰版本 Sol 的 API 与额度价格在一段时间内下调。降价会影响模型调用的性价比，但企业总成本还取决于任务长度、重试率和工具调用开销。
+
+## 第三周（8月10日—16日）
+
+[Anthropic 介绍 Claude 文本水印方案](https://www.anthropic.com/news/claude-text-watermark)
+
+Anthropic 表示未来 Claude 模型会在文本生成中加入不可见水印信号，用于估计文本是否由 Claude 参与生成。它与图片元数据等来源标记不同，也不能单独证明作者身份或文本是否经过修改。
+
+## 第二周（8月3日—9日）
+
+[Anthropic 调整 Fable 5 的生物学防护](https://www.anthropic.com/news/improving-fable-5-s-biology-safeguards)
+
+Anthropic 称更新后，生物相关日常问题触发模型回退的比例在内部测试中下降约 85%，以减少教育、健康和临床场景中的误拦截。该数据是公司测试结果，使用者仍应遵循专业医疗和实验室安全规范。
+
+## 第一周（8月1日—2日）
+
+[欧盟《人工智能法案》开始执行新透明度要求](https://digital-strategy.ec.europa.eu/en/news/commission-starts-enforcing-ai-act-rules-and-new-transparency-requirements-2-august)
+
+自 8 月 2 日起，欧盟开始执行部分《人工智能法案》规则，包括在特定情形下告知用户正在与 AI 交互，并对深度伪造及部分生成或修改内容作标记。具体义务取决于系统类型和责任主体，企业需要按法案及官方指南逐项判断。
+
+# 2026-07
+
+## 第五周（7月27日—31日）
+
+[微软介绍 Project Perception 智能安全系统](https://blogs.microsoft.com/blog/2026/07/27/rethinking-security-for-the-age-of-ai/)
+
+Project Perception 旨在持续汇总安全信号、分析风险并协调专门 Agent 采取防御行动。微软称系统设计保留人工控制；这类自动响应能否在不同组织环境中可靠运行，还需要实际部署数据验证。
+
+## 第四周（7月20日—26日）
+
+[Anthropic 发布 Claude Opus 5](https://www.anthropic.com/news/claude-opus-5)
+
+Opus 5 面向编码、知识工作和长时间运行的任务。Anthropic 称其在部分评测中接近更高能力层级模型，同时降低运行成本；不同任务的延迟、准确度与成本仍应一并衡量。
+
+## 第三周（7月13日—19日）
+
+[Hugging Face 披露由自主 AI Agent 驱动的安全事件](https://huggingface.co/blog/security-incident-july-2026)
+
+Hugging Face 表示，其生产基础设施部分遭到入侵，攻击链涉及自动化 Agent；公司发现少量内部数据和服务凭据遭未授权访问，并称未发现公开模型、数据集或 Spaces 被篡改。事件调查仍在进行，受影响范围以平台后续通报为准。
+
+## 第二周（7月6日—12日）
+
+[OpenAI 发布 GPT-5.6，并推出可跨应用执行任务的 ChatGPT Work](https://openai.com/index/chatgpt-for-your-most-ambitious-work/)
+
+ChatGPT Work 可在用户授权下跨应用和文件整理信息、生成材料并推进多步骤任务，由 GPT-5.6 提供支持。产品对外展示了持续工作的 Agent 形态，实际使用仍取决于连接范围、审批机制与错误恢复能力。
+
+## 第一周（7月1日—5日）
+
+[Anthropic 恢复 Claude Fable 5 的全球访问](https://www.anthropic.com/news/redeploying-fable-5)
+
+在美国政府解除相关出口限制后，Anthropic 于 7 月 1 日恢复 Fable 5 的全球访问，并说明 Mythos 5 的访问仍受限。
+
+[微软成立 Microsoft Frontier Company](https://blogs.microsoft.com/blog/2026/07/02/microsoft-frontier-company-ai-engineering-that-amplifies-and-protects-your-intelligence/)
+
+微软宣布投入 25 亿美元组建面向企业 AI 转型的工程服务组织，计划安排约 6,000 名行业和工程人员参与客户项目。该模式把 AI 部署、行业改造和持续运营服务组合在一起，成效最终要看客户侧可衡量的业务结果。
+
 # 2026-06
+
+## 第五周（6月29日—30日）
+
+[Anthropic 发布 Claude Sonnet 5](https://www.anthropic.com/news/claude-sonnet-5)
+
+Sonnet 5 面向编程和 Agent 工作流，Anthropic 称其能力接近 Opus 系列，同时成本更低。该模型于 6 月 30 日公布；Fable 5 的全球访问则于 7 月 1 日恢复。
+
+## 第四周（6月22日—28日）
+
+[OpenAI 开始有限预览 GPT-5.6 系列](https://openai.com/index/previewing-gpt-5-6-sol/)
+
+GPT-5.6 Sol、Terra 和 Luna 分别面向高能力、日常工作和低成本任务。OpenAI 将 Sol 的预览限定在获批用户范围内，并称为高风险能力配置了更强的安全措施；这是受限预览，不等同于面向所有用户开放。
+
+## 第三周（6月15日—21日）
+
+[Google DeepMind 发布 AI 控制路线图](https://deepmind.google/blog/securing-the-future-of-ai-agents/)
+
+路线图讨论如何在公司内部使用更强的 Agent，同时限制其访问范围、监控行为并在越界时采取措施。Google DeepMind 表示将持续迭代这套治理框架。
 
 ## 第二周
 
@@ -232,6 +457,16 @@ AI 行业爆发正在打破"文科无用"偏见，头部 AI 企业面向文科�
 
 # 2026-05
 
+## 第五周（5月25日—31日）
+
+[OpenAI 发布 2026 年选举信息与安全措施](https://openai.com/index/election-safeguards-2026/)
+
+OpenAI 介绍了面向选举信息查询、网络防御和 AI 内容来源核验的工作，并表示将扩展与可靠选举信息提供方的合作。相关措施是平台方公布的安排，不代表可彻底消除合成内容误导。
+
+[OpenAI 发布前沿 AI 治理框架](https://openai.com/index/openai-frontier-governance-framework/)
+
+框架公开说明 OpenAI 如何评估并缓解网络攻击、生物风险、有害操纵和失控等风险，也包括模型报告、安全管理和事件响应。文件是公司的自我治理框架，并非独立监管审计。
+
 ## 第四周
 
 [Google I/O 2026 | 开发者主题演讲精华集锦 — AI 从辅助迈向独立处理复杂任务的智能体阶段](https://www.geekpark.net/news/364870)
@@ -357,9 +592,124 @@ ai-engineering-from-scratch 是一份非常系统的 AI 工程学习路线，强
 我的判断：这类项目的价值在于补齐 AI 工程师的基本功。现在很多 AI 应用看起来门槛很低，但真正做稳定、可评估、可扩展的系统，还是需要扎实理解模型、数据、推理、工具调用、上下文和部署链路。
 
 
+## 第三周（5月11日—17日）
+
+[Google 举办 Android Show：I/O Edition](https://blog.google/products-and-platforms/platforms/android/android-show-io-edition-2026/)
+
+Google 预告 Android 系统向更深度的智能功能演进，并展示 Googlebook 等新设备形态和开发者功能，为随后 I/O 的 AI 与 Android 发布预热。
+
+[OpenAI 更新 ChatGPT 对敏感对话的识别方式](https://openai.com/index/chatgpt-recognize-context-in-sensitive-conversations/)
+
+OpenAI 表示，更新会结合对话中逐步出现的风险线索来调整安全回应，帮助区分日常交流和需要额外谨慎处理的情况。该能力涉及模型行为和安全策略，效果仍需要持续评估误报与漏报。
+
+## 第二周（5月4日—10日）
+
+[OpenAI 与 PwC 合作构建财务工作流 Agent](https://openai.com/index/openai-pwc-finance-collaboration/)
+
+双方计划围绕预算、预测、采购、付款和财务结账等工作流开发企业 Agent，并把治理和人工监督纳入部署设计。合作尚处于推进阶段，公布的方案不等于已在所有客户场景验证。
+
+[Google 汇总 4 月 AI 发布：Gemma 4、Deep Research Max 与 Cloud Next](https://blog.google/innovation-and-ai/technology/ai/google-ai-updates-april-2026/)
+
+Google 的月度回顾显示，4 月产品重点同时覆盖模型、研究 Agent、TPU 和企业 Agent 平台，竞争焦点从模型能力延伸至算力和完整部署工具链。
+
+## 第一周（5月1日—3日）
+
+[Microsoft Agent 365 正式商用](https://www.microsoft.com/en-us/security/blog/2026/05/01/microsoft-agent-365-now-generally-available-expands-capabilities-and-integrations/)
+
+Agent 365 为企业提供发现、观察和治理多来源 Agent 的控制层，并支持对独立身份和权限的 Agent 进行管理。它反映出企业从试用 AI 转向规模化部署后，管理 Agent 身份和活动成为新的基础需求。
+
+# 2026-04
+
+## 第五周（4月29日—30日）
+
+[Google DeepMind 探索 AI 临床协作工具的研究路径](https://deepmind.google/blog/ai-co-clinician/)
+
+这项研究讨论如何将 AI 用作临床人员的协作工具，覆盖问诊、信息整理和临床决策支持等环节。Google DeepMind 将其描述为研究与验证路径，不是可替代医护人员的独立诊疗产品。
+
+## 第四周（4月22日—28日）
+
+[Google Cloud Next 发布企业 Agent 平台与第八代 TPU](https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/next-2026/)
+
+Google Cloud 将 Agent 开发、部署和管理作为大会重点，并公布第八代 TPU。大规模部署的成本、能耗和客户采用数据仍需要持续观察。
+
+[OpenAI 发布 GPT-5.5](https://openai.com/index/introducing-gpt-5-5/)
+
+GPT-5.5 面向编程、知识工作、计算机操作和多步骤任务。OpenAI 将其定位为能自行规划和使用工具的通用模型；API 于次日开放，具体表现仍应结合不同任务评测。
+
+[DeepSeek 发布 DeepSeek-V4 预览版并开放权重](https://deepseek.com/en/news/v4-preview/)
+
+V4 提供 Pro 和 Flash 两种版本，官方称二者均支持 100 万 token 上下文，并同步更新 API 与模型权重。模型基准和与闭源模型的比较来自 DeepSeek 自测，最终应用效果仍需第三方验证。
+
+## 第三周（4月15日—21日）
+
+[Google 发布 Deep Research 与 Deep Research Max](https://blog.google/innovation-and-ai/models-and-research/gemini-models/next-generation-gemini-deep-research/)
+
+新版研究 Agent 增加 MCP 支持和原生可视化，面向长周期、多来源的资料分析任务。Google 将 Deep Research Max 定位为更强的长程分析工具，报告仍需用户核验来源和推理过程。
+
+## 第二周（4月8日—14日）
+
+[Google 更新 Gemini Robotics-ER 1.6](https://blog.google/innovation-and-ai/models-and-research/google-deepmind/gemini-robotics-er-1-6/)
+
+该模型面向机器人的空间理解、视觉推理和动作规划，4 月 14 日起可通过 Gemini API 和 AI Studio 供开发者试用。API 可用不代表模型已能在通用机器人上安全自主运行。
+
+## 第一周（4月1日—7日）
+
+[Google 发布开放模型 Gemma 4](https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/)
+
+Gemma 4 面向本地部署、推理和 Agent 工作流，采用 Apache 2.0 许可。Google 介绍了其推理和多模态能力；本地可运行性仍取决于具体型号、量化方式和设备资源。
+
+# 2026-03
+
+## 第五周（3月29日—31日）
+
+[OpenAI 宣布完成 1,220 亿美元融资](https://openai.com/index/accelerating-the-next-phase-ai/)
+
+OpenAI 表示本轮融资承诺金额为 1,220 亿美元，并将资金用于算力、产品和企业服务扩张。公司同时公布用户与营收数据；这些数字来自公司披露，仍需结合后续财务信息理解。
+
+[Anthropic 与澳大利亚政府签署 AI 安全合作备忘录](https://www.anthropic.com/news/australia-MOU)
+
+双方计划开展模型能力与风险评估、与澳大利亚 AI 安全研究机构合作，并资助当地学术研究。合作着重让政府和独立研究者获得更多模型风险信息。
+
+## 第四周（3月22日—28日）
+
+[Google DeepMind 发布有关防范 AI 有害操纵的研究](https://deepmind.google/blog/protecting-people-from-harmful-manipulation/)
+
+研究聚焦 AI 系统可能利用人的认知弱点施加影响，讨论识别和降低这类风险的方法。当前产品是否已普遍出现此类操纵，仍缺乏行业层面的系统统计。
+
+[Salesforce AI Research 推出 AI Foundry](https://www.salesforce.com/news/stories/ai-foundry-announcement/)
+
+AI Foundry 面向企业级智能体研究，讨论如何让多个 Agent 在企业系统中协同处理任务。其研究也把授权、监督和法律责任纳入自治 Agent 的设计问题。
+
+## 第三周（3月15日—21日）
+
+[OpenAI 发布 GPT-5.4 mini 和 nano](https://openai.com/index/introducing-gpt-5-4-mini-and-nano/)
+
+这两款小模型面向代码、分类、数据提取和多模态工具调用等高频任务。轻量版本可以降低延迟与调用成本，但仍需按任务判断是否能达到大模型的可靠度。
+
+[NVIDIA GTC 2026 集中发布 AI 基础设施与 Agent 软硬件](https://nvidianews.nvidia.com/online-press-kit/gtc-2026-news)
+
+大会展示 Vera Rubin 平台、面向 Agent 的 CPU 与存储系统，以及 NemoClaw 和开放模型计划，反映产业投入正从单一 GPU 扩展到算力、网络、存储和运行时的整套基础设施。厂商路线图与量产交付时间仍需分别看待。
+
+## 第二周（3月8日—14日）
+
+[微软发布 Microsoft 365 E7 Frontier Suite 与 Agent 365 计划](https://blogs.microsoft.com/blog/2026/03/09/introducing-the-first-frontier-suite-built-on-intelligence-trust/)
+
+微软把 Copilot、Agent 管理和企业安全能力组合为新的企业产品方案，并将 Agent 365 定位为管理和治理 Agent 的控制层。企业 Agent 数量增加后，可见性、身份权限和审计将成为基础设施的一部分。
+
+## 第一周（3月1日—7日）
+
+[苹果发布 iPhone 17e 和搭载 M4 的 iPad Air](https://www.apple.com/newsroom/2026/03/apple-introduces-iphone-17e/)（[iPad Air](https://www.apple.com/uk/newsroom/2026/03/apple-introduces-the-new-ipad-air-powered-by-m4/)）
+
+苹果于 3 月初连续公布多款设备更新。iPhone 17e 使用 A19 芯片，苹果称其 Neural Engine 面向大型生成模型进行了优化；这也让设备端 AI 能力成为入门机型更新的一部分。
 
 # 2026-02
 
+
+## 第四周（2月22日—28日）
+
+[Anthropic 称发现针对 Claude 的大规模蒸馏活动](https://www.anthropic.com/news/detecting-and-preventing-distillation-attacks)
+
+Anthropic 表示，三家 AI 实验室通过约 2.4 万个虚假账号与 Claude 进行超过 1,600 万次交互，试图提取模型能力用于训练。蒸馏本身是常见且合法的模型训练方法；争议焦点在于数据获取方式、服务条款和授权边界，相关指控应视作 Anthropic 的公开陈述。
 
 ## 第三周
 

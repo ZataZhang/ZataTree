@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">Coolify 控制面与服务器关系</title>
+  <desc id="desc">用户和 AI 自动化客户端连接 Coolify 控制面板，Coolify 通过 SSH 管理多台运行应用的 Linux 服务器。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#5b87bf"/></marker>
+    <style>
+      .h{font:700 30px sans-serif;fill:#10233f}.t{font:700 22px sans-serif;fill:#10233f}.s{font:16px sans-serif;fill:#445a76}.m{font:14px monospace;fill:#526b89}.box{fill:#f6f9fd;stroke:#9bb2cf;stroke-width:2}.main{fill:#e8f1ff;stroke:#5b87bf;stroke-width:3}.line{stroke:#5b87bf;stroke-width:3;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1200" height="520" rx="24" fill="#f8fafc"/>
+  <text x="56" y="62" class="h">一个控制面板，连接多台部署服务器</text>
+  <rect x="60" y="132" width="230" height="112" rx="16" class="box"/>
+  <text x="84" y="174" class="t">用户 / 团队</text><text x="84" y="207" class="s">浏览器管理资源</text>
+  <rect x="60" y="290" width="230" height="112" rx="16" class="box"/>
+  <text x="84" y="332" class="t">CLI / AI Agent</text><text x="84" y="365" class="s">REST API / MCP</text>
+  <rect x="420" y="178" width="340" height="176" rx="22" class="main"/>
+  <text x="458" y="225" class="t">Coolify 控制面</text>
+  <text x="458" y="265" class="s">服务器清单 · 应用资源 · SSH Key</text>
+  <text x="458" y="297" class="s">部署配置 · 状态与日志</text>
+  <text x="458" y="333" class="m">管理机 / Control Plane</text>
+  <path d="M290 188H408" class="line"/><path d="M290 346H408" class="line"/>
+  <path d="M760 265H832V133H878" class="line"/><path d="M832 265V260H878" class="line"/><path d="M832 265V387H878" class="line"/>
+  <text x="786" y="238" class="m">SSH</text>
+  <rect x="890" y="90" width="250" height="86" rx="15" class="box"/><text x="916" y="127" class="t">应用服务器 A</text><text x="916" y="153" class="s">应用 / 数据库</text>
+  <rect x="890" y="217" width="250" height="86" rx="15" class="box"/><text x="916" y="254" class="t">应用服务器 B</text><text x="916" y="280" class="s">应用 / 服务</text>
+  <rect x="890" y="344" width="250" height="86" rx="15" class="box"/><text x="916" y="381" class="t">构建服务器 C</text><text x="916" y="407" class="s">可选的独立构建机</text>
+  <text x="60" y="476" class="m">Coolify 发起服务器管理连接；管理机不自动成为人工 SSH 堡垒机。</text>
+</svg>
