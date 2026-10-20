@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="510" viewBox="0 0 1200 510" role="img">
+<title>多显示器定位：整条链使用 AppKit 逻辑坐标</title>
+<rect width="1200" height="510" rx="24" fill="#101b30"/>
+<g font-family="PingFang SC,Microsoft YaHei,sans-serif">
+<text x="48" y="67" fill="#eef5ff" font-size="32" font-weight="600">多显示器定位：整条链使用 AppKit 逻辑坐标</text>
+<text x="48" y="103" fill="#96aac5" font-size="18">KedaCode · macOS 开发复盘 · 机制示意</text>
+<rect x="48" y="145" width="352" height="247" rx="16" fill="#1b2c46" stroke="#375371"/>
+<rect x="48" y="145" width="352" height="5" rx="2" fill="#5eead4"/>
+<text x="70" y="193" fill="#6ce8dc" font-size="25" font-weight="600">找到目标屏幕</text>
+<text x="70" y="242" fill="#e1eaf7" font-size="20">NSEvent.mouseLocation</text>
+<text x="70" y="289" fill="#e1eaf7" font-size="20">遍历 NSScreen.frame</text>
+<text x="70" y="336" fill="#e1eaf7" font-size="20">左侧 / 上方屏幕可有负坐标</text>
+<rect x="424" y="145" width="352" height="247" rx="16" fill="#1b2c46" stroke="#375371"/>
+<rect x="424" y="145" width="352" height="5" rx="2" fill="#5eead4"/>
+<text x="446" y="193" fill="#6ce8dc" font-size="25" font-weight="600">计算面板位置</text>
+<text x="446" y="242" fill="#e1eaf7" font-size="20">使用目标屏幕 visibleFrame</text>
+<text x="446" y="289" fill="#e1eaf7" font-size="20">读取原生窗口宽度</text>
+<text x="446" y="336" fill="#e1eaf7" font-size="20">将 X 夹在可见区域范围内</text>
+<rect x="800" y="145" width="352" height="247" rx="16" fill="#1b2c46" stroke="#375371"/>
+<rect x="800" y="145" width="352" height="5" rx="2" fill="#5eead4"/>
+<text x="822" y="193" fill="#6ce8dc" font-size="25" font-weight="600">移动原生窗口</text>
+<text x="822" y="242" fill="#e1eaf7" font-size="20">setFrameTopLeftPoint</text>
+<text x="822" y="289" fill="#e1eaf7" font-size="20">在 UI 主线程调用</text>
+<text x="822" y="336" fill="#e1eaf7" font-size="20">不混入截图像素或缩放换算</text>
+<text x="48" y="450" fill="#b4c4da" font-size="19">示意流程不按显示器比例绘制；负坐标本身不是错误，混用坐标系才会导致偏移。</text>
+</g></svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="510" viewBox="0 0 1200 510" role="img">
+<title>窗口、服务与业务的职责边界</title>
+<rect width="1200" height="510" rx="24" fill="#101b30"/>
+<g font-family="PingFang SC,Microsoft YaHei,sans-serif">
+<text x="48" y="67" fill="#eef5ff" font-size="32" font-weight="600">窗口、服务与业务的职责边界</text>
+<text x="48" y="103" fill="#96aac5" font-size="18">KedaCode · macOS 开发复盘 · 机制示意</text>
+<rect x="48" y="145" width="352" height="247" rx="16" fill="#1b2c46" stroke="#375371"/>
+<rect x="48" y="145" width="352" height="5" rx="2" fill="#5eead4"/>
+<text x="70" y="193" fill="#6ce8dc" font-size="25" font-weight="600">Tauri 原生壳</text>
+<text x="70" y="242" fill="#e1eaf7" font-size="20">菜单栏点击 / 焦点 / 定位</text>
+<text x="70" y="289" fill="#e1eaf7" font-size="20">隐藏窗口：Console 继续运行</text>
+<text x="70" y="336" fill="#e1eaf7" font-size="20">退出 App：回收自有子进程</text>
+<rect x="424" y="145" width="352" height="247" rx="16" fill="#1b2c46" stroke="#375371"/>
+<rect x="424" y="145" width="352" height="5" rx="2" fill="#5eead4"/>
+<text x="446" y="193" fill="#6ce8dc" font-size="25" font-weight="600">本机 Console</text>
+<text x="446" y="242" fill="#e1eaf7" font-size="20">监听回环地址与动态端口</text>
+<text x="446" y="289" fill="#e1eaf7" font-size="20">就绪后加载已有 Web 页面</text>
+<text x="446" y="336" fill="#e1eaf7" font-size="20">提供任务状态 HTTP API</text>
+<rect x="800" y="145" width="352" height="247" rx="16" fill="#1b2c46" stroke="#375371"/>
+<rect x="800" y="145" width="352" height="5" rx="2" fill="#5eead4"/>
+<text x="822" y="193" fill="#6ce8dc" font-size="25" font-weight="600">已有业务层</text>
+<text x="822" y="242" fill="#e1eaf7" font-size="20">任务状态保持单一来源</text>
+<text x="822" y="289" fill="#e1eaf7" font-size="20">原生壳不复制业务规则</text>
+<text x="822" y="336" fill="#e1eaf7" font-size="20">窗口故障与接口故障分开查</text>
+<text x="48" y="450" fill="#b4c4da" font-size="19">入口没有出现，先追踪点击事件与原生窗口，再检查页面与 API。</text>
+</g></svg>

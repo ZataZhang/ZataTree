@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="510" viewBox="0 0 1200 510" role="img">
+<title>辅助功能权限：先找实际负责进程</title>
+<rect width="1200" height="510" rx="24" fill="#101b30"/>
+<g font-family="PingFang SC,Microsoft YaHei,sans-serif">
+<text x="48" y="67" fill="#eef5ff" font-size="32" font-weight="600">辅助功能权限：先找实际负责进程</text>
+<text x="48" y="103" fill="#96aac5" font-size="18">KedaCode · macOS 开发复盘 · 机制示意</text>
+<rect x="48" y="145" width="352" height="247" rx="16" fill="#1b2c46" stroke="#375371"/>
+<rect x="48" y="145" width="352" height="5" rx="2" fill="#5eead4"/>
+<text x="70" y="193" fill="#6ce8dc" font-size="25" font-weight="600">桌面控制工具</text>
+<text x="70" y="242" fill="#e1eaf7" font-size="20">CUA / CuaDriver</text>
+<text x="70" y="289" fill="#e1eaf7" font-size="20">工具授权只覆盖对应主体</text>
+<text x="70" y="336" fill="#e1eaf7" font-size="20">不能据此推断脚本已经获权</text>
+<rect x="424" y="145" width="352" height="247" rx="16" fill="#1b2c46" stroke="#375371"/>
+<rect x="424" y="145" width="352" height="5" rx="2" fill="#5eead4"/>
+<text x="446" y="193" fill="#6ce8dc" font-size="25" font-weight="600">独立脚本链</text>
+<text x="446" y="242" fill="#e1eaf7" font-size="20">Terminal → osascript</text>
+<text x="446" y="289" fill="#e1eaf7" font-size="20">osascript → System Events</text>
+<text x="446" y="336" fill="#e1eaf7" font-size="20">本次 TCC 记录指向 Terminal</text>
+<rect x="800" y="145" width="352" height="247" rx="16" fill="#1b2c46" stroke="#375371"/>
+<rect x="800" y="145" width="352" height="5" rx="2" fill="#5eead4"/>
+<text x="822" y="193" fill="#6ce8dc" font-size="25" font-weight="600">按证据授权</text>
+<text x="822" y="242" fill="#e1eaf7" font-size="20">查看 TCC responsible / requesting</text>
+<text x="822" y="289" fill="#e1eaf7" font-size="20">在当前系统权限页确认主体</text>
+<text x="822" y="336" fill="#e1eaf7" font-size="20">授权后重试最小只读操作</text>
+<text x="48" y="450" fill="#b4c4da" font-size="19">Terminal 是本次观测结果；换启动器后归属可能变化，不应照搬进程名单。</text>
+</g></svg>

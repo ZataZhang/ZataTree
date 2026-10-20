@@ -662,7 +662,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [深度学习八股-量化](content/post/面试八股/深度学习八股-量化/)
 - [深度学习八股-面试常见问题](content/post/面试八股/深度学习八股-面试常见问题/)
 
-## 项目实战 (18)
+## 项目实战 (19)
 
 ### 01-爬虫实战
 
@@ -688,6 +688,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 
 - [Dify](content/post/项目实战/03-应用开发/Dify/)
 - [软件自动更新](content/post/项目实战/03-应用开发/PythonGUI-软件自动更新/)
+- [macOS 菜单栏软件开发复盘：全屏弹窗、坐标与权限](content/post/项目实战/03-应用开发/macOS%20菜单栏软件开发复盘：全屏弹窗、坐标与权限/)
 - [微信小程序使用教程——WechatMiniProgram](content/post/项目实战/03-应用开发/微信小程序使用教程/)
 - [野火F103-MiNI使用教程](content/post/项目实战/03-应用开发/野火F103-MiNI使用教程/)
 <!-- END:CONTENT-INDEX -->

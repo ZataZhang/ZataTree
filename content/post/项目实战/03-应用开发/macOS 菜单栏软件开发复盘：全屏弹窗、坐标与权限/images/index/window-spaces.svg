@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="510" viewBox="0 0 1200 510" role="img">
+<title>全屏弹窗需要分别检查三类条件</title>
+<rect width="1200" height="510" rx="24" fill="#101b30"/>
+<g font-family="PingFang SC,Microsoft YaHei,sans-serif">
+<text x="48" y="67" fill="#eef5ff" font-size="32" font-weight="600">全屏弹窗需要分别检查三类条件</text>
+<text x="48" y="103" fill="#96aac5" font-size="18">KedaCode · macOS 开发复盘 · 机制示意</text>
+<rect x="48" y="145" width="352" height="247" rx="16" fill="#1b2c46" stroke="#375371"/>
+<rect x="48" y="145" width="352" height="5" rx="2" fill="#5eead4"/>
+<text x="70" y="193" fill="#6ce8dc" font-size="25" font-weight="600">窗口层级</text>
+<text x="70" y="242" fill="#e1eaf7" font-size="20">alwaysOnTop</text>
+<text x="70" y="289" fill="#e1eaf7" font-size="20">决定与其他窗口的叠放关系</text>
+<text x="70" y="336" fill="#e1eaf7" font-size="20">不能单独保证进入当前 Space</text>
+<rect x="424" y="145" width="352" height="247" rx="16" fill="#1b2c46" stroke="#375371"/>
+<rect x="424" y="145" width="352" height="5" rx="2" fill="#5eead4"/>
+<text x="446" y="193" fill="#6ce8dc" font-size="25" font-weight="600">桌面与全屏空间</text>
+<text x="446" y="242" fill="#e1eaf7" font-size="20">CanJoinAllSpaces</text>
+<text x="446" y="289" fill="#e1eaf7" font-size="20">FullScreenAuxiliary</text>
+<text x="446" y="336" fill="#e1eaf7" font-size="20">检查窗口是否有资格进入空间</text>
+<rect x="800" y="145" width="352" height="247" rx="16" fill="#1b2c46" stroke="#375371"/>
+<rect x="800" y="145" width="352" height="5" rx="2" fill="#5eead4"/>
+<text x="822" y="193" fill="#6ce8dc" font-size="25" font-weight="600">其他应用的空间</text>
+<text x="822" y="242" fill="#e1eaf7" font-size="20">CanJoinAllApplications</text>
+<text x="822" y="289" fill="#e1eaf7" font-size="20">macOS 13+，清理互斥标志</text>
+<text x="822" y="336" fill="#e1eaf7" font-size="20">本次与原生定位一起完成修复</text>
+<text x="48" y="450" fill="#b4c4da" font-size="19">这些是机制层次，不是所有窗口类型都通用的充分条件；仍需真实点击验证。</text>
+</g></svg>
