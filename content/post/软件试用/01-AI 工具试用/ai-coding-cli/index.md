@@ -1,5 +1,8 @@
 ---
-title: claude-code&codex&Gemini-cli
+title: AI 编程 CLI 使用笔记：Claude Code、Codex、Kimi、Qoder 与 CodeBuddy
+slug: ai-coding-cli
+aliases:
+    - /p/claude-codecodexgemini-cli/
 description: ""
 date: 2025-06-23T19:57:52+08:00
 image: images/index/index.png
@@ -15,6 +18,50 @@ tags:
 
 注意 : 不可或缺的一个工具是 cc-switch 可以查看cc-switch教程
 
+
+## AI 编程 CLI 快捷启动配置
+
+更新于 2026-10-20。下面是我使用的 zsh 配置，放到 `~/.zshrc` 中：
+
+```zsh
+alias kim="kimi --auto"
+alias clauded="claude --dangerously-skip-permissions"
+alias qoder="qodercn --permission-mode yolo"
+unalias buddy 2>/dev/null
+buddy() { command codebuddy -y "$@" 2> >(grep -v -e 'unknown format' -e '\[CliMemWatch\]' >&2) }
+bud() { local preset="$1"; case "$preset" in "") CODEBUDDY_IS_SANDBOX=1 command codebuddy -y "$@" 2> >(grep -v -e 'unknown format' -e '\[CliMemWatch\]' >&2); return;; esac; local e; case "$preset" in plan) e="glm-5.3-flash|max";; work) e="deepseek-v4.1-flash|high";; *) echo "bud: 未知预设 '$preset'，可用 plan|work（裸 bud 用 settings.json 持久化模型）" >&2; return 1;; esac; shift; CODEBUDDY_IS_SANDBOX=1 command codebuddy -y --settings "{\"model\":\"${e%%|*}\",\"reasoningEffort\":\"${e##*|}\"}" "$@" 2> >(grep -v -e 'unknown format' -e '\[CliMemWatch\]' >&2); }
+```
+
+保存后执行 `source ~/.zshrc`，或重新打开终端。
+
+| 命令 | 用途 |
+| --- | --- |
+| `kim` | 启动 `kimi --auto` |
+| `clauded` | 启动 `claude --dangerously-skip-permissions`，跳过权限确认 |
+| `qoder` | 启动 `qodercn --permission-mode yolo` |
+| `buddy` | 启动 `codebuddy -y`，过滤两类 stderr 日志 |
+| `bud` | 设置 `CODEBUDDY_IS_SANDBOX=1` 后启动 CodeBuddy，使用 `settings.json` 中持久化的模型配置 |
+| `bud plan` | 通过 `--settings` 为本次启动指定 `glm-5.3-flash`，推理强度为 `max` |
+| `bud work` | 通过 `--settings` 为本次启动指定 `deepseek-v4.1-flash`，推理强度为 `high` |
+
+`buddy` 和 `bud` 会过滤 stderr 中包含 `unknown format` 或 `[CliMemWatch]` 的整行输出，其余 stderr 继续输出到终端。`unalias buddy` 用于清除已有的同名别名，再定义函数；函数里的 `command codebuddy` 直接调用命令。
+
+使用示例：
+
+```zsh
+kim
+clauded
+qoder
+buddy
+bud
+bud plan
+bud work
+bud work "检查当前项目的构建错误"
+```
+
+`bud plan` 和 `bud work` 中的名称只是本地模型预设，`plan` 不代表进入只读规划模式。函数会移除预设名，将后续参数原样传给 CodeBuddy；有参数时，第一个参数必须是 `plan` 或 `work`，否则会报“未知预设”。需要沿用持久化模型并传入参数时，可使用 `buddy "你的任务"`，但它不会设置 `CODEBUDDY_IS_SANDBOX`。
+
+这些快捷命令包含自动授权或跳过权限确认参数，会减少执行前的人工确认。模型名称和推理强度记录的是这份本地配置，实际可用性取决于所用服务。
 
 ## claude code
 

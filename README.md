@@ -535,10 +535,10 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 
 - [软件工程的范式转移：基于 Claude Code 与智能体协作的高效编程实践](content/post/软件试用/01-AI%20工具试用/Efficient%20Programming%20Based%20on%20Claude%20Code%20Collaboration%20with%20Intelligent%20Agents/)
 - [Tavily-搜索引擎api](content/post/软件试用/01-AI%20工具试用/Tavily/)
+- [AI 编程 CLI 使用笔记：Claude Code、Codex、Kimi、Qoder 与 CodeBuddy](content/post/软件试用/01-AI%20工具试用/ai-coding-cli/)
 - [cc-switch](content/post/软件试用/01-AI%20工具试用/cc-switch/)
 - [ccNexus](content/post/软件试用/01-AI%20工具试用/ccNexus/)
 - [cherry-studio](content/post/软件试用/01-AI%20工具试用/cherry-studio/)
-- [claude-code&codex&Gemini-cli](content/post/软件试用/01-AI%20工具试用/claude-code/)
 - [coze](content/post/软件试用/01-AI%20工具试用/coze/)
 - [cursor使用教程](content/post/软件试用/01-AI%20工具试用/cursor使用教程/)
 - [everything-claude-code](content/post/软件试用/01-AI%20工具试用/everything-claude-code/)
