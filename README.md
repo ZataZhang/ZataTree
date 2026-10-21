@@ -140,7 +140,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 按 `content/post/` 的实际目录结构生成，括号内为该分类的文章数。**本段由 `python3 tools/readme_index.py` 自动生成，请勿手工编辑** —— 增删文章后重新运行该脚本即可。
 
 <!-- BEGIN:CONTENT-INDEX -->
-## Agent 工程 (45)
+## Agent 工程 (46)
 
 ### 01-入门与全景
 
@@ -197,6 +197,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [Agent 沙箱选型指南：隔离边界、产品对比与判断标准](content/post/Agent%20工程/05-沙箱与执行环境/Agent%20沙箱选型指南：隔离边界、产品对比与判断标准/)
 - [Cua 框架详解：给任何 Agent 一台可操控的电脑](content/post/Agent%20工程/05-沙箱与执行环境/Cua%20框架详解：给任何%20Agent%20一台可操控的电脑/)
 - [E2B 迁到阿里云云沙箱：能跑通，但别急着上生产](content/post/Agent%20工程/05-沙箱与执行环境/E2B%20迁到阿里云云沙箱：能跑通，但别急着上生产/)
+- [多后端 Agent 沙箱架构：E2B 与 Docker/gVisor 的统一接入方案](content/post/Agent%20工程/05-沙箱与执行环境/多后端%20Agent%20沙箱架构：E2B%20与%20Docker-gVisor%20的统一接入方案/)
 
 ### 06-应用与集成
 
