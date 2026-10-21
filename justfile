@@ -5,10 +5,10 @@ default:
     @echo "Usage: just search <term>"
     @echo "Example: just search AI-Frontend"
 
-# Open the local read-only file & diff viewer (scripts/shared/view/).
-# The service binds the loopback address only, serves read requests only, and
-# never writes to the repository being viewed. It stays resident for a fast
-# second launch and recycles itself after an idle timeout.
+# Open the shared local file & diff viewer from the sibling zata_code_template repo.
+# This follows ../dwms/justfile, so the viewer has one maintained implementation.
+# It binds to loopback, supports explicit staging and opening files in the system app,
+# and recycles itself after an idle timeout. It does not commit, unstage, or discard changes.
 # Usage:
 #   just view                    # open straight into the diff (改动) view at the repo root
 #   just view <path>             # open into the diff view, focused on a changed file
@@ -16,21 +16,22 @@ default:
 #   just view --diff             # diff view (already the default; kept as an explicit flag)
 #   just view --stop             # recycle this repository's resident instance
 #
-# The diff view always lists all three sections (已暂存 / 未暂存 / 未跟踪); there is no
-# CLI switch for picking one, and no baseline selector — the working tree is the only
+# The diff view preserves all three Git change classes (已暂存 / 未暂存 / 未跟踪); there is
+# no CLI switch for picking one, and no baseline selector — the working tree is the only
 # comparison, divided by the git index.
 #
 # 这条 recipe 刻意写成普通单行而不是 shebang：`just` 每跑一次 shebang recipe 都要多
 # 起一个临时脚本，而复用命中路径有 150ms 的耗时预算（见 launch.py 顶部的说明）。
-# 解释器优先直连项目 venv 而不是走 `uv run`：`uv run --no-sync` 每次仍要做一遍
-# 项目解析，多花一二十毫秒。venv 还没建出来（尚未 `uv sync`）时退回 `uv run`。
-# `-S`（跳过 site 初始化）同样是冲着这 150ms 去的：入口进程只用标准库与同目录的
-# instance.py，服务进程由 launch.py 以不带 `-S` 的方式单独拉起，预览与语法高亮
-# 依赖（pyproject dev 组，装在 venv 里）对服务进程照常可见。
-_view_python := if os_family() == "windows" { justfile_directory() / ".venv/Scripts/python.exe" } else { justfile_directory() / ".venv/bin/python" }
+# 解释器优先直连模板仓库 venv；venv 不存在时用 `uv run --project`。先切到当前仓库目录，
+# 让共享入口按当前工作目录定位要查看的仓库。`-S` 跳过入口进程的 site 初始化；服务进程
+# 由共享入口单独拉起，会正常加载模板仓库 venv 中的预览与语法高亮依赖。
+_view_template_directory := justfile_directory() / "../zata_code_template"
+_view_launch_script := _view_template_directory / "scripts/shared/view/launch.py"
+_view_python := if os_family() == "windows" { _view_template_directory / ".venv/Scripts/python.exe" } else { _view_template_directory / ".venv/bin/python" }
+_view_python_command := if path_exists(_view_python) == "true" { quote(_view_python) } else { "uv run --project " + quote(_view_template_directory) + " --no-sync python" }
 
 view *args:
-    exec {{ if path_exists(_view_python) == "true" { quote(_view_python) } else { "uv run --no-sync python" } }} -S "{{justfile_directory()}}/scripts/shared/view/launch.py" {{args}}
+    cd "{{justfile_directory()}}" && exec {{_view_python_command}} -S "{{_view_launch_script}}" {{args}}
 
 # Thin alias: open the viewer in the diff view (already the default).
 diff *args:

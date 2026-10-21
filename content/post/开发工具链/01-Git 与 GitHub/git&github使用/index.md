@@ -949,7 +949,111 @@ git status
 
 ![严格分支保护](images/index/image-33.png)
 
-> **提示**：Rulesets 对私有仓库完全免费即可使用。对于团队项目，建议至少开启「Require a pull request before merging」和「Require status checks to pass」，以保证代码质量和审计追踪。
+#### 使用 GitHub CLI 管理 Rulesets
+
+Rulesets 可以通过 [GitHub REST API](https://docs.github.com/en/rest/repos/rules) 管理，下面用 `gh api` 演示。先登录 GitHub CLI，并把仓库所有者和仓库名替换成实际值：
+
+```bash
+gh auth status
+
+# 如果尚未登录，先执行：
+gh auth login
+
+OWNER="替换为仓库所有者"
+REPO="替换为仓库名"
+```
+
+读取配置只需要相应的仓库读取权限；创建、更新和删除规则需要仓库管理权限。使用 Fine-grained Personal Access Token 时，需要授予该仓库的 **Administration: write** 权限。
+
+查看仓库 Rulesets，以及 `main` 分支最终生效的规则（包括适用的组织级规则）：
+
+```bash
+# 列出仓库 Rulesets
+gh api --paginate "repos/${OWNER}/${REPO}/rulesets" \
+  --jq '.[] | [.id, .name, .enforcement, .source_type] | @tsv'
+
+# 查看某条 Ruleset 的完整配置
+RULESET_ID="替换为上一步查到的 ID"
+gh api "repos/${OWNER}/${REPO}/rulesets/${RULESET_ID}"
+
+# 查看 main 分支最终生效的规则
+gh api "repos/${OWNER}/${REPO}/rules/branches/main" \
+  --jq '.[] | [.type, .ruleset_source_type, .ruleset_id] | @tsv'
+```
+
+下面的例子保护 `main`：禁止删除和强制推送，要求通过 PR 合并、至少一人批准、讨论全部解决，并要求 CI 检查通过。创建前先运行 `gh pr checks 123 --repo "${OWNER}/${REPO}"`（把 `123` 换成一个已有 PR 的编号）查看实际检查名称，再把 JSON 中的 `REPLACE_WITH_EXACT_CHECK_NAME` 换成真实名称；如果照抄占位符，检查永远不会通过，PR 会被挡住。个人仓库可以把 `required_approving_review_count` 改成 `0`。
+
+```bash
+cat > main-ruleset.json <<'JSON'
+{
+  "name": "Protect main",
+  "target": "branch",
+  "enforcement": "active",
+  "conditions": {
+    "ref_name": {
+      "include": ["refs/heads/main"],
+      "exclude": []
+    }
+  },
+  "rules": [
+    { "type": "deletion" },
+    { "type": "non_fast_forward" },
+    {
+      "type": "pull_request",
+      "parameters": {
+        "allowed_merge_methods": ["squash"],
+        "dismiss_stale_reviews_on_push": true,
+        "require_code_owner_review": false,
+        "require_last_push_approval": false,
+        "required_approving_review_count": 1,
+        "required_review_thread_resolution": true
+      }
+    },
+    {
+      "type": "required_status_checks",
+      "parameters": {
+        "do_not_enforce_on_create": false,
+        "required_status_checks": [
+          { "context": "REPLACE_WITH_EXACT_CHECK_NAME" }
+        ],
+        "strict_required_status_checks_policy": true
+      }
+    }
+  ]
+}
+JSON
+
+# 先确认 JSON 格式及检查名称，再创建 Ruleset
+jq . main-ruleset.json
+gh api --method POST "repos/${OWNER}/${REPO}/rulesets" \
+  --input main-ruleset.json --jq '{id, name, enforcement}'
+```
+
+更新时先编辑完整的 `main-ruleset.json`，再用 `PUT` 提交；删除会立即移除该规则，执行前确认 ID：
+
+```bash
+# 更新已有 Ruleset
+gh api --method PUT "repos/${OWNER}/${REPO}/rulesets/${RULESET_ID}" \
+  --input main-ruleset.json
+
+# 删除已有 Ruleset
+gh api --method DELETE "repos/${OWNER}/${REPO}/rulesets/${RULESET_ID}"
+```
+
+PR 合并后自动删除源分支是仓库级设置，不属于 Ruleset；可以单独启用或关闭：
+
+```bash
+# 启用
+gh api --method PATCH "repos/${OWNER}/${REPO}" -F delete_branch_on_merge=true
+
+# 确认当前设置
+gh api "repos/${OWNER}/${REPO}" --jq '{delete_branch_on_merge}'
+
+# 关闭时改为 false
+gh api --method PATCH "repos/${OWNER}/${REPO}" -F delete_branch_on_merge=false
+```
+
+> **提示**：Rulesets 在 GitHub Free 的公开仓库中可用；私有仓库需要 GitHub Pro、Team 或 Enterprise Cloud。对于团队项目，建议至少开启「Require a pull request before merging」和「Require status checks to pass」，以保证代码质量和审计追踪。具体计划限制见 [GitHub 官方规则集文档](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets)。
 
 ### `git clone 出现以下问题：fatal: unable to access XXX: gnutls_handshake() failed: The TLS connection was non-properly terminated.`
 
