@@ -140,7 +140,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 按 `content/post/` 的实际目录结构生成，括号内为该分类的文章数。**本段由 `python3 tools/readme_index.py` 自动生成，请勿手工编辑** —— 增删文章后重新运行该脚本即可。
 
 <!-- BEGIN:CONTENT-INDEX -->
-## Agent 工程 (46)
+## Agent 工程 (47)
 
 ### 01-入门与全景
 
@@ -161,6 +161,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [MASS：多智能体系统的提示词与拓扑如何协同优化](content/post/Agent%20工程/02-框架与运行时/MASS：多智能体系统的提示词与拓扑如何协同优化/)
 - [主流 Agent 框架对比与多框架统一接口设计](content/post/Agent%20工程/02-框架与运行时/主流%20Agent%20框架对比与多框架统一接口设计/)
 - [内置 Agent 放哪：一个 is_runnable 陷阱与三类事实源](content/post/Agent%20工程/02-框架与运行时/内置%20Agent%20放哪：一个%20is_runnable%20陷阱与三类事实源/)
+- [开源多 Agent 框架怎么协作：编排思路与工程取舍](content/post/Agent%20工程/02-框架与运行时/开源多%20Agent%20框架怎么协作/)
 - [Agent 记忆模块深度技术文档](content/post/Agent%20工程/02-框架与运行时/记忆模块技术文档/)
 
 ### 03-工程化实践

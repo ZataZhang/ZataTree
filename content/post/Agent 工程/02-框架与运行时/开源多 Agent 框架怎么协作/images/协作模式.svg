@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="580" viewBox="0 0 1200 580">
+<rect width="1200" height="580" rx="28" fill="#F8FAFC"/>
+<text x="64" y="72" fill="#0B1220" font-family="sans-serif" font-size="34" font-weight="700">多 Agent 协作，控制权可以放在四个位置</text>
+<text x="64" y="112" fill="#475569" font-family="sans-serif" font-size="20">看谁分配任务、谁传递结果，以及谁有权结束流程</text>
+<g font-family="sans-serif">
+<rect x="54" y="155" width="536" height="170" rx="20" fill="#EAF1FB" stroke="#5B87BF" stroke-width="2"/>
+<text x="82" y="195" fill="#1E3A5F" font-size="24" font-weight="700">顺序流水线</text>
+<rect x="82" y="222" width="112" height="54" rx="12" fill="#FFFFFF"/><text x="138" y="256" fill="#0B1220" font-size="18" text-anchor="middle">Agent A</text>
+<path d="M200 249h50" stroke="#5B87BF" stroke-width="4"/><path d="m244 241 12 8-12 8" fill="none" stroke="#5B87BF" stroke-width="4"/>
+<rect x="265" y="222" width="112" height="54" rx="12" fill="#FFFFFF"/><text x="321" y="256" fill="#0B1220" font-size="18" text-anchor="middle">Agent B</text>
+<path d="M383 249h50" stroke="#5B87BF" stroke-width="4"/><path d="m427 241 12 8-12 8" fill="none" stroke="#5B87BF" stroke-width="4"/>
+<rect x="448" y="222" width="112" height="54" rx="12" fill="#FFFFFF"/><text x="504" y="256" fill="#0B1220" font-size="18" text-anchor="middle">Agent C</text>
+<rect x="610" y="155" width="536" height="170" rx="20" fill="#F1ECFD" stroke="#8B5CF6" stroke-width="2"/>
+<text x="638" y="195" fill="#4C1D95" font-size="24" font-weight="700">主管委派</text>
+<rect x="805" y="213" width="146" height="50" rx="12" fill="#FFFFFF"/><text x="878" y="245" fill="#0B1220" font-size="18" text-anchor="middle">Supervisor</text>
+<path d="M840 266l-90 42M878 266v42M916 266l90 42" stroke="#8B5CF6" stroke-width="3"/>
+<rect x="692" y="282" width="112" height="36" rx="9" fill="#FFFFFF"/><text x="748" y="306" fill="#0B1220" font-size="16" text-anchor="middle">专家 A</text>
+<rect x="822" y="282" width="112" height="36" rx="9" fill="#FFFFFF"/><text x="878" y="306" fill="#0B1220" font-size="16" text-anchor="middle">专家 B</text>
+<rect x="952" y="282" width="112" height="36" rx="9" fill="#FFFFFF"/><text x="1008" y="306" fill="#0B1220" font-size="16" text-anchor="middle">专家 C</text>
+<rect x="54" y="350" width="536" height="170" rx="20" fill="#E8F7F3" stroke="#0F9D83" stroke-width="2"/>
+<text x="82" y="390" fill="#115E59" font-size="24" font-weight="700">群聊 / 动态交接</text>
+<circle cx="170" cy="457" r="35" fill="#FFFFFF" stroke="#0F9D83" stroke-width="2"/><text x="170" y="463" fill="#0B1220" font-size="16" text-anchor="middle">Agent A</text>
+<circle cx="322" cy="430" r="35" fill="#FFFFFF" stroke="#0F9D83" stroke-width="2"/><text x="322" y="436" fill="#0B1220" font-size="16" text-anchor="middle">Agent B</text>
+<circle cx="458" cy="475" r="35" fill="#FFFFFF" stroke="#0F9D83" stroke-width="2"/><text x="458" y="481" fill="#0B1220" font-size="16" text-anchor="middle">Agent C</text>
+<path d="M208 445q48-42 77-28M353 450q50 45 70 33M421 442q-78-37-113-12" fill="none" stroke="#0F9D83" stroke-width="3" marker-end="url(#arr)"/>
+<rect x="610" y="350" width="536" height="170" rx="20" fill="#FFF5E7" stroke="#D97706" stroke-width="2"/>
+<text x="638" y="390" fill="#92400E" font-size="24" font-weight="700">领域 SOP 与产物</text>
+<rect x="646" y="424" width="130" height="60" rx="12" fill="#FFFFFF"/><text x="711" y="450" fill="#0B1220" font-size="17" text-anchor="middle">需求文档</text><text x="711" y="473" fill="#64748B" font-size="14" text-anchor="middle">产品角色</text>
+<path d="M781 454h45" stroke="#D97706" stroke-width="4"/><path d="m820 446 12 8-12 8" fill="none" stroke="#D97706" stroke-width="4"/>
+<rect x="841" y="424" width="130" height="60" rx="12" fill="#FFFFFF"/><text x="906" y="450" fill="#0B1220" font-size="17" text-anchor="middle">技术设计</text><text x="906" y="473" fill="#64748B" font-size="14" text-anchor="middle">架构角色</text>
+<path d="M976 454h45" stroke="#D97706" stroke-width="4"/><path d="m1015 446 12 8-12 8" fill="none" stroke="#D97706" stroke-width="4"/>
+<rect x="1036" y="424" width="88" height="60" rx="12" fill="#FFFFFF"/><text x="1080" y="450" fill="#0B1220" font-size="17" text-anchor="middle">代码</text><text x="1080" y="473" fill="#64748B" font-size="14" text-anchor="middle">工程角色</text>
+</g>
+<text x="64" y="556" fill="#64748B" font-family="sans-serif" font-size="16">四种方式都能组成多 Agent，差异在状态如何共享、下一步由谁决定。</text>
+</svg>

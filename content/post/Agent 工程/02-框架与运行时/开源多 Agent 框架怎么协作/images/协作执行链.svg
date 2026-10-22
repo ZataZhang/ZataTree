@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300">
+<rect width="1200" height="300" rx="28" fill="#F8FAFC"/>
+<text x="56" y="60" fill="#0B1220" font-family="sans-serif" font-size="30" font-weight="700">真正可检查的协作链</text>
+<g font-family="sans-serif" text-anchor="middle">
+<rect x="55" y="110" width="185" height="92" rx="16" fill="#EAF1FB" stroke="#5B87BF" stroke-width="2"/><text x="147" y="148" fill="#1E3A5F" font-size="20" font-weight="700">任务与状态</text><text x="147" y="177" fill="#334155" font-size="16">输入 + 约束</text>
+<rect x="285" y="110" width="185" height="92" rx="16" fill="#F1ECFD" stroke="#8B5CF6" stroke-width="2"/><text x="377" y="148" fill="#4C1D95" font-size="20" font-weight="700">Agent 决策</text><text x="377" y="177" fill="#334155" font-size="16">继续 / 委派 / 完成</text>
+<rect x="515" y="110" width="185" height="92" rx="16" fill="#E8F7F3" stroke="#0F9D83" stroke-width="2"/><text x="607" y="148" fill="#115E59" font-size="20" font-weight="700">工具或子 Agent</text><text x="607" y="177" fill="#334155" font-size="16">确定性执行 / 新推理</text>
+<rect x="745" y="110" width="185" height="92" rx="16" fill="#FFF5E7" stroke="#D97706" stroke-width="2"/><text x="837" y="148" fill="#92400E" font-size="20" font-weight="700">结果回流</text><text x="837" y="177" fill="#334155" font-size="16">更新消息或共享状态</text>
+<rect x="975" y="110" width="185" height="92" rx="16" fill="#EEF2F7" stroke="#64748B" stroke-width="2"/><text x="1067" y="148" fill="#334155" font-size="20" font-weight="700">停止判断</text><text x="1067" y="177" fill="#334155" font-size="16">完成 / 达到上限 / 人工</text>
+</g>
+<g fill="none" stroke="#475569" stroke-width="4"><path d="M242 156h38"/><path d="m272 148 12 8-12 8"/><path d="M472 156h38"/><path d="m502 148 12 8-12 8"/><path d="M702 156h38"/><path d="m732 148 12 8-12 8"/><path d="M932 156h38"/><path d="m962 148 12 8-12 8"/><path d="M1067 207v50H377v-45" stroke-dasharray="8 7"/><path d="m369 220 8-12 8 12"/></g>
+<text x="720" y="278" fill="#64748B" font-family="sans-serif" font-size="16" text-anchor="middle">如果未满足停止条件，已验证的结果与上下文返回编排器，开启下一轮。</text>
+</svg>
