@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="480" viewBox="0 0 1200 480">
+  <defs>
+    <pattern id="dots" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#1B2A44"/></pattern>
+  </defs>
+  <rect width="1200" height="480" fill="#0B1220"/>
+  <rect width="1200" height="480" fill="url(#dots)"/>
+  <rect x="0" y="0" width="6" height="480" fill="#5B87BF"/>
+  <text x="60" y="72" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="32" font-weight="700" fill="#F8FAFC">校准前后的评分分布</text>
+  <text x="60" y="106" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="18" fill="#8FA3BF">同一批材料、同一批评审，只改了锚点的写法</text>
+  <rect x="60" y="130" width="510" height="300" rx="14" fill="#101B2E" stroke="#2C3A58" stroke-width="1.5"/>
+  <text x="88" y="168" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="21" font-weight="600" fill="#F8FAFC">无锚点：分数挤向中间</text>
+  <text x="88" y="196" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="17" fill="#8FA3BF">评审只能凭整体印象给档</text>
+  <line x1="100" y1="380" x2="530" y2="380" stroke="#2C3A58" stroke-width="1.5"/>
+    <rect x="127" y="364" width="56" height="16" rx="6" fill="#5B87BF" opacity="0.45"/>
+    <rect x="207" y="334" width="56" height="46" rx="6" fill="#5B87BF" opacity="0.55"/>
+    <rect x="287" y="202" width="56" height="178" rx="6" fill="#5B87BF" opacity="0.65"/>
+    <rect x="367" y="230" width="56" height="150" rx="6" fill="#5B87BF" opacity="0.75"/>
+    <rect x="447" y="360" width="56" height="20" rx="6" fill="#5B87BF" opacity="0.8500000000000001"/>
+    <text x="155" y="410" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="17" fill="#8FA3BF" text-anchor="middle">1</text>
+    <text x="235" y="410" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="17" fill="#8FA3BF" text-anchor="middle">2</text>
+    <text x="315" y="410" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="17" fill="#8FA3BF" text-anchor="middle">3</text>
+    <text x="395" y="410" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="17" fill="#8FA3BF" text-anchor="middle">4</text>
+    <text x="475" y="410" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="17" fill="#8FA3BF" text-anchor="middle">5</text>
+  <text x="527" y="420" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="15" fill="#6B7F9E" text-anchor="end">评分档位</text>
+  <rect x="630" y="130" width="510" height="300" rx="14" fill="#101B2E" stroke="#2C3A58" stroke-width="1.5"/>
+  <text x="658" y="168" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="21" font-weight="600" fill="#F8FAFC">有锚点：分布展开</text>
+  <text x="658" y="196" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="17" fill="#8FA3BF">每条判断都有可核对的依据</text>
+  <line x1="670" y1="380" x2="1100" y2="380" stroke="#2C3A58" stroke-width="1.5"/>
+    <rect x="697" y="340" width="56" height="40" rx="6" fill="#22D3EE" opacity="0.45"/>
+    <rect x="777" y="284" width="56" height="96" rx="6" fill="#22D3EE" opacity="0.55"/>
+    <rect x="857" y="230" width="56" height="150" rx="6" fill="#22D3EE" opacity="0.65"/>
+    <rect x="937" y="262" width="56" height="118" rx="6" fill="#22D3EE" opacity="0.75"/>
+    <rect x="1017" y="314" width="56" height="66" rx="6" fill="#22D3EE" opacity="0.8500000000000001"/>
+    <text x="725" y="410" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="17" fill="#8FA3BF" text-anchor="middle">1</text>
+    <text x="805" y="410" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="17" fill="#8FA3BF" text-anchor="middle">2</text>
+    <text x="885" y="410" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="17" fill="#8FA3BF" text-anchor="middle">3</text>
+    <text x="965" y="410" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="17" fill="#8FA3BF" text-anchor="middle">4</text>
+    <text x="1045" y="410" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="17" fill="#8FA3BF" text-anchor="middle">5</text>
+  <text x="1097" y="420" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="15" fill="#6B7F9E" text-anchor="end">评分档位</text>
+  <text x="60" y="452" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="16" fill="#6B7F9E">示意图，用于说明趋中效应，不是实测数据。图片来源：作者绘制</text>
+</svg>

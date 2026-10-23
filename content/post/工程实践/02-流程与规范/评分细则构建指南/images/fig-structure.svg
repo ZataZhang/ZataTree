@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620">
+  <defs>
+    <pattern id="dots" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="#1B2A44"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="620" fill="#0B1220"/>
+  <rect width="1200" height="620" fill="url(#dots)"/>
+  <rect x="0" y="0" width="6" height="620" fill="#5B87BF"/>
+  <text x="60" y="78" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="34" font-weight="700" fill="#F8FAFC">四要素：从整体印象拆到可判定条款</text>
+  <text x="60" y="112" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="19" fill="#8FA3BF">同一条回答，被四个层级依次约束，最后落成一个能争论的数字</text>
+
+  <text x="60" y="176" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="21" font-weight="600" fill="#22D3EE">① 维度 axis　从哪个角度看</text>
+  <g font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="19" fill="#9FB3D1">
+    <rect x="60" y="196" width="196" height="44" rx="22" fill="#152238" stroke="#2C3A58" stroke-width="1.5"/>
+    <text x="84" y="224">事实准确性</text>
+    <rect x="274" y="196" width="196" height="44" rx="22" fill="#152238" stroke="#2C3A58" stroke-width="1.5"/>
+    <text x="298" y="224">沟通质量</text>
+    <rect x="488" y="196" width="212" height="44" rx="22" fill="#152238" stroke="#2C3A58" stroke-width="1.5"/>
+    <text x="512" y="224">是否需要追问</text>
+  </g>
+
+  <text x="60" y="298" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="21" font-weight="600" fill="#22D3EE">② 条款 item ＋ ③ 锚点 anchor　具体判什么、什么算满足</text>
+  <rect x="60" y="318" width="1080" height="152" rx="14" fill="#101B2E" stroke="#2C3A58" stroke-width="1.5"/>
+  <text x="88" y="356" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="18" fill="#5B87BF">item</text>
+  <text x="160" y="356" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="19" fill="#E2E8F0">是否给出胸外按压的频率与深度</text>
+  <text x="88" y="396" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="18" fill="#5B87BF">anchor</text>
+  <text x="160" y="396" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="18" fill="#E2E8F0">出现「100–120 次/分」且给出「约 5 厘米」深度 → 满足</text>
+  <text x="160" y="430" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="18" fill="#8FA3BF">只写「快速、用力按压」→ 不满足（无可核对数值）</text>
+  <text x="160" y="458" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="17" fill="#8FA3BF">每条条款只判一件事；满足 / 不满足二分，避免 5 档形容词</text>
+
+  <text x="60" y="522" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="21" font-weight="600" fill="#22D3EE">④ 聚合 rule　怎么合成总分</text>
+  <rect x="60" y="540" width="1080" height="52" rx="10" fill="#152238" stroke="#2C3A58" stroke-width="1.5"/>
+  <text x="88" y="574" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="19" fill="#E2E8F0">得分 = Σ 命中条款分值 ÷ 满分；扣分项计入分子，gate 条款命中即整体不通过</text>
+</svg>

@@ -140,7 +140,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 按 `content/post/` 的实际目录结构生成，括号内为该分类的文章数。**本段由 `python3 tools/readme_index.py` 自动生成，请勿手工编辑** —— 增删文章后重新运行该脚本即可。
 
 <!-- BEGIN:CONTENT-INDEX -->
-## Agent 工程 (47)
+## Agent 工程 (48)
 
 ### 01-入门与全景
 
@@ -168,6 +168,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 
 - [Agent 内容输出规范：本地给路径，远程给协议](content/post/Agent%20工程/03-工程化实践/Agent%20内容输出规范：本地给路径，远程给协议/)
 - [Agent 工具没调用，先查模型到底能看见什么](content/post/Agent%20工程/03-工程化实践/Agent%20工具没调用：一次真实链路验收的三层误判/)
+- [Agent 流程中断了怎么办：先分清谁断的，再问做完没有](content/post/Agent%20工程/03-工程化实践/Agent%20流程中断了怎么办：先分清谁断的，再问做完没有/)
 - [Coding Agent 评测体系：公开基准怎么读，自己那套怎么搭](content/post/Agent%20工程/03-工程化实践/Coding%20Agent%20评测体系：公开基准怎么读，自己那套怎么搭/)
 - [${VAR} 是谁的环境变量：一条只写不读的凭据带走平台密钥](content/post/Agent%20工程/03-工程化实践/MCP%20环境变量展开：一条只写不读的凭据带走平台密钥/)
 - [OpenAI Responses API与Chat Completions API区别详解](content/post/Agent%20工程/03-工程化实践/OpenAI%20Responses%20API与Chat%20Completions%20API区别详解/)
@@ -285,7 +286,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [flutter_tutorial](content/post/Web%20开发/04-前端与跨端/flutter_tutorial/)
 - [Refine: 当 API 即界面，CRUD 不再是体力活](content/post/Web%20开发/04-前端与跨端/refine-meta-framework/)
 
-## 工程实践 (12)
+## 工程实践 (13)
 
 ### 01-可观测性
 
@@ -297,6 +298,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 
 - [代码写作心得-使用教程](content/post/工程实践/02-流程与规范/代码写作心得-使用教程/)
 - [怎么保存.env文件到github公开的仓库](content/post/工程实践/02-流程与规范/怎么保存.env文件到github公开的仓库/)
+- [把「写得好」拆成能打分的条款：rubric 构建指南](content/post/工程实践/02-流程与规范/评分细则构建指南/)
 - [软件项目开发流程使用教程](content/post/工程实践/02-流程与规范/软件项目开发流程/)
 - [通用模板规范GeneralTemplateSpecifications](content/post/工程实践/02-流程与规范/通用模板规范GeneralTemplateSpecifications/)
 

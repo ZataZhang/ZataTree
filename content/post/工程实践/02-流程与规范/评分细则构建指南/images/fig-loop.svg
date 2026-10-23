@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560">
+  <defs>
+    <pattern id="dots" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="#1B2A44"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="560" fill="#0B1220"/>
+  <rect width="1200" height="560" fill="url(#dots)"/>
+  <rect x="0" y="0" width="6" height="560" fill="#5B87BF"/>
+  <text x="60" y="76" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="32" font-weight="700" fill="#F8FAFC">六步构建与校准回路</text>
+  <text x="60" y="108" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="18" fill="#8FA3BF">分歧回流到锚点，而不是回流到总分</text>
+
+  <g font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="19" fill="#E2E8F0">
+    <rect x="60" y="150" width="320" height="86" rx="12" fill="#152238" stroke="#2C3A58" stroke-width="1.5"/>
+    <text x="84" y="186" font-weight="600" fill="#22D3EE">01　定用途</text>
+    <text x="84" y="216" fill="#9FB3D1">排序 / 门槛 / 诊断，决定颗粒度</text>
+
+    <rect x="440" y="150" width="320" height="86" rx="12" fill="#152238" stroke="#2C3A58" stroke-width="1.5"/>
+    <text x="464" y="186" font-weight="600" fill="#22D3EE">02　收分歧样本</text>
+    <text x="464" y="216" fill="#9FB3D1">20–30 份，只挑分歧最大的五份</text>
+
+    <rect x="820" y="150" width="320" height="86" rx="12" fill="#152238" stroke="#2C3A58" stroke-width="1.5"/>
+    <text x="844" y="186" font-weight="600" fill="#22D3EE">03　拆维度</text>
+    <text x="844" y="216" fill="#9FB3D1">正交 / 可观测 / 覆盖失败模式</text>
+
+    <rect x="820" y="300" width="320" height="86" rx="12" fill="#152238" stroke="#2C3A58" stroke-width="1.5"/>
+    <text x="844" y="336" font-weight="600" fill="#22D3EE">04　写锚点</text>
+    <text x="844" y="366" fill="#9FB3D1">可检查谓语替代形容词，正负分分列</text>
+
+    <rect x="440" y="300" width="320" height="86" rx="12" fill="#152238" stroke="#2C3A58" stroke-width="1.5"/>
+    <text x="464" y="336" font-weight="600" fill="#22D3EE">05　定聚合</text>
+    <text x="464" y="366" fill="#9FB3D1">敏感性测试定权重，门槛显式写出</text>
+
+    <rect x="60" y="300" width="320" height="86" rx="12" fill="#152238" stroke="#2C3A58" stroke-width="1.5"/>
+    <text x="84" y="336" font-weight="600" fill="#22D3EE">06　校准</text>
+    <text x="84" y="366" fill="#9FB3D1">双人独立打分 → 一致性 → 改条款</text>
+  </g>
+
+  <g stroke="#5B87BF" stroke-width="2" fill="none">
+    <path d="M380 193 H428" marker-end="url(#arrow)"/>
+    <path d="M760 193 H808" marker-end="url(#arrow)"/>
+    <path d="M980 236 V288" marker-end="url(#arrow)"/>
+    <path d="M820 343 H772" marker-end="url(#arrow)"/>
+    <path d="M440 343 H392" marker-end="url(#arrow)"/>
+  </g>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#5B87BF"/>
+    </marker>
+  </defs>
+
+  <path d="M220 388 C220 470 980 470 980 400" stroke="#F59E0B" stroke-width="2.5" fill="none" stroke-dasharray="8 7" marker-end="url(#arrowWarn)"/>
+  <defs>
+    <marker id="arrowWarn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#F59E0B"/>
+    </marker>
+  </defs>
+  <text x="560" y="466" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="18" fill="#F59E0B">一致性 &lt; 0.6：回到第 04 步改锚点</text>
+  <text x="560" y="498" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="18" fill="#8FA3BF">两到三轮后仍存在的分歧，记录为待定条款</text>
+</svg>

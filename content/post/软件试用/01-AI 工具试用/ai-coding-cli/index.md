@@ -620,6 +620,19 @@ npm i -g @openai/codex
 
 ![pythonutf8](images/index/image-10.png)
 
+### 设置本机默认模型与推理强度（2026-10-23）
+
+Codex 的个人默认配置位于 `~/.codex/config.toml`。在文件顶层设置：
+
+```toml
+model = "gpt-6-luna"
+model_reasoning_effort = "max"
+```
+
+如果这两项已经存在，修改原值即可，不要重复添加。这样新会话默认使用 GPT-6 Luna 和 Max 推理强度；单个会话仍可手动切换模型。项目级 `.codex/config.toml`、配置档案或启动参数也可能覆盖个人默认值。
+
+官方说明：[Codex 配置文件](https://developers.openai.com/codex/config-basic/)、[推理模型与强度](https://developers.openai.com/api/docs/guides/reasoning)。
+
 
 
 
