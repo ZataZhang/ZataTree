@@ -1,0 +1,87 @@
+{
+  "retrieved": "2026-10-24",
+  "purpose": "产品包装识别；不用于判断纸张白度或验证宣传性能",
+  "sources": [
+    [
+      "金晨光",
+      "gold.jpg",
+      "APYVQ28L，A4、80g",
+      "京东商品页",
+      "https://item.jd.com/product/46IxhgRWU0vQHSbu8g4GkQ.html"
+    ],
+    [
+      "银晨光",
+      "silver.png",
+      "APN1B088，A4、70g、5包装",
+      "京东商品页",
+      "https://item.jd.com/product/ju_-8gXk10pzxDHptHrHMA.html"
+    ],
+    [
+      "蓝晨光",
+      "blue.jpg",
+      "APYVQ961，A4、80g",
+      "阳光校采商品页",
+      "https://mall.icw.buaa.edu.cn/SzhtShop/detail/lxwl/10769097"
+    ],
+    [
+      "红晨光",
+      "red.jpg",
+      "APYVQ958，A4、80g",
+      "中关村在线产品图库",
+      "https://detail.zol.com.cn/print_medium/index1421513.shtml"
+    ],
+    [
+      "紫晨光",
+      "purple.jpg",
+      "APYVSG36，A4、70g",
+      "中关村在线产品图库",
+      "https://detail.zol.com.cn/print_medium/index1380510.shtml"
+    ],
+    [
+      "绿晨光",
+      "green.jpg",
+      "APYVQAF4，A4、70g",
+      "阳光校采商品页",
+      "https://mall.icw.buaa.edu.cn/SzhtShop/detail/jd/100035629496"
+    ]
+  ],
+  "downloads": [
+    [
+      "gold",
+      "content/post/通识与生活/03-生活与个人/晨光复印纸怎么选/images/index/gold.jpg",
+      19730,
+      "https://img14.360buyimg.com/n1/jfs/t1/461604/25/20477/155125/6a439732F2fe00af9/0083320320a757ea.jpg"
+    ],
+    [
+      "silver",
+      "content/post/通识与生活/03-生活与个人/晨光复印纸怎么选/images/index/silver.png",
+      194586,
+      "https://img10.360buyimg.com/n1/jfs/t1/535130/23/5285/188420/6ad9cedaF402a38ca/00833203208e9201.png"
+    ],
+    [
+      "blue",
+      "content/post/通识与生活/03-生活与个人/晨光复印纸怎么选/images/index/blue.jpg",
+      329895,
+      "http://lxerp.66123123.com/image/sku/2020-12-23/c196cf39-c82d-4685-b6f5-b34da7b0b636.jpg"
+    ],
+    [
+      "green",
+      "content/post/通识与生活/03-生活与个人/晨光复印纸怎么选/images/index/green.jpg",
+      57961,
+      "https://img12.360buyimg.com/n1/jfs/t1/148502/3/34007/119708/64993b93F7eab5207/9172cbb1c9c3b80d.jpg"
+    ],
+    [
+      "purple",
+      "content/post/通识与生活/03-生活与个人/晨光复印纸怎么选/images/index/purple.jpg",
+      73121,
+      "https://2e.zol-img.com.cn/product/214_800x600/632/ceNFjEo7adTY.jpg"
+    ],
+    [
+      "red",
+      "content/post/通识与生活/03-生活与个人/晨光复印纸怎么选/images/index/red.jpg",
+      40311,
+      "https://2c.zol-img.com.cn/product/221_800x600/328/ceu4T2IOjFOI.jpg"
+    ]
+  ],
+  "gold_actual_image": "https://img14.360buyimg.com/n1/jfs/t1/361511/33/7699/98324/69203853Fdc0441fb/e7f788ad7a648ef5.jpg"
+}

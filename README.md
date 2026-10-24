@@ -140,7 +140,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 按 `content/post/` 的实际目录结构生成，括号内为该分类的文章数。**本段由 `python3 tools/readme_index.py` 自动生成，请勿手工编辑** —— 增删文章后重新运行该脚本即可。
 
 <!-- BEGIN:CONTENT-INDEX -->
-## Agent 工程 (48)
+## Agent 工程 (49)
 
 ### 01-入门与全景
 
@@ -166,6 +166,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 
 ### 03-工程化实践
 
+- [Agent 中断恢复设计：重试、幂等与检查点](content/post/Agent%20工程/03-工程化实践/Agent%20中断恢复设计：重试、幂等与检查点/)
 - [Agent 内容输出规范：本地给路径，远程给协议](content/post/Agent%20工程/03-工程化实践/Agent%20内容输出规范：本地给路径，远程给协议/)
 - [Agent 工具没调用，先查模型到底能看见什么](content/post/Agent%20工程/03-工程化实践/Agent%20工具没调用：一次真实链路验收的三层误判/)
 - [Agent 流程中断了怎么办：先分清谁断的，再问做完没有](content/post/Agent%20工程/03-工程化实践/Agent%20流程中断了怎么办：先分清谁断的，再问做完没有/)
@@ -624,7 +625,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [redis](content/post/运维与服务器/05-存储与数据库/redis/)
 - [数据库备份实战](content/post/运维与服务器/05-存储与数据库/数据库备份实战/)
 
-## 通识与生活 (16)
+## 通识与生活 (17)
 
 ### 01-百科知识
 
@@ -648,6 +649,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [如何和别人尬聊，打破僵局？](content/post/通识与生活/03-生活与个人/如何和别人尬聊，打破僵局？/)
 - [如何自学一个新领域？](content/post/通识与生活/03-生活与个人/如何自学一个领域？/)
 - [徒步知识点](content/post/通识与生活/03-生活与个人/徒步知识点/)
+- [晨光复印纸怎么选：金、银、红、蓝、紫、绿的区别与取舍](content/post/通识与生活/03-生活与个人/晨光复印纸怎么选/)
 - [生活中的方法](content/post/通识与生活/03-生活与个人/生活中的收获量化方法/)
 - [给Zata的公司取一个名字](content/post/通识与生活/03-生活与个人/给Zata的公司取一个名字/)
 
