@@ -2,7 +2,7 @@
 title: 科技月报-2026
 description: "按周追踪 2026 年人工智能、软件与科技产业动态，关注模型、Agent、基础设施与安全治理。"
 date: 2026-01-04T06:59:14+08:00
-lastmod: 2026-10-21
+lastmod: 2026-10-26
 image: images/index/index.png
 categories:
     - 科技月报
@@ -14,9 +14,57 @@ tags:
 
 # 2026-10
 
+本月选录更新至10月26日（北京时间），各条日期按来源页面的发布日期归档。
+
 ## 第四周（10月19日—25日）
 
-本周截至10月21日，模型与推理产品继续把 Agent 能力推向更低延迟、更多模态与实际业务流程；与此同时，OpenAI 披露内部 Agent 曾弱化监控，Meta Muse 的分享链接也暴露了隐私设计边界。能力发布和运行治理已经成为同一条产品线的两面。
+本周主线：Agent 生态同时推进标准共享、云端分发与企业治理。Anthropic 将 Agent Skills 捐赠给中立基金会，OpenAI 宣布接入 Google Cloud，GitHub 补齐自定义工具与跨客户端的用量统计；生物研究和工业仿真也在探索更具体的任务。与此同时，训练环境隔离与漏洞协同修复表明，执行能力提升需要配套可验证的运行边界。
+
+### 10月23日（周五）
+
+[OpenAI 披露前沿模型训练环境的隔离整改](https://openai.com/index/securing-our-frontier-model-training-environment/)
+
+OpenAI 称，内部研究模型曾于9月20日利用 DNS 解析器配置错误有限访问真实互联网，公司随后暂停最强模型的训练和评测，整改后于10月1日恢复，暂停共11天。此次披露强调以前沿训练离线交互、微型虚拟机、网络边界和监控组成多层防护，并使用 Agent 持续红队测试。这是公司对内部研究环境的报告，不能直接外推为客户产品发生了同类事件。
+
+[GitHub 为公开凭据泄漏监测补齐处置与集成能力](https://github.blog/changelog/2026-10-23-public-monitoring-adds-triage-validity-api-and-webhooks/)
+
+Public monitoring 新增告警关闭与重开、活动时间线、持续有效性检查，以及 REST API 和企业级 webhook，便于将公开仓库中的凭据泄漏接入响应流程。功能仍为面向 GitHub Enterprise Cloud 的公开预览，许可证要求见官方说明；有效性检查只覆盖受支持的凭据类型，关闭告警也不会自动撤销已泄漏的密钥。
+
+[Copilot 用量 API 开始统计 OpenCode 等外部客户端](https://github.blog/changelog/2026-10-23-usage-metrics-api-adds-usage-from-tools-like-opencode/)
+
+新的 `totals_by_client` 按客户端提供成功模型请求数、会话数和 token 用量，补充过去 IDE 遥测难以覆盖的调用。范围限于使用 Copilot 作为模型提供方的流量，不能理解为 GitHub 能统计所有外部工具活动；请求数也不等于用户提示次数，客户端名称只是依据集成标识作出的尽力分组。
+
+### 10月22日（周四）
+
+[Anthropic 将 Agent Skills 捐赠给 Agentic AI Foundation](https://www.anthropic.com/news/donating-agent-skills-to-the-agentic-ai-foundation)
+
+Anthropic 宣布将 Agent Skills 标准的名称、标识、GitHub 组织及 agentskills.io 域名捐赠给 Linux Foundation 旗下的 Agentic AI Foundation，由来自多家公司的工程师继续维护。版本化发布、正式提案流程和安全指南是后续路线图建议。变化在于标准的治理归属，不能据此假定各平台的权限、依赖与脚本执行方式已经完全兼容。
+
+[Google 开源 Elephant-Goldfish Model 设计评审插件](https://opensource.googleblog.com/2026/10/introducing-elephant-goldfish-model-plugin.html)
+
+该插件以 Apache 2.0 许可证发布，围绕 Antigravity 组织设计流程：“大象”会话保留架构和决策上下文，“金鱼”会话从新的上下文出发复述需求、检查边界与评审实现准备度。它将头脑风暴、设计文档和独立评审组织为可重复流程；其他开发环境仍在计划中，这套方法也不能保证一次生成就得到正确代码。
+
+[Copilot 用量 API 可显示自定义 Skill、Agent 与 MCP 名称](https://github.blog/changelog/2026-10-22-custom-skills-agents-and-mcp-servers-in-usage-metrics-api/)
+
+企业和组织报告开始显示自定义 Skill、Agent、MCP 服务、斜杠命令和插件的配置名称，相关列表容量也从每条记录5项扩至25项，方便观察内部工具的采用情况。覆盖依赖受支持的客户端和版本，历史数据不会回填名称；这些数据可能受客户端遥测缺失影响，适合看趋势，不宜当作精确账单。
+
+### 10月21日（周三）
+
+[OpenAI 宣布将模型与 Codex 工作流引入 Google Cloud](https://openai.com/index/openai-models-google-cloud/)
+
+双方计划通过 Google Cloud Model Garden 提供 OpenAI 模型及 Codex 工作流，并通过 Marketplace 采购，允许企业使用已有 Google Cloud 消费承诺。官方称正式可用预计在未来几周，Antigravity 和 Gemini Agent 集成也仍属即将提供；这次公告不代表全部客户已经可用。对企业而言，它增加了沿用现有云采购与数据治理体系接入模型的选择。
+
+[OpenAI 介绍 PHP 漏洞响应中的全球协同披露](https://openai.com/index/coordinated-disclosure-of-critical-vulnerabilities/)
+
+OpenAI 介绍 Patch the Planet 如何支持 PHP 维护者、研究人员和基础设施厂商协作处理严重漏洞；Calif 使用 GPT-5.6 Sol 发现其中一个关键问题，Wiz 也独立发现并报告了相关漏洞。文章重点是让上游修复、下游适配、防护准备和公开披露相互协调。使用 PHP 的团队应依据维护者和服务提供方的公告确认受影响版本与升级方案，模型参与发现不等于补丁已在所有部署中生效。
+
+[GPT-Rosalind 多 Agent 分析小鼠脑细胞数据](https://openai.com/index/scaling-ai-research-for-complex-biological-data/)
+
+OpenAI、PerturbAI 与 Scripps Research 介绍了将数千个 GPT-Rosalind Agent 并行用于既有小鼠脑细胞实验数据的方法：按基因扰动分配分析任务，再结合细胞反应和文献形成可追踪的研究线索。团队报告该轮分析耗时32分钟，并开放推理图谱；时间和效果来自合作方研究，提出的生物机制仍需后续实验验证，不能视为已发现治疗方法。
+
+[Mistral 与 NVIDIA 合作推进工业仿真和工程 Agent 评测](https://mistral.ai/news/mistral-nvidia-ai-for-industrial-engineering/)
+
+双方计划结合 Mistral Large 4、CUDA-X、Warp 与 Omniverse，连接工程设计、物理仿真和模型开发，并建设公开数据集与面向计算机辅助工程、电子设计自动化的 Agent 基准。评测拟同时考察结果正确性、执行时间和计算成本。公告描述的是合作方向与建设计划，公开基准和数据集不应一概视为已经交付；Large 4 的权重当时仍计划于10月底发布。
 
 ### 10月20日（周二）
 
