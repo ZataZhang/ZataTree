@@ -140,7 +140,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 按 `content/post/` 的实际目录结构生成，括号内为该分类的文章数。**本段由 `python3 tools/readme_index.py` 自动生成，请勿手工编辑** —— 增删文章后重新运行该脚本即可。
 
 <!-- BEGIN:CONTENT-INDEX -->
-## Agent 工程 (50)
+## Agent 工程 (51)
 
 ### 01-入门与全景
 
@@ -171,6 +171,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [Agent 工具没调用，先查模型到底能看见什么](content/post/Agent%20工程/03-工程化实践/Agent%20工具没调用：一次真实链路验收的三层误判/)
 - [Agent 流程中断了怎么办：先分清谁断的，再问做完没有](content/post/Agent%20工程/03-工程化实践/Agent%20流程中断了怎么办：先分清谁断的，再问做完没有/)
 - [Coding Agent 评测体系：公开基准怎么读，自己那套怎么搭](content/post/Agent%20工程/03-工程化实践/Coding%20Agent%20评测体系：公开基准怎么读，自己那套怎么搭/)
+- [MCP 与 CLI 区别：Agent 工具接入怎么选](content/post/Agent%20工程/03-工程化实践/MCP%20与%20CLI%20区别：Agent%20工具接入怎么选/)
 - [${VAR} 是谁的环境变量：一条只写不读的凭据带走平台密钥](content/post/Agent%20工程/03-工程化实践/MCP%20环境变量展开：一条只写不读的凭据带走平台密钥/)
 - [OpenAI Responses API与Chat Completions API区别详解](content/post/Agent%20工程/03-工程化实践/OpenAI%20Responses%20API与Chat%20Completions%20API区别详解/)
 - [SWE-bench 详解：任务、评分与榜单解读](content/post/Agent%20工程/03-工程化实践/SWE-bench%20详解：任务、评分与榜单解读/)
