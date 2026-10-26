@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650" role="img" aria-label="解决一道题：目标修复与已有行为都要满足"><defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8" fill="none" stroke="#85ACFF" stroke-width="1.5"/></marker></defs><rect width="1200" height="650" rx="20" fill="#0B1220"/><g font-family="PingFang SC, Noto Sans SC, sans-serif">
+<text x="44" y="65" font-size="34" font-weight="700" fill="#F8FAFC">解决一道题：目标修复与已有行为都要满足</text>
+<text x="44" y="105" font-size="21" font-weight="400" fill="#A8BBD4">假设示例：3 个 F2P 测试 + 20 个 P2P 测试。</text>
+<rect x="40" y="150" width="1120" height="370" rx="16" fill="#111F34" stroke="#344866" stroke-width="1.6"/>
+<path d="M40 225 H1160" stroke="#344866"/>
+<path d="M40 320 H1160" stroke="#344866"/>
+<path d="M40 415 H1160" stroke="#344866"/>
+<path d="M280 150 V520" stroke="#344866"/>
+<path d="M540 150 V520" stroke="#344866"/>
+<path d="M830 150 V520" stroke="#344866"/>
+<text x="65" y="198" font-size="25" font-weight="600" fill="#85ACFF">候选补丁</text>
+<text x="305" y="198" font-size="25" font-weight="600" fill="#85ACFF">F2P：问题修复</text>
+<text x="565" y="198" font-size="25" font-weight="600" fill="#85ACFF">P2P：旧行为</text>
+<text x="855" y="198" font-size="25" font-weight="600" fill="#85ACFF">任务判定</text>
+<text x="65" y="282" font-size="24" font-weight="600" fill="#F8FAFC">A</text>
+<text x="305" y="282" font-size="24" font-weight="400" fill="#F8FAFC">3 / 3 通过</text>
+<text x="565" y="282" font-size="24" font-weight="400" fill="#F8FAFC">20 / 20 保持</text>
+<text x="855" y="282" font-size="24" font-weight="400" fill="#5EEAD4">已解决</text>
+<text x="65" y="377" font-size="24" font-weight="600" fill="#F8FAFC">B</text>
+<text x="305" y="377" font-size="24" font-weight="400" fill="#F8FAFC">3 / 3 通过</text>
+<text x="565" y="377" font-size="24" font-weight="400" fill="#F8FAFC">19 / 20 保持</text>
+<text x="855" y="377" font-size="24" font-weight="400" fill="#FDA4AF">未解决：发生回归</text>
+<text x="65" y="472" font-size="24" font-weight="600" fill="#F8FAFC">C</text>
+<text x="305" y="472" font-size="24" font-weight="400" fill="#F8FAFC">2 / 3 通过</text>
+<text x="565" y="472" font-size="24" font-weight="400" fill="#F8FAFC">20 / 20 保持</text>
+<text x="855" y="472" font-size="24" font-weight="400" fill="#FDA4AF">未解决：修复不全</text>
+<text x="44" y="573" font-size="28" font-weight="600" fill="#5EEAD4">例：500 道题解决 400 道 → 80% Resolved</text>
+<text x="44" y="615" font-size="22" font-weight="400" fill="#A8BBD4">任务解决率不等于测试用例通过率；未覆盖的行为仍需额外检查。</text>
+</g></svg>

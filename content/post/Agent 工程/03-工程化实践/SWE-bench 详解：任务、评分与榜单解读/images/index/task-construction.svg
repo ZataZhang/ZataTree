@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" role="img" aria-label="一道题：从历史修复回到作答现场"><defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8" fill="none" stroke="#85ACFF" stroke-width="1.5"/></marker></defs><rect width="1200" height="700" rx="20" fill="#0B1220"/><g font-family="PingFang SC, Noto Sans SC, sans-serif">
+<text x="44" y="65" font-size="34" font-weight="700" fill="#F8FAFC">一道题：从历史修复回到作答现场</text>
+<text x="44" y="105" font-size="21" font-weight="400" fill="#A8BBD4">历史 PR 提供参考材料，作答过程隔离参考答案与评分测试。</text>
+<rect x="40" y="150" width="320" height="145" rx="16" fill="#111F34" stroke="#85ACFF" stroke-width="1.6"/>
+<text x="62" y="190" font-size="25" font-weight="600" fill="#85ACFF">真实 issue</text>
+<text x="62" y="228" font-size="21" font-weight="400" fill="#A8BBD4">问题描述</text>
+<text x="62" y="262" font-size="21" font-weight="400" fill="#A8BBD4">例如：特定表达式触发异常</text>
+<rect x="440" y="150" width="320" height="145" rx="16" fill="#111F34" stroke="#85ACFF" stroke-width="1.6"/>
+<text x="462" y="190" font-size="25" font-weight="600" fill="#85ACFF">对应修复 PR</text>
+<text x="462" y="228" font-size="21" font-weight="400" fill="#A8BBD4">实现修改 + 测试修改</text>
+<text x="462" y="262" font-size="21" font-weight="400" fill="#A8BBD4">代码回退到 base_commit</text>
+<rect x="840" y="150" width="320" height="145" rx="16" fill="#111F34" stroke="#85ACFF" stroke-width="1.6"/>
+<text x="862" y="190" font-size="25" font-weight="600" fill="#85ACFF">拆分任务材料</text>
+<text x="862" y="228" font-size="21" font-weight="400" fill="#A8BBD4">区分输入与评分材料</text>
+<text x="862" y="262" font-size="21" font-weight="400" fill="#A8BBD4">验证修复前后的测试变化</text>
+<path d="M365 222 H429" fill="none" stroke="#85ACFF" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M765 222 H829" fill="none" stroke="#85ACFF" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M1000 302 V330 H305 V355" fill="none" stroke="#85ACFF" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M1000 330 H895 V355" fill="none" stroke="#85ACFF" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="40" y="370" width="530" height="220" rx="16" fill="#111F34" stroke="#5EEAD4" stroke-width="1.6"/>
+<text x="62" y="410" font-size="25" font-weight="600" fill="#5EEAD4">作答系统可以获得</text>
+<text x="62" y="448" font-size="21" font-weight="400" fill="#A8BBD4">修复前的仓库代码</text>
+<text x="62" y="482" font-size="21" font-weight="400" fill="#A8BBD4">problem_statement 问题描述</text>
+<text x="62" y="516" font-size="21" font-weight="400" fill="#A8BBD4">已有测试与自行编写的复现</text>
+<rect x="630" y="370" width="530" height="220" rx="16" fill="#111F34" stroke="#85ACFF" stroke-width="1.6"/>
+<text x="652" y="410" font-size="25" font-weight="600" fill="#85ACFF">作答过程隔离的材料</text>
+<text x="652" y="448" font-size="21" font-weight="400" fill="#A8BBD4">patch：开发者参考实现</text>
+<text x="652" y="482" font-size="21" font-weight="400" fill="#A8BBD4">test_patch：评分测试修改</text>
+<text x="652" y="516" font-size="21" font-weight="400" fill="#A8BBD4">F2P / P2P：用于判定结果的测试集合</text>
+<text x="44" y="650" font-size="23" font-weight="400" fill="#A8BBD4">公开可下载 ≠ 作答时可输入。隐藏性需要由评测流程维护。</text>
+</g></svg>
