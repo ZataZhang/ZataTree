@@ -602,7 +602,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 
 - [rustdesk安装使用](content/post/运维与服务器/02-网络与代理/rustdesk安装使用/)
 - [代理配置与环境变量实战](content/post/运维与服务器/02-网络与代理/代理配置实战/)
-- [clash 教程](content/post/运维与服务器/02-网络与代理/修改clash中的配置信息/)
+- [Clash 使用教程：系统代理、TUN 虚拟网卡与分流规则](content/post/运维与服务器/02-网络与代理/修改clash中的配置信息/)
 - [国外服务器扶墙](content/post/运维与服务器/02-网络与代理/国外服务器扶墙/)
 - [服务器爬墙](content/post/运维与服务器/02-网络与代理/服务器爬墙/)
 

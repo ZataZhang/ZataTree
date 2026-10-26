@@ -1,7 +1,8 @@
 ---
-title: clash 教程
-description: ""
+title: "Clash 使用教程：系统代理、TUN 虚拟网卡与分流规则"
+description: "解释系统代理和 TUN 虚拟网卡的工作方式、适用场景与开启步骤，并说明它们和 Rule、Global、Direct 分流模式的关系。"
 date: 2025-03-06T10:51:58+08:00
+lastmod: 2026-10-26
 image: images/index/index.png
 # image: images/index/index.png
 categories:
@@ -18,75 +19,45 @@ tags:
 
 
 
-项目地址：
+项目地址：[Clash Verge Rev](https://github.com/clash-verge-rev/clash-verge-rev)
 
-https://github.com/zzzgydi/clash-verge/tree/main
-
-[![Download](https://img.shields.io/badge/Download-Install%20Package-blue)](images/index/Clash.Verge_1.3.8_x64-setup.exe)
+[![Download](https://img.shields.io/badge/Download-Clash%20Verge%20Rev-blue)](https://github.com/clash-verge-rev/clash-verge-rev/releases)
 
 
-### clash 基础知识 - clash 介绍
+### Clash 客户端与代理核心
 
-参考
+Clash 的图形客户端和代理核心是两层：客户端提供操作界面，Mihomo 等核心负责接收流量、匹配规则并连接代理节点。Clash Verge Rev 内置 Mihomo 核心；本文的系统代理与 TUN 操作以它为例。[Clash Verge Rev 项目说明](https://github.com/clash-verge-rev/clash-verge-rev)
 
-[Clash for Windows 使用教程快速入门篇](https://clashforwindows.org/)
+本文前半部分的截图来自旧版 Clash for Windows 和早期 Clash Verge，只用于识别历史界面，不代表当前版本的菜单布局。旧版的 TAP 设置与 Mihomo 的 TUN 模式也不是同一个开关。
 
+![旧版 Clash Verge 界面](images/index/image-1.png)
 
+![Clash Verge Rev 界面](images/index/image-2.png)
 
-Clash for Windows是代理工具Clash在Windows系统的图形客户端，同时还支持Windows、Linux、macOS三大系统，功能强大且支持多种代理协议，如Shadowsocks(SS)、ShadowsocksR(SSR)、Socks、Snell、V2Ray、Trojan等代理协议。通过本文2025最新Clash for Windows使用教程快速入门篇所掌握的技巧，能快速方便配置代理协议进行代理访问。
-
-![clash界面](images/index/image.png)
-
-
-官方的clash现在已经删库跑路了，不过还是有很多其他人在做，下面是其中一些
-
-[clash verge - github](https://github.com/zzzgydi/clash-verge)
-
-![clash verge](images/index/image-1.png)
-
-
-[clash verge rev - github](https://github.com/clash-verge-rev/clash-verge-rev)
-
-![alt text](images/index/image-2.png)
-
-#### 界面介绍
+#### 旧版界面介绍
 ![中文版界面](images/index/image-3.png)
 
-- General（常规）：
+- **General（常规）**：
+  - **Port、Socks Port**：分别是 HTTP、SOCKS 代理端口；点击终端图标可以打开已配置代理的命令行窗口，点击端口数字可以复制命令。
+  - **Allow LAN**：允许局域网内的其他设备连接本机代理端口。
+  - **Log Level**：设置日志等级。
+  - **Home Directory**：打开 Clash 配置目录。
+  - **GeoIP Database**：查看或更新 GeoIP 数据库。
+  - **UWP Loopback**：解除部分 UWP 应用访问本机代理服务的回环限制。
+  - **Tap Device**：旧版 Clash for Windows 的 TAP 网卡入口。TAP 与 Mihomo 的 TUN 是不同的虚拟网卡机制，不能把旧版 TAP 开关当成下文的 TUN 操作步骤。
+  - **General YML**：编辑旧版 `config.yml` 中的部分通用设置。
+  - **Dark Theme**：切换暗色主题。
+  - **System Proxy**：启用系统代理。
+  - **Start with Windows**：设置开机自启。
 
-Port、Socks Port；分别为 HTTP、SOCKS 代理端口，点击终端图案可以打开一个配置了代理的命令行窗口，点击端口数字可以复制该命令；
+- **Proxies（代理）**：选择 `Global`（全局）、`Rule`（规则）、`Direct`（直连）等流量处理模式，以及策略组中的节点。
 
-Allow LAN：启用局域网共享代理功能；
+- **Profiles（配置管理）**：下载远端配置并创建本地副本，可在多个配置间切换；也能在各自的编辑界面添加节点、策略组和规则，并拖动调整顺序。
 
-Log Level：日志等级；
-
-Home Directory：点击下方路径直达 C:\Users\用户名\.config\clash 文件夹；
-
-GeoIP Database：点击下方日期可更新 GeoIP 数据库；
-
-UWP Loopback ：可以用来使 UWP 应用解除回环代理限制；
-
-Tap Device ：安装 cfw-tap 网卡，可用于处理不遵循系统代理的软件（实际启动 tap 模式需要更改配置文件）；
-
-General YML：编辑 config.yml 文件，可用于配置部分 General 页面内容；
-
-Dark Theme：控制暗色模式；
-
-System Proxy：启用系统代理；
-
-Start with Windows：设置开机自启；
-
-- Proxies（代理）：选择代理方式（Global - 全局、Rule - 规则、Direct - 直连）及策略组节点选择；
-
-- Profiles（配置管理）：
-
-用来下载远端配置文件和创建本地副本，且可在多个配置文件间切换；
-对配置进行节点、策略组和规则的管理（添加节点、策略组和规则在各自编辑界面选择 Add, 调整策略组顺序、节点顺序及策略组节点使用拖拽的方式）；
-
-- Logs（日志）：显示当前请求命中规则类型和策略；
-- Connections (连接): 显示当前的 TCP 连接，可对某个具体连接执行关闭操作；
-- Settings（设置）：软件详细设置；
-- Feedback（反馈）：显示软件、作者相关信息。
+- **Logs（日志）**：显示请求命中的规则类型和策略。
+- **Connections（连接）**：查看连接并关闭指定连接。
+- **Settings（设置）**：管理软件的详细设置。
+- **Feedback（反馈）**：显示软件和项目信息。
 
 #### 如何添加订阅
 
@@ -128,9 +99,80 @@ Start with Windows：设置开机自启；
 ![选择代理节点](images/index/image-8.png)
 
 
-#### 启用代理
+#### 系统代理和 TUN 虚拟网卡有什么区别
 
-启用代理，需要点击界面左侧菜单 主页 选项卡，找到 系统代理 并开启开关即可，开启状态下按钮状态为绿色，如下图所示为开启状态。
+这两个开关解决的是同一个问题：怎样把应用的网络流量交给 Clash 内核处理。它们不决定流量最后走哪个代理节点；节点选择和分流规则是另一层设置。Mihomo 将 HTTP、SOCKS 等本地代理端口归为应用代理，将 TUN 归为透明代理和系统流量接管方式。[Mihomo 入站配置说明](https://wiki.metacubex.one/config/inbound/)
+
+| 对比项 | 系统代理 | TUN 虚拟网卡 |
+| --- | --- | --- |
+| 工作方式 | Clash 修改操作系统的代理设置，应用读取该设置后连接 Clash 的本地代理端口。 | Clash 创建虚拟网络接口，并按系统路由配置接收经过该接口的网络流量。 |
+| 覆盖范围 | 浏览器和遵循系统代理设置的应用通常能使用；忽略系统代理、自己直连的应用可能绕过。 | 不要求应用主动支持代理，适合游戏、部分命令行工具和其他不读取系统代理的应用。实际覆盖范围取决于路由、排除项和系统。 |
+| TCP / UDP | 具体取决于应用和代理协议；系统代理不会像 TUN 一样透明接管任意 UDP 流量。 | 可以将路由范围内的 TCP、UDP 流量交给内核；UDP 最终能否经代理转发，还取决于规则和节点是否支持 UDP。 |
+| 配置成本 | 通常只需打开开关，改动较少。命令行工具是否使用代理，还取决于工具自己的设置或代理环境变量。 | 通常需要客户端支持 TUN，并按提示安装服务或授予管理员权限；路由、DNS、其他 VPN 或虚拟网卡之间可能发生冲突。 |
+| 常见用途 | 浏览网页、使用遵循系统设置的桌面应用。 | 希望让更多不支持代理设置的应用也进入 Clash 分流时。 |
+
+因此，“TUN 能接管 UDP”不等于“所有 UDP 都会走代理”。Mihomo 的节点有单独的 UDP 支持设置，规则命中的出站节点也必须支持相应流量；详情见 [Mihomo 代理节点通用字段](https://wiki.metacubex.one/config/proxies/)。
+
+可以把整个过程理解为两步：
+
+```text
+系统代理 / TUN（让流量进入 Clash） → Rule / Global / Direct（决定流量怎么走） → 直连或代理节点
+```
+
+`Rule`、`Global`、`Direct` 是流量进入 Clash 之后的处理方式。选择 `Global` 不会自动接管一个绕过系统代理的应用；要接管这类应用，需要 TUN 或应用自身的代理设置。反过来，开启 TUN 也不代表所有流量都会使用代理：在 `Rule` 模式下，命中 `DIRECT` 的流量仍会直连。
+
+#### 如何开启与验证
+
+以下步骤以 Clash Verge Rev 为例。先导入可用配置并在“代理”页面选好节点或策略组，再按需要选择一种接入方式。Clash Verge Rev 的快速开始也将系统代理用于常见浏览器代理需求，将 TUN 用于接管不支持系统代理的程序。[Clash Verge Rev 快速开始](https://github.com/clash-verge-rev/clash-verge-rev.github.io/blob/main/docs/guide/quickstart.md)
+
+1. **使用系统代理**：打开 Clash Verge Rev 的“设置 / 系统设置”，启用“系统代理”。旧版界面可能把开关放在“主页”或“General”页面。系统代理生效后，操作系统会把代理信息提供给遵循系统设置的应用。
+2. **使用 TUN**：在同一设置区域启用“TUN 模式”或“虚拟网卡模式”。如果客户端要求安装服务、切换服务模式或以管理员身份运行，按客户端提示完成授权后再开启。TUN 正常运行时通常不需要同时打开系统代理；Clash Verge Rev 的说明也明确写明启用 TUN 后无须开启系统代理。[Clash Verge Rev 设置说明](https://github.com/clash-verge-rev/clash-verge-rev/blob/dev/src/locales/zh/settings.json)
+3. **确认分流方式**：大多数日常场景先保留 `Rule`，再检查代理组选择和配置规则。只有确实希望所有已进入内核的流量都走代理时，才切换到 `Global`；访问国内网站、局域网服务或本地开发服务异常时，检查是否需要相应的直连规则。
+4. **做两类验证**：先用浏览器访问一个需要代理的网站；再测试一个原先不遵循系统代理的应用。使用系统代理时，后一类应用可能仍直连；使用 TUN 时，可在 Clash 的“连接”或“日志”页面查看请求是否进入内核、命中了哪条规则，以及最终走直连还是代理。若流量进入了 Clash 但命中 `DIRECT`，应检查规则和策略组，不要仅靠反复切换 TUN 开关排查。
+
+Mihomo 的 TUN 由自动路由、排除网段等配置决定实际覆盖范围；系统 DNS 是否被设置或劫持，还取决于 `dns-mode`、`dns-hijack` 等 DNS 选项。因此，“开启 TUN”本身不代表所有 DNS 请求都会自动按同一种方式处理。局域网打印机、路由器管理页或本地开发服务无法访问时，先检查客户端的局域网绕过设置和规则；手动维护 Mihomo 配置的用户可查阅 [TUN 配置文档](https://wiki.metacubex.one/config/inbound/tun/)。
+
+#### 虚拟网卡设置逐项说明
+
+这些选项控制 TUN 如何处理网络包、如何修改系统路由，以及哪些目标不经过 TUN。客户端版本和操作系统会影响选项名称与行为；下表按 Mihomo 的配置含义解释。
+
+![Clash Verge Rev 虚拟网卡模式设置界面，展示 TUN 协议栈、路由、DNS 和 MTU 等选项](images/index/tun-settings.png)
+
+##### System、GVisor、Mixed 的区别
+
+网络栈决定 Mihomo 用什么实现来处理 TUN 收到的网络包；它不会改变“哪些应用进入 TUN”，也不会替你选择代理节点或分流规则。[Mihomo 对三种网络栈的说明](https://wiki.metacubex.one/config/inbound/tun/)
+
+| 网络栈 | 处理方式 | 特点与取舍 |
+| --- | --- | --- |
+| **System** | 使用操作系统提供的网络协议栈。 | 通常与系统网络功能的兼容性较好，资源占用相对低。Windows 上如果防火墙拦截内核流量，可能需要放行 Clash/Mihomo 核心。 |
+| **GVisor** | 在用户态实现网络协议栈。 | 隔离性更强；性能和应用兼容性会受系统与软件环境影响，不能简单认为一定比 System 快或慢。 |
+| **Mixed** | TCP 使用 System，UDP 使用 GVisor。 | 把两种栈按传输协议组合；适合需要分别处理 TCP 与 UDP 的情况，实际效果仍应以当前设备测试为准。 |
+
+如果当前选择（截图中是 GVisor）使用正常，就保持它即可。遇到某些应用无法连接、游戏或 UDP 表现异常时，可以一次只换一个栈，再分别测试普通网页和相关应用；同时改 MTU、DNS 等设置会让问题更难定位。不同核心和客户端版本提供的选项可能不同，以界面实际列出的为准。
+
+| 设置 | 作用 | 一般怎么选 |
+| --- | --- | --- |
+| **TUN 模式堆栈** | 选择处理 TUN 网络包的实现，详见上面的对照。它不决定流量是否进入 TUN，也不决定最终代理方式。 | 当前网络稳定就先保持选中项；遇到兼容或传输问题时再单独切换测试。 |
+| **虚拟网卡名称** | 指定创建出来的 TUN 接口名称。截图中的 `utun1024` 符合 macOS 的 `utun` 命名形式。 | 通常由客户端自动选择，不要为改名字而手动调整。 |
+| **自动设置全局路由** | 自动修改系统路由，把应由 TUN 接管的流量导入虚拟网卡。 | 想让 TUN 自动接管系统流量时保持开启。关闭后通常需要自己管理路由。 |
+| **严格路由** | 在自动路由基础上增加更严格的路由限制和防泄漏处理。不同系统行为不同；Mihomo 文档提到 Windows 会添加 DNS 防泄漏规则，Linux 会限制不支持的网络，某些情况下可能影响 VirtualBox。 | 没有明确需求时保持默认。不要把它和“自动设置全局路由”当成同一个开关。 |
+| **自动选择流量出口接口** | 自动选择 Mihomo 连接外网时使用的物理网卡，例如 Wi-Fi 或以太网。 | 通常保持开启。电脑同时连着多张网卡且出口选错时，再手动指定。 |
+| **DNS 劫持** | 把指定 DNS 流量交给 Mihomo 的 DNS 模块。`any:53` 通常表示接管发往任意地址的 UDP 53 端口请求；未写协议时默认为 UDP。它不会自动覆盖所有加密 DNS（如 DoH/DoT），局域网 DNS 也受系统和客户端限制。 | 使用客户端默认值即可；只有在确认 DNS 请求没有进入 Mihomo 时再排查。 |
+| **最大传输单元（MTU）** | 限制单个网络包的最大尺寸。截图中的 `1500` 是常见值，影响主要出现在特定网络链路或分片问题下。 | 一般保持默认。只有出现明确的连接卡顿或 MTU 问题时才尝试调整，并逐次验证。 |
+| **排除自定义网段** | 将填写的 IPv4/IPv6 CIDR 网段排除在 TUN 路由之外，通常用于让局域网地址保持直连。 | 局域网设备确实无法访问时，填写实际局域网网段。截图里的灰色 `192.168.0.0/16` 是输入提示，当前列表为空，并没有生效；不要不看自家网段就照抄。 |
+
+截图里自动路由和自动选择出口已开启，MTU 为 `1500`，严格路由关闭，排除网段列表为空。若网络、DNS 和局域网访问都正常，这些值可以先保持不动。右上角“重置为默认值”会恢复本页设置的默认状态，修改前最好记下原值。
+
+#### 常见问题
+
+- **系统代理已开，某个软件仍直连**：该软件可能忽略系统代理。改用 TUN，或在软件自身设置代理；命令行工具也可能需要单独设置代理环境变量。
+- **TUN 已开，网站仍然直连**：查看 Clash 日志中的命中规则。如果是 `DIRECT`，这是规则分流的结果；需要调整配置规则或代理策略，而不是重新安装虚拟网卡。
+- **TUN 无法启动或开启后网络异常**：检查客户端提示的服务/管理员权限、核心是否支持 TUN，以及是否有其他 VPN、虚拟网卡或重叠网段。Clash Verge Rev 的 Windows FAQ 也把多网卡或网段冲突列为 TUN 网络异常的排查方向。[Windows 常见问题](https://github.com/clash-verge-rev/clash-verge-rev.github.io/blob/main/docs/faq/windows.md)
+- **关闭 TUN 后网络仍异常**：回到客户端关闭 TUN，并检查操作系统代理是否仍处于开启状态。排查时先只启用一种接入方式，确认网络恢复后再按需要切换。
+
+#### 旧版 Clash for Windows：开启系统代理
+
+以下截图来自旧版 Clash for Windows，只展示系统代理的开关。点击界面左侧“主页”，找到“系统代理”并开启；新版本 Clash Verge Rev 的系统代理与 TUN 开关位置和名称可能不同，请按上面的步骤操作。
 
 ![启用代理](images/index/image-9.png)
 
@@ -371,7 +413,7 @@ for i in range(10):  # 减少循环次数用于测试
 
 
  **哪个在前？**
-- **通用实践**: 在大多数配置文件中，建议将**更具体的规则**（如 `DOMAIN`）写在**前面**，将**更宽泛的规则**（如 `DOMAIN-SUFFIX`）写在后面。原因如下：
+- **通用实践**: 在大多数配置文件中，建议将更具体的规则（如 `DOMAIN`）写在前面，将更宽泛的规则（如 `DOMAIN-SUFFIX`）写在后面。原因如下：
   - 精确匹配（`DOMAIN`）通常表示用户希望对特定域名进行特殊处理，优先级更高。
   - 后缀匹配（`DOMAIN-SUFFIX`）覆盖范围广，适合作为“兜底”规则，处理未被精确匹配的子域名。
   - 示例（推荐写法）：
