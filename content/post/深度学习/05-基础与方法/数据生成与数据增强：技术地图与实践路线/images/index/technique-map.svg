@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="680" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+<title id="title">生成与增强的技术地图</title><desc id="desc">从样本来源到样本变换，再通过标签、分布和效用验证。</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10" fill="none" stroke="#64748b" stroke-width="1.6"/></marker></defs>
+<rect width="1200" height="680" rx="20" fill="#0b1220"/>
+<style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#e2e8f0}.title{font-size:34px;font-weight:700;fill:#f8fafc}.heading{font-size:27px;font-weight:700}.body{font-size:23px}.small{font-size:20px;fill:#9fb3d1}.line{fill:none;stroke:#64748b;stroke-width:2;marker-end:url(#arrow)}</style>
+<text x="48" y="65" class="title">数据扩充：来源、变换与验证</text>
+<text x="48" y="105" class="small">生成与增强可以组合；新增样本都要接受质量检查。</text>
+<rect x="48" y="145" width="350" height="285" rx="16" fill="#111e32" stroke="#263a55" stroke-width="2"/>
+<text x="72" y="189" class="heading" style="fill:#8b5cf6">产生新样本</text>
+<text x="72" y="245" class="body">规则 · 模板 · 程序执行</text>
+<text x="72" y="293" class="body">统计采样 · 近邻插值</text>
+<text x="72" y="341" class="body">VAE · GAN · 扩散模型</text>
+<text x="72" y="389" class="body">语言模型 · 仿真渲染</text>
+<rect x="444" y="145" width="350" height="285" rx="16" fill="#111e32" stroke="#263a55" stroke-width="2"/>
+<text x="468" y="189" class="heading" style="fill:#22d3ee">变换已有样本</text>
+<text x="468" y="245" class="body">几何 · 颜色 · 噪声 · 遮挡</text>
+<text x="468" y="293" class="body">MixUp · CutMix · 拼接</text>
+<text x="468" y="341" class="body">文本改写 · 声学扰动</text>
+<text x="468" y="389" class="body">时间变换 · 生成式编辑</text>
+<path d="M405 275 L435 275" class="line"/>
+<rect x="840" y="145" width="312" height="285" rx="16" fill="#111e32" stroke="#263a55" stroke-width="2"/>
+<text x="864" y="189" class="heading" style="fill:#5eead4">标签处理</text>
+<text x="864" y="254" class="body">保持原标签</text>
+<text x="864" y="311" class="body">同步变换标注</text>
+<text x="864" y="368" class="body">混合或重新标注</text>
+<path d="M799 275 L831 275" class="line"/>
+<rect x="48" y="475" width="1104" height="145" rx="16" fill="#14253b" stroke="#263a55" stroke-width="2"/>
+<text x="74" y="517" class="heading">共同验收：标签正确 → 覆盖合理 → 真实任务有效</text>
+<text x="74" y="562" class="body" style="fill:#93c5fd">正确性</text>
+<text x="74" y="594" class="small">规则 / 证据 / 执行检查</text>
+<text x="442" y="562" class="body" style="fill:#93c5fd">分布与多样性</text>
+<text x="442" y="594" class="small">去重 / 场景 / 稀有样本</text>
+<text x="810" y="562" class="body" style="fill:#93c5fd">独立真实评估</text>
+<text x="810" y="594" class="small">下游指标 / 分组表现</text>
+<text x="48" y="654" class="small">技术分类示意 · 不表示各方法的收益排名</text>
+</svg>

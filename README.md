@@ -418,7 +418,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [python程序打包exe使用教程](content/post/构建与打包/02-打包发布/PythonGUI-打包成exe/)
 - [setuptools-打包python项目为egg / 安装库函数](content/post/构建与打包/02-打包发布/setuptools-打包python项目为egg/)
 
-## 深度学习 (22)
+## 深度学习 (23)
 
 ### 01-模型与机制
 
@@ -456,6 +456,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [什么是算子？](content/post/深度学习/05-基础与方法/什么是算子？/)
 - [字典学习（Dictionary Learning）](content/post/深度学习/05-基础与方法/字典学习（Dictionary%20Learning）/)
 - [对比了几种大模型在相同任务下的表现](content/post/深度学习/05-基础与方法/对比了几种大模型在相同任务下的表现/)
+- [数据生成与数据增强：技术地图与实践路线](content/post/深度学习/05-基础与方法/数据生成与数据增强：技术地图与实践路线/)
 
 ## 科技月报 (4)
 
