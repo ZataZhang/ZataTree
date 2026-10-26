@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="860" viewBox="0 0 1200 860" role="img" aria-labelledby="title desc"><title id="title">清洗与生成后处理流水线</title><desc id="desc">严格解析、规范化、来源分组、冲突检查、内容验证与格式转换分别设置验收。</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10" fill="none" stroke="#64748b" stroke-width="1.6"/></marker></defs>
+<rect width="1200" height="860" rx="20" fill="#0b1220"/>
+<style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#e2e8f0}.title{font-size:34px;font-weight:700;fill:#f8fafc}.heading{font-size:27px;font-weight:700}.body{font-size:23px}.small{font-size:20px;fill:#9fb3d1}.num{font-size:46px;font-weight:700}.line{fill:none;stroke:#64748b;stroke-width:2;marker-end:url(#arrow)}</style>
+<text x="48" y="65" class="title">从“能读取”到“可作为训练候选”</text>
+<text x="48" y="106" class="small">原始输入独立保存；每个处理决定都能回溯到来源与规则版本。</text>
+<rect x="48" y="150" width="700" height="105" rx="16" fill="#111e32" stroke="#263a55" stroke-width="2"/>
+<text x="73" y="193" class="heading" style="fill:#93c5fd">01  解码、解析与 Schema</text>
+<text x="73" y="231" class="body">有效编码 · 唯一 JSON 键 · 字段类型</text>
+<path d="M398 256 L398 273" class="line"/>
+<rect x="48" y="282" width="700" height="105" rx="16" fill="#111e32" stroke="#263a55" stroke-width="2"/>
+<text x="73" y="325" class="heading" style="fill:#93c5fd">02  规范化与来源检查</text>
+<text x="73" y="363" class="body">按字段转换 · 评估来源隔离</text>
+<path d="M398 388 L398 405" class="line"/>
+<rect x="48" y="414" width="700" height="105" rx="16" fill="#111e32" stroke="#263a55" stroke-width="2"/>
+<text x="73" y="457" class="heading" style="fill:#93c5fd">03  去重与冲突识别</text>
+<text x="73" y="495" class="body">精确 / 近似候选 · 同输入不同目标</text>
+<path d="M398 520 L398 537" class="line"/>
+<rect x="48" y="546" width="700" height="105" rx="16" fill="#111e32" stroke="#263a55" stroke-width="2"/>
+<text x="73" y="589" class="heading" style="fill:#93c5fd">04  内容验证与训练格式</text>
+<text x="73" y="627" class="body">证据 / 执行 / 复核 · 模板与截断</text>
+<rect x="830" y="150" width="322" height="237" rx="16" fill="#111e32" stroke="#263a55" stroke-width="2"/>
+<text x="854" y="195" class="heading" style="fill:#fbbf24">规则失败</text>
+<text x="854" y="240" class="body">隔离原始记录</text>
+<text x="854" y="280" class="body">保存位置和原因码</text>
+<text x="854" y="325" class="small">可修复时单独重跑</text>
+<path d="M748 202 L820 202" class="line"/>
+<rect x="830" y="430" width="322" height="220" rx="16" fill="#111e32" stroke="#263a55" stroke-width="2"/>
+<text x="854" y="475" class="heading" style="fill:#c4b5fd">内容不确定</text>
+<text x="854" y="520" class="body">整组检查冲突</text>
+<text x="854" y="560" class="body">重新生成或人工复核</text>
+<text x="854" y="604" class="small">保留分歧与检查依据</text>
+<path d="M748 466 L820 466" class="line"/>
+<path d="M748 598 L793 598 L793 552 L820 552" class="line"/>
+<path d="M398 652 L398 692" class="line"/>
+<rect x="48" y="704" width="1104" height="99" rx="16" fill="#14253b" stroke="#263a55" stroke-width="2"/>
+<text x="74" y="745" class="heading" style="fill:#5eead4">候选数据集 + 来源关联 + 审计日志 + 版本报告</text>
+<text x="74" y="782" class="small">格式、内容与下游效果分别验收；流水线顺序按任务调整。</text>
+<text x="48" y="836" class="small">机制示意 · 通过某一关，不代表通过后续全部检查</text>
+</svg>

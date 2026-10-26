@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="850" viewBox="0 0 1200 850" role="img" aria-labelledby="title desc"><title id="title">12行教学数据的清洗审计结果</title><desc id="desc">保留3行，排除9行，各记录一个最终原因码。精确重复保留来源关联，冲突整组复核。</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10" fill="none" stroke="#64748b" stroke-width="1.6"/></marker></defs>
+<rect width="1200" height="850" rx="20" fill="#0b1220"/>
+<style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#e2e8f0}.title{font-size:34px;font-weight:700;fill:#f8fafc}.heading{font-size:27px;font-weight:700}.body{font-size:23px}.small{font-size:20px;fill:#9fb3d1}.num{font-size:46px;font-weight:700}.line{fill:none;stroke:#64748b;stroke-width:2;marker-end:url(#arrow)}</style>
+<text x="48" y="65" class="title">教学数据实跑：每条记录有明确去向</text>
+<rect x="48" y="115" width="312" height="115" rx="16" fill="#111e32" stroke="#263a55" stroke-width="2"/>
+<text x="72" y="176" class="num" style="fill:#93c5fd">12</text>
+<text x="166" y="175" class="heading">输入行</text>
+<rect x="444" y="115" width="312" height="115" rx="16" fill="#111e32" stroke="#263a55" stroke-width="2"/>
+<text x="468" y="176" class="num" style="fill:#5eead4">3</text>
+<text x="562" y="175" class="heading">保留行</text>
+<rect x="840" y="115" width="312" height="115" rx="16" fill="#111e32" stroke="#263a55" stroke-width="2"/>
+<text x="864" y="176" class="num" style="fill:#fbbf24">9</text>
+<text x="958" y="175" class="heading">排除行</text>
+<rect x="48" y="275" width="700" height="465" rx="16" fill="#111e32" stroke="#263a55" stroke-width="2"/>
+<text x="73" y="320" class="heading">排除原因（互斥计数，共 9 行）</text>
+<text x="75" y="370" class="body">潜在答案冲突：整组复核</text>
+<text x="684" y="370" class="body" style="fill:#fbbf24">2</text>
+<text x="75" y="420" class="body">重复记录 ID：整组排除</text>
+<text x="684" y="420" class="body" style="fill:#fbbf24">2</text>
+<text x="75" y="470" class="body">重复 JSON 键</text>
+<text x="684" y="470" class="body" style="fill:#fbbf24">1</text>
+<text x="75" y="520" class="body">精确重复：合并来源</text>
+<text x="684" y="520" class="body" style="fill:#fbbf24">1</text>
+<text x="75" y="570" class="body">与隔离来源重叠</text>
+<text x="684" y="570" class="body" style="fill:#fbbf24">1</text>
+<text x="75" y="620" class="body">非训练数据混入</text>
+<text x="684" y="620" class="body" style="fill:#fbbf24">1</text>
+<text x="75" y="670" class="body">字段类型或结构错误</text>
+<text x="684" y="670" class="body" style="fill:#fbbf24">1</text>
+<rect x="792" y="275" width="360" height="465" rx="16" fill="#111e32" stroke="#263a55" stroke-width="2"/>
+<text x="817" y="320" class="heading" style="fill:#5eead4">重复与冲突分开处理</text>
+<text x="817" y="375" class="body">相同问答 → 保留代表</text>
+<text x="817" y="415" class="small">来源合并到 provenance</text>
+<text x="817" y="490" class="body">同题不同答案 → 复核</text>
+<text x="817" y="530" class="small">不自动选择第一个答案</text>
+<text x="817" y="605" class="body">报告记录哈希与版本</text>
+<text x="817" y="645" class="small">日志保留原因和行号</text>
+<text x="48" y="790" class="heading">保留 3 / 12 是数量结果，不是答案正确率，也不是模型收益。</text>
+<text x="48" y="829" class="small">配套构造数据的实际运行结果 · 原因数取决于规则执行顺序</text>
+</svg>

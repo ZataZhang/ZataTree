@@ -418,7 +418,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [python程序打包exe使用教程](content/post/构建与打包/02-打包发布/PythonGUI-打包成exe/)
 - [setuptools-打包python项目为egg / 安装库函数](content/post/构建与打包/02-打包发布/setuptools-打包python项目为egg/)
 
-## 深度学习 (23)
+## 深度学习 (24)
 
 ### 01-模型与机制
 
@@ -432,9 +432,9 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 
 ### 02-训练与对齐
 
-- [Alignment-DPOvsPPOvsGRPO](content/post/深度学习/02-训练与对齐/Alignment-DPOvsPPOvsGRPO/)
+- [PPO、DPO、GRPO 与 DAPO：大模型对齐算法对比](content/post/深度学习/02-训练与对齐/Alignment-DPOvsPPOvsGRPO/)
 - [LLM微调：qwen2_chat模型部署和微调](content/post/深度学习/02-训练与对齐/LLM微调：qwen2_chat模型部署和微调/)
-- [RLHF](content/post/深度学习/02-训练与对齐/RLHF/)
+- [大模型训练全流程：Pre-train、Fine-tune、RLHF、GRPO 与 DAPO](content/post/深度学习/02-训练与对齐/RLHF/)
 - [增量学习研究综述：理论、方法、应用与未来展望](content/post/深度学习/02-训练与对齐/增量学习研究综述：理论、方法、应用与未来展望/)
 
 ### 03-NLP 任务
@@ -456,6 +456,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [什么是算子？](content/post/深度学习/05-基础与方法/什么是算子？/)
 - [字典学习（Dictionary Learning）](content/post/深度学习/05-基础与方法/字典学习（Dictionary%20Learning）/)
 - [对比了几种大模型在相同任务下的表现](content/post/深度学习/05-基础与方法/对比了几种大模型在相同任务下的表现/)
+- [数据清洗与后处理：从原始样本到可训练数据](content/post/深度学习/05-基础与方法/数据清洗与后处理：从原始样本到可训练数据/)
 - [数据生成与数据增强：技术地图与实践路线](content/post/深度学习/05-基础与方法/数据生成与数据增强：技术地图与实践路线/)
 
 ## 科技月报 (4)

@@ -357,6 +357,7 @@ AP 是 Average Precision，用于概括精确率与召回率随阈值变化的�
 
 ## 延伸阅读
 
+- 后续环节：[数据清洗与后处理：从原始样本到可训练数据]({{< relref "post/深度学习/05-基础与方法/数据清洗与后处理：从原始样本到可训练数据/index.md" >}})。
 - 图像增强全景：[Shorten 与 Khoshgoftaar 的综述](https://link.springer.com/article/10.1186/s40537-019-0197-0)。
 - 样本混合机制：[MixUp](https://arxiv.org/abs/1710.09412)、[CutMix](https://arxiv.org/abs/1905.04899)。
 - 跨模态方法：[EDA](https://aclanthology.org/D19-1670/)、[SpecAugment](https://arxiv.org/abs/1904.08779)、[时序增强综述](https://arxiv.org/abs/2002.12478)。

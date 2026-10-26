@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc"><title id="title">去重的三个层次与边界</title><desc id="desc">精确去重、近似匹配、向量相似度解决不同问题，否定和条件差异不能忽略。</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10" fill="none" stroke="#64748b" stroke-width="1.6"/></marker></defs>
+<rect width="1200" height="800" rx="20" fill="#0b1220"/>
+<style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#e2e8f0}.title{font-size:34px;font-weight:700;fill:#f8fafc}.heading{font-size:27px;font-weight:700}.body{font-size:23px}.small{font-size:20px;fill:#9fb3d1}.num{font-size:46px;font-weight:700}.line{fill:none;stroke:#64748b;stroke-width:2;marker-end:url(#arrow)}</style>
+<text x="48" y="65" class="title">相同、重叠与相似：需要不同的处理规则</text>
+<rect x="48" y="115" width="1104" height="170" rx="16" fill="#111e32" stroke="#263a55" stroke-width="2"/>
+<text x="72" y="156" class="heading" style="fill:#93c5fd">01  精确去重：明确规范化口径</text>
+<rect x="48" y="305" width="1104" height="170" rx="16" fill="#111e32" stroke="#263a55" stroke-width="2"/>
+<text x="72" y="346" class="heading" style="fill:#5eead4">02  近似去重：片段重叠只提供候选</text>
+<rect x="48" y="495" width="1104" height="170" rx="16" fill="#111e32" stroke="#263a55" stroke-width="2"/>
+<text x="72" y="536" class="heading" style="fill:#fbbf24">03  语义相似：保留条件与否定差异</text>
+<text x="76" y="202" class="body">café 的首字母是什么？</text>
+<text x="76" y="246" class="small">组合字符形式不同</text>
+<path d="M480 204 L560 204" class="line"/>
+<text x="602" y="202" class="body">NFC 后可以相同</text>
+<text x="602" y="246" class="small">同时保留其他记录的来源</text>
+<text x="76" y="392" class="body">订单创建成功，请稍后查询。</text>
+<text x="76" y="436" class="small">比较词或字符片段</text>
+<path d="M480 394 L560 394" class="line"/>
+<text x="602" y="392" class="body">订单创建成功。请稍后查询。</text>
+<text x="602" y="436" class="small">分词、片段长度与阈值影响结果</text>
+<text x="76" y="582" class="body">这个接口支持退款。</text>
+<text x="76" y="626" class="small">原结论：支持</text>
+<path d="M480 584 L560 584" class="line"/>
+<text x="602" y="582" class="body" style="fill:#fbbf24">这个接口不支持退款。</text>
+<text x="602" y="626" class="small">一字之差，结论相反</text>
+<rect x="48" y="705" width="1104" height="56" rx="16" fill="#14253b" stroke="#263a55" stroke-width="2"/>
+<text x="75" y="742" class="body">同输入多目标：先判断错标、版本差异、遗漏上下文或多种合法答案。</text>
+</svg>
