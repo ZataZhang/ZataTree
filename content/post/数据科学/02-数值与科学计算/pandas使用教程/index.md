@@ -2,6 +2,7 @@
 title: pandas使用教程
 description: ""
 date: 2025-05-13T11:12:26+08:00
+lastmod: 2026-10-26
 image: images/index/index.png
 categories:
     - 数据科学
@@ -402,13 +403,14 @@ print(df_filled_mean_A)
 print("-" * 30)
 
 # 使用前一个有效值填充 (向前填充)
-df_ffill = df_missing.fillna(method='ffill')
+# 如果行顺序有业务含义（例如时间序列），先确保数据已正确排序。
+df_ffill = df_missing.ffill()
 print("向前填充后的 DataFrame:")
 print(df_ffill)
 print("-" * 30)
 
 # 使用后一个有效值填充 (向后填充)
-df_bfill = df_missing.fillna(method='bfill')
+df_bfill = df_missing.bfill()
 print("向后填充后的 DataFrame:")
 print(df_bfill)
 print("-" * 30)
