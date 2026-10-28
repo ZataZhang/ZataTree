@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
+  <title id="title">Agent 沙箱文件系统的责任分层</title>
+  <desc id="desc">镜像准备运行时和固定目录，工作区卷挂载后成为实际可见内容，入口脚本在挂载后初始化会话目录，应用创建具体任务的输出父目录。</desc>
+  <defs>
+    <linearGradient id="fs-accent" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5B87BF"/><stop offset="1" stop-color="#22D3EE"/></linearGradient>
+    <marker id="fs-arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#5B87BF"/></marker>
+  </defs>
+  <rect width="1200" height="420" rx="22" fill="#0B1220"/>
+  <text x="54" y="58" fill="#F8FAFC" font-family="sans-serif" font-size="25" font-weight="700">目录应当由哪一层创建？</text>
+  <text x="54" y="88" fill="#9FB3D1" font-family="sans-serif" font-size="15">固定依赖进入镜像；动态工作区在挂载后准备；业务输出目录由应用在写入前创建</text>
+  <g font-family="sans-serif">
+    <rect x="48" y="132" width="242" height="186" rx="16" fill="#111D31" stroke="#46658C" stroke-width="2"/><rect x="48" y="132" width="242" height="9" rx="4" fill="#5B87BF"/><text x="72" y="177" fill="#F8FAFC" font-size="20" font-weight="700">镜像层</text><text x="72" y="211" fill="#B9C9DF" font-size="15">语言运行时、系统工具</text><text x="72" y="237" fill="#B9C9DF" font-size="15">固定配置和目录骨架</text><text x="72" y="281" fill="#22D3EE" font-size="14">例：/workspace</text>
+    <rect x="340" y="132" width="242" height="186" rx="16" fill="#111D31" stroke="#46658C" stroke-width="2"/><rect x="340" y="132" width="242" height="9" rx="4" fill="#7C9CF5"/><text x="364" y="177" fill="#F8FAFC" font-size="20" font-weight="700">挂载层</text><text x="364" y="211" fill="#B9C9DF" font-size="15">代码、用户输入、持久卷</text><text x="364" y="237" fill="#B9C9DF" font-size="15">决定运行时实际看到什么</text><text x="364" y="281" fill="#FCA5A5" font-size="14">可能遮住镜像原有内容</text>
+    <rect x="632" y="132" width="242" height="186" rx="16" fill="#111D31" stroke="url(#fs-accent)" stroke-width="2"/><rect x="632" y="132" width="242" height="9" rx="4" fill="url(#fs-accent)"/><text x="656" y="177" fill="#F8FAFC" font-size="20" font-weight="700">初始化层</text><text x="656" y="211" fill="#B9C9DF" font-size="15">挂载完成后 mkdir -p</text><text x="656" y="237" fill="#B9C9DF" font-size="15">检查 UID/GID 和可写性</text><text x="656" y="281" fill="#22D3EE" font-size="14">按会话隔离动态目录</text>
+    <rect x="924" y="132" width="228" height="186" rx="16" fill="#111D31" stroke="#46658C" stroke-width="2"/><rect x="924" y="132" width="228" height="9" rx="4" fill="#22D3EE"/><text x="948" y="177" fill="#F8FAFC" font-size="20" font-weight="700">应用层</text><text x="948" y="211" fill="#B9C9DF" font-size="15">创建任务输出的父目录</text><text x="948" y="237" fill="#B9C9DF" font-size="15">只写入授权工作区</text><text x="948" y="281" fill="#22D3EE" font-size="14">按任务清理临时文件</text>
+    <path d="M294 224 H332" stroke="#5B87BF" stroke-width="3" marker-end="url(#fs-arrow)"/><path d="M586 224 H624" stroke="#5B87BF" stroke-width="3" marker-end="url(#fs-arrow)"/><path d="M878 224 H916" stroke="#5B87BF" stroke-width="3" marker-end="url(#fs-arrow)"/>
+  </g>
+  <rect x="48" y="345" width="1104" height="42" rx="10" fill="#281B2B" stroke="#7F3F55"/>
+  <text x="72" y="372" fill="#FCA5A5" font-family="sans-serif" font-size="15">关键顺序：创建镜像目录 → 挂载工作区 → 初始化挂载内容 → Agent 执行。镜像里的目录不等于卷里的目录。</text>
+</svg>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" role="img" aria-labelledby="title desc">
+  <title id="title">Agent 沙箱的通用启动与回收链</title>
+  <desc id="desc">控制面分配资源，运行时启动镜像并挂载工作区，入口脚本初始化目录，Agent 执行任务，平台取回产物并回收沙箱。</desc>
+  <defs>
+    <linearGradient id="life-accent" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5B87BF"/><stop offset="1" stop-color="#22D3EE"/></linearGradient>
+    <marker id="life-arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#5B87BF"/></marker>
+  </defs>
+  <rect width="1200" height="360" rx="22" fill="#0B1220"/>
+  <text x="54" y="58" fill="#F8FAFC" font-family="sans-serif" font-size="25" font-weight="700">Agent 沙箱的一次任务，经过哪些工程环节</text>
+  <text x="54" y="88" fill="#9FB3D1" font-family="sans-serif" font-size="15">产品实现各有差异，目录、挂载和生命周期可以用这条通用链排查</text>
+  <g font-family="sans-serif">
+    <g><rect x="46" y="130" width="190" height="132" rx="16" fill="#111D31" stroke="#46658C" stroke-width="2"/><circle cx="72" cy="157" r="14" fill="#5B87BF"/><text x="72" y="163" fill="#0B1220" font-size="16" text-anchor="middle" font-weight="700">1</text><text x="96" y="164" fill="#F8FAFC" font-size="19" font-weight="700">控制面</text><text x="64" y="202" fill="#B9C9DF" font-size="15">分配模板与资源</text><text x="64" y="228" fill="#B9C9DF" font-size="15">绑定会话和租户</text></g>
+    <g><rect x="282" y="130" width="190" height="132" rx="16" fill="#111D31" stroke="#46658C" stroke-width="2"/><circle cx="308" cy="157" r="14" fill="#5B87BF"/><text x="308" y="163" fill="#0B1220" font-size="16" text-anchor="middle" font-weight="700">2</text><text x="332" y="164" fill="#F8FAFC" font-size="19" font-weight="700">运行时</text><text x="300" y="202" fill="#B9C9DF" font-size="15">启动容器或 microVM</text><text x="300" y="228" fill="#B9C9DF" font-size="15">挂载本次工作区</text></g>
+    <g><rect x="518" y="130" width="190" height="132" rx="16" fill="#111D31" stroke="url(#life-accent)" stroke-width="2"/><circle cx="544" cy="157" r="14" fill="#22D3EE"/><text x="544" y="163" fill="#0B1220" font-size="16" text-anchor="middle" font-weight="700">3</text><text x="568" y="164" fill="#F8FAFC" font-size="19" font-weight="700">入口初始化</text><text x="536" y="202" fill="#B9C9DF" font-size="15">创建会话目录</text><text x="536" y="228" fill="#B9C9DF" font-size="15">检查用户与可写性</text></g>
+    <g><rect x="754" y="130" width="190" height="132" rx="16" fill="#111D31" stroke="#46658C" stroke-width="2"/><circle cx="780" cy="157" r="14" fill="#5B87BF"/><text x="780" y="163" fill="#0B1220" font-size="16" text-anchor="middle" font-weight="700">4</text><text x="804" y="164" fill="#F8FAFC" font-size="19" font-weight="700">Agent 执行</text><text x="772" y="202" fill="#B9C9DF" font-size="15">运行命令与工具</text><text x="772" y="228" fill="#B9C9DF" font-size="15">读写受限工作区</text></g>
+    <g><rect x="990" y="130" width="164" height="132" rx="16" fill="#111D31" stroke="#46658C" stroke-width="2"/><circle cx="1016" cy="157" r="14" fill="#5B87BF"/><text x="1016" y="163" fill="#0B1220" font-size="16" text-anchor="middle" font-weight="700">5</text><text x="1040" y="164" fill="#F8FAFC" font-size="19" font-weight="700">回收</text><text x="1008" y="202" fill="#B9C9DF" font-size="15">取回产物</text><text x="1008" y="228" fill="#B9C9DF" font-size="15">销毁或按策略暂停</text></g>
+    <path d="M240 196 H274" stroke="#5B87BF" stroke-width="3" marker-end="url(#life-arrow)"/><path d="M476 196 H510" stroke="#5B87BF" stroke-width="3" marker-end="url(#life-arrow)"/><path d="M712 196 H746" stroke="#5B87BF" stroke-width="3" marker-end="url(#life-arrow)"/><path d="M948 196 H982" stroke="#5B87BF" stroke-width="3" marker-end="url(#life-arrow)"/>
+  </g>
+  <text x="54" y="316" fill="#7F96B6" font-family="sans-serif" font-size="14">目录初始化发生在工作区挂载之后；仅在镜像构建时创建目录，不能保证挂载后的工作区已具备相同内容。</text>
+</svg>

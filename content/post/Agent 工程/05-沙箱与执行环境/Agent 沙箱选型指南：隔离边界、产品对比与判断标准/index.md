@@ -1,7 +1,8 @@
 ---
 title: "Agent 沙箱选型指南：隔离边界、产品对比与判断标准"
-description: "从 Docker、gVisor、Wasm 到 E2B、Daytona、Modal、Runloop、Deno Sandbox 与 AgentCore，讲清 Agent 沙箱的隔离边界、产品特点和选型方法。"
+description: "从 Docker、gVisor、Wasm 到云端 microVM，讲清 Agent 沙箱的隔离边界、产品选型，以及镜像、挂载、目录初始化和运行时工程职责。"
 date: 2026-09-02T18:00:00+08:00
+lastmod: 2026-10-28T12:00:00+08:00
 weight: 10
 image: images/index/index.svg
 categories:
@@ -44,7 +45,7 @@ subprocess.run(
 
 所以我开始认真研究 Agent 沙箱。
 
-研究完以后，我发现这个领域最容易让人误解的地方，不是产品太少，而是大家把四五种完全不同的东西，全叫成了 Sandbox。
+研究完以后，我发现这个领域的常见误解，来自把四五种完全不同的东西都叫成 Sandbox。
 
 有的只是限制 Python 能调用哪些函数。
 
@@ -80,7 +81,7 @@ LocalShellBackend 也一样。
 
 它很适合你在完全可信的个人开发环境里快速试验，因为简单，快，而且没有云端延迟。但 Deep Agents 自己在源码里写得很直白，它没有进程隔离，没有资源限制，命令直接以当前用户权限在宿主机运行。
 
-所以它是执行器，不是沙箱。
+所以它负责执行命令，隔离仍依赖宿主机本身。
 
 这句话可以记一下。
 
@@ -94,17 +95,17 @@ Agent 能看到哪些文件，能不能碰宿主机，能不能访问网络，�
 
 2
 
-最轻的一层，是语言级沙箱。
+语言级沙箱位于隔离模型中较轻的一端。
 
 典型代表是 WebAssembly、Wasmtime、Deno 权限系统，还有一些基于 QuickJS、Pyodide 的代码解释器。
 
-这类方案不是给 Agent 一台完整电脑，而是给它一个能力受限的语言运行时。
+这类方案给 Agent 一个能力受限的语言运行时，无需提供完整电脑环境。
 
 以 Wasmtime 为例，WebAssembly 代码默认拿不到宿主机文件、网络和系统调用。它想读某个目录，宿主程序必须通过 WASI 明确把这个能力交给它。官方把这套模型称为 capability-based security，也就是你不给钥匙，它连门在哪里都不知道。[Wasmtime Security](https://docs.wasmtime.dev/security.html)
 
 Deno 也有类似的味道。默认情况下，程序不能随便读文件、访问网络、读取环境变量或者启动子进程，必须显式添加 `--allow-read`、`--allow-net`、`--allow-env` 这类权限。[Deno Permissions](https://docs.deno.com/runtime/reference/permissions/)
 
-这类沙箱最大的优点就是轻。
+这类沙箱的优势是轻量。
 
 启动快，资源开销小，很适合让 Agent 做公式计算、数据转换、运行一小段 JavaScript 或 Python 子集。你有10万个用户，每个人偶尔让 AI 算个表格，没必要给每个人启动一台 Linux 虚拟机。
 
@@ -114,17 +115,15 @@ Deno 也有类似的味道。默认情况下，程序不能随便读文件、访
 
 Agent 可能要运行 `git`，装 `npm` 包，调用 `ffmpeg`，编译 Rust，起一个 PostgreSQL，再用 Playwright 打开浏览器。到了这一步，语言级沙箱很快就会开始劝退你。
 
-不是它不安全，而是它太安全了。
+它的隔离限制了可用能力，复杂的软件工程任务很快会碰到边界。
 
-安全到很多活干不了。
-
-所以我的判断很简单。如果你的 Agent 只运行短小、单语言、输入输出明确的代码，Wasm 或受限解释器非常香。如果你想做 Claude Code、Codex 这类真正的软件工程 Agent，就别硬拗了，直接往完整 Linux 环境走。
+所以我的判断很简单。如果你的 Agent 只运行短小、单语言、输入输出明确的代码，Wasm 或受限解释器非常香。如果你想做 Claude Code、Codex 这类代码工程 Agent，就别硬拗了，直接往完整 Linux 环境走。
 
 3
 
 再往上一层，是容器。
 
-也就是大家最熟悉的 Docker。
+也就是大家常用的 Docker。
 
 Docker 通过 Linux Namespace 隔离进程、网络和挂载点，再用 cgroups 限制 CPU、内存和 I/O。相比在宿主机直接跑 `subprocess`，已经安全了太多。Docker 官方的安全文档也把 Namespace、cgroups、Capabilities、seccomp 和 AppArmor 这些能力列为主要防线。[Docker Engine Security](https://docs.docker.com/engine/security/)
 
@@ -142,7 +141,7 @@ Docker 通过 Linux Namespace 隔离进程、网络和挂载点，再用 cgroups
 
 所以 gVisor 很像夹在普通容器和虚拟机之间的一层。比共享内核的原生容器多一道墙，又没有完整虚拟机那么重。
 
-更危险的往往还不是内核漏洞，而是我们自己手欠。
+实践里容易被忽视的风险来自人为配置：
 
 为了让 Agent 能构建镜像，顺手把 `/var/run/docker.sock` 挂进容器。
 
@@ -160,7 +159,7 @@ Docker 官方也明确提醒，能控制 Docker daemon 的用户，本身就拥�
 
 一开始可能会有点烦。
 
-尤其依赖缓存、文件同步、Git 权限这些东西，搞起来很容易让人想直接 `chmod 777` 然后躺平。但你相信我，沙箱配置里每一次为了省事而开的口子，最后都会变成 Agent 最自由发挥的地方。
+尤其依赖缓存、文件同步、Git 权限这些东西，搞起来很容易让人想直接 `chmod 777` 然后躺平。为了省事而开放的目录或能力，会扩大 Agent 可以操作的范围。
 
 4
 
@@ -168,7 +167,7 @@ Docker 官方也明确提醒，能控制 Docker daemon 的用户，本身就拥�
 
 就在很多人还把 Docker 容器当成 Agent 沙箱的时候，Docker 自己已经推出了一个就叫 Docker Sandboxes 的产品。
 
-它不是普通容器套壳，而是给每个编码 Agent 启动独立的 microVM。每个沙箱有自己的内核、文件系统、网络和 Docker Engine，Agent 可以在里面 `sudo`、装包、跑 Compose，但碰不到宿主机的 Docker daemon。[Docker Sandboxes](https://docs.docker.com/ai/sandboxes/)
+Docker Sandboxes 为每个编码 Agent 启动独立的 microVM。每个沙箱有自己的内核、文件系统、网络和 Docker Engine，Agent 可以在里面 `sudo`、装包、跑 Compose，并与宿主机的 Docker daemon 隔离。[Docker Sandboxes](https://docs.docker.com/ai/sandboxes/)
 
 而且它已经直接支持 Claude Code、Codex、Copilot、Cursor、Gemini、OpenCode 等一堆 Agent。[Supported agents](https://docs.docker.com/ai/sandboxes/agents/)
 
@@ -196,7 +195,7 @@ Docker Sandboxes 默认会把当前工作区直接读写挂进 VM。Agent 在里
 
 因为 Prompt Injection 不需要逃逸沙箱。Agent 自己就能执行 `env`，然后把 Key 发出去。
 
-真正更稳的做法，是让密钥永远留在沙箱外面，由受控代理在指定域名的请求出口临时注入。
+更稳的做法，是让密钥留在沙箱外面，由受控代理在指定域名的请求出口临时注入。
 
 墙是一层。
 
@@ -204,9 +203,9 @@ Docker Sandboxes 默认会把当前工作区直接读写挂进 VM。Agent 在里
 
 5
 
-如果要把这种微虚拟机能力做成云 API，最知名的玩家之一就是 E2B。
+如果要把这种微虚拟机能力做成云 API，E2B 是常见的选择之一。
 
-E2B 用 Firecracker microVM 运行沙箱。它的架构文档里讲得很细，每个 Sandbox 是一个有独立内核的 Linux 微虚拟机，模板会提前启动并做内存、磁盘和 VM 状态快照。创建沙箱时不是从零开机，而是恢复快照，文件系统再用 Copy-on-Write，只拉取真正访问到的数据。[E2B Architecture](https://github.com/e2b-dev/infra/blob/main/docs/ARCHITECTURE.md)
+E2B 用 Firecracker microVM 运行沙箱。它的架构文档里讲得很细，每个 Sandbox 是一个有独立内核的 Linux 微虚拟机，模板会提前启动并做内存、磁盘和 VM 状态快照。创建沙箱时会恢复模板快照，文件系统再用 Copy-on-Write 按需加载访问的数据。[E2B Architecture](https://github.com/e2b-dev/infra/blob/main/docs/ARCHITECTURE.md)
 
 所以它能同时拿到两个以前看起来有点冲突的东西。
 
@@ -252,7 +251,7 @@ Daytona 还支持有状态解释器、后台 Session、PTY 和长进程，比较
 
 这个名字其实很诚实，因为它提供的已经不只是安全执行一段代码，而是一台面向 Agent 的云开发机。可以拉仓库、编译代码、跑浏览器、保留状态、暂停恢复，还能使用自定义 Blueprint 和 Snapshot。[Runloop Devbox](https://docs.runloop.ai/docs/devboxes/overview)
 
-Runloop 最有意思的场景，是分叉。
+Runloop 一个有特点的场景，是分叉。
 
 假设 Agent 面前有3种修 Bug 的方案。你可以先给当前磁盘做一个快照，再从同一个快照启动3台 Devbox，让3个 Agent 各走一条路，最后跑测试选最好的那一个。[Runloop Snapshots](https://docs.runloop.ai/docs/devboxes/snapshots)
 
@@ -278,7 +277,7 @@ Modal Sandbox 可以动态创建容器，执行任意命令，保留同一沙箱
 
 如果你的 Agent 要做的是普通代码解释，Modal 可能有点像开跑车送外卖。
 
-但如果任务是视频生成、模型推理、GPU 数据处理，或者突然并发出几千个沙箱，Modal 的基础设施属性就出来了。它不是最纯粹的 Agent Sandbox 产品，但它是一个很强的通用计算平台。
+但如果任务是视频生成、模型推理、GPU 数据处理，或者需要大规模并发沙箱，Modal 的基础设施属性就出来了。它定位为通用计算平台，同时提供 Agent Sandbox 能力。
 
 这块选型其实看任务，不看名气。
 
@@ -292,7 +291,7 @@ Modal Sandbox 可以动态创建容器，执行任意命令，保留同一沙箱
 
 Deno Sandbox 是最近让我有点惊喜的一个新选手。
 
-它不是前面讲的 Deno 语言权限系统，而是真正的 Linux microVM。官方文档显示，每个沙箱都在 Hypervisor 层隔离，毫秒级启动，可以执行命令、使用持久卷，并且默认是临时环境。[Deno Sandbox](https://docs.deno.com/sandbox/)
+Deno Sandbox 提供云端 Linux microVM，与前面讲的 Deno 语言权限系统属于不同层次。官方文档显示，每个沙箱都在 Hypervisor 层隔离，毫秒级启动，可以执行命令、使用持久卷，并且默认是临时环境。[Deno Sandbox](https://docs.deno.com/sandbox/)
 
 它在安全设计上也比较激进。
 
@@ -316,7 +315,7 @@ Deno Sandbox，是云端 Linux microVM。
 
 它提供托管的 Python 执行环境，能做计算、数据分析、可视化和结果校验。网络可以选择 Sandbox、Public 或 VPC 模式，访问 AWS 资源则由 IAM Role 控制。[AgentCore Code Interpreter](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/code-interpreter-resource-management.html)
 
-它的优势不是「最适合所有 Agent」，而是 AWS 那套治理能力。
+它的优势在于与 AWS 治理能力集成。
 
 IAM、VPC、Security Group、CloudTrail、企业账户、合规控制，这些东西一旦进了大公司，比单纯启动快几十毫秒重要得多。Agent 要访问 S3、EFS、内部数据库，也有一条相对原生的路。
 
@@ -342,7 +341,6 @@ LangSmith Sandbox 也属于生态型选择。它和 LangGraph、Deep Agents 的�
 | Modal | Serverless 隔离容器 | 高并发、GPU、定制计算 | 对简单解释器可能偏重 |
 | Deno Sandbox | 云端 Linux microVM | 快速临时环境、Deno 与 TS 生态 | 产品较新，资源与区域有限 |
 | AgentCore | AWS 托管解释器 | AWS 企业环境、VPC 与 IAM 集成 | 云绑定和配置复杂度高 |
-| LangSmith Sandbox | LangChain 托管沙箱 | LangGraph、Deep Agents 团队 | 当前仍处预览阶段 |
 
 如果屏幕前的你，现在就在做自己的 Agent，我自己的不成熟建议是这样。
 
@@ -350,7 +348,7 @@ LangSmith Sandbox 也属于生态型选择。它和 LangGraph、Deep Agents 的�
 
 做一个面向用户的 Code Interpreter，优先试 E2B、Deno Sandbox，或者 Daytona。先把文件上传、命令执行、超时、结果下载这条链跑通，再考虑自建。
 
-做企业内部 Coding Agent，看 Daytona、Runloop，或者你所在云厂商的托管方案。重点不是 Demo 跑得多快，而是身份、审计、网络、密钥和数据驻留能不能交代清楚。
+做企业内部 Coding Agent，可以看 Daytona、Runloop，或者你所在云厂商的托管方案。优先确认身份、审计、网络、密钥和数据驻留，再评估 Demo 的启动速度。
 
 需要 GPU、高并发和复杂镜像，看 Modal。
 
@@ -362,9 +360,91 @@ LangSmith Sandbox 也属于生态型选择。它和 LangGraph、Deep Agents 的�
 
 12
 
-最后再说几个我觉得比产品名字更重要的判断标准。
+沙箱运行起来以后，目录问题会很快从「镜像里有没有这个路径」变成「这条路径由哪一层负责」。一次执行环境通常经过控制面分配资源、运行时启动镜像、存储挂载、入口初始化、Agent 执行、产物取回和资源回收。不同产品的组件名字不同，但排障时可以先按这条链定位。
 
-沙箱是不是每个用户、每个 Thread 独立。不同用户共用一个长生命周期环境，文件和进程串了，那就不是记忆，是串门。
+![Agent 沙箱从创建到回收的通用启动链](images/index/sandbox-lifecycle.svg)
+
+*▲ Agent 命令开始之前，调度、镜像、挂载和目录初始化都要就绪；图为通用运行时流程。图：自绘*
+
+### 镜像、挂载、初始化和应用各管什么
+
+可以把文件系统责任拆成四层。
+
+| 层 | 负责的内容 | 常见做法 |
+| --- | --- | --- |
+| 镜像 | 固定工具、系统库、语言运行时和稳定目录骨架 | 为 `/workspace` 设绝对 `WORKDIR`；准备非 root 用户能访问的固定路径 |
+| 挂载 | 本次任务的代码、用户输入或需要保留的数据 | 创建并挂载工作区；明确只读/读写、属主和生命周期 |
+| 启动初始化 | 本次沙箱需要的动态目录与权限检查 | 在挂载完成后 `mkdir -p`；检查目录可写、环境变量与工作目录 |
+| 应用 | 业务要写出的文件和任务子目录 | 写文件前创建父目录；用任务 ID 或随机目录隔离一次运行的产物 |
+
+Dockerfile 的 `WORKDIR` 会在镜像构建时创建工作目录；但挂载到该位置后，容器看到的是挂载内容，镜像中的同名目录内容可能被遮住。Docker 文档明确说明 bind mount 会遮蔽目标目录原有文件；Kubernetes 可以用共享卷和 init container 在主容器启动前做初始化。[Dockerfile `WORKDIR`](https://docs.docker.com/reference/dockerfile#workdir) · [Docker bind mounts](https://docs.docker.com/engine/storage/bind-mounts/) · [Kubernetes Init Containers](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/)
+
+![镜像目录、工作区挂载和应用任务目录的分层关系](images/index/filesystem-layers.svg)
+
+*▲ 挂载会改变沙箱启动后实际可见的目录树，因此初始化应发生在挂载之后。图：自绘*
+
+一个可复用的镜像先创建稳定目录并设置运行用户：
+
+```dockerfile
+FROM python:3.12-slim
+
+ENV HOME=/home/agent
+RUN install -d -o 10001 -g 10001 /workspace /home/agent/.cache/my-agent
+WORKDIR /workspace
+USER 10001:10001
+```
+
+启动入口再为当前工作区准备常用子目录：
+
+```sh
+#!/bin/sh
+set -eu
+
+: "${WORKSPACE:=/workspace}"
+: "${HOME:=/home/agent}"
+mkdir -p "$WORKSPACE/input" "$WORKSPACE/output" "$HOME/.cache/my-agent"
+exec "$@"
+```
+
+这段逻辑要在挂载完成后运行，而且挂载本身必须允许沙箱用户写入。对 Kubernetes 来说，可以由 init container 初始化共享卷；对其他平台，则放在平台提供的启动钩子或容器入口脚本里。初始化应当可重复执行，不能假设这是该卷第一次被使用。
+
+### 目录不存在时，先看失败发生在哪一步
+
+报错里的 `No such file or directory` 不一定表示镜像缺文件。可以先用失败阶段把排查范围缩小：
+
+1. **沙箱创建或容器启动失败**：检查宿主机 bind mount 源路径、模板引用和运行时挂载配置。Docker 使用 `--mount type=bind` 时，源路径默认必须存在；挂载源和容器内目标路径是两回事。
+2. **Agent 命令已经启动，程序报 `ENOENT`**：检查实际 `pwd`、绝对路径、待写文件的父目录，以及挂载是否覆盖了镜像内容。很多文件 API 会自动创建文件，却不会替你创建缺失的父目录。
+3. **路径存在但写入报 `EACCES`**：检查运行 UID/GID、目录属主、只读挂载和文件权限。把所有目录改成 `777` 会掩盖配置问题，也会扩大同一沙箱内的写权限。
+4. **镜像里有、运行时看不到**：先查挂载点。挂载会遮住目标目录的原有内容；需要的默认文件应在挂载后复制或初始化到卷里。
+
+最短的现场检查可以从这几项开始：
+
+```sh
+pwd
+id
+printf 'WORKSPACE=%s\n' "$WORKSPACE"
+ls -ld "$WORKSPACE" "$WORKSPACE/input" "$WORKSPACE/output"
+```
+
+按路径创建策略，通常比给每个应用单独出镜像更容易维护：公共基础镜像按语言和系统依赖分层，应用把环境变量里的工作目录传给 Agent，入口为会话准备目录，应用在写入前创建自己负责的子目录。只有应用确实需要专用系统库、二进制、浏览器或一大组固定依赖时，才发布独立模板/镜像；用户文件、任务临时目录和密钥不应烘焙进镜像。
+
+如果选定阿里云云沙箱后要看 SDK、模板、鉴权和存储的具体接入，可以继续读项目里的[迁移实战]({{< relref "post/Agent 工程/05-沙箱与执行环境/E2B 迁到阿里云云沙箱：能跑通，但别急着上生产/index.md" >}})。
+
+### 这类工作通常由谁负责
+
+在专门提供 Agent 执行环境的平台里，沙箱已经是独立的工程方向。Anthropic 的公开招聘页面列出 Sandboxing 团队，工作涉及 Linux、虚拟化、容器运行时、文件与网络隔离、启动性能和可观测性；E2B 将自身定位为 Agent sandbox runtime；Roblox 的 Agent Infra 岗位也把安全沙箱列入核心领域。这些招聘页面于 2026-10-27 查阅，岗位内容会随时间变化。[Anthropic Sandboxing](https://job-boards.greenhouse.io/anthropic/jobs/5440427008) · [E2B Careers](https://e2b.dev/careers) · [Roblox Agent Infrastructure](https://careers.roblox.com/jobs/8259270?gh_jid=8259270)
+
+这类工程师的职责超出 Dockerfile 维护，覆盖镜像与模板、工作区和挂载、任务生命周期、资源调度、网络出口、凭证边界、快照恢复、成本与故障诊断。专门做沙箱产品或运行大量 Agent 的组织可能设置独立岗位；普通业务团队通常把它放在平台、AI 基础设施或安全工程里。这个组织方式是从公开岗位职责归纳而来，各公司的编制会有差异。
+
+![Agent 沙箱路径错误的排查分流](images/index/path-failure-triage.svg)
+
+*▲ 先定位错误发生在创建、运行还是写入阶段，再分别检查源路径、工作目录、挂载和权限。图：自绘*
+
+13
+
+最后看几个比产品名字更能帮助判断的标准。
+
+沙箱是不是每个用户、每个 Thread 独立。不同用户共用一个长生命周期环境，会让文件和进程串扰，容易把状态污染误当作记忆。
 
 网络是不是默认拒绝。只要默认全网可达，Prompt Injection 就有了天然的数据出口。
 
@@ -390,7 +470,7 @@ LangSmith Sandbox 也属于生态型选择。它和 LangGraph、Deep Agents 的�
 
 我写到这里，突然想起计算机安全里一个特别老的原则，最小权限。
 
-这个词听起来一点都不性感，甚至有点像公司安全培训里最容易被跳过的那页 PPT。
+这个词听起来一点都不性感，甚至像公司安全培训里常被略过的那页 PPT。
 
 但 Agent 时代，它突然变得非常具体。
 
@@ -406,11 +486,11 @@ Agent 不一样。
 
 它今天不拆，不代表这套系统是安全的。
 
-真正的安全，是它就算想拆，也只能拆自己的玩具屋。
+安全边界应让它就算想拆，也只能拆自己的玩具屋。
 
-回到我最开始那行 `subprocess.run`。
+回到开头那行 `subprocess.run`。
 
-代码还是那几行，Agent 也还是那个 Agent。但当它从宿主机 Shell 被放进一个有独立文件系统、受控网络、外置密钥和资源上限的沙箱以后，它才真正从一个危险的 Demo，开始有了一点产品的样子。
+代码还是那几行，Agent 也还是那个 Agent。当它从宿主机 Shell 被放进一个有独立文件系统、受控网络、外置密钥和资源上限的沙箱，Demo 才开始具备产品需要的执行边界。
 
 手，是给了。
 

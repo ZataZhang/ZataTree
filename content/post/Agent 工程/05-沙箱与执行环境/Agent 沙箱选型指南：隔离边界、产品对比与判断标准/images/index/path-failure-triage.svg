@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="430" viewBox="0 0 1200 430" role="img" aria-labelledby="title desc">
+  <title id="title">Agent 沙箱目录错误排查图</title>
+  <desc id="desc">先判断沙箱是否启动。如果未启动，检查挂载源和模板配置；启动后报 ENOENT，检查当前工作目录、父目录和挂载遮蔽；目录存在但写入失败，检查 UID/GID 和只读权限。</desc>
+  <defs>
+    <linearGradient id="triage-accent" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5B87BF"/><stop offset="1" stop-color="#22D3EE"/></linearGradient>
+    <marker id="triage-arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#5B87BF"/></marker>
+  </defs>
+  <rect width="1200" height="430" rx="22" fill="#0B1220"/>
+  <text x="54" y="58" fill="#F8FAFC" font-family="sans-serif" font-size="25" font-weight="700">先按失败阶段分流，再查具体路径</text>
+  <rect x="430" y="88" width="340" height="58" rx="15" fill="#14233A" stroke="url(#triage-accent)" stroke-width="2"/>
+  <text x="600" y="124" fill="#F8FAFC" font-family="sans-serif" font-size="19" font-weight="700" text-anchor="middle">沙箱里的应用进程启动了吗？</text>
+  <path d="M500 146 C430 166 250 158 220 194" fill="none" stroke="#5B87BF" stroke-width="2.5" marker-end="url(#triage-arrow)"/><path d="M600 146 V190" fill="none" stroke="#5B87BF" stroke-width="2.5" marker-end="url(#triage-arrow)"/><path d="M700 146 C770 166 950 158 980 194" fill="none" stroke="#5B87BF" stroke-width="2.5" marker-end="url(#triage-arrow)"/>
+  <g font-family="sans-serif">
+    <rect x="48" y="204" width="344" height="166" rx="16" fill="#111D31" stroke="#7F3F55" stroke-width="2"/><text x="74" y="242" fill="#FCA5A5" font-size="18" font-weight="700">没有启动</text><text x="74" y="278" fill="#B9C9DF" font-size="15">检查宿主机挂载源是否存在</text><text x="74" y="304" fill="#B9C9DF" font-size="15">检查模板名、镜像与挂载配置</text><text x="74" y="340" fill="#9FB3D1" font-size="14">关注控制面 / 容器创建日志</text>
+    <rect x="428" y="204" width="344" height="166" rx="16" fill="#111D31" stroke="#46658C" stroke-width="2"/><text x="454" y="242" fill="#7C9CF5" font-size="18" font-weight="700">已启动，报 ENOENT</text><text x="454" y="278" fill="#B9C9DF" font-size="15">核对 pwd、绝对路径和父目录</text><text x="454" y="304" fill="#B9C9DF" font-size="15">检查挂载是否遮住镜像内容</text><text x="454" y="340" fill="#9FB3D1" font-size="14">用 ls -ld 查看实际运行时文件树</text>
+    <rect x="808" y="204" width="344" height="166" rx="16" fill="#111D31" stroke="#46658C" stroke-width="2"/><text x="834" y="242" fill="#22D3EE" font-size="18" font-weight="700">目录存在，报 EACCES</text><text x="834" y="278" fill="#B9C9DF" font-size="15">核对进程 UID/GID 和目录属主</text><text x="834" y="304" fill="#B9C9DF" font-size="15">检查只读挂载与权限位</text><text x="834" y="340" fill="#9FB3D1" font-size="14">不要用 chmod 777 掩盖权限设计</text>
+  </g>
+  <text x="54" y="405" fill="#7F96B6" font-family="sans-serif" font-size="14">bind mount 源路径属于宿主机侧；目标路径属于沙箱侧。两个路径需要分别验证。</text>
+</svg>
