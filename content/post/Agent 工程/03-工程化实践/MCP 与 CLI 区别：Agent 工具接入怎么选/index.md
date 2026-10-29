@@ -2,7 +2,7 @@
 title: "MCP 与 CLI 区别：Agent 工具接入怎么选"
 description: "从接口层次、调用流程、结构化输入输出、部署成本和权限边界拆解 MCP 与 CLI，给出适用场景、混合架构和可执行的选型清单。"
 date: 2026-10-26T10:00:00+08:00
-weight: 120
+weight: 170
 slug: "mcp-vs-cli-for-ai-agents"
 image: images/index/index.svg
 categories:
