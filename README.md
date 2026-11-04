@@ -585,7 +585,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [内网文件传输工具LocalSend](content/post/软件试用/05-桌面效率工具/内网文件传输工具LocalSend/)
 - [实用软件工具｜好用软件推荐](content/post/软件试用/05-桌面效率工具/实用软件工具/)
 
-## 运维与服务器 (27)
+## 运维与服务器 (28)
 
 ### 01-服务器与系统
 
@@ -623,6 +623,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 
 ### 05-存储与数据库
 
+- [MySQL 数据库使用入门：从看懂一张表到查清谁有权限](content/post/运维与服务器/05-存储与数据库/MySQL%20数据库使用入门：从看懂一张表到查清谁有权限/)
 - [Object Storage (对象存储服务)](content/post/运维与服务器/05-存储与数据库/Object%20Storage%20(对象存储服务)/)
 - [PostgreSQL](content/post/运维与服务器/05-存储与数据库/PostgreSQL/)
 - [S3 兼容存储踩坑记：boto3 新默认校验和撞上 NotImplemented](content/post/运维与服务器/05-存储与数据库/S3%20兼容存储踩坑记：boto3%20新默认校验和撞上%20NotImplemented/)
