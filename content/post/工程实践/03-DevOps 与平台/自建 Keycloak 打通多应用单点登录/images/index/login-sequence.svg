@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="660" viewBox="0 0 1200 660">
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#315EAA"/></marker>
+    <marker id="t" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#2A9D8F"/></marker>
+  </defs>
+  <rect width="1200" height="660" rx="24" fill="#F8FAFC"/>
+  <text x="56" y="56" fill="#0F172A" font-family="sans-serif" font-size="28" font-weight="700">模板里的 OIDC 模块只替换「确认你是谁」这一段</text>
+  <text x="56" y="88" fill="#64748B" font-family="sans-serif" font-size="17">第 5 步之后走的是应用原有的会话签发逻辑，业务接口无需改动</text>
+
+  <g font-family="sans-serif" font-size="18" font-weight="700" text-anchor="middle">
+    <rect x="70" y="112" width="200" height="48" rx="12" fill="#FFFFFF" stroke="#94A3B8" stroke-width="2"/>
+    <text x="170" y="143" fill="#334155">浏览器</text>
+    <rect x="370" y="112" width="240" height="48" rx="12" fill="#E7F8F4" stroke="#2A9D8F" stroke-width="2"/>
+    <text x="490" y="143" fill="#125C53">应用后端 · OIDC 模块</text>
+    <rect x="710" y="112" width="200" height="48" rx="12" fill="#EAF2FF" stroke="#5B87BF" stroke-width="2"/>
+    <text x="810" y="143" fill="#173B70">Keycloak</text>
+    <rect x="960" y="112" width="190" height="48" rx="12" fill="#FFF7E8" stroke="#D69E2E" stroke-width="2"/>
+    <text x="1055" y="143" fill="#80520F">应用 DB / Redis</text>
+  </g>
+  <g stroke="#CBD5E1" stroke-width="2" stroke-dasharray="6 6">
+    <path d="M170 162 L170 600"/><path d="M490 162 L490 600"/><path d="M810 162 L810 600"/><path d="M1055 162 L1055 600"/>
+  </g>
+
+  <g font-family="sans-serif" font-size="15" fill="#334155">
+    <path d="M172 200 L484 200" stroke="#315EAA" stroke-width="2.5" marker-end="url(#a)"/>
+    <text x="328" y="190" text-anchor="middle">① GET /auth/oidc/login</text>
+
+    <path d="M488 244 L176 244" stroke="#315EAA" stroke-width="2.5" marker-end="url(#a)"/>
+    <text x="330" y="234" text-anchor="middle">② 302：带 state、nonce、PKCE challenge</text>
+    <path d="M172 274 L804 274" stroke="#315EAA" stroke-width="2.5" marker-end="url(#a)"/>
+    <text x="640" y="266" text-anchor="middle">打开 Keycloak 登录页（已登录过则直接放行）</text>
+
+    <path d="M808 324 L176 324" stroke="#315EAA" stroke-width="2.5" marker-end="url(#a)"/>
+    <text x="490" y="314" text-anchor="middle">③ 302 回到应用回调，附一次性授权码 code</text>
+    <path d="M172 354 L484 354" stroke="#315EAA" stroke-width="2.5" marker-end="url(#a)"/>
+    <text x="328" y="374" text-anchor="middle">GET /auth/oidc/callback?code=…&amp;state=…</text>
+
+    <path d="M492 414 L804 414" stroke="#2A9D8F" stroke-width="2.5" marker-end="url(#t)"/>
+    <text x="648" y="404" text-anchor="middle">④ 后端换码：code + PKCE verifier</text>
+    <path d="M808 446 L496 446" stroke="#2A9D8F" stroke-width="2.5" marker-end="url(#t)"/>
+    <text x="664" y="474" text-anchor="middle">ID Token：验签名、iss、aud、exp、nonce</text>
+
+    <path d="M492 512 L1049 512" stroke="#D69E2E" stroke-width="2.5" marker-end="url(#a)"/>
+    <text x="772" y="502" text-anchor="middle">⑤ 按 (iss, sub) 找本地用户，检查客户端角色</text>
+
+    <path d="M488 566 L176 566" stroke="#315EAA" stroke-width="2.5" marker-end="url(#a)"/>
+    <text x="330" y="556" text-anchor="middle">⑥ 签发原有的 HttpOnly 会话 Cookie</text>
+  </g>
+  <rect x="380" y="604" width="680" height="34" rx="10" fill="#FFF7E8"/>
+  <text x="720" y="627" text-anchor="middle" fill="#80520F" font-family="sans-serif" font-size="15">①～④ 由 Authlib 处理；⑤⑥ 是模板要写的代码，也是迁移老账号的地方</text>
+</svg>

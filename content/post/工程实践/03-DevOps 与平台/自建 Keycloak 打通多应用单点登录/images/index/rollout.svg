@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="440" viewBox="0 0 1200 440">
+  <defs>
+    <marker id="b" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#5B87BF"/></marker>
+  </defs>
+  <rect width="1200" height="440" rx="24" fill="#F8FAFC"/>
+  <text x="56" y="56" fill="#0F172A" font-family="sans-serif" font-size="28" font-weight="700">五步上线，每一步都能单独回退</text>
+  <text x="56" y="88" fill="#64748B" font-family="sans-serif" font-size="17">新旧登录方式并存到最后一步，本地管理员账号始终保留作应急入口</text>
+  <path d="M90 200 L1120 200" stroke="#5B87BF" stroke-width="3" marker-end="url(#b)"/>
+  <g font-family="sans-serif" text-anchor="middle">
+    <circle cx="150" cy="200" r="22" fill="#5B87BF"/><text x="150" y="207" fill="#FFFFFF" font-size="20" font-weight="700">1</text>
+    <circle cx="370" cy="200" r="22" fill="#5B87BF"/><text x="370" y="207" fill="#FFFFFF" font-size="20" font-weight="700">2</text>
+    <circle cx="590" cy="200" r="22" fill="#2A9D8F"/><text x="590" y="207" fill="#FFFFFF" font-size="20" font-weight="700">3</text>
+    <circle cx="810" cy="200" r="22" fill="#5B87BF"/><text x="810" y="207" fill="#FFFFFF" font-size="20" font-weight="700">4</text>
+    <circle cx="1030" cy="200" r="22" fill="#8B5CF6"/><text x="1030" y="207" fill="#FFFFFF" font-size="20" font-weight="700">5</text>
+
+    <text x="150" y="150" fill="#0F172A" font-size="19" font-weight="700">部署 Keycloak</text>
+    <text x="370" y="150" fill="#0F172A" font-size="19" font-weight="700">模板 OIDC 模块</text>
+    <text x="590" y="150" fill="#0F172A" font-size="19" font-weight="700">freshai 试点</text>
+    <text x="810" y="150" fill="#0F172A" font-size="19" font-weight="700">逐个接入</text>
+    <text x="1030" y="150" fill="#0F172A" font-size="19" font-weight="700">收紧</text>
+
+    <g font-size="15" fill="#475569">
+      <text x="150" y="252">realm + 团队组</text>
+      <text x="150" y="278">一个测试 Client</text>
+      <text x="150" y="304">备份恢复演练</text>
+      <text x="370" y="252">默认关闭</text>
+      <text x="370" y="278">单测 + 真实 Keycloak</text>
+      <text x="370" y="304">登录集成测试</text>
+      <text x="590" y="252">OIDC 与旧登录并存</text>
+      <text x="590" y="278">老账号显式绑定</text>
+      <text x="590" y="304">内部团队先用</text>
+      <text x="810" y="252">sync 模板</text>
+      <text x="810" y="278">每个应用一个 Client</text>
+      <text x="810" y="304">按应用验收</text>
+      <text x="1030" y="252">新用户只走 SSO</text>
+      <text x="1030" y="278">管理员改用角色</text>
+      <text x="1030" y="304">再评估全局登出</text>
+    </g>
+  </g>
+  <rect x="200" y="350" width="800" height="40" rx="10" fill="#FFF7E8"/>
+  <text x="600" y="376" text-anchor="middle" fill="#80520F" font-family="sans-serif" font-size="16">回退方式：应用配置里关掉 OIDC 开关，旧的密码 / 验证码登录照常可用</text>
+</svg>
