@@ -19,7 +19,7 @@ allowed-tools:
 
 博客仓库根目录的 `AGENTS.md` 是权威规范（内容结构、frontmatter、封面决策树）。每次动笔前先读它，本 skill 只沉淀它没写的**经验**。
 
-仓库路径：`/Users/zata/code/ZataTree`（如用户环境不同，以实际为准）。
+仓库路径：`<repo-root>`（如用户环境不同，以实际为准）。
 
 ## 第一步：合并还是新开
 

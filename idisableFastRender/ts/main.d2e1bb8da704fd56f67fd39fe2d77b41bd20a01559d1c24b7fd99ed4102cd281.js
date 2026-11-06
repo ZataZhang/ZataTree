@@ -1,5 +1,5 @@
 (() => {
-  // ns-hugo-imp:C:\Users\zata\Desktop\ZataTree\themes\hugo-theme-stack\assets\ts\gallery.ts
+  // ns-hugo-imp:<repo-root>\themes\hugo-theme-stack\assets\ts\gallery.ts
   var StackGallery = class _StackGallery {
     galleryUID;
     items = [];
@@ -118,7 +118,7 @@
   };
   var gallery_default = StackGallery;
 
-  // ns-hugo-imp:C:\Users\zata\Desktop\ZataTree\themes\hugo-theme-stack\assets\ts\color.ts
+  // ns-hugo-imp:<repo-root>\themes\hugo-theme-stack\assets\ts\color.ts
   var colorsCache = {};
   if (localStorage.hasOwnProperty("StackColorsCache")) {
     try {
@@ -151,7 +151,7 @@
     return colorsCache[key];
   }
 
-  // ns-hugo-imp:C:\Users\zata\Desktop\ZataTree\themes\hugo-theme-stack\assets\ts\menu.ts
+  // ns-hugo-imp:<repo-root>\themes\hugo-theme-stack\assets\ts\menu.ts
   var slideUp = (target, duration = 500) => {
     target.classList.add("transiting");
     target.style.transitionProperty = "height, margin, padding";
@@ -223,7 +223,7 @@
     }
   }
 
-  // ns-hugo-imp:C:\Users\zata\Desktop\ZataTree\themes\hugo-theme-stack\assets\ts\createElement.ts
+  // ns-hugo-imp:<repo-root>\themes\hugo-theme-stack\assets\ts\createElement.ts
   function createElement(tag, attrs, children) {
     var element = document.createElement(tag);
     for (let name in attrs) {
@@ -250,7 +250,7 @@
   }
   var createElement_default = createElement;
 
-  // ns-hugo-imp:C:\Users\zata\Desktop\ZataTree\themes\hugo-theme-stack\assets\ts\colorScheme.ts
+  // ns-hugo-imp:<repo-root>\themes\hugo-theme-stack\assets\ts\colorScheme.ts
   var StackColorScheme = class {
     localStorageKey = "StackColorScheme";
     currentScheme;
@@ -320,7 +320,7 @@
   };
   var colorScheme_default = StackColorScheme;
 
-  // ns-hugo-imp:C:\Users\zata\Desktop\ZataTree\themes\hugo-theme-stack\assets\ts\scrollspy.ts
+  // ns-hugo-imp:<repo-root>\themes\hugo-theme-stack\assets\ts\scrollspy.ts
   function debounced(func) {
     let timeout;
     return () => {
@@ -417,7 +417,7 @@
     window.addEventListener("resize", debounced(resizeHandler));
   }
 
-  // ns-hugo-imp:C:\Users\zata\Desktop\ZataTree\themes\hugo-theme-stack\assets\ts\smoothAnchors.ts
+  // ns-hugo-imp:<repo-root>\themes\hugo-theme-stack\assets\ts\smoothAnchors.ts
   var anchorLinksQuery = "a[href]";
   function setupSmoothAnchors() {
     document.querySelectorAll(anchorLinksQuery).forEach((aElement) => {

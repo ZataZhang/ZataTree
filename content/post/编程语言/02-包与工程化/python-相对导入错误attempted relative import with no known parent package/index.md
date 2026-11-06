@@ -38,12 +38,12 @@ from .base import BaseCrawler
 ```
 然后在命令行中运行：
 ```
-python -u "c:\Users\zata\Desktop\UPick\src\crawler\arxiv.py"
+python -u "C:\Users\your-user\Desktop\UPick\src\crawler\arxiv.py"
 ```
 结果却报错：
 ```
 Traceback (most recent call last):
-  File "c:\Users\zata\Desktop\UPick\src\crawler\arxiv.py", line 7, in <module>
+  File "C:\Users\your-user\Desktop\UPick\src\crawler\arxiv.py", line 7, in <module>
     from .base import BaseCrawler
 ImportError: attempted relative import with no known parent package
 ```
@@ -81,7 +81,7 @@ Python 提供了 `-m` 参数，允许你以模块方式运行脚本，这样可�
 2. **切换到项目根目录**  
    在命令行中进入 `Upick` 目录：
    ```
-   cd C:\Users\zata\Desktop\Upick
+   cd C:\Users\your-user\Desktop\Upick
    ```
 
 3. **运行模块**  
@@ -103,13 +103,13 @@ Python 提供了 `-m` 参数，允许你以模块方式运行脚本，这样可�
 1. **设置 PYTHONPATH**  
    将 `PYTHONPATH` 设置为包含 `src` 的父目录：
    ```
-   set PYTHONPATH=C:\Users\zata\Desktop\Upick\src
+   set PYTHONPATH=C:\Users\your-user\Desktop\Upick\src
    ```
 
 2. **运行文件**  
    在命令行中运行：
    ```
-   python -u "c:\Users\zata\Desktop\UPick\src\crawler\arxiv.py"
+   python -u "C:\Users\your-user\Desktop\UPick\src\crawler\arxiv.py"
    ```
 
 #### 注意：
@@ -135,8 +135,8 @@ Python 提供了 `-m` 参数，允许你以模块方式运行脚本，这样可�
 2. **设置 PYTHONPATH**  
    在命令行中运行：
    ```
-   set PYTHONPATH=C:\Users\zata\Desktop\Upick
-   python -u "c:\Users\zata\Desktop\UPick\src\crawler\arxiv.py"
+   set PYTHONPATH=C:\Users\your-user\Desktop\Upick
+   python -u "C:\Users\your-user\Desktop\UPick\src\crawler\arxiv.py"
    ```
 
 #### 优点与缺点：
@@ -165,7 +165,7 @@ Python 提供了 `-m` 参数，允许你以模块方式运行脚本，这样可�
 
 执行以下步骤即可：
 ```
-cd C:\Users\zata\Desktop\Upick
+cd C:\Users\your-user\Desktop\Upick
 python -m src.crawler.arxiv
 ```
 

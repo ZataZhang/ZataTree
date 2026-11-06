@@ -584,7 +584,7 @@ agent = create_deep_agent(model=model, backend=backend)
 ```python
 from deepagents.backends.filesystem import FilesystemBackend
 
-backend = FilesystemBackend(root_dir="/Users/zata/code/my-project")
+backend = FilesystemBackend(root_dir="/Users/your-user/code/my-project")
 
 agent = create_deep_agent(model=model, backend=backend)
 

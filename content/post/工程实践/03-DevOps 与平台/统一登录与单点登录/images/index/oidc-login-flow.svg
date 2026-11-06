@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="570" viewBox="0 0 1200 570">
+  <rect width="1200" height="570" rx="24" fill="#F8FAFC"/>
+  <text x="56" y="54" fill="#0F172A" font-family="sans-serif" font-size="28" font-weight="700">一次 OIDC 登录：浏览器跳转，后端换码</text>
+  <text x="56" y="84" fill="#64748B" font-family="sans-serif" font-size="17">项目 A 通过身份中心认证，再为自己建立本地会话</text>
+  <rect x="62" y="110" width="236" height="70" rx="16" fill="#EAF2FF" stroke="#5B87BF" stroke-width="2"/>
+  <text x="180" y="153" text-anchor="middle" fill="#173B70" font-family="sans-serif" font-size="21" font-weight="700">用户浏览器</text>
+  <rect x="482" y="110" width="236" height="70" rx="16" fill="#E7F8F4" stroke="#2A9D8F" stroke-width="2"/>
+  <text x="600" y="153" text-anchor="middle" fill="#125C53" font-family="sans-serif" font-size="21" font-weight="700">项目 A 后端</text>
+  <rect x="882" y="110" width="256" height="70" rx="16" fill="#FFFFFF" stroke="#94A3B8" stroke-width="2"/>
+  <text x="1010" y="153" text-anchor="middle" fill="#0F172A" font-family="sans-serif" font-size="21" font-weight="700">身份中心 IdP</text>
+  <path d="M180 181 V490 M600 181 V490 M1010 181 V490" stroke="#CBD5E1" stroke-width="2" stroke-dasharray="6 7"/>
+  <g font-family="sans-serif" font-size="15" text-anchor="middle">
+    <text x="390" y="207" fill="#334155">1. 访问受保护页面</text>
+    <path d="M182 220 H594" stroke="#315EAA" stroke-width="2.5" marker-end="url(#blue)"/>
+
+    <text x="390" y="247" fill="#334155">2. 302：授权请求 + PKCE challenge</text>
+    <path d="M594 260 H186" stroke="#315EAA" stroke-width="2.5" marker-end="url(#blue)"/>
+
+    <text x="595" y="287" fill="#334155">3. 浏览器跳转到授权端点</text>
+    <path d="M185 300 H1002" stroke="#315EAA" stroke-width="2.5" marker-end="url(#blue)"/>
+
+    <text x="595" y="327" fill="#334155">4. 返回回调地址与短期授权码</text>
+    <path d="M1002 340 H186" stroke="#2A9D8F" stroke-width="2.5" marker-end="url(#teal)"/>
+
+    <text x="390" y="367" fill="#334155">5. 浏览器携码回到项目回调</text>
+    <path d="M182 380 H594" stroke="#2A9D8F" stroke-width="2.5" marker-end="url(#teal)"/>
+
+    <text x="805" y="407" fill="#334155">6. 后端换码（code + verifier）</text>
+    <path d="M602 420 H1002" stroke="#64748B" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#gray)"/>
+
+    <text x="805" y="447" fill="#334155">7. 返回令牌；项目校验后建本地会话</text>
+    <path d="M1002 460 H602" stroke="#64748B" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#gray)"/>
+  </g>
+  <rect x="442" y="493" width="316" height="46" rx="13" fill="#0F172A"/>
+  <text x="600" y="522" text-anchor="middle" fill="#F8FAFC" font-family="sans-serif" font-size="17" font-weight="700">项目自己的 HttpOnly 会话 Cookie</text>
+  <defs>
+    <marker id="blue" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9 Z" fill="#315EAA"/></marker>
+    <marker id="teal" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9 Z" fill="#2A9D8F"/></marker>
+    <marker id="gray" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9 Z" fill="#64748B"/></marker>
+  </defs>
+</svg>

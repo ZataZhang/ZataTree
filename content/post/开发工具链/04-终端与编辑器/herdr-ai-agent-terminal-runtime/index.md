@@ -101,7 +101,7 @@ server:
   endpoint_compatible: yes
   private_protocol: 22
   private_protocol_compatible: yes
-  socket: /Users/zata/.config/herdr/herdr.sock
+  socket: /Users/your-user/.config/herdr/herdr.sock
 
 update:
   restart_needed: no
@@ -138,11 +138,11 @@ $ herdr workspace list
 
 $ herdr pane list
 {"result":{"panes":[
-  {"pane_id":"w4:p1","workspace_id":"w4","cwd":"/Users/zata/code/freshai",
+  {"pane_id":"w4:p1","workspace_id":"w4","cwd":"/Users/your-user/code/freshai",
    "terminal_title":"⠸ Complete external skill change review task in worktree","agent_status":"unknown"},
-  {"pane_id":"w4:p3","workspace_id":"w4","cwd":"/Users/zata/code/ZataTree",
+  {"pane_id":"w4:p3","workspace_id":"w4","cwd":"/Users/your-user/code/ZataTree",
    "terminal_title":"⠧ 询问 herdr 相关信息","agent_status":"unknown"},
-  {"pane_id":"w6:p1","workspace_id":"w6","cwd":"/Users/zata/code/zata_code_template",
+  {"pane_id":"w6:p1","workspace_id":"w6","cwd":"/Users/your-user/code/zata_code_template",
    "terminal_title":"✳ Greeting and session start","agent_status":"unknown"}
 ],"type":"pane_list"}}
 ```
@@ -440,19 +440,19 @@ herdr integration status
 我本机 `herdr integration status` 的实际输出：
 
 ```console
-pi: current (v8) (/Users/zata/.pi/agent/extensions/herdr-agent-state.ts)
-claude: current (v9) (/Users/zata/.claude/hooks/herdr-agent-state.sh)
-codex: current (v8) (/Users/zata/.codex/herdr-agent-state.sh)
-copilot: current (v3) (/Users/zata/.copilot/hooks/herdr-agent-state.sh)
-kimi: current (v7) (/Users/zata/.kimi-code/hooks/herdr-agent-state.sh)
-opencode: current (v11) (/Users/zata/.config/opencode/plugins/herdr-agent-state.js)
-hermes: current (v5) (/Users/zata/.hermes/plugins/herdr-agent-state/__init__.py)
-omp: not installed (/Users/zata/.omp/agent/extensions/herdr-omp-agent-state.ts)
-devin: not installed (/Users/zata/.config/devin/herdr-agent-state.sh)
-droid: not installed (/Users/zata/.factory/hooks/herdr-agent-state.sh)
-qwen: not installed (/Users/zata/.qwen/hooks/herdr-agent-session.sh)
-cursor: not installed (/Users/zata/.cursor/herdr-agent-state.sh)
-grok: not installed (/Users/zata/.grok/hooks/herdr-agent-state.sh)
+pi: current (v8) (/Users/your-user/.pi/agent/extensions/herdr-agent-state.ts)
+claude: current (v9) (/Users/your-user/.claude/hooks/herdr-agent-state.sh)
+codex: current (v8) (/Users/your-user/.codex/herdr-agent-state.sh)
+copilot: current (v3) (/Users/your-user/.copilot/hooks/herdr-agent-state.sh)
+kimi: current (v7) (/Users/your-user/.kimi-code/hooks/herdr-agent-state.sh)
+opencode: current (v11) (/Users/your-user/.config/opencode/plugins/herdr-agent-state.js)
+hermes: current (v5) (/Users/your-user/.hermes/plugins/herdr-agent-state/__init__.py)
+omp: not installed (/Users/your-user/.omp/agent/extensions/herdr-omp-agent-state.ts)
+devin: not installed (/Users/your-user/.config/devin/herdr-agent-state.sh)
+droid: not installed (/Users/your-user/.factory/hooks/herdr-agent-state.sh)
+qwen: not installed (/Users/your-user/.qwen/hooks/herdr-agent-session.sh)
+cursor: not installed (/Users/your-user/.cursor/herdr-agent-state.sh)
+grok: not installed (/Users/your-user/.grok/hooks/herdr-agent-state.sh)
 ...
 ```
 
@@ -944,7 +944,7 @@ Plugin install preview:
     action open-file-viewer-tab-windows: powershell -NoProfile ... open-file-viewer-tab.ps1
     pane file-viewer: ./target/release/herdr-file-viewer
 Installed herdr-file-viewer from smarzban/herdr-file-viewer.
-Config: /Users/zata/.config/herdr/plugins/config/herdr-file-viewer
+Config: /Users/your-user/.config/herdr/plugins/config/herdr-file-viewer
 ```
 
 预览是真东西，不是装饰：**它把 install 将要执行的每一条 `[[build]]`、每一个 action 的实际 argv 全列出来**，连那两条上千字符的 Windows PowerShell 单行也原样摊开，还标出哪些被当前平台跳过（`build (skipped on macos)`）。要审计第三方插件，这一屏就是审计面。

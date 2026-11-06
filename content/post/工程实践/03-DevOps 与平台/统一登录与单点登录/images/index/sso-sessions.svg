@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="470" viewBox="0 0 1200 470">
+  <rect width="1200" height="470" rx="24" fill="#F8FAFC"/>
+  <text x="56" y="58" fill="#0F172A" font-family="sans-serif" font-size="28" font-weight="700">SSO 共享认证结果，不共享应用 Cookie</text>
+  <text x="56" y="91" fill="#64748B" font-family="sans-serif" font-size="17">同一浏览器按域名保存不同会话；访问新项目时会重定向到 IdP</text>
+  <rect x="65" y="128" width="515" height="272" rx="20" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+  <rect x="65" y="128" width="515" height="52" rx="20" fill="#E2E8F0"/>
+  <text x="322" y="162" text-anchor="middle" fill="#334155" font-family="sans-serif" font-size="20" font-weight="700">用户浏览器：三个独立的域名 Cookie</text>
+  <rect x="100" y="203" width="445" height="52" rx="12" fill="#EAF2FF" stroke="#93C5FD"/>
+  <text x="122" y="235" fill="#173B70" font-family="sans-serif" font-size="16" font-weight="700">login.example.com</text>
+  <text x="515" y="235" text-anchor="end" fill="#315EAA" font-family="sans-serif" font-size="15">IdP 会话</text>
+  <rect x="100" y="271" width="445" height="52" rx="12" fill="#E7F8F4" stroke="#8BD2C7"/>
+  <text x="122" y="303" fill="#125C53" font-family="sans-serif" font-size="16" font-weight="700">app-a.example.com</text>
+  <text x="515" y="303" text-anchor="end" fill="#147D70" font-family="sans-serif" font-size="15">项目 A 会话</text>
+  <rect x="100" y="339" width="445" height="40" rx="12" fill="#F1ECFF" stroke="#C4B5FD"/>
+  <text x="122" y="365" fill="#5B21B6" font-family="sans-serif" font-size="16" font-weight="700">app-b.example.com</text>
+  <text x="515" y="365" text-anchor="end" fill="#6D3CC3" font-family="sans-serif" font-size="15">项目 B 会话</text>
+  <rect x="755" y="145" width="365" height="72" rx="16" fill="#EAF2FF" stroke="#5B87BF" stroke-width="2"/>
+  <text x="937" y="177" text-anchor="middle" fill="#173B70" font-family="sans-serif" font-size="20" font-weight="700">身份中心 IdP</text>
+  <text x="937" y="200" text-anchor="middle" fill="#475569" font-family="sans-serif" font-size="15">只接收 login.example.com 的 Cookie</text>
+  <rect x="755" y="250" width="365" height="62" rx="16" fill="#E7F8F4" stroke="#2A9D8F" stroke-width="2"/>
+  <text x="937" y="288" text-anchor="middle" fill="#125C53" font-family="sans-serif" font-size="20" font-weight="700">项目 A 本地会话</text>
+  <rect x="755" y="339" width="365" height="62" rx="16" fill="#F1ECFF" stroke="#8B5CF6" stroke-width="2"/>
+  <text x="937" y="377" text-anchor="middle" fill="#5B21B6" font-family="sans-serif" font-size="20" font-weight="700">项目 B 本地会话</text>
+  <path d="M548 229 C650 229 670 181 752 181" fill="none" stroke="#315EAA" stroke-width="3" marker-end="url(#blue)"/>
+  <path d="M548 296 H752" fill="none" stroke="#2A9D8F" stroke-width="3" marker-end="url(#teal)"/>
+  <path d="M548 359 H752" fill="none" stroke="#8B5CF6" stroke-width="3" marker-end="url(#purple)"/>
+  <text x="940" y="431" text-anchor="middle" fill="#64748B" font-family="sans-serif" font-size="15">退出项目 A 不会自动清除项目 B 的本地会话</text>
+  <defs>
+    <marker id="blue" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#315EAA"/></marker>
+    <marker id="teal" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#2A9D8F"/></marker>
+    <marker id="purple" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#8B5CF6"/></marker>
+  </defs>
+</svg>

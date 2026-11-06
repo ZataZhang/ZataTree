@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560">
+  <rect width="1200" height="560" rx="24" fill="#F8FAFC"/>
+  <text x="56" y="56" fill="#0F172A" font-family="sans-serif" font-size="28" font-weight="700">身份服务由平台团队维护，项目权限由产品团队维护</text>
+  <text x="56" y="88" fill="#64748B" font-family="sans-serif" font-size="17">统一标准和安全基线，同时让各团队可以独立交付自己的应用</text>
+  <text x="600" y="125" text-anchor="middle" fill="#315EAA" font-family="sans-serif" font-size="16" font-weight="700">身份平台团队：服务可用性、协议标准、SDK、应用目录和密钥管理</text>
+  <rect x="370" y="145" width="460" height="132" rx="20" fill="#EAF2FF" stroke="#5B87BF" stroke-width="2.5"/>
+  <text x="600" y="184" text-anchor="middle" fill="#173B70" font-family="sans-serif" font-size="23" font-weight="700">组织身份中心 IdP</text>
+  <text x="600" y="218" text-anchor="middle" fill="#334155" font-family="sans-serif" font-size="16">员工目录 / MFA / 登录策略 / OIDC 与 SAML</text>
+  <text x="600" y="249" text-anchor="middle" fill="#475569" font-family="sans-serif" font-size="15">每个项目、每个环境使用独立登记的客户端</text>
+  <rect x="92" y="364" width="454" height="132" rx="18" fill="#E7F8F4" stroke="#2A9D8F" stroke-width="2"/>
+  <text x="319" y="401" text-anchor="middle" fill="#125C53" font-family="sans-serif" font-size="22" font-weight="700">产品团队 A · 项目 A</text>
+  <text x="319" y="435" text-anchor="middle" fill="#334155" font-family="sans-serif" font-size="16">Client A · 本地会话 · 用户映射</text>
+  <text x="319" y="466" text-anchor="middle" fill="#334155" font-family="sans-serif" font-size="16">项目角色 · 租户关系 · API 权限</text>
+  <rect x="654" y="364" width="454" height="132" rx="18" fill="#F1ECFF" stroke="#8B5CF6" stroke-width="2"/>
+  <text x="881" y="401" text-anchor="middle" fill="#5B21B6" font-family="sans-serif" font-size="22" font-weight="700">产品团队 B · 项目 B</text>
+  <text x="881" y="435" text-anchor="middle" fill="#334155" font-family="sans-serif" font-size="16">Client B · 本地会话 · 用户映射</text>
+  <text x="881" y="466" text-anchor="middle" fill="#334155" font-family="sans-serif" font-size="16">项目角色 · 租户关系 · API 权限</text>
+  <path d="M465 278 C420 316 365 319 320 360" fill="none" stroke="#2A9D8F" stroke-width="3" marker-end="url(#teal)"/>
+  <path d="M735 278 C780 316 835 319 880 360" fill="none" stroke="#8B5CF6" stroke-width="3" marker-end="url(#purple)"/>
+  <text x="394" y="321" text-anchor="middle" fill="#147D70" font-family="sans-serif" font-size="15">OIDC · Client A</text>
+  <text x="806" y="321" text-anchor="middle" fill="#6D3CC3" font-family="sans-serif" font-size="15">OIDC · Client B</text>
+  <rect x="160" y="510" width="880" height="32" rx="10" fill="#FFF7E8"/>
+  <text x="600" y="532" text-anchor="middle" fill="#80520F" font-family="sans-serif" font-size="15">组织组可控制“谁能进入”；项目 owner 决定“进入后能访问什么”</text>
+  <defs>
+    <marker id="teal" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#2A9D8F"/></marker>
+    <marker id="purple" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#8B5CF6"/></marker>
+  </defs>
+</svg>

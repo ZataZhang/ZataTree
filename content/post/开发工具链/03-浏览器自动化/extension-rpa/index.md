@@ -147,7 +147,7 @@ with sync_playwright() as p:
     # macOS : ~/Library/Application Support/Google/Chrome
     # Windows: %LOCALAPPDATA%\Google\Chrome\User Data
     context = p.chromium.launch_persistent_context(
-        user_data_dir='/Users/zata/Library/Application Support/Google/Chrome',
+        user_data_dir='/Users/your-user/Library/Application Support/Google/Chrome',
         channel='chrome',          # 强制用系统 Chrome，不是 chromium
         headless=False,            # 必须可视化（见下面）
         no_viewport=True,

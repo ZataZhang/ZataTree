@@ -74,7 +74,7 @@ irm get.scoop.sh | iex
 
 ### 安装 Git
 
-* **🪟 Windows**: `scoop install git` (推荐) 或下载安装包， 注意的是安装完成之后会提示执行三条命，然后还要把"C:\Users\zata\scoop\apps\git\current\usr\bin"粘贴到path环境变量,因为涉及到cygpath,不配置环境变量用不了
+* **🪟 Windows**: `scoop install git` (推荐) 或下载安装包， 注意的是安装完成之后会提示执行三条命，然后还要把"C:\Users\your-user\scoop\apps\git\current\usr\bin"粘贴到path环境变量,因为涉及到cygpath,不配置环境变量用不了
 * **🍎 macOS**: `brew install git`
 * **🐧 Linux**: `sudo apt install git` (Ubuntu/Debian)
 

@@ -3,7 +3,7 @@ title: git&github_tutorial
 description: git&github使用指南
 date: 2025-02-28
 slug: git&github ### 必填，文件夹名
-image: image/index/index.png
+image: images/index/index.png
 categories:
     - 开发工具链
 tags:
@@ -39,6 +39,7 @@ tags:
 - **GitHub 相关**
   - [公式 github github不显示md文件中的公式](#公式-github-github不显示md文件中的公式)
   - [GitHub 分支保护规则（Rulesets）配置](#github-分支保护规则rulesets配置)
+    - [GitHub Pull Request 合并方式配置](#github-pull-request-合并方式配置)
   - [Git 进阶教程(git lfs)：从“版本控制”到“内容追踪”](https://mp.weixin.qq.com/s/TEjkisB-s2p-KD_OHS-fnQ)
 
 - **身份验证**
@@ -948,6 +949,40 @@ git status
 配置截图如下：
 
 ![严格分支保护](images/index/image-33.png)
+
+#### GitHub Pull Request 合并方式配置
+
+仓库级合并方式在 **Settings → General → Pull Requests** 中设置。GitHub 提供三种方式：**Allow merge commits**（保留合并提交）、**Allow squash merging**（把 PR 中的提交压成一个提交）和 **Allow rebase merging**（将 PR 中的提交逐个变基到目标分支）。仓库可以同时开放多种方式；如果开放了多种，合并 PR 的人可以在合并时选择。
+
+| 方式 | 合并后的历史 | 适合场景 |
+| --- | --- | --- |
+| **Squash and merge** | 将 PR 的所有提交压成一个提交，再以快进方式加入目标分支 | 希望每个 PR 在主分支上只留下一个提交，隐藏开发过程中的临时提交 |
+| **Rebase and merge** | 将 PR 中的提交逐个添加到目标分支，不创建 merge commit，保持线性历史 | 希望保留 PR 中有意义的多个提交 |
+| **Create a merge commit** | 通过额外的 merge commit 合并分支 | 希望保留分支合并节点和完整分支拓扑 |
+
+GitHub 的 **Squash and merge** 和 **Rebase and merge** 都会以快进方式合入；区别在于 squash 把 PR 收成一个提交，rebase 则保留多个提交。**Default commit message** 下拉框只决定 squash 提交默认使用的标题和内容格式，不会选择或固定 PR 的合并方式。
+
+截图中 **Allow merge commits** 未勾选，而 **Allow squash merging** 和 **Allow rebase merging** 都已勾选。因此这个配置禁止普通 merge commit，但合并 PR 时仍可选择 squash 或 rebase。若要强制统一使用一种方式，只保留对应的选项：例如只用 squash，就勾选 **Allow squash merging**，取消另外两项。
+
+![GitHub 仓库的 Pull Request 合并方式设置](images/index/github-pr-merge-settings.png)
+
+也可以通过 GitHub CLI 修改仓库级设置。把 `OWNER` 和 `REPO` 换成仓库所有者与仓库名，并且只执行自己要采用的那一组命令：
+
+```bash
+# 只允许 Squash and merge
+gh api --method PATCH repos/OWNER/REPO \
+  -F allow_merge_commit=false \
+  -F allow_squash_merge=true \
+  -F allow_rebase_merge=false
+
+# 只允许 Rebase and merge
+gh api --method PATCH repos/OWNER/REPO \
+  -F allow_merge_commit=false \
+  -F allow_squash_merge=false \
+  -F allow_rebase_merge=true
+```
+
+仓库设置控制全仓可用的合并方式；Ruleset 还能对匹配的分支进一步限制。例如本节后面的 Ruleset 示例使用 `"allowed_merge_methods": ["squash"]`，表示 `main` 分支只允许 squash。若只要求目标分支保持线性历史，可以启用 **Require linear history**；这会阻止 merge commit，但单独启用它不会在 squash 和 rebase 之间替团队做选择。详见 [GitHub 合并方式说明](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/about-merge-methods-on-github)、[变基合并设置](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/configuring-commit-rebasing-for-pull-requests)和 [Rulesets 规则说明](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets)。
 
 #### 使用 GitHub CLI 管理 Rulesets
 

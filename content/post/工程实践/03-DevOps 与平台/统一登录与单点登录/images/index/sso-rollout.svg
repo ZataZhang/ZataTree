@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="390" viewBox="0 0 1200 390">
+  <rect width="1200" height="390" rx="24" fill="#F8FAFC"/>
+  <text x="56" y="58" fill="#0F172A" font-family="sans-serif" font-size="28" font-weight="700">先建立身份映射，再逐个项目迁移</text>
+  <text x="56" y="91" fill="#64748B" font-family="sans-serif" font-size="17">把用户数据、登录链路、权限和运维都纳入上线计划</text>
+  <path d="M185 210 H1010" fill="none" stroke="#CBD5E1" stroke-width="5"/>
+  <g font-family="sans-serif" text-anchor="middle">
+    <circle cx="160" cy="210" r="48" fill="#EAF2FF" stroke="#5B87BF" stroke-width="3"/>
+    <text x="160" y="204" fill="#173B70" font-size="20" font-weight="700">1</text>
+    <text x="160" y="238" fill="#173B70" font-size="14">盘点项目</text>
+    <text x="160" y="292" fill="#334155" font-size="16" font-weight="700">协议 / 用户 / 权限</text>
+
+    <circle cx="380" cy="210" r="48" fill="#E7F8F4" stroke="#2A9D8F" stroke-width="3"/>
+    <text x="380" y="204" fill="#125C53" font-size="20" font-weight="700">2</text>
+    <text x="380" y="238" fill="#125C53" font-size="14">定身份源</text>
+    <text x="380" y="292" fill="#334155" font-size="16" font-weight="700">IdP / subject / 租户</text>
+
+    <circle cx="600" cy="210" r="48" fill="#FFF7E8" stroke="#E6A23C" stroke-width="3"/>
+    <text x="600" y="204" fill="#8A5410" font-size="20" font-weight="700">3</text>
+    <text x="600" y="238" fill="#8A5410" font-size="14">做账号映射</text>
+    <text x="600" y="292" fill="#334155" font-size="16" font-weight="700">明确合并 / 回退规则</text>
+
+    <circle cx="820" cy="210" r="48" fill="#F1ECFF" stroke="#8B5CF6" stroke-width="3"/>
+    <text x="820" y="204" fill="#5B21B6" font-size="20" font-weight="700">4</text>
+    <text x="820" y="238" fill="#5B21B6" font-size="14">低风险试点</text>
+    <text x="820" y="292" fill="#334155" font-size="16" font-weight="700">验证异常和恢复</text>
+
+    <circle cx="1040" cy="210" r="48" fill="#FFECEF" stroke="#E56B7A" stroke-width="3"/>
+    <text x="1040" y="204" fill="#9D3443" font-size="20" font-weight="700">5</text>
+    <text x="1040" y="238" fill="#9D3443" font-size="14">分批上线</text>
+    <text x="1040" y="292" fill="#334155" font-size="16" font-weight="700">收口旧登录入口</text>
+  </g>
+  <text x="600" y="352" text-anchor="middle" fill="#64748B" font-family="sans-serif" font-size="15">账号迁移没设计好，协议配置正确也可能造成重复账号或权限遗留</text>
+</svg>
