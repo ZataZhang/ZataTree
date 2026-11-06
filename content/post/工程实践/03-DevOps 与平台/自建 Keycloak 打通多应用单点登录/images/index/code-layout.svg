@@ -9,19 +9,19 @@
 
   <g font-family="sans-serif">
     <rect x="56" y="120" width="330" height="330" rx="18" fill="#EAF2FF" stroke="#5B87BF" stroke-width="2.5"/>
-    <text x="221" y="158" text-anchor="middle" fill="#173B70" font-size="21" font-weight="700">zata-ops/deploy/keycloak</text>
+    <text x="221" y="158" text-anchor="middle" fill="#173B70" font-size="21" font-weight="700">ops-repo/deploy/keycloak</text>
     <text x="221" y="186" text-anchor="middle" fill="#475569" font-size="15">部署身份中心（不写 Keycloak 代码）</text>
     <g font-family="monospace" font-size="15" fill="#334155">
       <text x="86" y="230">docker-compose.yml</text>
       <text x="86" y="262">.env.example</text>
-      <text x="86" y="294">realm/zata-realm.json</text>
+      <text x="86" y="294">realm/realm.json</text>
       <text x="86" y="326">README.md</text>
     </g>
     <text x="86" y="378" fill="#475569" font-size="15">客户端、团队组、角色进版本库</text>
-    <text x="86" y="404" fill="#475569" font-size="15">数据库沿用 zata-ops 的备份命令</text>
+    <text x="86" y="404" fill="#475569" font-size="15">复用现有的数据库备份工具</text>
 
     <rect x="435" y="120" width="330" height="330" rx="18" fill="#F1ECFF" stroke="#8B5CF6" stroke-width="2.5"/>
-    <text x="600" y="158" text-anchor="middle" fill="#5B21B6" font-size="21" font-weight="700">zata_code_template</text>
+    <text x="600" y="158" text-anchor="middle" fill="#5B21B6" font-size="21" font-weight="700">工程模板</text>
     <text x="600" y="186" text-anchor="middle" fill="#475569" font-size="15">OIDC 登录模块，只写一次</text>
     <g font-size="15" fill="#334155">
       <text x="465" y="230">• 配置开关：本地密码 / OIDC</text>
@@ -34,15 +34,15 @@
 
     <rect x="814" y="120" width="330" height="330" rx="18" fill="#E7F8F4" stroke="#2A9D8F" stroke-width="2.5"/>
     <text x="979" y="158" text-anchor="middle" fill="#125C53" font-size="21" font-weight="700">各派生应用</text>
-    <text x="979" y="186" text-anchor="middle" fill="#475569" font-size="15">freshai 先行，其余随后</text>
+    <text x="979" y="186" text-anchor="middle" fill="#475569" font-size="15">试点应用先行，其余随后</text>
     <g font-size="15" fill="#334155">
-      <text x="844" y="230">• just sync-template</text>
-      <text x="844" y="262">• alembic 迁移出映射表</text>
+      <text x="844" y="230">• 同步模板</text>
+      <text x="844" y="262">• 数据库迁移出映射表</text>
       <text x="844" y="294">• 填 issuer / client 配置</text>
       <text x="844" y="326">• 处理老账号绑定</text>
     </g>
     <text x="844" y="378" fill="#475569" font-size="15">与模板分叉的登录代码</text>
-    <text x="844" y="404" fill="#475569" font-size="15">（如 freshai）需手工合入</text>
+    <text x="844" y="404" fill="#475569" font-size="15">需手工合入</text>
   </g>
   <path d="M768 285 L808 285" stroke="#8B5CF6" stroke-width="3" marker-end="url(#p)"/>
   <path d="M979 452 C979 500 221 500 221 456" fill="none" stroke="#5B87BF" stroke-width="2.5" stroke-dasharray="7 6" marker-end="url(#b)"/>

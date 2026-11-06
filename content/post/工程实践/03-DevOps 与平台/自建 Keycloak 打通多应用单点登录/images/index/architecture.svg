@@ -8,19 +8,19 @@
   <text x="56" y="88" fill="#64748B" font-family="sans-serif" font-size="17">团队用 Keycloak 的组表示，应用内能做什么用客户端角色表示；会话和业务数据仍留在各应用</text>
 
   <rect x="400" y="112" width="400" height="56" rx="14" fill="#FFFFFF" stroke="#94A3B8" stroke-width="2" stroke-dasharray="8 6"/>
-  <text x="600" y="139" text-anchor="middle" fill="#475569" font-family="sans-serif" font-size="17" font-weight="700">可选上游：公司 Microsoft 账号 / 其他 OIDC</text>
+  <text x="600" y="139" text-anchor="middle" fill="#475569" font-family="sans-serif" font-size="17" font-weight="700">可选上游：公司企业账号 / 其他 OIDC</text>
   <text x="600" y="159" text-anchor="middle" fill="#64748B" font-family="sans-serif" font-size="14">按需接入，Keycloak 负责转接</text>
   <path d="M600 170 L600 200" stroke="#94A3B8" stroke-width="2.5" stroke-dasharray="6 5" marker-end="url(#gray)"/>
 
   <rect x="250" y="206" width="700" height="166" rx="20" fill="#EAF2FF" stroke="#5B87BF" stroke-width="2.5"/>
-  <text x="600" y="244" text-anchor="middle" fill="#173B70" font-family="sans-serif" font-size="24" font-weight="700">Keycloak · auth.example.com · realm「zata」</text>
+  <text x="600" y="244" text-anchor="middle" fill="#173B70" font-family="sans-serif" font-size="24" font-weight="700">Keycloak · auth.example.com · realm「example」</text>
   <text x="600" y="274" text-anchor="middle" fill="#334155" font-family="sans-serif" font-size="16">一人一个账号 · MFA · 登录策略 · 每个应用每个环境一个 Client</text>
   <rect x="300" y="294" width="180" height="34" rx="17" fill="#FFFFFF" stroke="#5B87BF"/>
   <text x="390" y="317" text-anchor="middle" fill="#315EAA" font-family="monospace" font-size="15">/teams/team-a</text>
   <rect x="500" y="294" width="180" height="34" rx="17" fill="#FFFFFF" stroke="#5B87BF"/>
   <text x="590" y="317" text-anchor="middle" fill="#315EAA" font-family="monospace" font-size="15">/teams/team-b</text>
   <rect x="700" y="294" width="200" height="34" rx="17" fill="#FFFFFF" stroke="#5B87BF"/>
-  <text x="800" y="317" text-anchor="middle" fill="#315EAA" font-family="monospace" font-size="15">freshai: user/admin</text>
+  <text x="800" y="317" text-anchor="middle" fill="#315EAA" font-family="monospace" font-size="15">app-a: user/admin</text>
   <text x="600" y="355" text-anchor="middle" fill="#475569" font-family="sans-serif" font-size="14">把应用的客户端角色授给团队组，令牌里带上该应用的角色</text>
 
   <path d="M330 374 L190 452" stroke="#5B87BF" stroke-width="2.5" marker-end="url(#blue)"/>
@@ -30,15 +30,15 @@
 
   <g font-family="sans-serif">
     <rect x="60" y="458" width="250" height="118" rx="16" fill="#E7F8F4" stroke="#2A9D8F" stroke-width="2"/>
-    <text x="185" y="492" text-anchor="middle" fill="#125C53" font-size="21" font-weight="700">freshai（试点）</text>
+    <text x="185" y="492" text-anchor="middle" fill="#125C53" font-size="21" font-weight="700">应用 A（试点）</text>
     <text x="185" y="522" text-anchor="middle" fill="#334155" font-size="15">OIDC Client</text>
     <text x="185" y="548" text-anchor="middle" fill="#334155" font-size="15">本地 Redis 会话 · 业务权限</text>
     <rect x="335" y="458" width="250" height="118" rx="16" fill="#FFFFFF" stroke="#2A9D8F" stroke-width="2"/>
-    <text x="460" y="492" text-anchor="middle" fill="#125C53" font-size="21" font-weight="700">fsense</text>
+    <text x="460" y="492" text-anchor="middle" fill="#125C53" font-size="21" font-weight="700">应用 B</text>
     <text x="460" y="522" text-anchor="middle" fill="#334155" font-size="15">OIDC Client</text>
     <text x="460" y="548" text-anchor="middle" fill="#334155" font-size="15">本地会话 · 业务权限</text>
     <rect x="615" y="458" width="250" height="118" rx="16" fill="#FFFFFF" stroke="#2A9D8F" stroke-width="2"/>
-    <text x="740" y="492" text-anchor="middle" fill="#125C53" font-size="21" font-weight="700">docir</text>
+    <text x="740" y="492" text-anchor="middle" fill="#125C53" font-size="21" font-weight="700">应用 C</text>
     <text x="740" y="522" text-anchor="middle" fill="#334155" font-size="15">OIDC Client</text>
     <text x="740" y="548" text-anchor="middle" fill="#334155" font-size="15">本地会话 · 业务权限</text>
     <rect x="890" y="458" width="250" height="118" rx="16" fill="#FFFFFF" stroke="#2A9D8F" stroke-width="2" stroke-dasharray="8 6"/>

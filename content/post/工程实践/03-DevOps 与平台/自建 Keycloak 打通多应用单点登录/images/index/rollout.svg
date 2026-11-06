@@ -15,7 +15,7 @@
 
     <text x="150" y="150" fill="#0F172A" font-size="19" font-weight="700">部署 Keycloak</text>
     <text x="370" y="150" fill="#0F172A" font-size="19" font-weight="700">模板 OIDC 模块</text>
-    <text x="590" y="150" fill="#0F172A" font-size="19" font-weight="700">freshai 试点</text>
+    <text x="590" y="150" fill="#0F172A" font-size="19" font-weight="700">应用 A 试点</text>
     <text x="810" y="150" fill="#0F172A" font-size="19" font-weight="700">逐个接入</text>
     <text x="1030" y="150" fill="#0F172A" font-size="19" font-weight="700">收紧</text>
 
