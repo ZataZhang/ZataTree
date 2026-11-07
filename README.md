@@ -89,7 +89,7 @@ python3 tools/cover.py content/post/<路径>/index.md   # 单篇（可传多个�
 python3 tools/cover.py                                # 重刷所有用 SVG 封面的文章
 ```
 
-生成器会读取 front matter 的标题/标签/分类，输出 1200×400 的 SVG：深藏青底 + 左侧 6px 色条 + 标题与标签胶囊，右侧留白处放对应分类的几何图形。分类配色在 `tools/cover.py` 的 `CATEGORY_STYLE` 中定义，新增分类时在那里补一条（当前 `Book` 与 `Project_Application` 还没配，走的是默认色）。
+生成器会读取 front matter 的标题/标签/分类，输出 1200×400 的 SVG：深藏青底 + 左侧 6px 色条 + 标题与标签胶囊，右侧留白处放对应分类的几何图形。分类配色在 `tools/cover.py` 的 `CATEGORY_STYLE` 中定义，新增分类时在那里补一条；未配置映射的分类使用默认配色。
 
 ## 分类与标签
 
@@ -97,18 +97,26 @@ python3 tools/cover.py                                # 重刷所有用 SVG 封�
 
 | 分类 | 覆盖范围 |
 | --- | --- |
-| `Agent` | LLM 应用、LangChain/LangGraph、RAG、Agent 编排与沙箱 |
-| `DeepLearning` | 模型原理、训练与微调、NLP |
-| `Library` | 三方库与框架使用教程 |
-| `Grammar` | 语言语法（Python、Matlab、PyQt） |
-| `Design` | 架构设计、原型与图表 |
-| `Engineering` | 软件工程、可观测性、DevOps |
-| `Platforms_Tools` | 开发工具与平台（Docker、uv、CLI 等） |
-| `Project_Application` | 动手项目与应用（爬虫、博客、运维） |
-| `Vibe-Coding` | AI 辅助编码/前端实践 |
-| `Knowledge` | 百科、英语、面试八股、系统知识 |
-| `PaperReading` | 论文阅读笔记 |
-| `Book` | 书籍读书笔记 |
+| `Agent 工程` | Agent 架构、框架、编排与工程实践 |
+| `RAG 与 LangChain` | RAG 原理、检索增强生成与 LangChain 生态 |
+| `Vibe Coding` | AI 辅助编码与相关开发实践 |
+| `Web 开发` | Web、前端与跨端开发 |
+| `工程实践` | 软件工程流程、规范与可观测性 |
+| `开发工具链` | 开发、构建、容器与自动化工具 |
+| `效率与文档` | 工作效率、文档与知识管理 |
+| `构建与打包` | 项目构建、依赖管理与打包发布 |
+| `数据科学` | 数据处理、科学计算与模型部署 |
+| `深度学习` | 深度学习模型、训练与方法 |
+| `科技月报` | 科技行业与技术动态整理 |
+| `编程语言` | 编程语言语法、库与运行时实践 |
+| `设计` | 软件架构、建模、原型与图表 |
+| `数学问题` | 数学谜题、组合推理与解题思路 |
+| `软件试用` | 软件与 AI 工具的使用分析 |
+| `运维与服务器` | 服务器、网络、存储与运维实践 |
+| `通识与生活` | 百科、英语学习与生活知识 |
+| `阅读笔记` | 书籍、论文与其他资料的阅读笔记 |
+| `面试八股` | 面试知识点与基础理论整理 |
+| `项目实战` | 爬虫、应用与端到端项目实践 |
 
 标签在同一分类下保持唯一：**同一个标签只能有一种写法**，否则 Hugo 会按 key 合并，显示名会在每次构建时随机互换。标签命名风格：`Agent-*` 系列用 Title Case 加空格（如 `Agent Tracing`），其余以简短英文或中文词为宜。新增标签前先用 `python zata.py search-tags -k "关键词"` 查重。
 
@@ -379,6 +387,12 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [关闭win11更新](content/post/效率与文档/02-系统小技巧/关闭win11更新/)
 - [在overleaf中为什么两个完全一样的代码一个不能显示图片](content/post/效率与文档/02-系统小技巧/在overleaf中为什么两个完全一样的代码一个不能显示图片/)
 
+## 数学问题 (1)
+
+### 01-组合与逻辑
+
+- [七色帽子问题：模 7 如何保证有人猜中](content/post/数学问题/01-组合与逻辑/七色帽子问题/)
+
 ## 数据科学 (13)
 
 ### 01-Transformers 全家桶
@@ -587,7 +601,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [内网文件传输工具LocalSend](content/post/软件试用/05-桌面效率工具/内网文件传输工具LocalSend/)
 - [实用软件工具｜好用软件推荐](content/post/软件试用/05-桌面效率工具/实用软件工具/)
 
-## 运维与服务器 (28)
+## 运维与服务器 (30)
 
 ### 01-服务器与系统
 
@@ -612,9 +626,11 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 
 ### 03-网关与站点
 
+- [CDN（内容分发网络）详解：原理、缓存与 Cloudflare Free 配置](content/post/运维与服务器/03-网关与站点/CDN/)
 - [Nginx](content/post/运维与服务器/03-网关与站点/nginx使用/)
 - [traefik](content/post/运维与服务器/03-网关与站点/traefik/)
 - [域名迁移](content/post/运维与服务器/03-网关与站点/域名迁移/)
+- [接口被“打爆”不只是 DDoS：API 洪水、批量请求与资源耗尽防护](content/post/运维与服务器/03-网关与站点/接口被打爆：API%20洪水、批量请求与资源耗尽防护/)
 
 ### 04-容器化部署
 

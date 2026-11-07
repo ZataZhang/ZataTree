@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">CDN 缓存命中、回源与重新验证流程</title>
+  <desc id="desc">请求先计算缓存键并检查副本。新鲜副本直接命中返回；未命中或过期时访问源站，源站返回 304 时复用旧内容，返回 200 时按缓存规则更新副本。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#5b87bf"/></marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#168b83"/></marker>
+    <marker id="arrow-amber" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#c18421"/></marker>
+    <style>
+      .h{font:700 30px sans-serif;fill:#10233f}.t{font:700 20px sans-serif;fill:#10233f}.s{font:16px sans-serif;fill:#445a76}.m{font:14px sans-serif;fill:#526b89}.box{fill:#fff;stroke:#9bb2cf;stroke-width:2}.main{fill:#e8f1ff;stroke:#5b87bf;stroke-width:3}.hit{fill:#eaf8f2;stroke:#168b83;stroke-width:2}.warn{fill:#fff6e4;stroke:#c18421;stroke-width:2}.line{stroke:#5b87bf;stroke-width:3;fill:none;marker-end:url(#arrow)}.good{stroke:#168b83;stroke-width:3;fill:none;marker-end:url(#arrow-green)}.maybe{stroke:#c18421;stroke-width:3;fill:none;marker-end:url(#arrow-amber)}
+    </style>
+  </defs>
+  <rect width="1200" height="620" rx="24" fill="#f8fafc"/>
+  <text x="48" y="58" class="h">缓存未命中时，CDN 如何决定回源与更新</text>
+  <text x="48" y="88" class="s">“过期”代表需要重新验证或取新内容，不一定代表节点上的旧副本已被删除</text>
+
+  <rect x="50" y="208" width="170" height="92" rx="16" class="box"/>
+  <text x="135" y="247" text-anchor="middle" class="t">用户请求</text>
+  <text x="135" y="276" text-anchor="middle" class="m">URL + 请求头</text>
+
+  <rect x="280" y="208" width="180" height="92" rx="16" class="box"/>
+  <text x="370" y="247" text-anchor="middle" class="t">计算缓存键</text>
+  <text x="370" y="276" text-anchor="middle" class="m">匹配对应对象</text>
+
+  <polygon points="605,174 730,254 605,334 480,254" class="main"/>
+  <text x="605" y="245" text-anchor="middle" class="t">有可复用的</text>
+  <text x="605" y="273" text-anchor="middle" class="t">新鲜副本吗？</text>
+
+  <rect x="850" y="130" width="286" height="108" rx="18" class="hit"/>
+  <text x="993" y="174" text-anchor="middle" class="t">HIT · 边缘直接返回</text>
+  <text x="993" y="204" text-anchor="middle" class="s">减少回源与等待</text>
+
+  <rect x="475" y="430" width="250" height="100" rx="18" class="warn"/>
+  <text x="600" y="472" text-anchor="middle" class="t">MISS / 副本过期</text>
+  <text x="600" y="503" text-anchor="middle" class="s">发起回源或条件请求</text>
+
+  <rect x="805" y="430" width="190" height="100" rx="18" class="box"/>
+  <text x="900" y="472" text-anchor="middle" class="t">源站响应</text>
+  <text x="900" y="503" text-anchor="middle" class="s">可能返回 304 或 200</text>
+
+  <rect x="1030" y="344" width="150" height="94" rx="16" class="hit"/>
+  <text x="1105" y="382" text-anchor="middle" class="t">304</text>
+  <text x="1105" y="409" text-anchor="middle" class="m">沿用旧内容</text>
+
+  <rect x="1030" y="474" width="150" height="94" rx="16" class="main"/>
+  <text x="1105" y="512" text-anchor="middle" class="t">200</text>
+  <text x="1105" y="539" text-anchor="middle" class="m">返回新内容</text>
+
+  <path d="M220 254H280" class="line"/>
+  <path d="M460 254H480" class="line"/>
+  <path d="M730 230H838" class="good"/>
+  <text x="768" y="218" class="m">是 · HIT</text>
+  <path d="M605 334V430" class="maybe"/>
+  <text x="618" y="380" class="m">否</text>
+  <path d="M725 480H793" class="line"/>
+  <path d="M995 454L1030 407" class="good"/>
+  <path d="M995 500H1030" class="line"/>
+
+  <text x="50" y="590" class="m">304 通常表示验证器确认内容未变；200 表示源站返回内容。是否存入缓存仍由响应头与 CDN 规则共同决定。</text>
+</svg>

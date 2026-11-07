@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="500" viewBox="0 0 1200 500" role="img" aria-labelledby="title desc">
+  <title id="title">一个请求如何放大成多项服务端工作</title>
+  <desc id="desc">单个报表导出请求进入应用后，展开为数据库查询、CPU与文件处理、对象存储和邮件服务调用。</desc>
+  <defs>
+    <linearGradient id="a" x1="0" x2="1">
+      <stop offset="0" stop-color="#5B87BF"/>
+      <stop offset="1" stop-color="#22D3EE"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#5B87BF"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="500" rx="20" fill="#0B1220"/>
+  <text x="56" y="58" fill="#F8FAFC" font-family="sans-serif" font-size="28" font-weight="700">外部请求数 ≠ 内部工作量</text>
+  <rect x="52" y="178" width="220" height="130" rx="16" fill="#101A2E" stroke="#5B87BF" stroke-width="3"/>
+  <text x="162" y="222" text-anchor="middle" fill="#9FB3D1" font-family="sans-serif" font-size="20">一个 HTTP 请求</text>
+  <text x="162" y="263" text-anchor="middle" fill="#F8FAFC" font-family="monospace" font-size="21">POST /reports</text>
+  <text x="162" y="291" text-anchor="middle" fill="#94A3B8" font-family="sans-serif" font-size="16">范围 + 聚合条件</text>
+  <line x1="272" y1="243" x2="395" y2="243" stroke="url(#a)" stroke-width="4" marker-end="url(#arrow)"/>
+  <rect x="405" y="165" width="210" height="156" rx="16" fill="#132039" stroke="#22D3EE" stroke-width="3"/>
+  <text x="510" y="210" text-anchor="middle" fill="#F8FAFC" font-family="sans-serif" font-size="22" font-weight="700">应用处理</text>
+  <text x="510" y="250" text-anchor="middle" fill="#9FB3D1" font-family="sans-serif" font-size="17">鉴权 · 聚合 · 转换</text>
+  <text x="510" y="282" text-anchor="middle" fill="#9FB3D1" font-family="sans-serif" font-size="17">生成任务与结果</text>
+  <path d="M615 243 H690 V116 H738 M690 243 V243 H738 M690 243 V370 H738" fill="none" stroke="#5B87BF" stroke-width="3"/>
+  <line x1="690" y1="116" x2="738" y2="116" stroke="#5B87BF" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="690" y1="243" x2="738" y2="243" stroke="#5B87BF" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="690" y1="370" x2="738" y2="370" stroke="#5B87BF" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="748" y="74" width="380" height="86" rx="14" fill="#101A2E" stroke="#334155" stroke-width="2"/>
+  <text x="780" y="111" fill="#F8FAFC" font-family="sans-serif" font-size="20">数据库</text>
+  <text x="780" y="139" fill="#94A3B8" font-family="sans-serif" font-size="16">多次查询 · 聚合 · 连接池</text>
+  <rect x="748" y="200" width="380" height="86" rx="14" fill="#101A2E" stroke="#334155" stroke-width="2"/>
+  <text x="780" y="237" fill="#F8FAFC" font-family="sans-serif" font-size="20">CPU / 内存 / 文件</text>
+  <text x="780" y="265" fill="#94A3B8" font-family="sans-serif" font-size="16">计算 · PDF · 图片处理 · 临时文件</text>
+  <rect x="748" y="327" width="380" height="86" rx="14" fill="#101A2E" stroke="#334155" stroke-width="2"/>
+  <text x="780" y="364" fill="#F8FAFC" font-family="sans-serif" font-size="20">外部服务</text>
+  <text x="780" y="392" fill="#94A3B8" font-family="sans-serif" font-size="16">对象存储 · 邮件 · 短信 · AI API</text>
+  <text x="56" y="457" fill="#22D3EE" font-family="sans-serif" font-size="18">防护要限制入口频率，也要限制每次请求能展开的工作量。</text>
+</svg>

@@ -25,6 +25,7 @@ CATEGORY_STYLE = {
     "Platforms_Tools":   ("#5B87BF", "#8B5CF6", "layers"),
     "Library":           ("#38BDF8", "#5EEAD4", "doc"),
     "Design":            ("#A78BFA", "#5EEAD4", "layers"),
+    "数学问题":          ("#A78BFA", "#5EEAD4", "graph"),
     "Knowledge":         ("#94A3B8", "#22D3EE", "doc"),
     "Grammar":           ("#5EEAD4", "#60A5FA", "terminal"),
     "PaperReading":      ("#F472B6", "#818CF8", "doc"),

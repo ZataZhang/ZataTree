@@ -1,7 +1,8 @@
 ---
 title: Dokploy
-description: ""
+description: "Dokploy 自托管部署与运维教程，涵盖安装、Docker Swarm、应用配置，并梳理 v0.28.1 到 v0.31.0 的功能与安全更新。"
 date: 2026-02-22T15:43:30+08:00
+lastmod: 2026-11-07
 image: images/index/index.png
 categories:
     - 运维与服务器
@@ -13,15 +14,95 @@ tags:
 
 
 
-# 快速安装使用教程 (注意，如果内存小于等于2G，一定要加虚拟内存，否则会卡死)
+# Dokploy 快速安装与使用教程
 
 
 [官网地址](https://dokploy.com/)
 
 [关于swarm的安装](https://docs.dokploy.com/docs/core/manual-installation)
 
+## Dokploy 的功能地图
 
-注意: 如果内存很小的机器,安装之后千万别点升级dokploy的按钮, 即使你开了Swap也没用,只要一升级,很大概率就会很绝望了(dokploy服务崩溃且无法恢复),内存1G的推荐安装0.26.6版本,其他版本可能就爆内存了  export DOKPLOY_VERSION=v0.26.6 && curl -sSL https://dokploy.com/install.sh | sh --- 20260310 
+Dokploy 可以理解为运行在自有服务器上的 Docker 应用交付控制面：它把应用构建、容器编排、域名入口和日常运维集中到一个 Web 面板。应用既可以跑在面板所在机器，也可以交给独立远程服务器，或加入同一个 Docker Swarm 集群；这三种部署方式的隔离和复杂度不同。[部署方式说明](https://docs.dokploy.com/docs/core/deployment-options)
+
+### 应用代码与发布
+
+应用可以从 Git 仓库或已有 Docker 镜像部署。代码构建可选 Nixpacks、Dockerfile、Buildpacks 或静态站点模式；面板管理环境变量、构建参数、部署触发和发布记录，也能查看构建输出、运行日志及容器状态。Git/Webhook 等自动部署适合把提交或镜像更新接到发布流程里。[应用管理](https://docs.dokploy.com/docs/core/applications) · [构建类型](https://docs.dokploy.com/docs/core/applications/build-type)
+
+### Compose 项目与数据库
+
+多容器项目可以直接交给 Dokploy 管理 Compose 文件，也可以使用面向 Swarm 的 Stack 模式。两种方式不是完全等价的：Stack 模式有部分 Compose 能力限制，例如不支持 `build`。面板也提供 PostgreSQL、MySQL、MariaDB、MongoDB、Redis 等数据库服务的创建、日志查看和备份管理；数据库备份可保存到配置好的 S3 目标。[Docker Compose 与 Stack](https://docs.dokploy.com/docs/core/docker-compose) · [数据库与备份](https://docs.dokploy.com/docs/core/databases)
+
+Compose 的环境变量编辑器会把变量写入项目的 `.env` 文件，但不会自动注入每个容器；Compose 文件仍需通过 `env_file` 或 `${变量名}` 显式引用。这是面板变量配置与容器运行环境之间容易混淆的一层。[Compose 环境变量说明](https://docs.dokploy.com/docs/core/docker-compose)
+
+### 域名、流量入口与网络
+
+Dokploy 使用 Traefik 为应用和 Compose 服务配置域名路由，可管理 HTTP/HTTPS 入口和证书。v0.30 增加 Cloudflare、AWS Route53 DNS Provider；不过当前文档把它标为 Enterprise 功能，而且它是独立的 DNS 记录管理入口，新增服务域名时仍要确保 DNS 记录已经指向目标服务器。Docker 面板还可查看和管理容器、卷、网络、镜像、事件及磁盘用量，服务也能按需加入或退出指定网络。[域名配置](https://docs.dokploy.com/docs/core/domains) · [DNS Provider 的范围](https://docs.dokploy.com/docs/core/dns-providers) · [v0.30.0 更新](https://dokploy.com/blog/v0-30-0-networks-management-dns-and-vault-providers-concurrent-builds-and-env-encryption)
+
+### 多服务器与构建分离
+
+简单部署可先用 Dokploy 所在服务器；需要隔离时，可通过 SSH 添加独立远程服务器；需要同一应用跨节点运行时，才考虑 Swarm 集群。构建服务器还能把应用编译从运行应用的主机分离出来，但它目前面向 Applications，不支持 Docker Compose，并且需要镜像仓库在构建端与部署端之间传递镜像。[部署方式与适用场景](https://docs.dokploy.com/docs/core/deployment-options) · [构建服务器限制](https://docs.dokploy.com/docs/core/remote-servers/build-server)
+
+v0.31 增加了服务及其数据在服务器之间迁移的流程，适用于主机资源不足或退役等场景。迁移前仍要核对持久卷、挂载路径及服务依赖，因为这些因素决定数据能否按预期恢复运行。[v0.31.0 更新](https://dokploy.com/blog/v0-31-0-service-transfers-server-security-logs-metrics-export-and-backup-downloads)
+
+### 运维、排障与自动化
+
+服务页面提供部署记录、构建和容器日志；Docker 总览把容器、卷、网络、事件、镜像、磁盘用量和健康诊断放在同一处。v0.31 还可把容器日志及主机、容器指标持续发送到 Loki、Prometheus、Datadog、CloudWatch 等外部平台。这个导出能力用于集中检索、仪表盘和告警，不会替代 Dokploy 自身的实时日志页。[日志与指标导出说明](https://docs.dokploy.com/docs/core/logs-and-metrics)
+
+v0.29 起，面板可以调用 AI 分析构建错误和运行日志，也能按自然语言生成 Compose 模板；Dokploy 不自带模型，使用前要配置外部 AI Provider 和 API Key，并检查生成的配置。另有 CLI 与 MCP Server，可从终端、脚本或兼容 MCP 的客户端管理 Dokploy 资源。远程服务器的安全页则集中显示 Fail2ban、IP 封禁、SSH 配置、防火墙状态、登录活动和待安装系统更新。它提供检查与操作入口，服务器补丁、网络暴露和恢复演练仍需由运维者负责。[AI Assistant 文档](https://docs.dokploy.com/docs/core/ai) · [v0.29.0 更新](https://dokploy.com/blog/v0-29-0-ai-powered-debugging-mcp-server-cli-shared-git-providers) · [远程服务器安全页](https://docs.dokploy.com/docs/core/remote-servers/security)
+
+### 环境变量、密钥与备份
+
+普通环境变量可按服务配置；v0.30 起，Dokploy 管理的环境变量支持静态加密，也可在部署时从 HashiCorp Vault、OpenBao、Infisical、AWS Secrets Manager、Doppler、Azure Key Vault 或 Scaleway Secret Manager 读取密钥。外部密钥轮换后，需要重新部署，新的值才会进入运行环境。[Secrets Provider 文档](https://docs.dokploy.com/docs/core/secrets-providers)
+
+数据库服务可以按计划备份到 S3 目标；v0.31 又加入备份列表下载和自定义文件名。备份的价值取决于是否实际验证过恢复流程，不能只看任务显示成功。[数据库备份](https://docs.dokploy.com/docs/core/databases/backups) · [v0.31.0 更新](https://dokploy.com/blog/v0-31-0-service-transfers-server-security-logs-metrics-export-and-backup-downloads)
+
+因此，Dokploy 适合希望在自有基础设施上统一管理容器应用的个人和小团队。它简化了发布和常见运维操作，但服务器规格、Docker 网络与端口、安全策略、持久化设计和备份恢复仍属于自己的运维范围；多节点 Swarm 也会增加集群网络、镜像分发和存储方面的工作。
+
+
+## v0.28.1 到 v0.31.0：主要更新
+
+截至 2026-11-07，GitHub Releases 页面将 `v0.31.0` 标为最新版本；它在 2026-11-05 发布。[发布列表](https://github.com/Dokploy/dokploy/releases)
+
+这段版本跨度的变化可以分成三组。`v0.30.0` 的官方公告还汇总了此前没有单独公告的大量 `v0.29.x` 更新。[v0.29.0 发布说明](https://dokploy.com/blog/v0-29-0-ai-powered-debugging-mcp-server-cli-shared-git-providers) · [v0.30.0 发布说明](https://dokploy.com/blog/v0-30-0-networks-management-dns-and-vault-providers-concurrent-builds-and-env-encryption)
+
+| 版本段 | 代表性更新 | 对使用方式的影响 |
+| --- | --- | --- |
+| `v0.29.0` | AI 分析容器日志和构建错误；MCP Server 与 CLI；组织共享 Git Provider；支持带免密 sudo 的非 root 远程用户；新增 LibSQL 数据库。 | 排障与基础设施管理可接入 AI 客户端和脚本；团队可以复用代码仓库凭据。 |
+| `v0.29.x`—`v0.30.0` | Docker 管理页整合容器、卷、网络、事件、镜像、磁盘用量和健康诊断；增加服务级网络、Cloudflare/Route53 DNS Provider、外部密钥提供方、环境变量静态加密、按服务器独立的构建队列，以及 Passkey、会话撤销和域名启停。 | 常见 Docker 检查可以在面板完成；网络和密钥管理更细；不同服务器的构建不再共用一个全局队列，账号和域名也更容易管理。DNS Provider 属于 Enterprise，且需单独管理 DNS 记录。 |
+| `v0.31.0` | 服务与数据跨服务器迁移；远程服务器安全面板；Vector 日志和指标导出；数据库备份下载与自定义文件名；面板安全更新 Traefik。 | 迁移工作负载、接入外部可观测平台和集中管理远程主机安全更直接。迁移前仍应核对数据卷、挂载和外部依赖。 |
+
+`v0.29.13` 到 `v0.31.0` 的公告还列出多轮安全修复，包括命令注入、跨组织权限、密钥泄露、文件路径限制和安全响应头。`v0.31.0` 官方建议尽快升级；升级前应确认备份可恢复，并安排维护窗口。[v0.31.0 发布说明](https://dokploy.com/blog/v0-31-0-service-transfers-server-security-logs-metrics-export-and-backup-downloads)
+
+其中，DNS Provider、SCIM、Forward Auth SSO、按用户分配服务器等能力属于 Enterprise 功能。另一个版本边界是：`v0.28.1` 已包含 `v0.28.0` 引入的 SSO/SAML 和 Patches，因此这里不把它们算作从 `v0.28.1` 之后新增的功能。[v0.28.0 发布说明](https://dokploy.com/blog/v0-28-0-sso-saml-and-a-new-patches-system)
+
+版本说明与当前远程服务器文档对非 root 登录的要求并不完全一致：`v0.29.0` 公告提到支持免密 sudo 的非 root 用户，而部署文档仍写有 root 权限要求。准备配置该方式时，应按目标版本的安装向导确认实际支持范围。[v0.29.0 发布说明](https://dokploy.com/blog/v0-29-0-ai-powered-debugging-mcp-server-cli-shared-git-providers) · [远程服务器部署文档](https://docs.dokploy.com/docs/core/remote-servers/deployments)
+
+**远程服务器安全提示。** GitHub 的 file-mount 命令注入公告将 `v0.28.8` 及更早版本列为受影响版本，范围包含 `v0.28.1`；公告目前没有填写修复版本。与此同时，`v0.31.0` 源码已对挂载文件路径做校验并对 shell 参数加引号。[安全公告](https://github.com/Dokploy/dokploy/security/advisories/GHSA-qcf5-jjjp-7794) · [v0.31.0 源码](https://github.com/Dokploy/dokploy/blob/v0.31.0/packages/server/src/utils/docker/utils.ts#L3535-L3631)
+
+这两处公开记录的修复状态没有完全对齐。使用远程服务器的旧版本实例应升级到包含该修复的版本，并确认实际运行的镜像标签；升级前也应限制能创建或编辑 file mount 的账号。
+
+### 低内存机器与版本固定
+
+原文在 2026-03-10 记录过低内存机器升级失败的经历，并建议 1GB 机器固定在 v0.26.6。那是旧环境记录，不能据此认定旧版本普遍稳定。Dokploy 当前官方建议至少 2GB RAM 和 30GB 磁盘；1GB 机器低于该建议规格。[官方安装要求](https://docs.dokploy.com/docs/core/installation)
+
+原先使用 `DOKPLOY_VERSION=v0.26.6` 固定版本的写法也应修正：官方说明该环境变量用于选择 `latest` 或 `canary`，固定具体版本应使用对应 GitHub Release 附带的 `install.sh`。例如，更新到 v0.31.0：
+
+```bash
+curl -sL https://github.com/Dokploy/dokploy/releases/download/v0.31.0/install.sh | sh -s update
+```
+
+对符合资源建议、使用标准安装方式的实例，官方提供了更新到最新稳定版的命令：
+
+```bash
+curl -sSL https://dokploy.com/install.sh | sh -s update
+```
+
+安装或更新固定版本时，将 release URL 中的版本号换成目标版本；具体方式见[官方安装与升级文档](https://docs.dokploy.com/docs/core/installation)。
+
+---
+
+## 安装与环境准备
 
 一键安装脚本，安装完成之后会给一个地址
 ```bash
@@ -34,7 +115,7 @@ curl -sSL https://dokploy.com/install.sh | ADVERTISE_ADDR=<你的服务器公网
 ```
 
 
-帮助子节点安装docker
+### 给 Swarm 子节点安装 Docker
 
 **阿里云服务器**
  ```bash
@@ -1724,85 +1805,3 @@ networks:
     *   一旦配置成功，去云服务商防火墙把 81 端口封掉，只留 80/443，以后通过 `npm.example.com` 访问管理后台，更加安全且带有 HTTPS。
 
 通过这套流程，你在 Dokploy 上就完美复刻了 1Panel 的反向代理体验，甚至在多服务器扩展性上比 1Panel 更强（因为基于标准的 Docker 网络）。
-
-
-
-
-# Dokploy介绍
-
-Dokploy 是一个新兴的、开源的、基于 Web 的服务器管理和应用程序部署平台，旨在让开发者和中小型团队能够像使用 Heroku 或 Vercel 一样简便地部署和管理应用，但所有服务完全运行在您自己拥有或控制的服务器（如 VPS）上。简单来说，Dokploy 是“自托管/私有化部署的 Heroku”。
-
-它通过一个直观的 Web 控制面板，将复杂的 Docker、Git、Webhook 和反向代理配置过程完全可视化，让您无需记忆冗长的命令行指令，就能完成应用部署、数据库创建、SSL 证书安装等一系列操作。
-
- 核心特性
-
-- **基于 Docker**：所有应用和服务都以 Docker 容器形式运行，保证环境的一致性和隔离性。支持上传标准的 `docker-compose.yml` 文件，或使用内置模板快速创建多容器应用。
-
-- **可视化部署**：
-  - **Git 集成**：连接 GitHub、GitLab 或 Bitbucket 仓库，实现持续部署。每次推送代码到指定分支，Dokploy 会自动拉取、构建并重新部署应用。
-  - **Docker 镜像部署**：可直接从 Docker Hub 或私有仓库拉取镜像进行部署。
-  - **环境变量管理**：在网页界面中轻松添加、编辑和管理敏感配置信息，无需手动编辑文件。
-
-- **内置服务支持**：一键部署常用数据库（MySQL、PostgreSQL、MongoDB、Redis 等）、缓存服务和反向代理（Nginx），无需手动编写配置文件。
-
-- **SSL 证书自动管理**：集成 Let’s Encrypt，为您的应用域名自动签发和续期免费的 HTTPS 证书，仅需点击几下即可完成配置。
-
-- **直观的监控与管理**：
-  - 实时查看容器状态（运行/停止）、CPU 与内存使用情况。
-  - 查看实时日志流，支持在线启动、停止、重启容器。
-
-- **多服务器管理**：一个 Dokploy 控制面板可同时管理多个远程服务器（节点），便于在不同机器上分布和调度应用。
-
-- **开源与可扩展**：完全开源（采用商业源码许可证），代码透明，社区驱动，支持通过插件或模板扩展功能，便于二次开发与定制。
-
- 典型工作流程
-
-1. **准备一台 VPS**：在 DigitalOcean、Linode、阿里云、腾讯云等服务商购买一台安装了 Ubuntu 或 Debian 的虚拟服务器。
-2. **安装 Dokploy**：使用官方提供的一键安装脚本，在服务器上部署 Dokploy（其本身也是一个 Docker 容器）。
-3. **访问控制面板**：通过浏览器访问服务器 IP 和指定端口，进入 Dokploy 的 Web 界面并完成初始设置。
-4. **连接 Git 账户**：在面板中授权您的 GitHub、GitLab 或 Bitbucket 账号。
-5. **创建新项目**：点击“部署应用”，选择目标仓库和分支。
-6. **配置部署参数**：设置端口映射、环境变量、构建命令等。Dokploy 会自动生成 `Dockerfile`（如项目未提供），或使用您上传的 `docker-compose.yml`。
-7. **执行部署**：点击“部署”按钮，Dokploy 会自动拉取代码、构建镜像、启动容器，并通过内置的 Traefik 或 Nginx 配置好域名访问。
-8. **持续管理**：部署完成后，通过面板监控应用状态、查看日志、添加自定义域名并启用 SSL。
-
- 适合谁使用？
-
-- **前端/全栈开发者**：希望快速部署 Next.js、Nuxt.js、React、Vue 或 Node.js 等项目，却不愿花时间处理服务器运维。
-- **初创团队和小公司**：需要成本可控、易于维护的部署方案，同时避免被 Heroku、Railway 等 PaaS 平台绑定或高额费用困扰。
-- **注重数据隐私的个人或组织**：因合规性、安全或数据主权要求，必须将应用部署在自有基础设施上，但仍希望享受现代云平台的便捷体验。
-- **Docker 初学者**：想体验容器化部署的优势，但对命令行、网络配置、存储卷等概念感到困难。
-
- 优点与缺点
-
-**优点：**
-- **成本效益高**：仅需支付 VPS 费用，Dokploy 本身免费，长期使用远低于按需付费的云 PaaS。
-- **完全自主可控**：数据和基础设施由您掌控，可自由定制服务器配置和安全策略。
-- **开发者体验友好**：极大降低了 Docker 和 CI/CD 的入门门槛，部署流程流畅直观。
-- **活跃社区**：项目更新频繁，功能持续迭代，社区支持逐步增强。
-
-**缺点：**
-- **依赖自有服务器**：您需具备基本的服务器运维能力（如 SSH 登录、防火墙设置），并自行负责安全更新、备份和底层维护。
-- **非企业级架构**：相比 Kubernetes 或商业面板（如 Plesk、cPanel），在集群管理、高可用、自动伸缩等方面功能尚不完善。
-- **新兴项目**：作为较新的开源工具，其长期稳定性、大规模生产环境验证和生态成熟度仍需时间检验。
-
- 与其他工具的对比
-
-| 工具 | 类型 | 核心特点 | 适合场景 |
-| :--- | :--- | :--- | :--- |
-| **Dokploy** | 自托管 PaaS 面板 | 开源、可视化、Git 集成、轻量级、基于 Docker | 个人开发者、小团队自托管应用 |
-| **Heroku / Vercel** | 云 PaaS | 极致简化、全托管、生态丰富、按需付费 | 追求效率、不愿管理服务器的用户 |
-| **Portainer** | Docker 管理面板 | 通用型容器、镜像、网络、卷管理 | 需要精细管理 Docker 环境的管理员 |
-| **Coolify / CapRover** | 自托管 PaaS 面板 | 与 Dokploy 定位高度重叠，功能相似 | 可作为 Dokploy 的替代选择进行对比 |
-| **Kubernetes** | 容器编排平台 | 企业级、高扩展性、功能强大但复杂 | 大型系统、微服务架构、需要弹性伸缩的场景 |
-
- 如何开始？
-
-1. 访问 Dokploy 官方网站获取最新文档和安装指南：[https://dokploy.com](https://dokploy.com)
-2. 查看开源代码和社区贡献：[https://github.com/Dokploy/dokploy](https://github.com/Dokploy/dokploy)
-
- 总结
-
-Dokploy 填补了“完全托管的云服务”与“手动服务器运维”之间的空白，让开发者能专注于编写代码，而将部署与运维的复杂性封装在一个美观、易用的界面之后。对于追求自主权、控制权和成本效益的开发者而言，Dokploy 是一个极具吸引力的现代部署解决方案。如果您正在寻找一种比手动操作更高效、比大型云平台更自主的部署方式，Dokploy 绝对值得一试。
-
-

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-label="帽子分配按总和模七的余数划分为七类">
+  <defs>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" fill="#253149"/></pattern>
+    <linearGradient id="accent" x1="0" x2="1"><stop offset="0" stop-color="#7C9CF5"/><stop offset="1" stop-color="#5EEAD4"/></linearGradient>
+  </defs>
+  <rect width="1200" height="560" fill="#0B1220"/>
+  <rect width="1200" height="560" fill="url(#dots)" opacity=".55"/>
+  <text x="60" y="60" fill="#F8FAFC" font-family="sans-serif" font-size="30" font-weight="700">所有局面都落入唯一一个余数桶</text>
+  <text x="60" y="96" fill="#9FB3D1" font-family="sans-serif" font-size="18">先计算七顶帽子编号总和 mod 7，再由对应编号的人保证猜中</text>
+
+  <rect x="60" y="132" width="300" height="88" rx="18" fill="#111A2B" stroke="#475569" stroke-width="2"/>
+  <text x="210" y="168" fill="#CBD5E1" font-family="sans-serif" font-size="20" text-anchor="middle">任意一种帽子分配</text>
+  <text x="210" y="199" fill="#F8FAFC" font-family="ui-monospace,monospace" font-size="24" text-anchor="middle">7^7 种状态</text>
+  <path d="M375 176 L438 176" stroke="url(#accent)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M427 166 L440 176 L427 186" fill="none" stroke="#5EEAD4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="455" y="132" width="290" height="88" rx="18" fill="#111A2B" stroke="#475569" stroke-width="2"/>
+  <text x="600" y="168" fill="#CBD5E1" font-family="sans-serif" font-size="20" text-anchor="middle">计算总和余数</text>
+  <text x="600" y="199" fill="#F8FAFC" font-family="ui-monospace,monospace" font-size="24" text-anchor="middle">R = (Σ cᵢ) mod 7</text>
+  <path d="M760 176 L823 176" stroke="url(#accent)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M812 166 L825 176 L812 186" fill="none" stroke="#5EEAD4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="840" y="132" width="300" height="88" rx="18" fill="#111A2B" stroke="url(#accent)" stroke-width="2"/>
+  <text x="990" y="168" fill="#CBD5E1" font-family="sans-serif" font-size="20" text-anchor="middle">唯一指定一位参与者</text>
+  <text x="990" y="199" fill="#5EEAD4" font-family="ui-monospace,monospace" font-size="24" text-anchor="middle">P_R 猜中</text>
+
+  <g font-family="sans-serif" text-anchor="middle">
+    <rect x="48" y="260" width="148" height="190" rx="16" fill="#111A2B" stroke="#7C9CF5" stroke-width="2"/>
+    <text x="122" y="300" fill="#7C9CF5" font-size="25" font-weight="700">R = 0</text><text x="122" y="345" fill="#CBD5E1" font-size="18">7^6 种分配</text><text x="122" y="393" fill="#F8FAFC" font-size="19">P0 猜中</text>
+    <rect x="212" y="260" width="148" height="190" rx="16" fill="#111A2B" stroke="#8B9FF7" stroke-width="2"/>
+    <text x="286" y="300" fill="#8B9FF7" font-size="25" font-weight="700">R = 1</text><text x="286" y="345" fill="#CBD5E1" font-size="18">7^6 种分配</text><text x="286" y="393" fill="#F8FAFC" font-size="19">P1 猜中</text>
+    <rect x="376" y="260" width="148" height="190" rx="16" fill="#111A2B" stroke="#9B8CF5" stroke-width="2"/>
+    <text x="450" y="300" fill="#9B8CF5" font-size="25" font-weight="700">R = 2</text><text x="450" y="345" fill="#CBD5E1" font-size="18">7^6 种分配</text><text x="450" y="393" fill="#F8FAFC" font-size="19">P2 猜中</text>
+    <rect x="540" y="260" width="148" height="190" rx="16" fill="#111A2B" stroke="#A78BFA" stroke-width="2"/>
+    <text x="614" y="300" fill="#A78BFA" font-size="25" font-weight="700">R = 3</text><text x="614" y="345" fill="#CBD5E1" font-size="18">7^6 种分配</text><text x="614" y="393" fill="#F8FAFC" font-size="19">P3 猜中</text>
+    <rect x="704" y="260" width="148" height="190" rx="16" fill="#111A2B" stroke="#9C9AEF" stroke-width="2"/>
+    <text x="778" y="300" fill="#9C9AEF" font-size="25" font-weight="700">R = 4</text><text x="778" y="345" fill="#CBD5E1" font-size="18">7^6 种分配</text><text x="778" y="393" fill="#F8FAFC" font-size="19">P4 猜中</text>
+    <rect x="868" y="260" width="148" height="190" rx="16" fill="#111A2B" stroke="#79B6D9" stroke-width="2"/>
+    <text x="942" y="300" fill="#79B6D9" font-size="25" font-weight="700">R = 5</text><text x="942" y="345" fill="#CBD5E1" font-size="18">7^6 种分配</text><text x="942" y="393" fill="#F8FAFC" font-size="19">P5 猜中</text>
+    <rect x="1032" y="260" width="148" height="190" rx="16" fill="#111A2B" stroke="#5EEAD4" stroke-width="2"/>
+    <text x="1106" y="300" fill="#5EEAD4" font-size="25" font-weight="700">R = 6</text><text x="1106" y="345" fill="#CBD5E1" font-size="18">7^6 种分配</text><text x="1106" y="393" fill="#F8FAFC" font-size="19">P6 猜中</text>
+  </g>
+  <text x="600" y="505" fill="#F8FAFC" font-family="ui-monospace,monospace" font-size="24" text-anchor="middle">7 × 7^6 = 7^7</text>
+  <text x="600" y="535" fill="#9FB3D1" font-family="sans-serif" font-size="17" text-anchor="middle">七个互不重叠的余数类，覆盖所有配置</text>
+</svg>

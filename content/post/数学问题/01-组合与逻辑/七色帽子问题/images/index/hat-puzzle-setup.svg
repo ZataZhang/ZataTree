@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="img" aria-label="七人帽子谜题的参与者和可见关系">
+  <defs>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" fill="#253149"/></pattern>
+    <linearGradient id="accent" x1="0" x2="1"><stop offset="0" stop-color="#7C9CF5"/><stop offset="1" stop-color="#5EEAD4"/></linearGradient>
+  </defs>
+  <rect width="1200" height="600" fill="#0B1220"/>
+  <rect width="1200" height="600" fill="url(#dots)" opacity=".55"/>
+  <text x="60" y="62" fill="#F8FAFC" font-family="sans-serif" font-size="31" font-weight="700">七人、七色、同时猜测</text>
+  <text x="60" y="99" fill="#9FB3D1" font-family="sans-serif" font-size="19">帽色可以重复；每个人看见其他六顶，但看不到自己的</text>
+  <ellipse cx="600" cy="335" rx="395" ry="158" fill="#111A2B" stroke="#334155" stroke-width="2"/>
+  <ellipse cx="600" cy="335" rx="350" ry="125" fill="none" stroke="#2C3A58" stroke-width="2" stroke-dasharray="5 10"/>
+  <text x="600" y="311" fill="#F8FAFC" font-family="sans-serif" font-size="25" text-anchor="middle" font-weight="700">先约定同一条规则</text>
+  <text x="600" y="351" fill="#CBD5E1" font-family="sans-serif" font-size="20" text-anchor="middle">看到的六顶帽子 → 计算自己的猜测</text>
+
+  <g>
+    <path d="M579 150 L587 119 L613 119 L621 150 Z" fill="#EF4444" stroke="#FCA5A5" stroke-width="2"/>
+    <ellipse cx="600" cy="151" rx="25" ry="6" fill="#EF4444" stroke="#FCA5A5" stroke-width="2"/>
+    <circle cx="600" cy="174" r="17" fill="#E2E8F0"/>
+    <path d="M600 193 L600 222 M581 207 L619 207" stroke="#7C9CF5" stroke-width="8" stroke-linecap="round"/>
+    <text x="600" y="247" fill="#F8FAFC" font-family="sans-serif" font-size="17" text-anchor="middle">P0 · 2</text>
+  </g>
+  <g>
+    <path d="M824 202 L832 171 L858 171 L866 202 Z" fill="#F97316" stroke="#FDBA74" stroke-width="2"/>
+    <ellipse cx="845" cy="203" rx="25" ry="6" fill="#F97316" stroke="#FDBA74" stroke-width="2"/>
+    <circle cx="845" cy="226" r="17" fill="#E2E8F0"/>
+    <path d="M845 245 L845 274 M826 259 L864 259" stroke="#7C9CF5" stroke-width="8" stroke-linecap="round"/>
+    <text x="845" y="299" fill="#F8FAFC" font-family="sans-serif" font-size="17" text-anchor="middle">P1 · 0</text>
+  </g>
+  <g>
+    <path d="M914 326 L922 295 L948 295 L956 326 Z" fill="#EAB308" stroke="#FDE68A" stroke-width="2"/>
+    <ellipse cx="935" cy="327" rx="25" ry="6" fill="#EAB308" stroke="#FDE68A" stroke-width="2"/>
+    <circle cx="935" cy="350" r="17" fill="#E2E8F0"/>
+    <path d="M935 369 L935 398 M916 383 L954 383" stroke="#7C9CF5" stroke-width="8" stroke-linecap="round"/>
+    <text x="935" y="423" fill="#F8FAFC" font-family="sans-serif" font-size="17" text-anchor="middle">P2 · 4</text>
+  </g>
+  <g>
+    <path d="M739 406 L747 375 L773 375 L781 406 Z" fill="#22C55E" stroke="#86EFAC" stroke-width="2"/>
+    <ellipse cx="760" cy="407" rx="25" ry="6" fill="#22C55E" stroke="#86EFAC" stroke-width="2"/>
+    <circle cx="760" cy="430" r="17" fill="#E2E8F0"/>
+    <path d="M760 449 L760 478 M741 463 L779 463" stroke="#7C9CF5" stroke-width="8" stroke-linecap="round"/>
+    <text x="760" y="503" fill="#F8FAFC" font-family="sans-serif" font-size="17" text-anchor="middle">P3 · 1</text>
+  </g>
+  <g>
+    <path d="M419 406 L427 375 L453 375 L461 406 Z" fill="#3B82F6" stroke="#93C5FD" stroke-width="2"/>
+    <ellipse cx="440" cy="407" rx="25" ry="6" fill="#3B82F6" stroke="#93C5FD" stroke-width="2"/>
+    <circle cx="440" cy="430" r="17" fill="#E2E8F0"/>
+    <path d="M440 449 L440 478 M421 463 L459 463" stroke="#7C9CF5" stroke-width="8" stroke-linecap="round"/>
+    <text x="440" y="503" fill="#F8FAFC" font-family="sans-serif" font-size="17" text-anchor="middle">P4 · 6</text>
+  </g>
+  <g>
+    <path d="M244 326 L252 295 L278 295 L286 326 Z" fill="#EF4444" stroke="#FCA5A5" stroke-width="2"/>
+    <ellipse cx="265" cy="327" rx="25" ry="6" fill="#EF4444" stroke="#FCA5A5" stroke-width="2"/>
+    <circle cx="265" cy="350" r="17" fill="#E2E8F0"/>
+    <path d="M265 369 L265 398 M246 383 L284 383" stroke="#7C9CF5" stroke-width="8" stroke-linecap="round"/>
+    <text x="265" y="423" fill="#F8FAFC" font-family="sans-serif" font-size="17" text-anchor="middle">P5 · 2</text>
+  </g>
+  <g>
+    <path d="M334 202 L342 171 L368 171 L376 202 Z" fill="#A855F7" stroke="#D8B4FE" stroke-width="2"/>
+    <ellipse cx="355" cy="203" rx="25" ry="6" fill="#A855F7" stroke="#D8B4FE" stroke-width="2"/>
+    <circle cx="355" cy="226" r="17" fill="#E2E8F0"/>
+    <path d="M355 245 L355 274 M336 259 L374 259" stroke="#7C9CF5" stroke-width="8" stroke-linecap="round"/>
+    <text x="355" y="299" fill="#F8FAFC" font-family="sans-serif" font-size="17" text-anchor="middle">P6 · 5</text>
+  </g>
+  <rect x="60" y="548" width="1080" height="4" rx="2" fill="url(#accent)" opacity=".8"/>
+</svg>

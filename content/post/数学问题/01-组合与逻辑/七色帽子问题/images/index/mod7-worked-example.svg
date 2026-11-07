@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="500" viewBox="0 0 1200 500" role="img" aria-label="模七猜测策略的具体计算示例">
+  <defs>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" fill="#253149"/></pattern>
+    <linearGradient id="accent" x1="0" x2="1"><stop offset="0" stop-color="#7C9CF5"/><stop offset="1" stop-color="#5EEAD4"/></linearGradient>
+  </defs>
+  <rect width="1200" height="500" fill="#0B1220"/>
+  <rect width="1200" height="500" fill="url(#dots)" opacity=".55"/>
+  <text x="60" y="61" fill="#F8FAFC" font-family="sans-serif" font-size="30" font-weight="700">例子：总和余数为 0，P0 猜中</text>
+  <text x="60" y="96" fill="#9FB3D1" font-family="sans-serif" font-size="18">卡片里的数字是颜色编号；颜色本身只负责展示，不参与额外假设</text>
+
+  <g font-family="sans-serif" text-anchor="middle">
+    <rect x="40" y="130" width="148" height="142" rx="16" fill="#172238" stroke="url(#accent)" stroke-width="3"/>
+    <text x="114" y="161" fill="#CBD5E1" font-size="18">P0</text>
+    <circle cx="114" cy="204" r="25" fill="#EF4444"/><text x="114" y="215" fill="#FFFFFF" font-size="30" font-weight="700">2</text>
+    <text x="114" y="251" fill="#5EEAD4" font-size="16">唯一命中</text>
+
+    <rect x="205" y="130" width="148" height="142" rx="16" fill="#111A2B" stroke="#334155" stroke-width="2"/>
+    <text x="279" y="161" fill="#CBD5E1" font-size="18">P1</text>
+    <circle cx="279" cy="204" r="25" fill="#F97316"/><text x="279" y="215" fill="#FFFFFF" font-size="30" font-weight="700">0</text>
+    <text x="279" y="251" fill="#64748B" font-size="16">实际帽色</text>
+
+    <rect x="370" y="130" width="148" height="142" rx="16" fill="#111A2B" stroke="#334155" stroke-width="2"/>
+    <text x="444" y="161" fill="#CBD5E1" font-size="18">P2</text>
+    <circle cx="444" cy="204" r="25" fill="#EAB308"/><text x="444" y="215" fill="#FFFFFF" font-size="30" font-weight="700">4</text>
+    <text x="444" y="251" fill="#64748B" font-size="16">实际帽色</text>
+
+    <rect x="535" y="130" width="148" height="142" rx="16" fill="#111A2B" stroke="#334155" stroke-width="2"/>
+    <text x="609" y="161" fill="#CBD5E1" font-size="18">P3</text>
+    <circle cx="609" cy="204" r="25" fill="#22C55E"/><text x="609" y="215" fill="#FFFFFF" font-size="30" font-weight="700">1</text>
+    <text x="609" y="251" fill="#64748B" font-size="16">实际帽色</text>
+
+    <rect x="700" y="130" width="148" height="142" rx="16" fill="#111A2B" stroke="#334155" stroke-width="2"/>
+    <text x="774" y="161" fill="#CBD5E1" font-size="18">P4</text>
+    <circle cx="774" cy="204" r="25" fill="#3B82F6"/><text x="774" y="215" fill="#FFFFFF" font-size="30" font-weight="700">6</text>
+    <text x="774" y="251" fill="#64748B" font-size="16">实际帽色</text>
+
+    <rect x="865" y="130" width="148" height="142" rx="16" fill="#111A2B" stroke="#334155" stroke-width="2"/>
+    <text x="939" y="161" fill="#CBD5E1" font-size="18">P5</text>
+    <circle cx="939" cy="204" r="25" fill="#6366F1"/><text x="939" y="215" fill="#FFFFFF" font-size="30" font-weight="700">3</text>
+    <text x="939" y="251" fill="#64748B" font-size="16">实际帽色</text>
+
+    <rect x="1030" y="130" width="148" height="142" rx="16" fill="#111A2B" stroke="#334155" stroke-width="2"/>
+    <text x="1104" y="161" fill="#CBD5E1" font-size="18">P6</text>
+    <circle cx="1104" cy="204" r="25" fill="#A855F7"/><text x="1104" y="215" fill="#FFFFFF" font-size="30" font-weight="700">5</text>
+    <text x="1104" y="251" fill="#64748B" font-size="16">实际帽色</text>
+  </g>
+
+  <rect x="72" y="310" width="1056" height="72" rx="18" fill="#111A2B" stroke="#334155" stroke-width="2"/>
+  <text x="600" y="355" fill="#F8FAFC" font-family="ui-monospace,monospace" font-size="25" text-anchor="middle">2 + 0 + 4 + 1 + 6 + 3 + 5 = 21    →    21 mod 7 = 0</text>
+  <path d="M600 389 L600 416" stroke="url(#accent)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M590 408 L600 420 L610 408" fill="none" stroke="#5EEAD4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="600" y="457" fill="#CBD5E1" font-family="sans-serif" font-size="20" text-anchor="middle">P0 看见其余六顶之和为 19：猜测 = (0 - 19) mod 7 = 2</text>
+</svg>

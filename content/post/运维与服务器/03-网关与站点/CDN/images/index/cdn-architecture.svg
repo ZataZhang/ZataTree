@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+  <title id="title">CDN 请求链路与缓存层级</title>
+  <desc id="desc">用户请求经 DNS 或 Anycast 选路到 CDN 边缘 PoP。命中时由边缘直接返回；未命中时可经过区域缓存回源，或直接访问源站。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#5b87bf"/></marker>
+    <marker id="arrow-teal" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#168b83"/></marker>
+    <style>
+      .h{font:700 30px sans-serif;fill:#10233f}.t{font:700 22px sans-serif;fill:#10233f}.s{font:16px sans-serif;fill:#445a76}.m{font:14px sans-serif;fill:#526b89}.box{fill:#fff;stroke:#9bb2cf;stroke-width:2}.main{fill:#e8f1ff;stroke:#5b87bf;stroke-width:3}.optional{fill:#eaf8f6;stroke:#168b83;stroke-width:2}.line{stroke:#5b87bf;stroke-width:3;fill:none;marker-end:url(#arrow)}.return{stroke:#168b83;stroke-width:3;fill:none;marker-end:url(#arrow-teal)}.dashed{stroke-dasharray:8 7}
+    </style>
+  </defs>
+  <rect width="1200" height="560" rx="24" fill="#f8fafc"/>
+  <text x="48" y="58" class="h">CDN 把缓存和请求处理放到用户与源站之间</text>
+  <text x="48" y="88" class="s">命中时在边缘返回；未命中时按服务配置逐层查询或回源</text>
+
+  <rect x="50" y="202" width="200" height="136" rx="18" class="box"/>
+  <text x="76" y="245" class="t">用户 / 浏览器</text>
+  <text x="76" y="278" class="s">发起 HTTPS 请求</text>
+  <text x="76" y="307" class="m">图片 · 页面 · API</text>
+
+  <rect x="390" y="168" width="260" height="204" rx="20" class="main"/>
+  <text x="422" y="211" class="t">CDN 边缘 PoP</text>
+  <text x="422" y="246" class="s">检查缓存键与新鲜度</text>
+  <rect x="422" y="270" width="96" height="36" rx="18" fill="#d9f2e8"/>
+  <text x="470" y="294" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#146b50">HIT 命中</text>
+  <rect x="530" y="270" width="92" height="36" rx="18" fill="#fff2d7"/>
+  <text x="576" y="294" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#895b13">MISS 回源</text>
+  <text x="422" y="338" class="m">TLS · 规则 · 缓存</text>
+
+  <rect x="780" y="106" width="205" height="116" rx="18" class="optional"/>
+  <text x="804" y="148" class="t">区域缓存</text>
+  <text x="804" y="179" class="s">可选的回源汇聚层</text>
+  <text x="804" y="204" class="m">降低重复回源</text>
+
+  <rect x="990" y="282" width="180" height="126" rx="18" class="box"/>
+  <text x="1014" y="325" class="t">源站 Origin</text>
+  <text x="1014" y="357" class="s">Web / 应用</text>
+  <text x="1014" y="384" class="m">对象存储等</text>
+
+  <path d="M250 238H378" class="line"/>
+  <text x="267" y="226" class="m">请求</text>
+  <text x="267" y="184" class="m">DNS / Anycast 选路</text>
+  <path d="M250 300H378" class="return"/>
+  <text x="267" y="326" class="m">响应</text>
+
+  <path d="M650 215L780 164" class="line"/>
+  <text x="676" y="184" class="m">MISS / 过期</text>
+  <path d="M985 166H1066V282" class="line"/>
+  <text x="1002" y="151" class="m">再未命中</text>
+
+  <path d="M650 350H730V448H1076V408" class="line dashed"/>
+  <text x="798" y="438" class="m">未配置区域缓存时，可直接回源</text>
+
+  <path d="M990 382H944V482H690V354H640" class="return"/>
+  <text x="770" y="475" class="m">源站响应回到边缘</text>
+
+  <path d="M390 354H328V500H148V330" class="return"/>
+  <text x="182" y="488" class="m">边缘命中后直接响应用户</text>
+
+  <text x="50" y="538" class="m">DNS 调度或 Anycast 等方式负责选路；具体节点与中间缓存层取决于 CDN 服务商。</text>
+</svg>

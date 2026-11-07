@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="470" viewBox="0 0 1200 470" role="img" aria-labelledby="title desc">
+  <title id="title">浏览器缓存、CDN 缓存和源站的层级关系</title>
+  <desc id="desc">请求依次检查浏览器缓存、CDN 边缘缓存和可选区域缓存，未命中时到达源站。每一层有独立的缓存策略；清理 CDN 不会删除浏览器本地副本。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#5b87bf"/></marker>
+    <style>
+      .h{font:700 30px sans-serif;fill:#10233f}.t{font:700 20px sans-serif;fill:#10233f}.s{font:16px sans-serif;fill:#445a76}.m{font:14px sans-serif;fill:#526b89}.box{fill:#fff;stroke:#9bb2cf;stroke-width:2}.main{fill:#e8f1ff;stroke:#5b87bf;stroke-width:3}.opt{fill:#eaf8f6;stroke:#168b83;stroke-width:2}.line{stroke:#5b87bf;stroke-width:3;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1200" height="470" rx="24" fill="#f8fafc"/>
+  <text x="48" y="58" class="h">浏览器缓存与 CDN 缓存是不同的层</text>
+  <text x="48" y="88" class="s">每一层独立判断是否命中；请求未命中时继续向源站方向查询</text>
+
+  <rect x="48" y="150" width="226" height="142" rx="18" class="box"/>
+  <text x="72" y="190" class="t">浏览器缓存</text>
+  <text x="72" y="222" class="s">常由 max-age 控制</text>
+  <text x="72" y="254" class="m">重复访问可本地复用</text>
+
+  <rect x="340" y="150" width="226" height="142" rx="18" class="main"/>
+  <text x="364" y="190" class="t">CDN 边缘缓存</text>
+  <text x="364" y="222" class="s">s-maxage / Edge TTL</text>
+  <text x="364" y="254" class="m">靠近用户的 PoP 节点</text>
+
+  <rect x="632" y="150" width="226" height="142" rx="18" class="opt"/>
+  <text x="656" y="190" class="t">区域缓存（可选）</text>
+  <text x="656" y="222" class="s">服务商策略 / TTL</text>
+  <text x="656" y="254" class="m">减少重复回源</text>
+
+  <rect x="924" y="150" width="226" height="142" rx="18" class="box"/>
+  <text x="948" y="190" class="t">源站</text>
+  <text x="948" y="222" class="s">保存权威版本</text>
+  <text x="948" y="254" class="m">MISS 时提供内容</text>
+
+  <path d="M274 220H328" class="line"/>
+  <path d="M566 220H620" class="line"/>
+  <path d="M858 220H912" class="line"/>
+
+  <rect x="48" y="334" width="1102" height="86" rx="16" fill="#fff6e4" stroke="#e3bd72" stroke-width="2"/>
+  <text x="76" y="370" class="t">刷新边界</text>
+  <text x="218" y="370" class="s">清理 CDN 副本不会删除用户浏览器里的副本。使用带内容哈希的文件名，可让新版本通过新 URL 被重新获取。</text>
+  <text x="218" y="397" class="m">例如：app.8f31c2.js → app.91ab70.js</text>
+</svg>

@@ -12,7 +12,7 @@ This is a Hugo-based static blog repository named "ZataTree" that serves as a co
 
 ### Content Structure
 The blog follows a hierarchical content organization:
-- **Categories**: Top-level content classifications (Agent, Design, Engineering, DeepLearning, Grammar, Knowledge, Library, PaperReading, Platforms_Tools, Project_Application)
+- **Categories**: Top-level content classifications (Agent 工程, RAG 与 LangChain, Vibe Coding, Web 开发, 工程实践, 开发工具链, 效率与文档, 构建与打包, 数据科学, 深度学习, 科技月报, 编程语言, 设计, 数学问题, 软件试用, 运维与服务器, 通识与生活, 阅读笔记, 面试八股, 项目实战)
 - **Tags**: Specific topics within categories
 - **Posts**: Individual articles organized as `content/post/{category}/{tag}/{title}/index.md`
 
@@ -192,16 +192,26 @@ The zata.py tool requires write permissions to create directories and files in t
 ## Content Guidelines
 
 ### Supported Categories
-- **Agent**: AI agents, LangChain, MetaGPT
-- **Design**: Architecture, modeling, diagrams, prototyping
-- **Engineering**: Software engineering, observability, development practices
-- **DeepLearning**: ML models, training, tools
-- **Grammar**: Programming language syntax (Python, Matlab, PyQt)
-- **Knowledge**: General knowledge, tutorials, documentation
-- **Library**: Code libraries and frameworks
-- **PaperReading**: Academic paper summaries
-- **Platforms_Tools**: Development tools and platforms  
-- **Project_Application**: Practical projects and applications
+- **Agent 工程**：Agent 架构、框架、编排与工程实践
+- **RAG 与 LangChain**：RAG 原理、检索增强生成与 LangChain 生态
+- **Vibe Coding**：AI 辅助编码与相关开发实践
+- **Web 开发**：Web、前端与跨端开发
+- **工程实践**：软件工程流程、规范与可观测性
+- **开发工具链**：开发、构建、容器与自动化工具
+- **效率与文档**：工作效率、文档与知识管理
+- **构建与打包**：项目构建、依赖管理与打包发布
+- **数据科学**：数据处理、科学计算与模型部署
+- **深度学习**：深度学习模型、训练与方法
+- **科技月报**：科技行业与技术动态整理
+- **编程语言**：编程语言语法、库与运行时实践
+- **设计**：软件架构、建模、原型与图表
+- **数学问题**：数学谜题、组合推理与解题思路
+- **软件试用**：软件与 AI 工具的使用分析
+- **运维与服务器**：服务器、网络、存储与运维实践
+- **通识与生活**：百科、英语学习与生活知识
+- **阅读笔记**：书籍、论文与其他资料的阅读笔记
+- **面试八股**：面试知识点与基础理论整理
+- **项目实战**：爬虫、应用与端到端项目实践
 
 ### Writing Standards
 - Use clear, descriptive titles

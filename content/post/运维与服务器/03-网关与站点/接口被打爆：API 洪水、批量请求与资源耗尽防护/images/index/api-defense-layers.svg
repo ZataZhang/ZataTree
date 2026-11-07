@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="460" viewBox="0 0 1200 460" role="img" aria-labelledby="title desc">
+  <title id="title">API DDoS 与资源耗尽的分层防护</title>
+  <desc id="desc">请求从互联网进入上游清洗、CDN和WAF、网关，再经过身份与业务配额、限长队列，最后访问数据库和外部服务。</desc>
+  <defs>
+    <linearGradient id="edge" x1="0" x2="1">
+      <stop offset="0" stop-color="#5B87BF"/>
+      <stop offset="1" stop-color="#22D3EE"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#5B87BF"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="460" rx="20" fill="#0B1220"/>
+  <text x="48" y="52" fill="#F8FAFC" font-family="sans-serif" font-size="28" font-weight="700">把保护放在资源被耗尽之前</text>
+  <g font-family="sans-serif" text-anchor="middle">
+    <rect x="42" y="160" width="130" height="112" rx="14" fill="#101A2E" stroke="#475569" stroke-width="2"/>
+    <text x="107" y="204" fill="#F8FAFC" font-size="19">互联网</text>
+    <text x="107" y="236" fill="#94A3B8" font-size="15">正常用户</text>
+    <text x="107" y="258" fill="#94A3B8" font-size="15">与自动流量</text>
+    <rect x="210" y="138" width="174" height="156" rx="14" fill="#132039" stroke="#5B87BF" stroke-width="2.5"/>
+    <text x="297" y="181" fill="#F8FAFC" font-size="19">上游清洗</text>
+    <text x="297" y="211" fill="#9FB3D1" font-size="15">ISP / 云厂商</text>
+    <text x="297" y="239" fill="#9FB3D1" font-size="15">带宽与 L3/L4</text>
+    <text x="297" y="267" fill="#22D3EE" font-size="15">保护网络入口</text>
+    <rect x="420" y="138" width="174" height="156" rx="14" fill="#132039" stroke="#5B87BF" stroke-width="2.5"/>
+    <text x="507" y="181" fill="#F8FAFC" font-size="19">CDN / WAF</text>
+    <text x="507" y="211" fill="#9FB3D1" font-size="15">缓存与规则</text>
+    <text x="507" y="239" fill="#9FB3D1" font-size="15">代理限速</text>
+    <text x="507" y="267" fill="#22D3EE" font-size="15">隐藏并保护源站</text>
+    <rect x="630" y="138" width="174" height="156" rx="14" fill="#132039" stroke="#22D3EE" stroke-width="2.5"/>
+    <text x="717" y="181" fill="#F8FAFC" font-size="19">网关</text>
+    <text x="717" y="211" fill="#9FB3D1" font-size="15">请求速率</text>
+    <text x="717" y="239" fill="#9FB3D1" font-size="15">并发与请求大小</text>
+    <text x="717" y="267" fill="#22D3EE" font-size="15">路由级规则</text>
+    <rect x="840" y="138" width="174" height="156" rx="14" fill="#132039" stroke="#22D3EE" stroke-width="2.5"/>
+    <text x="927" y="181" fill="#F8FAFC" font-size="19">应用与队列</text>
+    <text x="927" y="211" fill="#9FB3D1" font-size="15">身份、租户配额</text>
+    <text x="927" y="239" fill="#9FB3D1" font-size="15">操作成本与排队</text>
+    <text x="927" y="267" fill="#22D3EE" font-size="15">业务权限检查</text>
+    <rect x="1050" y="160" width="120" height="112" rx="14" fill="#101A2E" stroke="#475569" stroke-width="2"/>
+    <text x="1110" y="204" fill="#F8FAFC" font-size="19">数据库</text>
+    <text x="1110" y="236" fill="#94A3B8" font-size="15">与依赖服务</text>
+  </g>
+  <g fill="none" stroke="url(#edge)" stroke-width="3" marker-end="url(#arrow)">
+    <line x1="172" y1="216" x2="204" y2="216"/>
+    <line x1="384" y1="216" x2="414" y2="216"/>
+    <line x1="594" y1="216" x2="624" y2="216"/>
+    <line x1="804" y1="216" x2="834" y2="216"/>
+    <line x1="1014" y1="216" x2="1044" y2="216"/>
+  </g>
+  <rect x="210" y="344" width="804" height="62" rx="12" fill="#101A2E" stroke="#26324A"/>
+  <text x="612" y="383" text-anchor="middle" fill="#F8FAFC" font-family="sans-serif" font-size="18">监控：流量 · 延迟 · 并发 · 队列 · 数据库等待 · 第三方费用</text>
+  <text x="48" y="435" fill="#94A3B8" font-family="sans-serif" font-size="16">带宽已在上游饱和时，本机规则不能代替 ISP 或云厂商的流量清洗。</text>
+</svg>

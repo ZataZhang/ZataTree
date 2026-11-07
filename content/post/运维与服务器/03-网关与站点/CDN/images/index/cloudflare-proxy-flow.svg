@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">Cloudflare 网站代理接入链路</title>
+  <desc id="desc">浏览器通过 HTTPS 访问 Cloudflare 边缘节点，Cloudflare 再通过 HTTPS 回源到网站服务器。网页 DNS 记录使用橙云代理，邮件记录保持灰云 DNS only。</desc>
+  <defs>
+    <marker id="arrow-blue" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto"><path d="M0 0 L10 6 L0 12 Z" fill="#5B87BF"/></marker>
+    <marker id="arrow-orange" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto"><path d="M0 0 L10 6 L0 12 Z" fill="#F38020"/></marker>
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#D9E2EF"/></pattern>
+  </defs>
+  <rect width="1200" height="620" rx="24" fill="#F8FAFC"/>
+  <rect width="1200" height="620" rx="24" fill="url(#dots)" opacity=".55"/>
+  <text x="600" y="60" text-anchor="middle" font-family="sans-serif" font-size="28" font-weight="700" fill="#0B1220">Cloudflare 网站代理接入链路</text>
+  <text x="600" y="94" text-anchor="middle" font-family="sans-serif" font-size="16" fill="#475569">DNS 委派决定由谁回答域名，橙云决定网页请求是否经过 Cloudflare</text>
+  <rect x="70" y="145" width="300" height="155" rx="18" fill="#FFFFFF" stroke="#C7D4E4" stroke-width="2"/>
+  <circle cx="220" cy="190" r="22" fill="#E8EFF7"/>
+  <path d="M208 190h24M220 178v24" stroke="#5B87BF" stroke-width="3" stroke-linecap="round"/>
+  <text x="220" y="238" text-anchor="middle" font-family="sans-serif" font-size="22" font-weight="700" fill="#0B1220">访客浏览器</text>
+  <text x="220" y="270" text-anchor="middle" font-family="sans-serif" font-size="15" fill="#475569">https://www.example.com</text>
+  <rect x="450" y="130" width="300" height="185" rx="22" fill="#FFF7ED" stroke="#F38020" stroke-width="2.5"/>
+  <circle cx="600" cy="184" r="28" fill="#F38020"/>
+  <path d="M584 186c0-8 6-14 14-14 5 0 9 3 11 7 8-1 13 4 13 10 0 6-5 10-12 10h-24c-7 0-12-4-12-10 0-2 4-3 10-3z" fill="#FFFFFF"/>
+  <text x="600" y="246" text-anchor="middle" font-family="sans-serif" font-size="22" font-weight="700" fill="#0B1220">Cloudflare 边缘</text>
+  <text x="600" y="278" text-anchor="middle" font-family="sans-serif" font-size="15" fill="#7C3F08">TLS 终止 · 缓存 · 安全规则</text>
+  <rect x="830" y="145" width="300" height="155" rx="18" fill="#FFFFFF" stroke="#C7D4E4" stroke-width="2"/>
+  <rect x="963" y="167" width="34" height="38" rx="5" fill="#E8EFF7" stroke="#5B87BF" stroke-width="2"/>
+  <path d="M970 176h20M970 184h20M970 192h20" stroke="#5B87BF" stroke-width="2" stroke-linecap="round"/>
+  <text x="980" y="238" text-anchor="middle" font-family="sans-serif" font-size="22" font-weight="700" fill="#0B1220">源站服务器</text>
+  <text x="980" y="270" text-anchor="middle" font-family="sans-serif" font-size="15" fill="#475569">网站实际文件与应用</text>
+  <line x1="374" y1="208" x2="438" y2="208" stroke="#5B87BF" stroke-width="5" marker-end="url(#arrow-blue)"/>
+  <path d="M438 208 L424 199 L424 217 Z" fill="#5B87BF"/>
+  <text x="406" y="181" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="#355C8A">HTTPS</text>
+  <line x1="754" y1="208" x2="818" y2="208" stroke="#F38020" stroke-width="5" marker-end="url(#arrow-orange)"/>
+  <path d="M818 208 L804 199 L804 217 Z" fill="#F38020"/>
+  <text x="786" y="181" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="#A94F00">Full (strict)</text>
+  <rect x="110" y="365" width="980" height="88" rx="16" fill="#FFFFFF" stroke="#D5DEE9" stroke-width="1.5"/>
+  <circle cx="160" cy="409" r="20" fill="#F38020"/>
+  <path d="M149 411c0-6 5-10 10-10 4 0 7 2 8 5 6 0 10 3 10 8 0 4-4 7-9 7h-17c-5 0-9-3-9-7 0-2 3-3 7-3z" fill="#FFFFFF"/>
+  <text x="202" y="401" font-family="sans-serif" font-size="17" font-weight="700" fill="#0B1220">网页 DNS：@ / www → 源站</text>
+  <text x="202" y="428" font-family="sans-serif" font-size="15" fill="#475569">Proxied（橙云）：公开解析返回 Cloudflare 地址，网页请求经过边缘</text>
+  <rect x="110" y="475" width="980" height="78" rx="16" fill="#F1F5F9" stroke="#D5DEE9" stroke-width="1.5"/>
+  <circle cx="160" cy="514" r="17" fill="#94A3B8"/>
+  <path d="M151 516c0-5 4-8 9-8 3 0 6 2 7 4 5 0 8 3 8 6 0 4-3 6-8 6h-15c-4 0-7-2-7-6 0-1 2-2 6-2z" fill="#FFFFFF"/>
+  <text x="202" y="508" font-family="sans-serif" font-size="17" font-weight="700" fill="#334155">邮件 / 验证记录：MX、TXT → DNS only（灰云）</text>
+  <text x="202" y="532" font-family="sans-serif" font-size="14" fill="#64748B">DNS 由 Cloudflare 托管，但邮件等非网页服务不经过 HTTP 代理</text>
+  <text x="600" y="590" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#64748B">源站证书用于 Cloudflare → 源站；边缘证书用于访客 → Cloudflare</text>
+</svg>

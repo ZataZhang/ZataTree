@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-label="多 Agent 使用共享规则选择唯一任务负责人">
+  <defs>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" fill="#253149"/></pattern>
+    <linearGradient id="accent" x1="0" x2="1"><stop offset="0" stop-color="#7C9CF5"/><stop offset="1" stop-color="#5EEAD4"/></linearGradient>
+  </defs>
+  <rect width="1200" height="560" fill="#0B1220"/>
+  <rect width="1200" height="560" fill="url(#dots)" opacity=".55"/>
+  <text x="60" y="60" fill="#F8FAFC" font-family="sans-serif" font-size="30" font-weight="700">Agent 类比：共享输入，确定唯一负责人</text>
+  <text x="60" y="96" fill="#9FB3D1" font-family="sans-serif" font-size="18">所有候选者对同一任务编号和有序名单，运行同一条稳定规则</text>
+
+  <rect x="60" y="140" width="270" height="150" rx="18" fill="#111A2B" stroke="#475569" stroke-width="2"/>
+  <text x="195" y="179" fill="#CBD5E1" font-family="sans-serif" font-size="20" text-anchor="middle">共同输入</text>
+  <text x="195" y="218" fill="#F8FAFC" font-family="ui-monospace,monospace" font-size="20" text-anchor="middle">task.id = T-042</text>
+  <text x="195" y="253" fill="#9FB3D1" font-family="sans-serif" font-size="17" text-anchor="middle">Agents = [A, B, C]</text>
+
+  <path d="M345 215 L405 215" stroke="url(#accent)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M394 205 L407 215 L394 225" fill="none" stroke="#5EEAD4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <rect x="420" y="140" width="345" height="150" rx="18" fill="#111A2B" stroke="url(#accent)" stroke-width="2"/>
+  <text x="592" y="179" fill="#CBD5E1" font-family="sans-serif" font-size="20" text-anchor="middle">确定性选择</text>
+  <text x="592" y="220" fill="#F8FAFC" font-family="ui-monospace,monospace" font-size="19" text-anchor="middle">index = stable_hash(id) mod 3</text>
+  <text x="592" y="256" fill="#5EEAD4" font-family="sans-serif" font-size="18" text-anchor="middle">本例结果：index = 1</text>
+
+  <path d="M780 215 L840 215" stroke="url(#accent)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M829 205 L842 215 L829 225" fill="none" stroke="#5EEAD4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <rect x="855" y="140" width="285" height="150" rx="18" fill="#142638" stroke="#5EEAD4" stroke-width="3"/>
+  <text x="997" y="179" fill="#CBD5E1" font-family="sans-serif" font-size="20" text-anchor="middle">唯一负责人</text>
+  <text x="997" y="226" fill="#5EEAD4" font-family="sans-serif" font-size="32" font-weight="700" text-anchor="middle">Agent B</text>
+  <text x="997" y="260" fill="#CBD5E1" font-family="sans-serif" font-size="17" text-anchor="middle">领取任务并执行</text>
+
+  <path d="M997 304 L997 343 L420 343" fill="none" stroke="#475569" stroke-width="2" stroke-dasharray="7 8"/>
+  <path d="M420 343 L420 365" stroke="#475569" stroke-width="2"/>
+  <path d="M705 343 L705 365" stroke="#475569" stroke-width="2"/>
+  <path d="M990 343 L990 365" stroke="#5EEAD4" stroke-width="3"/>
+  <rect x="315" y="365" width="210" height="70" rx="14" fill="#111A2B" stroke="#475569" stroke-width="2"/>
+  <text x="420" y="408" fill="#94A3B8" font-family="sans-serif" font-size="19" text-anchor="middle">Agent A · 等待/复核</text>
+  <rect x="600" y="365" width="210" height="70" rx="14" fill="#142638" stroke="#5EEAD4" stroke-width="2"/>
+  <text x="705" y="408" fill="#5EEAD4" font-family="sans-serif" font-size="19" text-anchor="middle">Agent B · 执行</text>
+  <rect x="885" y="365" width="210" height="70" rx="14" fill="#111A2B" stroke="#475569" stroke-width="2"/>
+  <text x="990" y="408" fill="#94A3B8" font-family="sans-serif" font-size="19" text-anchor="middle">Agent C · 等待/复核</text>
+
+  <rect x="80" y="475" width="1040" height="50" rx="14" fill="#172238" stroke="#334155" stroke-width="1.5"/>
+  <text x="600" y="507" fill="#CBD5E1" font-family="sans-serif" font-size="18" text-anchor="middle">还需运行保障：一致的候选名单 · 持久化归属 · 原子领取 · 幂等执行</text>
+</svg>
