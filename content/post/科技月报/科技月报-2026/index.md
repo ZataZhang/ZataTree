@@ -2,7 +2,7 @@
 title: 科技月报-2026
 description: "按周追踪 2026 年人工智能、软件与科技产业动态，关注模型、Agent、基础设施与安全治理。"
 date: 2026-01-04T06:59:14+08:00
-lastmod: 2026-10-26
+lastmod: 2026-11-09
 image: images/index/index.png
 categories:
     - 科技月报
@@ -12,9 +12,85 @@ tags:
 
 
 
+# 2026-11
+
+本月选录更新至11月8日（北京时间），各条日期按来源页面的发布日期归档。
+
+## 第一周（11月2日—8日）
+
+本周主线：AI 产品继续进入安全研究、实验室分析、个人财务和代码协作等具体工作。权限边界、数据访问和结果复核也随之成为产品设计的一部分；厂商公布的能力与评测仍需要在目标环境中验证。
+
+### 11月6日（周五）
+
+[OpenAI 与 Ligo 发布湿实验分析基准 BioBasicsBench](https://openai.com/index/measuring-how-ai-agents-handle-wet-lab-science/)
+
+BioBasicsBench 用100项任务评估 Agent 对实验原始数据的解读、错误识别和证据不足判断，涵盖蛋白质实验、成像、定量分析、核酸实验和分子克隆。OpenAI 报告称，在允许更多推理的设置下，GPT-6 Astra 平均得分为66.7%，GPT-5.6 Sol 为43.8%；这是 OpenAI 与 Ligo 发布的基准及自报结果，仍需独立复测，也不能代表模型已能替代实验人员。
+
+[Cursor 为代码 Agent 加入实时语音会话](https://cursor.com/changelog/voice-chat)
+
+用户可以直接用语音描述改动、询问 Agent 进度，并在任务执行期间继续对话；功能覆盖 Agents Window、IDE、网页和 iOS，由 Grok Voice 提供语音能力。它与把语音转成输入文字的听写功能不同，目前仍要结合实际编码任务观察交互效率。
+
+### 11月5日（周四）
+
+[OpenAI 发布面向授权安全研究的 GPT-6 Cyber](https://openai.com/index/introducing-gpt-6-cyber/)
+
+GPT-6 Cyber 面向漏洞发现、利用验证和修复协助，并针对遵循研究范围进行训练。OpenAI 将其网络安全能力列为 Preparedness Framework 中的 Critical 等级，当前通过 Daybreak Red 向经过身份核验和审批的安全团队开放；漏洞数量、基准成绩和范围遵循表现均来自 OpenAI 的披露，不能据此推断其他环境中的实际效果。
+
+[Anthropic 在 Claude 中测试个人财务功能](https://claude.com/resources/articles/introducing-personal-finance-in-claude)
+
+美国 Pro、Max 和 Ultra 用户可在测试版中通过 Plaid 授权连接银行与信用卡账户，让 Claude 汇总余额和交易记录并回答支出问题。访问权限为只读，Claude 不能转账或管理资金；功能也不提供投资建议，回答仍可能出错。连接账户会把所选账户的数据带入服务，用户应先了解数据范围与隐私说明。
+
+[Google Cloud 为 Gemini for business 推出 Data Cloud 连接器预览](https://cloud.google.com/blog/products/data-analytics/query-enterprise-data-in-gemini-with-data-cloud-connectors)
+
+企业用户可以用自然语言查询实时数据，连接器按用户现有凭据访问数据，并保留行级和列级权限。该功能仍在预览阶段，适用范围、查询正确性和成本控制要结合企业的数据结构与权限配置评估。
+
+### 11月4日（周三）
+
+[OpenAI 发布 Images 2.6 与 GPT Image 2.6](https://openai.com/index/introducing-images-2-6/)
+
+Images 2.6 在 ChatGPT、Codex 和 API 上推出，新增 GIF 生成，并改进连续编辑时的人物、产品和品牌细节保持；API 版本还支持 SVG 输出和可调生成复杂度。OpenAI 称生成速度提升50%，这是厂商公布的数据；实际速度与编辑质量仍取决于任务和设置。
+
 # 2026-10
 
-本月选录更新至10月26日（北京时间），各条日期按来源页面的发布日期归档。
+本月选录更新至10月31日（北京时间），各条日期按来源页面的发布日期归档。
+
+## 第五周（10月26日—31日）
+
+本周主线：模型开始面向生命科学和安全研究做更专门的部署，Agent 产品则在扩展跨客户端运行和团队自动化；与此同时，头部 AI 公司的商业化进程也进入公开市场准备阶段。
+
+### 10月30日（周五）
+
+[OpenAI 向获批研究机构开放 GPT-6 Rosalind Research](https://deploymentsafety.openai.com/gpt-rosalind-6)
+
+GPT-6 Rosalind 面向多步骤生命科学研究，结合生物学推理与科学工具使用。访问仅限通过 trusted-access 审核的机构和授权用户，企业工作区默认关闭并先进入管理员预览。系统卡说明该模型更适合合法生命科学研究，同时保留生物安全边界；它属于受控研究部署，不是面向普通聊天用户开放的通用模型。
+
+### 10月29日（周四）
+
+[OpenAI 更新 Model Spec，调整模型行为原则的组织方式](https://help.openai.com/en/articles/9624314-model-release-notes)
+
+新版把行为指引归纳为忠于人类意图、减少伤害、诚实透明、人类能动性和关怀五项价值，并补充上下文、记忆、个性化、监督和副作用处理方面的说明。Model Spec 描述的是 OpenAI 希望模型遵循的公开行为规范，不等同于独立审计，也不代表所有产品行为都已完全符合这些原则。
+
+### 10月28日（周三）
+
+[GitHub 打通 Copilot 云端任务的多客户端接续](https://github.blog/changelog/2026-10-28-work-from-anywhere-with-a-new-connected-copilot-cloud-experience/)
+
+付费 Copilot 用户可以从 GitHub、移动端、Copilot App、VS Code、CLI 或 Slack、Teams 启动云端任务，再到其他客户端继续同一会话；任务运行在 GitHub 云端沙箱中。云端体验已面向付费计划开放，云端任务还会使用统一的 Actions 计算额度，团队需要把它纳入现有用量和权限管理。
+
+[GitHub 推出团队共享 Copilot Automations](https://github.blog/changelog/2026-10-28-build-shared-workflows-for-your-team-with-copilot-automations/)
+
+共享自动化允许团队共同查看和维护由提示词、触发条件与工具组成的工作流，运行费用计入仓库所有者，执行操作则归于 Copilot。功能正在逐步开放；组织仓库还需要管理员启用相应策略，才可使用组织额度运行。
+
+### 10月27日（周二）
+
+[Anthropic 分享 Claude 参与药物研发的早期进展](https://www.anthropic.com/research/early-progress-drug-development)
+
+Anthropic 称其科学团队已与六家研发新药的机构合作，并介绍 Claude 在药物研发中的早期应用，包括协助优化抗体片段等工作。文章描述的是合作研究进展和后续计划，候选分子仍需经过实验验证与临床研究，不能视为药物已获证实有效。
+
+### 10月26日（周一）
+
+[Anthropic 向 SEC 提交拟议 IPO 的注册声明](https://www.anthropic.com/news/s1-sec)
+
+Anthropic 宣布已提交 S-1，拟在纳斯达克上市，计划使用代码 ANT；公告发布时，发行股数和价格区间尚未确定，注册声明也尚未生效。因此这代表公司开始推进上市程序，并不意味着 IPO 已完成或股票已经开始交易。
 
 ## 第四周（10月19日—25日）
 
