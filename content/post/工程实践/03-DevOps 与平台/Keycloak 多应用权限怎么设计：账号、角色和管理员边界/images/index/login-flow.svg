@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="570" viewBox="0 0 1200 570" role="img" aria-label="用户访问 CRM 时，应用通过 OIDC 把用户带到 Keycloak，拿到令牌后按 CRM 角色建立应用会话">
+  <rect width="1200" height="570" rx="24" fill="#F8FAFC"/>
+  <text x="48" y="58" fill="#0F172A" font-family="sans-serif" font-size="30" font-weight="700">多个应用为什么能单点登录</text>
+  <text x="48" y="90" fill="#475569" font-family="sans-serif" font-size="17">Keycloak 复用自己的登录会话；每个应用仍完成自己的 OIDC 流程</text>
+
+  <g font-family="sans-serif">
+    <rect x="48" y="132" width="190" height="224" rx="18" fill="#FFFFFF" stroke="#94A3B8" stroke-width="2"/>
+    <circle cx="76" cy="162" r="17" fill="#64748B"/><text x="76" y="168" fill="#FFFFFF" text-anchor="middle" font-size="16" font-weight="700">1</text>
+    <text x="74" y="216" fill="#0F172A" font-size="20" font-weight="700">浏览器访问 CRM</text>
+    <text x="74" y="252" fill="#475569" font-size="15">用户打开受保护页面</text>
+    <text x="74" y="282" fill="#475569" font-size="15">CRM 发现还没有</text>
+    <text x="74" y="306" fill="#475569" font-size="15">自己的登录会话</text>
+
+    <rect x="276" y="132" width="190" height="224" rx="18" fill="#EFF6FF" stroke="#5B87BF" stroke-width="2"/>
+    <circle cx="304" cy="162" r="17" fill="#5B87BF"/><text x="304" y="168" fill="#FFFFFF" text-anchor="middle" font-size="16" font-weight="700">2</text>
+    <text x="302" y="216" fill="#1E3A8A" font-size="20" font-weight="700">CRM 发起 OIDC</text>
+    <text x="302" y="252" fill="#334155" font-size="15">把浏览器重定向到</text>
+    <text x="302" y="276" fill="#334155" font-size="15">Keycloak 的登录端点</text>
+    <text x="302" y="316" fill="#1D4ED8" font-family="monospace" font-size="14">client_id=crm</text>
+
+    <rect x="504" y="132" width="190" height="224" rx="18" fill="#EEF2FF" stroke="#6366F1" stroke-width="2"/>
+    <circle cx="532" cy="162" r="17" fill="#6366F1"/><text x="532" y="168" fill="#FFFFFF" text-anchor="middle" font-size="16" font-weight="700">3</text>
+    <text x="530" y="216" fill="#3730A3" font-size="20" font-weight="700">Keycloak 认证</text>
+    <text x="530" y="252" fill="#475569" font-size="15">首次登录时验证用户</text>
+    <text x="530" y="282" fill="#475569" font-size="15">也可复用已有 SSO</text>
+    <text x="530" y="306" fill="#475569" font-size="15">会话，再按策略做 MFA</text>
+
+    <rect x="732" y="132" width="190" height="224" rx="18" fill="#F0FDFA" stroke="#0F766E" stroke-width="2"/>
+    <circle cx="760" cy="162" r="17" fill="#0F766E"/><text x="760" y="168" fill="#FFFFFF" text-anchor="middle" font-size="16" font-weight="700">4</text>
+    <text x="758" y="216" fill="#115E59" font-size="20" font-weight="700">回调并换令牌</text>
+    <text x="758" y="252" fill="#475569" font-size="15">Keycloak 把一次性</text>
+    <text x="758" y="276" fill="#475569" font-size="15">授权码交回 CRM；</text>
+    <text x="758" y="300" fill="#475569" font-size="15">后端换取并验证令牌</text>
+
+    <rect x="960" y="132" width="190" height="224" rx="18" fill="#FFFFFF" stroke="#F59E0B" stroke-width="2"/>
+    <circle cx="988" cy="162" r="17" fill="#D97706"/><text x="988" y="168" fill="#FFFFFF" text-anchor="middle" font-size="16" font-weight="700">5</text>
+    <text x="986" y="216" fill="#92400E" font-size="20" font-weight="700">CRM 授权</text>
+    <text x="986" y="252" fill="#475569" font-size="15">根据 crm 角色决定</text>
+    <text x="986" y="276" fill="#475569" font-size="15">能否进入管理功能，</text>
+    <text x="986" y="300" fill="#475569" font-size="15">并建立自己的会话</text>
+  </g>
+
+  <g fill="none" stroke="#5B87BF" stroke-width="2.5" stroke-linecap="round">
+    <path d="M242 244h26"/><path d="M268 244l-8-6m8 6l-8 6"/>
+    <path d="M470 244h26"/><path d="M496 244l-8-6m8 6l-8 6"/>
+    <path d="M698 244h26"/><path d="M724 244l-8-6m8 6l-8 6"/>
+    <path d="M926 244h26"/><path d="M952 244l-8-6m8 6l-8 6"/>
+  </g>
+
+  <rect x="48" y="392" width="1102" height="98" rx="16" fill="#FFFFFF" stroke="#C4B5FD" stroke-width="1.5"/>
+  <text x="76" y="428" fill="#5B21B6" font-family="sans-serif" font-size="18" font-weight="700">之后打开知识库</text>
+  <text x="76" y="460" fill="#475569" font-family="sans-serif" font-size="16">Wiki 用自己的 Client 再走一次 OIDC。Keycloak 认出已有登录会话，通常不再要求输入密码；Wiki 仍检查 wiki 的角色。</text>
+  <text x="48" y="532" fill="#6D28D9" font-family="sans-serif" font-size="16" font-weight="700">SSO 共享的是 Keycloak 会话。CRM 和 Wiki 仍各自管理 Cookie、应用会话和业务权限。</text>
+</svg>

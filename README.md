@@ -297,7 +297,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [flutter_tutorial](content/post/Web%20开发/04-前端与跨端/flutter_tutorial/)
 - [Refine: 当 API 即界面，CRUD 不再是体力活](content/post/Web%20开发/04-前端与跨端/refine-meta-framework/)
 
-## 工程实践 (15)
+## 工程实践 (16)
 
 ### 01-可观测性
 
@@ -316,6 +316,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 ### 03-DevOps 与平台
 
 - [Docker 和 Traefik 一键安装脚本](content/post/工程实践/03-DevOps%20与平台/Docker-Traefik一键安装脚本/)
+- [Keycloak 多应用权限怎么设计：账号、角色和管理员边界](content/post/工程实践/03-DevOps%20与平台/Keycloak%20多应用权限怎么设计：账号、角色和管理员边界/)
 - [Woodpecker CI 使用教程](content/post/工程实践/03-DevOps%20与平台/Woodpecker-CI使用教程/)
 - [企业AI工具平台架构设计：拥抱快速变化的AI生态](content/post/工程实践/03-DevOps%20与平台/ai-platform-architecture/)
 - [开发问题与解法笔记](content/post/工程实践/03-DevOps%20与平台/开发问题与解法笔记/)

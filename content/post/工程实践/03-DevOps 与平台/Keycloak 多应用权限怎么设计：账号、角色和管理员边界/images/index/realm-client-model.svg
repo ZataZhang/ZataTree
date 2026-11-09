@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" role="img" aria-label="一个 company Realm 连接用户组与 CRM、知识库和运营后台各自的客户端角色">
+  <rect width="1200" height="620" rx="24" fill="#F8FAFC"/>
+  <text x="48" y="58" fill="#0F172A" font-family="sans-serif" font-size="30" font-weight="700">一套 Realm，多份应用角色</text>
+  <text x="48" y="90" fill="#475569" font-family="sans-serif" font-size="17">同一身份可进入多个应用；每个 Client 独立表达该应用里的权限</text>
+
+  <rect x="44" y="126" width="282" height="398" rx="20" fill="#EAF0F8" stroke="#5B87BF" stroke-width="2.5"/>
+  <rect x="44" y="126" width="282" height="60" rx="20" fill="#173B70"/>
+  <path d="M44 166h282v20H44z" fill="#173B70"/>
+  <text x="68" y="165" fill="#FFFFFF" font-family="sans-serif" font-size="23" font-weight="700">Realm · company</text>
+  <text x="68" y="222" fill="#334155" font-family="sans-serif" font-size="16" font-weight="700">用户身份</text>
+  <rect x="68" y="236" width="234" height="52" rx="12" fill="#FFFFFF" stroke="#CBD5E1"/>
+  <text x="84" y="268" fill="#0F172A" font-family="sans-serif" font-size="17">Alice · Bob · Carol</text>
+  <text x="68" y="327" fill="#334155" font-family="sans-serif" font-size="16" font-weight="700">组织归属</text>
+  <rect x="68" y="341" width="234" height="54" rx="12" fill="#FFFFFF" stroke="#CBD5E1"/>
+  <text x="84" y="374" fill="#0F172A" font-family="monospace" font-size="16">/teams/ops</text>
+  <rect x="68" y="407" width="234" height="54" rx="12" fill="#FFFFFF" stroke="#CBD5E1"/>
+  <text x="84" y="440" fill="#0F172A" font-family="monospace" font-size="16">/teams/platform</text>
+  <text x="68" y="490" fill="#64748B" font-family="sans-serif" font-size="14">组成员关系可以带来组上分配的角色</text>
+
+  <path d="M345 322h60" stroke="#5B87BF" stroke-width="3" stroke-linecap="round"/>
+  <path d="M405 322l-12-8m12 8l-12 8" fill="none" stroke="#5B87BF" stroke-width="3" stroke-linecap="round"/>
+  <text x="350" y="299" fill="#64748B" font-family="sans-serif" font-size="13">角色映射</text>
+
+  <g font-family="sans-serif">
+    <rect x="430" y="126" width="222" height="398" rx="20" fill="#FFFFFF" stroke="#0F766E" stroke-width="2.5"/>
+    <rect x="430" y="126" width="222" height="60" rx="20" fill="#0F766E"/>
+    <path d="M430 166h222v20H430z" fill="#0F766E"/>
+    <text x="456" y="165" fill="#FFFFFF" font-size="22" font-weight="700">Client · crm</text>
+    <text x="456" y="226" fill="#64748B" font-size="14">本应用可识别的角色</text>
+    <rect x="456" y="242" width="170" height="54" rx="12" fill="#E6F5F2"/>
+    <text x="475" y="276" fill="#115E59" font-size="18" font-weight="700">user</text>
+    <rect x="456" y="310" width="170" height="54" rx="12" fill="#FEF3C7"/>
+    <text x="475" y="344" fill="#92400E" font-size="18" font-weight="700">admin</text>
+    <text x="456" y="414" fill="#334155" font-size="15">ops 组 → user</text>
+    <text x="456" y="444" fill="#334155" font-size="15">platform 组 → admin</text>
+    <text x="456" y="488" fill="#64748B" font-size="13">只控制 CRM 权限</text>
+
+    <rect x="684" y="126" width="222" height="398" rx="20" fill="#FFFFFF" stroke="#5B87BF" stroke-width="2.5"/>
+    <rect x="684" y="126" width="222" height="60" rx="20" fill="#345C91"/>
+    <path d="M684 166h222v20H684z" fill="#345C91"/>
+    <text x="710" y="165" fill="#FFFFFF" font-size="22" font-weight="700">Client · wiki</text>
+    <text x="710" y="226" fill="#64748B" font-size="14">本应用可识别的角色</text>
+    <rect x="710" y="242" width="170" height="54" rx="12" fill="#E6F5F2"/>
+    <text x="729" y="276" fill="#115E59" font-size="18" font-weight="700">user</text>
+    <rect x="710" y="310" width="170" height="54" rx="12" fill="#FEF3C7"/>
+    <text x="729" y="344" fill="#92400E" font-size="18" font-weight="700">admin</text>
+    <text x="710" y="414" fill="#334155" font-size="15">ops 组 → admin</text>
+    <text x="710" y="444" fill="#334155" font-size="15">platform 组 → user</text>
+    <text x="710" y="488" fill="#64748B" font-size="13">只控制 Wiki 权限</text>
+
+    <rect x="938" y="126" width="222" height="398" rx="20" fill="#FFFFFF" stroke="#7C3AED" stroke-width="2.5"/>
+    <rect x="938" y="126" width="222" height="60" rx="20" fill="#6D38B4"/>
+    <path d="M938 166h222v20H938z" fill="#6D38B4"/>
+    <text x="964" y="165" fill="#FFFFFF" font-size="21" font-weight="700">Client · ops</text>
+    <text x="964" y="226" fill="#64748B" font-size="14">本应用可识别的角色</text>
+    <rect x="964" y="242" width="170" height="54" rx="12" fill="#E6F5F2"/>
+    <text x="983" y="276" fill="#115E59" font-size="18" font-weight="700">viewer</text>
+    <rect x="964" y="310" width="170" height="54" rx="12" fill="#FEF3C7"/>
+    <text x="983" y="344" fill="#92400E" font-size="18" font-weight="700">admin</text>
+    <text x="964" y="414" fill="#334155" font-size="15">platform 组 → admin</text>
+    <text x="964" y="444" fill="#334155" font-size="15">ops 组 → viewer</text>
+    <text x="964" y="488" fill="#64748B" font-size="13">只控制运营后台权限</text>
+  </g>
+
+  <rect x="44" y="548" width="1116" height="48" rx="12" fill="#FFF7ED" stroke="#FDBA74"/>
+  <text x="66" y="578" fill="#9A3412" font-family="sans-serif" font-size="16" font-weight="700">Alice 即使是 crm:admin，也不会因此成为 wiki:admin，更不会获得 Keycloak 管理权限。</text>
+</svg>
