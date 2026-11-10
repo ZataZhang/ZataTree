@@ -485,6 +485,10 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [科技月报-2026](content/post/科技月报/科技月报-2026/)
 - [❤️每日思考和AI资讯](content/post/科技月报/资讯和思考/)
 
+## 算法 (1)
+
+- [贪心算法：原理、证明与复杂度](content/post/算法/贪心算法：原理、证明与复杂度/)
+
 ## 编程语言 (29)
 
 ### 01-语言基础
@@ -603,7 +607,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [内网文件传输工具LocalSend](content/post/软件试用/05-桌面效率工具/内网文件传输工具LocalSend/)
 - [实用软件工具｜好用软件推荐](content/post/软件试用/05-桌面效率工具/实用软件工具/)
 
-## 运维与服务器 (30)
+## 运维与服务器 (32)
 
 ### 01-服务器与系统
 
@@ -648,7 +652,12 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [PostgreSQL](content/post/运维与服务器/05-存储与数据库/PostgreSQL/)
 - [S3 兼容存储踩坑记：boto3 新默认校验和撞上 NotImplemented](content/post/运维与服务器/05-存储与数据库/S3%20兼容存储踩坑记：boto3%20新默认校验和撞上%20NotImplemented/)
 - [redis](content/post/运维与服务器/05-存储与数据库/redis/)
+- [数据库全景与选型：从 MySQL、Doris 到向量数据库](content/post/运维与服务器/05-存储与数据库/数据库全景与选型：从%20MySQL、Doris%20到向量数据库/)
 - [数据库备份实战](content/post/运维与服务器/05-存储与数据库/数据库备份实战/)
+
+### 邮件服务
+
+- [阿里云 DirectMail SMTP 配置实战：域名、发信地址与显示名称](content/post/运维与服务器/邮件服务/阿里云%20DirectMail%20SMTP%20配置实战/)
 
 ## 通识与生活 (17)
 

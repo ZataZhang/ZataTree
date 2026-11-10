@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="470" viewBox="0 0 1200 470" role="img" aria-labelledby="title desc">
+  <title id="title">SMTP 发信问题排查路径</title>
+  <desc id="desc">SMTP 失败时检查认证地址一致性、dotenv 格式以及主机端口和加密方式；SMTP 接受邮件但收件箱未显示时检查垃圾邮件和投递状态。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#5b87bf"/></marker>
+    <style>
+      .h{font:700 30px sans-serif;fill:#10233f}.sub{font:16px sans-serif;fill:#526b89}.t{font:700 20px sans-serif;fill:#10233f}.s{font:15px sans-serif;fill:#445a76}.m{font:13px sans-serif;fill:#526b89}.badge{font:700 14px sans-serif;fill:#fff}.box{fill:#fff;stroke:#9bb2cf;stroke-width:2}.bad{fill:#fff0ef;stroke:#d77c73;stroke-width:2}.good{fill:#eaf8f6;stroke:#168b83;stroke-width:2}.line{stroke:#5b87bf;stroke-width:3;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1200" height="470" rx="24" fill="#f8fafc"/>
+  <text x="48" y="58" class="h">先看 SMTP 是否接受，再按故障位置排查</text>
+  <text x="48" y="88" class="sub">SMTP 返回成功不等于进入主收件箱；两种结果走不同的排查路径</text>
+
+  <rect x="440" y="116" width="320" height="70" rx="18" class="box"/>
+  <text x="600" y="160" text-anchor="middle" class="t">SMTP 调用结果？</text>
+  <path d="M520 186V220H300V246" class="line"/>
+  <path d="M680 186V220H900V246" class="line"/>
+  <rect x="250" y="207" width="100" height="28" rx="14" fill="#c65e57"/><text x="300" y="226" text-anchor="middle" class="badge">失败</text>
+  <rect x="850" y="207" width="100" height="28" rx="14" fill="#168b83"/><text x="900" y="226" text-anchor="middle" class="badge">成功</text>
+
+  <rect x="48" y="248" width="504" height="155" rx="18" class="bad"/>
+  <text x="76" y="286" class="t">SMTP 拒绝或连接失败</text>
+  <text x="76" y="321" class="s">MAIL FROM 认证不匹配：比较 SMTP_USERNAME 与 SMTP_FROM</text>
+  <text x="76" y="352" class="s">dotenv 解析警告：检查引号，并确认最终加载的配置</text>
+  <text x="76" y="383" class="s">连接/认证错误：核对地域主机、端口、SSL/TLS 和 SMTP 密码</text>
+
+  <rect x="648" y="248" width="504" height="155" rx="18" class="good"/>
+  <text x="676" y="286" class="t">SMTP 已接受，但主收件箱没有</text>
+  <text x="676" y="321" class="s">先检查垃圾邮件、隔离区和收件方过滤规则</text>
+  <text x="676" y="352" class="s">再核对 SPF / DKIM / DMARC 与发信服务商的投递记录</text>
+  <text x="676" y="383" class="s">确认显示名称时查看邮件详情里的 From 字段</text>
+
+  <text x="48" y="442" class="m">修正配置后重启或重新加载应用；排查日志只输出状态和错误类别，不输出 SMTP 密码。</text>
+</svg>

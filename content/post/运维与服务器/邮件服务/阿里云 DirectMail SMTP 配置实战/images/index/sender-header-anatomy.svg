@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="500" viewBox="0 0 1200 500" role="img" aria-labelledby="title desc">
+  <title id="title">邮件发件身份字段对照</title>
+  <desc id="desc">From 头由显示名称和发件邮箱地址组成；SMTP 用户名用于连接认证，DirectMail 要求与发件地址一致；Reply-To 是可选的真实回信地址。</desc>
+  <defs>
+    <style>
+      .h{font:700 30px sans-serif;fill:#10233f}.sub{font:16px sans-serif;fill:#526b89}.label{font:700 14px sans-serif;fill:#526b89}.fromname{font:700 25px sans-serif;fill:#146b50}.fromaddr{font:700 25px monospace;fill:#10233f}.t{font:700 19px sans-serif;fill:#10233f}.s{font:15px sans-serif;fill:#445a76}.m{font:13px sans-serif;fill:#526b89}.card{fill:#fff;stroke:#9bb2cf;stroke-width:2}.blue{fill:#e8f1ff;stroke:#5b87bf;stroke-width:2}.teal{fill:#eaf8f6;stroke:#168b83;stroke-width:2}.amber{fill:#fff5df;stroke:#d7a843;stroke-width:2}
+    </style>
+  </defs>
+  <rect width="1200" height="500" rx="24" fill="#f8fafc"/>
+  <text x="48" y="58" class="h">邮件里有几种“发件人”信息，作用不同</text>
+  <text x="48" y="88" class="sub">示例邮件头：From: Example App &lt;no-reply@notify.example.com&gt;</text>
+
+  <rect x="48" y="125" width="1104" height="100" rx="18" class="card"/>
+  <text x="80" y="165" class="label">From 显示名称</text>
+  <text x="80" y="200" class="fromname">Example App</text>
+  <text x="350" y="190" class="fromaddr">&lt;no-reply@notify.example.com&gt;</text>
+  <text x="890" y="165" class="label">From 邮箱地址</text>
+  <text x="890" y="199" class="m">消息发件身份</text>
+
+  <rect x="48" y="270" width="260" height="165" rx="18" class="blue"/>
+  <text x="72" y="310" class="t">显示名称</text>
+  <text x="72" y="345" class="s">Example App</text>
+  <text x="72" y="380" class="m">收件箱列表里显示的名字</text>
+  <text x="72" y="405" class="m">不会用于 SMTP 登录</text>
+
+  <rect x="328" y="270" width="260" height="165" rx="18" class="teal"/>
+  <text x="352" y="310" class="t">From 邮箱地址</text>
+  <text x="352" y="345" class="m">no-reply@</text>
+  <text x="352" y="367" class="m">notify.example.com</text>
+  <text x="352" y="405" class="m">需在 DirectMail 创建</text>
+
+  <rect x="608" y="270" width="260" height="165" rx="18" class="blue"/>
+  <text x="632" y="310" class="t">SMTP 用户名</text>
+  <text x="632" y="345" class="m">no-reply@</text>
+  <text x="632" y="367" class="m">notify.example.com</text>
+  <text x="632" y="405" class="m">用于认证，需与发信地址一致</text>
+
+  <rect x="888" y="270" width="264" height="165" rx="18" class="amber"/>
+  <text x="912" y="310" class="t">Reply-To（可选）</text>
+  <text x="912" y="345" class="m">support@example.com</text>
+  <text x="912" y="380" class="m">用户点“回复”时使用</text>
+  <text x="912" y="405" class="m">应指向可收信的邮箱</text>
+</svg>

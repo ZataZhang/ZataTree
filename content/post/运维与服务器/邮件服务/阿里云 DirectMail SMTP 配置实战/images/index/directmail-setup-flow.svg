@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="440" viewBox="0 0 1200 440" role="img" aria-labelledby="title desc">
+  <title id="title">DirectMail 应用发信配置流程</title>
+  <desc id="desc">先准备发信子域名并配置 DNS，再通过 DirectMail 验证域名、创建触发邮件发信地址并设置 SMTP 密码，最后让应用连接 SMTP 并检查收件方邮箱。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#5b87bf"/></marker>
+    <style>
+      .h{font:700 30px sans-serif;fill:#10233f}.sub{font:16px sans-serif;fill:#526b89}.step{font:700 13px sans-serif;fill:#fff}.t{font:700 19px sans-serif;fill:#10233f}.s{font:15px sans-serif;fill:#445a76}.m{font:13px sans-serif;fill:#526b89}.box{fill:#fff;stroke:#9bb2cf;stroke-width:2}.main{fill:#e8f1ff;stroke:#5b87bf;stroke-width:3}.teal{fill:#eaf8f6;stroke:#168b83;stroke-width:2}.line{stroke:#5b87bf;stroke-width:3;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1200" height="440" rx="24" fill="#f8fafc"/>
+  <text x="48" y="58" class="h">应用发信前，要把域名、发信地址和 SMTP 凭据连起来</text>
+  <text x="48" y="88" class="sub">DNS 记录由 DirectMail 控制台提供；应用里的 SMTP 登录名要使用已创建的发信地址</text>
+
+  <rect x="40" y="145" width="196" height="210" rx="18" class="box"/>
+  <circle cx="66" cy="172" r="15" fill="#5b87bf"/><text x="66" y="177" text-anchor="middle" class="step">1</text>
+  <text x="60" y="215" class="t">发信子域名</text>
+  <text x="60" y="250" class="s">notify.example.com</text>
+  <text x="60" y="285" class="m">DNS 由你管理</text>
+  <text x="60" y="313" class="m">保留企业邮箱 MX</text>
+
+  <rect x="276" y="145" width="196" height="210" rx="18" class="teal"/>
+  <circle cx="302" cy="172" r="15" fill="#168b83"/><text x="302" y="177" text-anchor="middle" class="step">2</text>
+  <text x="296" y="215" class="t">验证域名</text>
+  <text x="296" y="250" class="s">按控制台添加记录</text>
+  <text x="296" y="285" class="m">等待 DNS 生效</text>
+  <text x="296" y="313" class="m">回控制台确认通过</text>
+
+  <rect x="512" y="145" width="196" height="210" rx="18" class="box"/>
+  <circle cx="538" cy="172" r="15" fill="#5b87bf"/><text x="538" y="177" text-anchor="middle" class="step">3</text>
+  <text x="532" y="215" class="t">创建发信地址</text>
+  <text x="532" y="250" class="m">no-reply@</text>
+  <text x="532" y="272" class="m">notify.example.com</text>
+  <text x="532" y="305" class="m">选择触发邮件</text>
+  <text x="532" y="330" class="m">设置 SMTP 密码</text>
+
+  <rect x="748" y="145" width="196" height="210" rx="18" class="main"/>
+  <circle cx="774" cy="172" r="15" fill="#5b87bf"/><text x="774" y="177" text-anchor="middle" class="step">4</text>
+  <text x="768" y="215" class="t">应用连接 SMTP</text>
+  <text x="768" y="250" class="m">465 + SSL</text>
+  <text x="768" y="280" class="m">登录名 = From 地址</text>
+  <text x="768" y="310" class="m">显示名另行设置</text>
+
+  <rect x="984" y="145" width="176" height="210" rx="18" class="box"/>
+  <circle cx="1010" cy="172" r="15" fill="#5b87bf"/><text x="1010" y="177" text-anchor="middle" class="step">5</text>
+  <text x="1004" y="215" class="t">收件方邮箱</text>
+  <text x="1004" y="250" class="s">查看 From</text>
+  <text x="1004" y="280" class="m">检查收件箱</text>
+  <text x="1004" y="310" class="m">必要时查垃圾邮件</text>
+
+  <path d="M236 250H266" class="line"/>
+  <path d="M472 250H502" class="line"/>
+  <path d="M708 250H738" class="line"/>
+  <path d="M944 250H974" class="line"/>
+  <text x="48" y="397" class="m">SMTP 接受请求只说明邮件已交给发信服务商；最终是否进入主收件箱，还要看收件方的投递与过滤结果。</text>
+</svg>
