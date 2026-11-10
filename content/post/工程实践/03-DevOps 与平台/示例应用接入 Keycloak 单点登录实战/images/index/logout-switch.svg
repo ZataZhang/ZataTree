@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">示例应用本地退出和 Keycloak 账号切换</title>
+  <desc id="desc">示例应用退出清除本地 Cookie，但保留 Keycloak SSO 会话。普通 SSO 可复用原账号，切换账号使用 prompt login 重新认证。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1L11 6L1 11Z" fill="#5b87bf"/></marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#24324a" flood-opacity=".08"/></filter>
+  </defs>
+  <rect width="1280" height="720" rx="28" fill="#f4f7fb"/>
+  <text x="64" y="74" fill="#162238" font-family="sans-serif" font-size="34" font-weight="700">退出示例应用，不会自动退出整个 Realm</text>
+  <text x="64" y="110" fill="#65748a" font-family="sans-serif" font-size="18">两个 Cookie 属于两个会话；想换身份，需要明确要求 Keycloak 重新认证</text>
+
+  <g filter="url(#shadow)">
+    <rect x="64" y="152" width="552" height="474" rx="22" fill="#fff" stroke="#d5dee8" stroke-width="2"/>
+    <rect x="64" y="152" width="552" height="70" rx="22" fill="#edf5ff"/>
+    <path d="M64 197v25h552v-25" fill="#edf5ff"/>
+    <text x="100" y="197" fill="#27415f" font-family="sans-serif" font-size="22" font-weight="700">普通退出后再次点 SSO</text>
+
+    <rect x="104" y="258" width="472" height="82" rx="15" fill="#f7f9fc" stroke="#dce4ee"/>
+    <text x="132" y="292" fill="#334762" font-family="sans-serif" font-size="18" font-weight="700">1 · 示例应用清除本地用户 Cookie</text>
+    <text x="132" y="319" fill="#6b7b90" font-family="sans-serif" font-size="15">本地会话结束</text>
+    <path d="M340 344v27" stroke="#5b87bf" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="104" y="381" width="472" height="82" rx="15" fill="#f4f0fb" stroke="#e0d8ee"/>
+    <text x="132" y="415" fill="#4a3c68" font-family="sans-serif" font-size="18" font-weight="700">2 · Keycloak SSO Cookie 仍然有效</text>
+    <text x="132" y="442" fill="#766c89" font-family="sans-serif" font-size="15">身份中心仍记得当前用户</text>
+    <path d="M340 467v27" stroke="#8265bf" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="104" y="505" width="472" height="82" rx="15" fill="#fff6e8" stroke="#efd9ae"/>
+    <text x="132" y="539" fill="#745624" font-family="sans-serif" font-size="18" font-weight="700">3 · 普通 SSO 可能直接登录回原账号</text>
+    <text x="132" y="566" fill="#927448" font-family="sans-serif" font-size="15">这是共享会话复用，不是本地退出失败</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="664" y="152" width="552" height="474" rx="22" fill="#fff" stroke="#cfe1d8" stroke-width="2"/>
+    <rect x="664" y="152" width="552" height="70" rx="22" fill="#eaf5ef"/>
+    <path d="M664 197v25h552v-25" fill="#eaf5ef"/>
+    <text x="700" y="197" fill="#315b4b" font-family="sans-serif" font-size="22" font-weight="700">用户明确选择“切换账号”</text>
+
+    <rect x="704" y="258" width="472" height="82" rx="15" fill="#f7f9fc" stroke="#dce4ee"/>
+    <text x="732" y="292" fill="#334762" font-family="sans-serif" font-size="18" font-weight="700">1 · 示例应用发起新的 OIDC 请求</text>
+    <text x="732" y="319" fill="#6b7b90" font-family="sans-serif" font-size="15">带上 prompt=login</text>
+    <path d="M940 344v27" stroke="#4f9a7b" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="704" y="381" width="472" height="82" rx="15" fill="#eaf5ef" stroke="#cce4d8"/>
+    <text x="732" y="415" fill="#315a4c" font-family="sans-serif" font-size="18" font-weight="700">2 · Keycloak 要求重新认证</text>
+    <text x="732" y="442" fill="#648172" font-family="sans-serif" font-size="15">用户可以输入另一个账号</text>
+    <path d="M940 467v27" stroke="#4f9a7b" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="704" y="505" width="472" height="82" rx="15" fill="#edf5ff" stroke="#d4e2f2"/>
+    <text x="732" y="539" fill="#334762" font-family="sans-serif" font-size="18" font-weight="700">3 · 登录页显示最近退出的账号标识</text>
+    <text x="732" y="566" fill="#6b7b90" font-family="sans-serif" font-size="15">当前标签页 sessionStorage；成功读取会话后清除</text>
+  </g>
+  <text x="640" y="674" text-anchor="middle" fill="#718096" font-family="sans-serif" font-size="15">如果要退出该 Realm 的所有应用，再执行 Keycloak 全局登出</text>
+</svg>

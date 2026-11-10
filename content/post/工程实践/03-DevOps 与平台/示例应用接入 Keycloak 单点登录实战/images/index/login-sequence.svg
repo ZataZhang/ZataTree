@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="820" viewBox="0 0 1280 820" role="img" aria-labelledby="title desc">
+  <title id="title">示例应用通过 Keycloak 完成 OIDC 登录</title>
+  <desc id="desc">用户从示例应用发起登录，在 Keycloak 验证后将授权码返回示例应用，后端校验身份并创建本地会话。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1L11 6L1 11Z" fill="#5b87bf"/></marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#24324a" flood-opacity=".08"/></filter>
+  </defs>
+  <rect width="1280" height="820" rx="28" fill="#f4f7fb"/>
+  <text x="64" y="74" fill="#162238" font-family="sans-serif" font-size="34" font-weight="700">示例应用通过 Keycloak 完成 OIDC 登录</text>
+  <text x="64" y="110" fill="#65748a" font-family="sans-serif" font-size="18">浏览器只往返授权码；令牌交换与应用会话都由示例应用后端处理</text>
+
+  <rect x="66" y="145" width="1148" height="106" rx="18" fill="#eaf1fa" stroke="#d1deed"/>
+  <text x="98" y="185" fill="#294363" font-family="sans-serif" font-size="19" font-weight="700">示例应用登录页</text>
+  <text x="98" y="218" fill="#5e7088" font-family="sans-serif" font-size="16">用户选择单点登录，仍从产品自己的品牌入口开始</text>
+  <circle cx="1144" cy="198" r="25" fill="#5b87bf"/>
+  <text x="1144" y="206" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="20" font-weight="700">1</text>
+
+  <path d="M640 253v38" stroke="#5b87bf" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="66" y="302" width="1148" height="106" rx="18" fill="#fff" stroke="#d7e0ea" filter="url(#shadow)"/>
+  <text x="98" y="342" fill="#253852" font-family="sans-serif" font-size="19" font-weight="700">示例应用后端发起 OIDC 请求</text>
+  <text x="98" y="375" fill="#66778d" font-family="sans-serif" font-size="16">生成 state、nonce 和 PKCE verifier，再跳到 Keycloak</text>
+  <circle cx="1144" cy="355" r="25" fill="#5b87bf"/>
+  <text x="1144" y="363" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="20" font-weight="700">2</text>
+
+  <path d="M640 410v38" stroke="#5b87bf" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="66" y="459" width="1148" height="106" rx="18" fill="#f4f0fb" stroke="#ddd3ef"/>
+  <text x="98" y="499" fill="#41345f" font-family="sans-serif" font-size="19" font-weight="700">Keycloak 验证凭据或复用已有 Realm 会话</text>
+  <text x="98" y="532" fill="#766c89" font-family="sans-serif" font-size="16">密码、邮箱码、短信码由共享登录流程处理</text>
+  <circle cx="1144" cy="512" r="25" fill="#8265bf"/>
+  <text x="1144" y="520" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="20" font-weight="700">3</text>
+
+  <path d="M640 567v38" stroke="#5b87bf" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="66" y="616" width="1148" height="106" rx="18" fill="#fff" stroke="#d7e0ea" filter="url(#shadow)"/>
+  <text x="98" y="656" fill="#253852" font-family="sans-serif" font-size="19" font-weight="700">回到示例应用 callback，后端交换授权码并校验身份</text>
+  <text x="98" y="689" fill="#66778d" font-family="sans-serif" font-size="16">核验 issuer、签名、audience、时效、state、nonce 和 PKCE</text>
+  <circle cx="1144" cy="669" r="25" fill="#5b87bf"/>
+  <text x="1144" y="677" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="20" font-weight="700">4</text>
+
+  <path d="M640 724v38" stroke="#5b87bf" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="66" y="770" width="1148" height="42" rx="14" fill="#dff1ea" stroke="#c3e3d5"/>
+  <text x="94" y="797" fill="#315a4c" font-family="sans-serif" font-size="16" font-weight="700">示例应用匹配或创建本地普通用户，签发自己的 HttpOnly 会话 Cookie</text>
+  <circle cx="1144" cy="791" r="19" fill="#4f9a7b"/>
+  <text x="1144" y="797" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="16" font-weight="700">5</text>
+</svg>

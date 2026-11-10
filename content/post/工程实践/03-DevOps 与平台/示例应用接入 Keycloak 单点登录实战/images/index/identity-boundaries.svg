@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">一个身份中心，多套应用边界</title>
+  <desc id="desc">Keycloak Realm 共享身份验证，示例应用普通用户端和管理员端分别使用独立 Client、本地账号记录和应用会话。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1L11 6L1 11Z" fill="#5b87bf"/></marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="6" stdDeviation="9" flood-color="#24324a" flood-opacity=".09"/></filter>
+  </defs>
+  <rect width="1280" height="720" rx="28" fill="#f4f7fb"/>
+  <text x="64" y="74" fill="#162238" font-family="sans-serif" font-size="34" font-weight="700">一个身份中心，多套应用边界</text>
+  <text x="64" y="110" fill="#65748a" font-family="sans-serif" font-size="18">共享认证身份；应用各自保留账号、权限与会话</text>
+
+  <g filter="url(#shadow)">
+    <rect x="150" y="148" width="980" height="190" rx="22" fill="#fff" stroke="#cad7e6" stroke-width="2"/>
+    <rect x="150" y="148" width="980" height="56" rx="22" fill="#eaf1fa"/>
+    <path d="M150 182v22h980v-22" fill="#eaf1fa"/>
+    <circle cx="190" cy="176" r="9" fill="#5b87bf"/>
+    <text x="214" y="184" fill="#20324d" font-family="sans-serif" font-size="22" font-weight="700">Keycloak 身份中心</text>
+    <text x="1090" y="183" text-anchor="end" fill="#536882" font-family="monospace" font-size="17">Realm: shared</text>
+    <rect x="194" y="232" width="270" height="70" rx="14" fill="#f7f9fc" stroke="#dce4ee"/>
+    <text x="329" y="261" text-anchor="middle" fill="#293c58" font-family="sans-serif" font-size="18" font-weight="700">共享用户身份</text>
+    <text x="329" y="285" text-anchor="middle" fill="#6b7b90" font-family="sans-serif" font-size="15">issuer + subject</text>
+    <rect x="505" y="232" width="270" height="70" rx="14" fill="#f7f9fc" stroke="#dce4ee"/>
+    <text x="640" y="261" text-anchor="middle" fill="#293c58" font-family="sans-serif" font-size="18" font-weight="700">统一认证体验</text>
+    <text x="640" y="285" text-anchor="middle" fill="#6b7b90" font-family="sans-serif" font-size="15">密码 · 邮箱码 · 短信码</text>
+    <rect x="816" y="232" width="270" height="70" rx="14" fill="#f7f9fc" stroke="#dce4ee"/>
+    <text x="951" y="261" text-anchor="middle" fill="#293c58" font-family="sans-serif" font-size="18" font-weight="700">OIDC 登录会话</text>
+    <text x="951" y="285" text-anchor="middle" fill="#6b7b90" font-family="sans-serif" font-size="15">供多个 Client 复用</text>
+  </g>
+
+  <path d="M400 338v50" fill="none" stroke="#5b87bf" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M880 338v50" fill="none" stroke="#5b87bf" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <g filter="url(#shadow)">
+    <rect x="96" y="405" width="520" height="238" rx="22" fill="#fff" stroke="#cbd9e9" stroke-width="2"/>
+    <rect x="96" y="405" width="520" height="62" rx="22" fill="#edf5ff"/>
+    <path d="M96 445v22h520v-22" fill="#edf5ff"/>
+    <text x="132" y="445" fill="#243b5a" font-family="sans-serif" font-size="22" font-weight="700">示例应用普通用户端</text>
+    <rect x="132" y="486" width="210" height="56" rx="12" fill="#f7f9fc" stroke="#dce4ee"/>
+    <text x="237" y="520" text-anchor="middle" fill="#334762" font-family="monospace" font-size="17">Client: app-user</text>
+    <rect x="362" y="486" width="216" height="56" rx="12" fill="#f7f9fc" stroke="#dce4ee"/>
+    <text x="470" y="520" text-anchor="middle" fill="#334762" font-family="sans-serif" font-size="17">本地 users 记录</text>
+    <text x="132" y="584" fill="#66778d" font-family="sans-serif" font-size="16">独立授权规则 · app_user_session</text>
+    <text x="132" y="612" fill="#66778d" font-family="sans-serif" font-size="15">普通用户注册策略仍由示例应用决定</text>
+
+    <rect x="664" y="405" width="520" height="238" rx="22" fill="#fff" stroke="#d9cfee" stroke-width="2"/>
+    <rect x="664" y="405" width="520" height="62" rx="22" fill="#f4f0fb"/>
+    <path d="M664 445v22h520v-22" fill="#f4f0fb"/>
+    <text x="700" y="445" fill="#41345f" font-family="sans-serif" font-size="22" font-weight="700">示例应用管理端</text>
+    <rect x="700" y="486" width="210" height="56" rx="12" fill="#faf9fc" stroke="#e5dff0"/>
+    <text x="805" y="520" text-anchor="middle" fill="#4c4065" font-family="monospace" font-size="17">Client: app-admin</text>
+    <rect x="930" y="486" width="216" height="56" rx="12" fill="#faf9fc" stroke="#e5dff0"/>
+    <text x="1038" y="520" text-anchor="middle" fill="#4c4065" font-family="sans-serif" font-size="17">本地 admins 记录</text>
+    <text x="700" y="584" fill="#766c89" font-family="sans-serif" font-size="16">独立管理员规则 · 管理端会话</text>
+    <text x="700" y="612" fill="#766c89" font-family="sans-serif" font-size="15">用户登录成功不代表获得管理员权限</text>
+  </g>
+  <text x="640" y="686" text-anchor="middle" fill="#718096" font-family="sans-serif" font-size="15">OIDC 交付身份结果；每个应用仍须完成本地账号映射与业务授权</text>
+</svg>
