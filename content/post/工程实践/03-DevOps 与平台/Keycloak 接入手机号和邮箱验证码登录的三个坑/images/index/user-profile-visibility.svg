@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="420" viewBox="0 0 1000 420" role="img" aria-label="未声明的 phone_number 属性被 User Profile 过滤，声明后才在管理后台显示">
+  <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#5B87BF"/></marker></defs>
+  <rect width="1000" height="420" fill="#0B1220"/>
+  <text x="40" y="44" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="22" font-weight="700" fill="#F8FAFC">手机号在哪一层被挡住</text>
+  <rect x="40" y="90" width="260" height="270" rx="14" fill="#101a2e" stroke="#3b4a68" stroke-width="2"/>
+  <text x="62" y="124" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="18" font-weight="700" fill="#F8FAFC">数据库：用户属性</text>
+  <text x="62" y="164" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="15" fill="#9FB3D1">username</text>
+  <text x="62" y="192" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="15" fill="#9FB3D1">email</text>
+  <text x="62" y="220" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="15" fill="#9FB3D1">firstName / lastName</text>
+  <text x="62" y="262" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="15" fill="#22D3EE">phone_number</text>
+  <text x="62" y="290" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="15" fill="#22D3EE">phone_number_verified</text>
+  <text x="62" y="334" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="14" fill="#64748B">短信验证通过后写入</text>
+  <rect x="370" y="90" width="260" height="270" rx="14" fill="none" stroke="#5B87BF" stroke-width="2"/>
+  <text x="392" y="124" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="18" font-weight="700" fill="#F8FAFC">User Profile 声明</text>
+  <text x="392" y="164" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#9FB3D1">默认只声明 4 个标准字段</text>
+  <text x="392" y="200" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#F87171">未声明 = unmanaged</text>
+  <text x="392" y="224" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#F87171">默认对所有人隐藏</text>
+  <text x="392" y="268" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#4ADE80">声明 phone_number 后</text>
+  <text x="392" y="292" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#4ADE80">按 permissions 决定谁能看</text>
+  <text x="392" y="334" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="14" fill="#64748B">Keycloak 24 起默认启用</text>
+  <rect x="700" y="90" width="260" height="270" rx="14" fill="#101a2e" stroke="#3b4a68" stroke-width="2"/>
+  <text x="722" y="124" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="18" font-weight="700" fill="#F8FAFC">界面</text>
+  <text x="722" y="164" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#9FB3D1">管理后台用户详情</text>
+  <text x="722" y="188" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#4ADE80">view: admin → 可见</text>
+  <text x="722" y="232" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#9FB3D1">用户账号页</text>
+  <text x="722" y="256" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#64748B">未授予 user → 不可见</text>
+  <text x="722" y="300" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#9FB3D1">验证标记</text>
+  <text x="722" y="324" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#64748B">edit: [] → 谁都不能改</text>
+  <line x1="300" y1="225" x2="364" y2="225" stroke="#5B87BF" stroke-width="2.5" marker-end="url(#ar)"/>
+  <line x1="630" y1="225" x2="694" y2="225" stroke="#5B87BF" stroke-width="2.5" marker-end="url(#ar)"/>
+  <text x="40" y="398" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="14" fill="#64748B">临时排查也可开启 Unmanaged attributes = Only administrators can view，所有未声明属性以只读方式显示</text>
+</svg>

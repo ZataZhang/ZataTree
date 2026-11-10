@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="420" viewBox="0 0 1000 420" role="img" aria-label="环境变量引用只在首次导入时替换；运行中写入的引用保持字面量，发信时不解析">
+  <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#5B87BF"/></marker></defs>
+  <rect width="1000" height="420" fill="#0B1220"/>
+  <text x="40" y="44" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="22" font-weight="700" fill="#F8FAFC">${KC_SMTP_HOST} 什么时候会变成真实主机名</text>
+  <text x="40" y="104" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="17" font-weight="700" fill="#4ADE80">首次导入</text>
+  <rect x="160" y="78" width="220" height="44" rx="10" fill="#101a2e" stroke="#3b4a68" stroke-width="2"/><text x="178" y="106" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="14" fill="#9FB3D1">realm.json 中的引用</text>
+  <rect x="440" y="78" width="200" height="44" rx="10" fill="#101a2e" stroke="#4ADE80" stroke-width="2"/><text x="458" y="106" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#4ADE80">导入时替换为实际值</text>
+  <rect x="700" y="78" width="260" height="44" rx="10" fill="#101a2e" stroke="#3b4a68" stroke-width="2"/><text x="718" y="106" font-family="ui-monospace,'SF Mono',Menlo,monospace" font-size="14" fill="#9FB3D1">数据库: smtp.example.com</text>
+  <line x1="380" y1="100" x2="434" y2="100" stroke="#5B87BF" stroke-width="2.5" marker-end="url(#ar)"/>
+  <line x1="640" y1="100" x2="694" y2="100" stroke="#5B87BF" stroke-width="2.5" marker-end="url(#ar)"/>
+  <text x="40" y="194" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="17" font-weight="700" fill="#F87171">realm 已存在</text>
+  <rect x="160" y="168" width="220" height="44" rx="10" fill="#101a2e" stroke="#3b4a68" stroke-width="2"/><text x="178" y="196" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#9FB3D1">--import-realm 跳过</text>
+  <rect x="440" y="168" width="520" height="44" rx="10" fill="#101a2e" stroke="#3b4a68" stroke-width="2"/><text x="458" y="196" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#9FB3D1">realm 的 SMTP 配置保持为空，验证码邮件发不出</text>
+  <line x1="380" y1="190" x2="434" y2="190" stroke="#5B87BF" stroke-width="2.5" marker-end="url(#ar)"/>
+  <text x="40" y="284" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="17" font-weight="700" fill="#F87171">运行中写入</text>
+  <rect x="160" y="258" width="220" height="44" rx="10" fill="#101a2e" stroke="#3b4a68" stroke-width="2"/><text x="178" y="286" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#9FB3D1">kcadm 写入 ${...}</text>
+  <rect x="440" y="258" width="200" height="44" rx="10" fill="#101a2e" stroke="#3b4a68" stroke-width="2"/><text x="458" y="286" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#9FB3D1">按字面量存储</text>
+  <rect x="700" y="258" width="260" height="44" rx="10" fill="#2a1515" stroke="#F87171" stroke-width="2"/><text x="718" y="286" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#F87171">发信时不解析，连接失败</text>
+  <line x1="380" y1="280" x2="434" y2="280" stroke="#5B87BF" stroke-width="2.5" marker-end="url(#ar)"/>
+  <line x1="640" y1="280" x2="694" y2="280" stroke="#5B87BF" stroke-width="2.5" marker-end="url(#ar)"/>
+  <rect x="40" y="336" width="920" height="56" rx="12" fill="#101a2e" stroke="#2c3a58" stroke-width="1.5"/>
+  <text x="62" y="370" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#F8FAFC">结论：对运行中的 realm，SMTP 填实际值；密码存数据库或用 ${vault.xxx}，二选一。</text>
+</svg>
