@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="430" viewBox="0 0 1000 430" role="img" aria-label="预先占号：攻击者把邮箱改成受害者地址，受害者用验证码登录进入攻击者账号"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#5B87BF"/></marker></defs><rect width="1000" height="430" fill="#0B1220"/>
+<text x="40" y="44" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="22" fill="#F8FAFC">预先占号：验证码证明了邮箱，却被当成证明了账号</text>
+<text x="40" y="92" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="16" fill="#F87171">攻击者</text>
+<rect x="140" y="70" width="230" height="44" rx="10" fill="#101a2e" stroke="#3b4a68" stroke-width="2"/>
+<text x="158" y="98" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#F8FAFC">注册账号，设置自己的密码</text>
+<line x1="370" y1="92" x2="424" y2="92" stroke="#5B87BF" stroke-width="2.5" marker-end="url(#ar)"/>
+<rect x="430" y="70" width="250" height="44" rx="10" fill="#101a2e" stroke="#3b4a68" stroke-width="2"/>
+<text x="448" y="98" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#F8FAFC">邮箱改成 victim@example.com</text>
+<line x1="680" y1="92" x2="734" y2="92" stroke="#5B87BF" stroke-width="2.5" marker-end="url(#ar)"/>
+<rect x="740" y="70" width="220" height="44" rx="10" fill="#2a1515" stroke="#F87171" stroke-width="2"/>
+<text x="758" y="98" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#F87171">emailVerified = false</text>
+<text x="40" y="192" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="16" fill="#4ADE80">受害者</text>
+<rect x="140" y="170" width="230" height="44" rx="10" fill="#101a2e" stroke="#3b4a68" stroke-width="2"/>
+<text x="158" y="198" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#F8FAFC">用邮箱验证码登录</text>
+<line x1="370" y1="192" x2="424" y2="192" stroke="#5B87BF" stroke-width="2.5" marker-end="url(#ar)"/>
+<rect x="430" y="170" width="250" height="44" rx="10" fill="#101a2e" stroke="#3b4a68" stroke-width="2"/>
+<text x="448" y="198" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#F8FAFC">收到验证码并填对</text>
+<line x1="680" y1="192" x2="734" y2="192" stroke="#5B87BF" stroke-width="2.5" marker-end="url(#ar)"/>
+<rect x="740" y="170" width="220" height="44" rx="10" fill="#2a1515" stroke="#F87171" stroke-width="2"/>
+<text x="758" y="198" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#F87171">进入攻击者的账号</text>
+<text x="430" y="252" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="14" fill="#64748B">插件 getUserByEmail 命中该账号，没有检查是否已验证</text>
+<rect x="40" y="290" width="920" height="110" rx="10" fill="#101a2e" stroke="#2c3a58" stroke-width="2"/>
+<text x="62" y="324" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#F8FAFC">修复一：按邮箱找人只匹配 emailVerified = true 的账号（堵住接管）</text>
+<text x="62" y="354" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#F8FAFC">修复二：User Profile 中 email 改为仅管理员可编辑（堵住抢占邮箱）</text>
+<text x="62" y="384" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#9FB3D1">变更联系方式改走验证码绑定流程</text>
+</svg>

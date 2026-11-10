@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="360" viewBox="0 0 1000 360" role="img" aria-label="两条注册路径：验证码登录建号带已验证联系方式，自带注册页已绑定拒绝访问"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#5B87BF"/></marker></defs><rect width="1000" height="360" fill="#0B1220"/>
+<text x="40" y="44" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="22" fill="#F8FAFC">新用户从哪里建号</text>
+<text x="40" y="104" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="16" fill="#4ADE80">验证码登录</text>
+<rect x="160" y="80" width="220" height="44" rx="10" fill="#101a2e" stroke="#3b4a68" stroke-width="2"/>
+<text x="178" y="108" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#F8FAFC">输入邮箱或手机号</text>
+<line x1="380" y1="102" x2="434" y2="102" stroke="#5B87BF" stroke-width="2.5" marker-end="url(#ar)"/>
+<rect x="440" y="80" width="220" height="44" rx="10" fill="#101a2e" stroke="#3b4a68" stroke-width="2"/>
+<text x="458" y="108" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#F8FAFC">收码、验证通过</text>
+<line x1="660" y1="102" x2="714" y2="102" stroke="#5B87BF" stroke-width="2.5" marker-end="url(#ar)"/>
+<rect x="720" y="80" width="240" height="44" rx="10" fill="#101a2e" stroke="#4ADE80" stroke-width="2"/>
+<text x="738" y="108" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#4ADE80">建号，联系方式已验证</text>
+<text x="40" y="204" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="16" fill="#F87171">自带注册页</text>
+<rect x="160" y="180" width="220" height="44" rx="10" fill="#101a2e" stroke="#3b4a68" stroke-width="2"/>
+<text x="178" y="208" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#F8FAFC">用户名 + 密码</text>
+<line x1="380" y1="202" x2="434" y2="202" stroke="#5B87BF" stroke-width="2.5" marker-end="url(#ar)"/>
+<rect x="440" y="180" width="220" height="44" rx="10" fill="#2a1515" stroke="#F87171" stroke-width="2"/>
+<text x="458" y="208" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#F87171">无已验证联系方式</text>
+<line x1="660" y1="202" x2="714" y2="202" stroke="#5B87BF" stroke-width="2.5" marker-end="url(#ar)"/>
+<rect x="720" y="180" width="240" height="44" rx="10" fill="#101a2e" stroke="#3b4a68" stroke-width="2"/>
+<text x="738" y="208" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#9FB3D1">Deny Access 拒绝</text>
+<rect x="40" y="260" width="920" height="70" rx="10" fill="#101a2e" stroke="#2c3a58" stroke-width="2"/>
+<text x="62" y="290" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#F8FAFC">registrationAllowed 保持开启：验证码登录靠它决定能否建号</text>
+<text x="62" y="316" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#9FB3D1">registrationFlow 指向只含 Deny Access 的流程：直接访问注册地址也只得到错误页</text>
+</svg>

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="420" viewBox="0 0 1000 420" role="img" aria-label="绑定流程：应用发起、重新认证、绑定验证码、写入前复查、回到应用同步"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#5B87BF"/></marker></defs><rect width="1000" height="420" fill="#0B1220"/>
+<text x="40" y="44" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="22" fill="#F8FAFC">绑定邮箱或手机号：应用发起，Keycloak 执行</text>
+<rect x="40" y="80" width="200" height="64" rx="10" fill="#101a2e" stroke="#3b4a68" stroke-width="2"/>
+<text x="58" y="108" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#F8FAFC">应用设置页</text>
+<text x="58" y="130" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="13" fill="#9FB3D1">kc_action=shared-bind-*</text>
+<line x1="240" y1="112" x2="284" y2="112" stroke="#5B87BF" stroke-width="2.5" marker-end="url(#ar)"/>
+<rect x="290" y="80" width="200" height="64" rx="10" fill="#101a2e" stroke="#3b4a68" stroke-width="2"/>
+<text x="308" y="108" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#F8FAFC">超过 5 分钟</text>
+<text x="308" y="130" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="14" fill="#9FB3D1">先重新认证</text>
+<line x1="490" y1="112" x2="534" y2="112" stroke="#5B87BF" stroke-width="2.5" marker-end="url(#ar)"/>
+<rect x="540" y="80" width="200" height="64" rx="10" fill="#101a2e" stroke="#3b4a68" stroke-width="2"/>
+<text x="558" y="108" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#F8FAFC">输入新联系方式</text>
+<text x="558" y="130" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="14" fill="#9FB3D1">已被占用则拒绝</text>
+<line x1="740" y1="112" x2="784" y2="112" stroke="#5B87BF" stroke-width="2.5" marker-end="url(#ar)"/>
+<rect x="790" y="80" width="170" height="64" rx="10" fill="#101a2e" stroke="#3b4a68" stroke-width="2"/>
+<text x="808" y="108" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#F8FAFC">发绑定验证码</text>
+<text x="808" y="130" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="14" fill="#9FB3D1">与登录码分开存</text>
+<line x1="875" y1="144" x2="875" y2="196" stroke="#5B87BF" stroke-width="2.5" marker-end="url(#ar)"/>
+<rect x="790" y="200" width="170" height="64" rx="10" fill="#101a2e" stroke="#3b4a68" stroke-width="2"/>
+<text x="808" y="228" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#F8FAFC">校验验证码</text>
+<text x="808" y="250" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="14" fill="#9FB3D1">写入前再查占用</text>
+<line x1="790" y1="232" x2="746" y2="232" stroke="#5B87BF" stroke-width="2.5" marker-end="url(#ar)"/>
+<rect x="540" y="200" width="200" height="64" rx="10" fill="#101a2e" stroke="#4ADE80" stroke-width="2"/>
+<text x="558" y="228" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#4ADE80">写入并标记已验证</text>
+<text x="558" y="250" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="13" fill="#9FB3D1">emailVerified / phone</text>
+<line x1="540" y1="232" x2="496" y2="232" stroke="#5B87BF" stroke-width="2.5" marker-end="url(#ar)"/>
+<rect x="290" y="200" width="200" height="64" rx="10" fill="#101a2e" stroke="#3b4a68" stroke-width="2"/>
+<text x="308" y="228" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#F8FAFC">回到应用回调</text>
+<text x="308" y="250" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="14" fill="#9FB3D1">完成或取消</text>
+<line x1="290" y1="232" x2="246" y2="232" stroke="#5B87BF" stroke-width="2.5" marker-end="url(#ar)"/>
+<rect x="40" y="200" width="200" height="64" rx="10" fill="#101a2e" stroke="#3b4a68" stroke-width="2"/>
+<text x="58" y="228" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#F8FAFC">应用同步本地</text>
+<text x="58" y="250" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="14" fill="#9FB3D1">冲突则保留原值</text>
+<rect x="40" y="300" width="920" height="90" rx="10" fill="#101a2e" stroke="#2c3a58" stroke-width="2"/>
+<text x="62" y="332" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#F8FAFC">安全前提：近期认证防会话被盗后改绑；用途分离防登录码冒用；写入前复查防并发抢绑</text>
+<text x="62" y="362" font-family="'PingFang SC','Noto Sans SC','Helvetica Neue',sans-serif" font-size="15" fill="#9FB3D1">改密码用内置 UPDATE_PASSWORD，走同一套 kc_action 机制</text>
+</svg>

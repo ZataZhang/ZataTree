@@ -297,7 +297,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [flutter_tutorial](content/post/Web%20开发/04-前端与跨端/flutter_tutorial/)
 - [Refine: 当 API 即界面，CRUD 不再是体力活](content/post/Web%20开发/04-前端与跨端/refine-meta-framework/)
 
-## 工程实践 (18)
+## 工程实践 (19)
 
 ### 01-可观测性
 
@@ -316,6 +316,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 ### 03-DevOps 与平台
 
 - [Docker 和 Traefik 一键安装脚本](content/post/工程实践/03-DevOps%20与平台/Docker-Traefik一键安装脚本/)
+- [给 Keycloak 加了验证码登录之后：未验证邮箱、自带注册页和联系方式绑定](content/post/工程实践/03-DevOps%20与平台/Keycloak%20加验证码登录后要补的账号安全/)
 - [Keycloak 多应用权限怎么设计：账号、角色和管理员边界](content/post/工程实践/03-DevOps%20与平台/Keycloak%20多应用权限怎么设计：账号、角色和管理员边界/)
 - [Keycloak 接入手机号和邮箱验证码登录的三个坑：看不见、搜不到、发不出](content/post/工程实践/03-DevOps%20与平台/Keycloak%20接入手机号和邮箱验证码登录的三个坑/)
 - [Woodpecker CI 使用教程](content/post/工程实践/03-DevOps%20与平台/Woodpecker-CI使用教程/)
