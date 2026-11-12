@@ -297,7 +297,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [flutter_tutorial](content/post/Web%20开发/04-前端与跨端/flutter_tutorial/)
 - [Refine: 当 API 即界面，CRUD 不再是体力活](content/post/Web%20开发/04-前端与跨端/refine-meta-framework/)
 
-## 工程实践 (19)
+## 工程实践 (20)
 
 ### 01-可观测性
 
@@ -323,6 +323,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [企业AI工具平台架构设计：拥抱快速变化的AI生态](content/post/工程实践/03-DevOps%20与平台/ai-platform-architecture/)
 - [开发问题与解法笔记](content/post/工程实践/03-DevOps%20与平台/开发问题与解法笔记/)
 - [示例应用接入 Keycloak：共享身份，不共享应用会话](content/post/工程实践/03-DevOps%20与平台/示例应用接入%20Keycloak%20单点登录实战/)
+- [给应用管理后台接入 Keycloak：只认身份，先在测试 Realm 试](content/post/工程实践/03-DevOps%20与平台/给应用管理后台接入%20Keycloak：只认身份，先在测试%20Realm%20试/)
 - [多个团队维护多个项目，登录怎么统一？](content/post/工程实践/03-DevOps%20与平台/统一登录与单点登录/)
 - [应用多了、团队多了，怎么共用一个账号：自建 Keycloak 打通单点登录](content/post/工程实践/03-DevOps%20与平台/自建%20Keycloak%20打通多应用单点登录/)
 - [配置中心与服务发现工具：从 .env 管理到 Nacos 深入理解](content/post/工程实践/03-DevOps%20与平台/配置中心与服务发现工具：从%20.env%20管理到%20Nacos%20深入理解/)
