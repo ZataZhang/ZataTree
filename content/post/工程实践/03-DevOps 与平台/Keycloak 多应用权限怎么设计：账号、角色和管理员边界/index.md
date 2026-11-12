@@ -139,6 +139,39 @@ CRM 的服务端只看 `resource_access.crm.roles`，知识库只看 `resource_a
 6. **配置应用的 OIDC 客户端。** 通常配置 Realm 的 Issuer URL、Client ID、回调地址；若是机密 Client，再在后端配置 Client Secret。Issuer URL 形如 `https://sso.example.com/realms/company`，服务发现地址为它后面加 `/.well-known/openid-configuration`。
 7. **在后端做授权检查。** 登录成功只说明身份已验证。每个应用仍须对管理接口检查自己的 `admin` 角色，并对业务数据执行自己的权限规则。
 
+### 创建 Client 时的两页配置
+
+第一张是 **Capability config**，决定这个 Client 能使用哪些认证与授权能力。对常见的服务端 Web 应用，重点是开启客户端认证、标准授权码流程和 PKCE；其他流程按实际需要启用：
+
+![Keycloak 创建 Client 时的 Capability config 配置页](images/index/client-capability-config.png)
+
+- **Client authentication**：开启表示机密客户端，服务端在换取令牌时使用 `client_secret`；关闭表示公开客户端，适用于无法安全保存密钥的 SPA 或移动端。密钥不能放进前端代码。
+- **Authorization**：启用 Keycloak 的细粒度授权服务，用资源、策略和权限做访问控制。它不是应用角色授权的总开关；如果应用按自身的 Client 角色检查权限，通常保持关闭。
+- **Standard Flow**：OIDC 授权码流程。浏览器跳到 Keycloak 登录，再带授权码回到应用，由应用换取令牌。普通浏览器登录应使用此流程。
+- **Direct Access Grants**：允许客户端直接提交用户密码换令牌。新应用通常不需要，应避免让应用收集用户密码。
+- **Implicit Flow**：旧式浏览器流程，会把令牌直接放进重定向结果；新应用通常不启用。
+- **Service account roles**：允许应用以自己的机器身份获取令牌，适用于服务到服务调用，不代表某个用户登录。若需要机器身份，通常为它单独创建 Client。
+- **Standard Token Exchange**：允许把一个令牌换成面向另一服务或受众的令牌，属于后端服务链路等高级场景。
+- **JWT Authorization Grant**：客户端提交受信任身份服务签发的 JWT 断言来申请令牌，适用于已配置外部信任关系的集成，不是普通网页登录流程。
+- **OAuth 2.0 Device Authorization Grant**：适用于 CLI、电视等不方便输入或没有合适浏览器的设备；用户在另一台设备上完成授权。
+- **OIDC CIBA Grant**：通过后台通道发起认证，不依赖浏览器重定向；需要相应的用户认证渠道。
+- **Require PKCE / PKCE Method**：要求授权码流程带 PKCE 校验。选择 `S256`，应用也要发送 `S256` 参数；`plain` 是不做哈希的旧式方法。
+- **Require DPoP bound tokens**：把令牌绑定到客户端密钥，降低令牌被盗后重放的风险；只有应用和令牌调用链均支持 DPoP 时才启用。截图里开关被 PKCE 下拉菜单挡住，无法判断当前状态。
+
+这些选项对应 Keycloak 的客户端能力；例如 Direct Access Grants 是客户端直接提交用户凭据，Service account roles 对应 Client Credentials Grant，PKCE 可以要求使用 `S256`。[Keycloak 官方客户端配置说明](https://www.keycloak.org/docs/latest/server_admin/index.html) JWT Authorization Grant 则是基于受信任 JWT 断言申请令牌的独立流程。[JWT Authorization Grant 指南](https://www.keycloak.org/securing-apps/jwt-authorization-grant)
+
+第二张是 **Login settings**，主要填写应用地址和跳转白名单。这里的“登录设置”不是用户密码或角色配置：
+
+![Keycloak 创建 Client 时的 Login settings 配置页](images/index/client-login-settings.png)
+
+- **Root URL**：Keycloak 用相对地址时的应用根地址，可选；如果所有地址都填完整 URL，可以留空。
+- **Home URL**：Keycloak 需要返回或链接到应用时使用的默认地址，例如 `https://crm.example.com/`。
+- **Valid redirect URIs**：登录后允许跳回的回调地址白名单。按应用实际回调路由精确填写，例如 `https://crm.example.com/auth/oidc/callback`。本地开发地址应按实际端口单独配置；生产环境不要使用任意地址或 `*`。
+- **Valid post logout redirect URIs**：退出登录后允许跳回的地址，例如 `https://crm.example.com/`。只有应用会传 `post_logout_redirect_uri` 时才需要填写，且它与登录回调地址是两份不同的白名单。
+- **Web origins**：浏览器跨域请求（CORS）允许的来源，只填写协议、域名和端口，例如 `https://crm.example.com`，不带路径。若令牌交换由服务端完成，通常可留空；若 SPA 在浏览器中直接请求 Keycloak，则填写 SPA 的精确来源。
+
+Keycloak 会校验回调 URI，并要求退出后的跳转地址也在对应白名单中；生产环境应尽量使用具体地址。[Keycloak 官方地址与登出配置说明](https://www.keycloak.org/docs/latest/server_admin/index.html)
+
 接入后的验收不只测“能不能登录”，还要用不同权限的账号验证边界：
 
 - CRM 普通用户不能调用 CRM 管理接口。
