@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="440" viewBox="0 0 1200 440" role="img" aria-label="换计算节点的四步：新机入群、给新机打标签、发布并验证、摘掉旧标签再 drain；标签集合在任何时刻都非空">
+  <defs>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5B87BF"/><stop offset="100%" stop-color="#22D3EE"/>
+    </linearGradient>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.3" fill="#26324a"/>
+    </pattern>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5B87BF"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="440" fill="#0B1220"/>
+  <rect width="1200" height="440" fill="url(#dots)" opacity="0.45"/>
+  <text x="1160" y="34" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="13" fill="#475569">zata.cc</text>
+
+  <text x="60" y="64" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="26" font-weight="600" fill="#F8FAFC">用节点标签换机：先加后摘，全程不中断</text>
+  <rect x="60" y="80" width="112" height="6" rx="3" fill="url(#accent)"/>
+
+  <rect x="60" y="130" width="250" height="150" rx="12" fill="#152140" stroke="#31456b" stroke-width="1.4"/>
+  <text x="76" y="162" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="15" font-weight="600" fill="#93c5fd">① 新机入群</text>
+  <text x="76" y="190" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="#cbd5e1">docker swarm join</text>
+  <text x="76" y="212" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#8fa6c4">此时还没有标签，</text>
+  <text x="76" y="232" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#8fa6c4">不接任何任务</text>
+
+  <line x1="314" y1="205" x2="344" y2="205" stroke="#5B87BF" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="348" y="130" width="250" height="150" rx="12" fill="#152140" stroke="#31456b" stroke-width="1.4"/>
+  <text x="364" y="162" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="15" font-weight="600" fill="#93c5fd">② 给新机打标签</text>
+  <text x="364" y="190" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="#cbd5e1">node update --label-add</text>
+  <text x="364" y="212" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#8fa6c4">新旧都满足约束，</text>
+  <text x="364" y="232" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#8fa6c4">任务可能落在任一台</text>
+
+  <line x1="602" y1="205" x2="632" y2="205" stroke="#5B87BF" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="636" y="130" width="250" height="150" rx="12" fill="#152140" stroke="#31456b" stroke-width="1.4"/>
+  <text x="652" y="162" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="15" font-weight="600" fill="#93c5fd">③ 发布并验证</text>
+  <text x="652" y="190" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="#cbd5e1">deploy / --force</text>
+  <text x="652" y="212" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#8fa6c4">确认新机任务健康、</text>
+  <text x="652" y="232" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#8fa6c4">公网入口正常</text>
+
+  <line x1="890" y1="205" x2="920" y2="205" stroke="#5B87BF" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="924" y="130" width="216" height="150" rx="12" fill="#1c1018" stroke="#7f2d3d" stroke-width="1.4"/>
+  <text x="940" y="162" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="15" font-weight="600" fill="#f87171">④ 摘旧标签</text>
+  <text x="940" y="190" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="#fca5a5">--label-rm</text>
+  <text x="940" y="212" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#cbd5e1">再 --availability drain</text>
+  <text x="940" y="232" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#8fa6c4">停任务后重调度</text>
+
+  <rect x="60" y="312" width="1080" height="84" rx="12" fill="#101a2e" stroke="#2f3f5c"/>
+  <text x="80" y="342" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="13" font-weight="600" fill="#93c5fd">约束集合始终非空</text>
+  <text x="80" y="368" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#8fa6c4">先加后摘的意义就在这里：反过来的话，中间会有一段时间没有任何节点满足约束，任务立即变成 unschedulable。</text>
+  <text x="80" y="386" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#8fa6c4">另外，只改约束不会重启正在运行的任务——这次切换因此是零中断的，只有显式 --force 才会按新约束重排。</text>
+</svg>

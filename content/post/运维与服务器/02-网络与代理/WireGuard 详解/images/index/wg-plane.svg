@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="580" viewBox="0 0 1200 580" role="img" aria-label="控制面与数据面分离：控制面只下发身份、密钥、地址与 ACL，数据面的加密隧道端到端直连，不经过控制面">
+  <defs>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5B87BF"/>
+      <stop offset="100%" stop-color="#22D3EE"/>
+    </linearGradient>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.3" fill="#26324a"/>
+    </pattern>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#64748b"/>
+    </marker>
+    <marker id="arrCtl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5B87BF"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="580" fill="#0B1220"/>
+  <rect width="1200" height="580" fill="url(#dots)" opacity="0.5"/>
+  <text x="1160" y="36" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="15" fill="#475569">zata.cc</text>
+
+  <text x="60" y="72" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="30" font-weight="600" fill="#F8FAFC">控制面下发状态，数据面负责搬包</text>
+  <rect x="60" y="90" width="112" height="6" rx="3" fill="url(#accent)"/>
+
+  <!-- control plane -->
+  <rect x="390" y="122" width="420" height="104" rx="14" fill="#161d38" stroke="#5B87BF" stroke-width="1.8"/>
+  <text x="600" y="156" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="18" font-weight="600" fill="#5B87BF">控制面 Control Plane</text>
+  <text x="600" y="182" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="13" fill="#cbd5e1">身份 · 密钥分发 · 地址分配 · endpoint 发现 · ACL</text>
+  <text x="600" y="206" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="#64748b">Tailscale SaaS / Headscale / 也可人工</text>
+
+  <!-- control arrows -->
+  <path d="M470 230 L330 296" stroke="#5B87BF" stroke-width="1.6" stroke-dasharray="7 6" fill="none" marker-end="url(#arrCtl)"/>
+  <path d="M730 230 L870 296" stroke="#5B87BF" stroke-width="1.6" stroke-dasharray="7 6" fill="none" marker-end="url(#arrCtl)"/>
+  <text x="330" y="266" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#5B87BF">下发 peer 列表与密钥</text>
+  <text x="870" y="266" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#5B87BF">上报状态与端点</text>
+
+  <!-- node A -->
+  <rect x="110" y="296" width="360" height="150" rx="14" fill="#0e1730" stroke="#3b4a68" stroke-width="2"/>
+  <text x="290" y="330" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="16" font-weight="600" fill="#22D3EE">节点 A</text>
+  <text x="290" y="354" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="13" fill="#94a3b8">100.64.0.1 · wg0</text>
+  <text x="290" y="390" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="13" fill="#cbd5e1">数据面：加密 / 解封</text>
+  <text x="290" y="414" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="13" fill="#cbd5e1">按已下发的状态转发</text>
+
+  <!-- node B -->
+  <rect x="730" y="296" width="360" height="150" rx="14" fill="#0e1730" stroke="#3b4a68" stroke-width="2"/>
+  <text x="910" y="330" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="16" font-weight="600" fill="#8B5CF6">节点 B</text>
+  <text x="910" y="354" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="13" fill="#94a3b8">100.64.0.2 · wg0</text>
+  <text x="910" y="390" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="13" fill="#cbd5e1">数据面：加密 / 解封</text>
+  <text x="910" y="414" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="13" fill="#cbd5e1">按已下发的状态转发</text>
+
+  <!-- data path -->
+  <line x1="476" y1="371" x2="724" y2="371" stroke="#34D399" stroke-width="3" marker-end="url(#arr)"/>
+  <line x1="724" y1="371" x2="476" y2="371" stroke="#34D399" stroke-width="3" marker-end="url(#arr)"/>
+  <text x="600" y="358" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="14" fill="#34D399">加密隧道（端到端）</text>
+  <text x="600" y="396" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="#64748b">完全不经过控制面</text>
+
+  <!-- notes -->
+  <line x1="60" y1="486" x2="1140" y2="486" stroke="#1e293b"/>
+  <text x="600" y="516" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="13" fill="#94a3b8">控制面只决定「谁能和谁通」，它从不转发用户数据；数据面的带宽与延迟与控制面无关。</text>
+  <text x="600" y="542" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="13" fill="#64748b">控制面短暂不可用时，已建立的隧道通常继续工作；但新增 peer、重新握手、密钥过期续期会受影响。</text>
+</svg>

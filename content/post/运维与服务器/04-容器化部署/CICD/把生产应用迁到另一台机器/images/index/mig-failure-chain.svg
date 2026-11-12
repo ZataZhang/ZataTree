@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="460" viewBox="0 0 1200 460" role="img" aria-label="失败链条：部署成功但健康检查在 manager 上查不到 worker 容器，抛异常进入回滚；回滚前的排空同样依赖本机容器，再次抛异常，最终停在半迁移状态">
+  <defs>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5B87BF"/><stop offset="100%" stop-color="#22D3EE"/>
+    </linearGradient>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.3" fill="#26324a"/>
+    </pattern>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#f87171"/>
+    </marker>
+    <marker id="arrBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5B87BF"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="460" fill="#0B1220"/>
+  <rect width="1200" height="460" fill="url(#dots)" opacity="0.45"/>
+  <text x="1160" y="34" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="13" fill="#475569">zata.cc</text>
+
+  <text x="60" y="64" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="26" font-weight="600" fill="#F8FAFC">一次“发布成功却回滚也失败”的完整链条</text>
+  <rect x="60" y="80" width="112" height="6" rx="3" fill="url(#accent)"/>
+
+  <rect x="60" y="150" width="196" height="176" rx="12" fill="#152140" stroke="#31456b" stroke-width="1.4"/>
+  <text x="76" y="182" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="15" font-weight="600" fill="#93c5fd">① 提交新栈</text>
+  <text x="76" y="210" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#cbd5e1">docker stack deploy</text>
+  <text x="76" y="232" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#cbd5e1">任务迁到 worker</text>
+  <text x="76" y="254" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#8fa6c4">这一步其实成功了</text>
+
+  <line x1="258" y1="238" x2="284" y2="238" stroke="#5B87BF" stroke-width="2" marker-end="url(#arrBlue)"/>
+
+  <rect x="288" y="150" width="196" height="176" rx="12" fill="#1c1018" stroke="#7f2d3d" stroke-width="1.4"/>
+  <text x="304" y="182" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="15" font-weight="600" fill="#f87171">② 等待健康</text>
+  <text x="304" y="210" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="#fca5a5">inspect &lt;容器ID&gt;</text>
+  <text x="304" y="232" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#cbd5e1">容器是节点本地对象</text>
+  <text x="304" y="254" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#cbd5e1">manager 上查不到</text>
+
+  <line x1="486" y1="238" x2="512" y2="238" stroke="#f87171" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="516" y="150" width="196" height="176" rx="12" fill="#1c1018" stroke="#7f2d3d" stroke-width="1.4"/>
+  <text x="532" y="182" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="15" font-weight="600" fill="#f87171">③ 抛异常</text>
+  <text x="532" y="210" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#cbd5e1">判定发布失败</text>
+  <text x="532" y="232" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#cbd5e1">进入回滚分支</text>
+  <text x="532" y="254" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#8fa6c4">此时服务已在新节点</text>
+
+  <line x1="714" y1="238" x2="740" y2="238" stroke="#f87171" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="744" y="150" width="196" height="176" rx="12" fill="#1c1018" stroke="#7f2d3d" stroke-width="1.4"/>
+  <text x="760" y="182" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="15" font-weight="600" fill="#f87171">④ 回滚前先排空</text>
+  <text x="760" y="210" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#cbd5e1">排空要找到后端容器</text>
+  <text x="760" y="232" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#cbd5e1">同样在本机找不到</text>
+  <text x="760" y="254" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#fca5a5">再次抛异常</text>
+
+  <line x1="942" y1="238" x2="968" y2="238" stroke="#f87171" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="972" y="150" width="168" height="176" rx="12" fill="#1f1a10" stroke="#8a6520" stroke-width="1.4"/>
+  <text x="988" y="182" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="15" font-weight="600" fill="#fbbf24">⑤ 结果</text>
+  <text x="988" y="210" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#cbd5e1">半迁移状态</text>
+  <text x="988" y="232" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#cbd5e1">回滚没执行</text>
+  <text x="988" y="254" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#8fa6c4">发布指针未切换</text>
+
+  <text x="60" y="372" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="13" fill="#64748b">根因只有一句：Swarm 的 service / task 是集群对象，容器是节点本地对象；manager 能查前者，查不到后者。</text>
+  <text x="60" y="398" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="13" fill="#64748b">所以“能发布”不等于“能回滚”：回滚路径一旦复用同样的本机调用，就会在同一个地方再摔一次。</text>
+
+  <rect x="60" y="416" width="6" height="18" rx="3" fill="#f87171"/>
+  <text x="78" y="430" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#94a3b8">修复方向：健康判定用集群任务状态，Celery 控制用一次性容器，两者都不依赖容器所在节点。</text>
+</svg>

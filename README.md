@@ -610,7 +610,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [内网文件传输工具LocalSend](content/post/软件试用/05-桌面效率工具/内网文件传输工具LocalSend/)
 - [实用软件工具｜好用软件推荐](content/post/软件试用/05-桌面效率工具/实用软件工具/)
 
-## 运维与服务器 (32)
+## 运维与服务器 (36)
 
 ### 01-服务器与系统
 
@@ -627,6 +627,8 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 
 ### 02-网络与代理
 
+- [Tailscale 详解：控制面、DERP 与自建 Headscale](content/post/运维与服务器/02-网络与代理/Tailscale%20详解/)
+- [WireGuard 详解：从加密原理到跨 VPC 站点互联](content/post/运维与服务器/02-网络与代理/WireGuard%20详解/)
 - [rustdesk安装使用](content/post/运维与服务器/02-网络与代理/rustdesk安装使用/)
 - [代理配置与环境变量实战](content/post/运维与服务器/02-网络与代理/代理配置实战/)
 - [Clash 使用教程：系统代理、TUN 虚拟网卡与分流规则](content/post/运维与服务器/02-网络与代理/修改clash中的配置信息/)
@@ -645,6 +647,8 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 
 - [1panel使用教程｜云服务器使用教程](content/post/运维与服务器/04-容器化部署/1panel使用/)
 - [CICD](content/post/运维与服务器/04-容器化部署/CICD/)
+    - [CD 的目标机怎么换：GitHub Actions + Swarm 的配置分层与扩缩容](content/post/运维与服务器/04-容器化部署/CICD/CD%20的目标机怎么换/)
+    - [把生产应用迁到另一台机器：Swarm 调度与发布链路的六个坑](content/post/运维与服务器/04-容器化部署/CICD/把生产应用迁到另一台机器/)
 - [Coolify](content/post/运维与服务器/04-容器化部署/Coolify/)
 - [Dokploy](content/post/运维与服务器/04-容器化部署/Dokploy/)
 

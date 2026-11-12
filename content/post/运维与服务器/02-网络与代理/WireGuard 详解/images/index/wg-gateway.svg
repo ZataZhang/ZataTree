@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="740" viewBox="0 0 1200 740" role="img" aria-label="跨 VPC 直接指定下一跳不成立，建隧道后入口节点才成为二层可达的下一跳，容器流量经 NAT 从网关公网 IP 出去">
+  <defs>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5B87BF"/>
+      <stop offset="100%" stop-color="#22D3EE"/>
+    </linearGradient>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.3" fill="#26324a"/>
+    </pattern>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#64748b"/>
+    </marker>
+    <marker id="arrRed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#f87171"/>
+    </marker>
+    <marker id="arrOk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#34D399"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="740" fill="#0B1220"/>
+  <rect width="1200" height="740" fill="url(#dots)" opacity="0.5"/>
+  <text x="1160" y="36" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="15" fill="#475569">zata.cc</text>
+
+  <text x="60" y="72" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="30" font-weight="600" fill="#F8FAFC">让 A 当出口：为什么必须建隧道</text>
+  <rect x="60" y="90" width="112" height="6" rx="3" fill="url(#accent)"/>
+
+  <!-- scenario 1 -->
+  <rect x="60" y="116" width="1080" height="216" rx="16" fill="#1c1018" stroke="#7f2d3d" stroke-width="1.6"/>
+  <text x="84" y="150" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="17" font-weight="600" fill="#f87171">不成立：ip route add default via 对端私网 IP</text>
+
+  <rect x="84" y="176" width="200" height="88" rx="10" fill="#152140" stroke="#2f3f5c"/>
+  <text x="184" y="204" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="14" fill="#e2e8f0">B 的 eth0</text>
+  <text x="184" y="228" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="13" fill="#94a3b8">10.20.0.10/24</text>
+  <text x="184" y="248" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#64748b">下一跳想写对端</text>
+
+  <line x1="290" y1="208" x2="352" y2="208" stroke="#f87171" stroke-width="2" marker-end="url(#arrRed)"/>
+  <text x="321" y="196" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="#f87171">ARP</text>
+
+  <rect x="358" y="176" width="200" height="88" rx="10" fill="#2a1220" stroke="#f87171" stroke-width="1.4"/>
+  <text x="458" y="204" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="15" fill="#f87171">二层不可达</text>
+  <text x="458" y="230" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#94a3b8">对端不在同一广播域</text>
+  <text x="458" y="250" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#94a3b8">ARP 无人应答</text>
+
+  <line x1="564" y1="208" x2="626" y2="208" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="595" y="196" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="11" fill="#64748b">退而求其次</text>
+
+  <rect x="632" y="176" width="230" height="88" rx="10" fill="#152140" stroke="#2f3f5c"/>
+  <text x="747" y="204" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="14" fill="#e2e8f0">B 自己的 VPC 网关</text>
+  <text x="747" y="228" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="13" fill="#94a3b8">10.20.0.1</text>
+  <text x="747" y="248" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#64748b">只按「目的 CIDR」决策</text>
+
+  <line x1="868" y1="208" x2="930" y2="208" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="936" y="176" width="180" height="88" rx="10" fill="#152140" stroke="#2f3f5c"/>
+  <text x="1026" y="204" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="14" fill="#e2e8f0">公网出口</text>
+  <text x="1026" y="228" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#f87171">流量不进 A</text>
+  <text x="1026" y="248" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#64748b">出口 IP 仍是 B</text>
+
+  <text x="84" y="302" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="13" fill="#94a3b8">对等连接是点对点的：只保证「目的地址属于对端 CIDR」的包能过去，不能把对端 ECS 当下一跳，也不传递路由。</text>
+
+  <!-- scenario 2 -->
+  <rect x="60" y="356" width="1080" height="300" rx="16" fill="#0d1f1a" stroke="#2f6f52" stroke-width="1.6"/>
+  <text x="84" y="392" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="17" font-weight="600" fill="#34D399">成立：先建隧道，把 A 变成二层可达的下一跳</text>
+
+  <rect x="84" y="418" width="176" height="92" rx="10" fill="#152140" stroke="#2f3f5c"/>
+  <text x="172" y="446" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="14" fill="#e2e8f0">B 的容器</text>
+  <text x="172" y="470" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="13" fill="#94a3b8">172.31.0.5</text>
+  <text x="172" y="492" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="11" fill="#64748b">AllowedIPs 命中</text>
+
+  <line x1="266" y1="464" x2="298" y2="464" stroke="#34D399" stroke-width="2" marker-end="url(#arrOk)"/>
+
+  <rect x="304" y="418" width="176" height="92" rx="10" fill="#132437" stroke="#22D3EE" stroke-width="1.5"/>
+  <text x="392" y="446" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="14" fill="#22D3EE">wg0 10.99.0.2</text>
+  <text x="392" y="470" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#94a3b8">SNAT 成隧道内地址</text>
+  <text x="392" y="490" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="11" fill="#64748b">UDP 51820</text>
+
+  <line x1="486" y1="464" x2="518" y2="464" stroke="#34D399" stroke-width="2" marker-end="url(#arrOk)"/>
+
+  <rect x="524" y="418" width="176" height="92" rx="10" fill="#12203a" stroke="#5B87BF" stroke-width="1.6" stroke-dasharray="8 6"/>
+  <text x="612" y="446" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="14" fill="#cbd5e1">加密隧道</text>
+  <text x="612" y="470" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#94a3b8">走 VPC 私网</text>
+  <text x="612" y="490" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="11" fill="#64748b">不出公网、不计流量</text>
+
+  <line x1="706" y1="464" x2="738" y2="464" stroke="#34D399" stroke-width="2" marker-end="url(#arrOk)"/>
+
+  <rect x="744" y="418" width="176" height="92" rx="10" fill="#132437" stroke="#22D3EE" stroke-width="1.5"/>
+  <text x="832" y="446" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="14" fill="#22D3EE">wg0 10.99.0.1</text>
+  <text x="832" y="470" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#94a3b8">FORWARD 放行</text>
+  <text x="832" y="490" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="11" fill="#64748b">ip_forward=1</text>
+
+  <line x1="926" y1="464" x2="958" y2="464" stroke="#34D399" stroke-width="2" marker-end="url(#arrOk)"/>
+
+  <rect x="964" y="418" width="152" height="92" rx="10" fill="#152140" stroke="#2f3f5c"/>
+  <text x="1040" y="446" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="14" fill="#e2e8f0">A 的 eth0</text>
+  <text x="1040" y="470" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#94a3b8">MASQUERADE</text>
+  <text x="1040" y="490" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="11" fill="#64748b">源地址改写</text>
+
+  <line x1="1040" y1="518" x2="1040" y2="560" stroke="#34D399" stroke-width="2" marker-end="url(#arrOk)"/>
+  <rect x="895" y="566" width="240" height="46" rx="23" fill="#0f2a22" stroke="#34D399" stroke-width="1.4"/>
+  <text x="1015" y="595" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="14" fill="#34D399">公网出口 = 203.0.113.10</text>
+
+  <text x="84" y="600" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="13" fill="#94a3b8">上游白名单不用改：</text>
+  <text x="84" y="624" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="13" fill="#94a3b8">对端看到的仍是 A 的公网 IP</text>
+
+  <text x="84" y="678" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="13" fill="#64748b">关键：隧道让 10.99.0.1 落在 B 的直连网段里，ARP 有回应，路由才成立。</text>
+</svg>

@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" role="img" aria-label="AllowedIPs 的双向语义：出站按它选路，入站按它过滤，不匹配的源地址被静默丢弃">
+  <defs>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5B87BF"/>
+      <stop offset="100%" stop-color="#22D3EE"/>
+    </linearGradient>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.3" fill="#26324a"/>
+    </pattern>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#64748b"/>
+    </marker>
+    <marker id="arrRed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#f87171"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="620" fill="#0B1220"/>
+  <rect width="1200" height="620" fill="url(#dots)" opacity="0.5"/>
+  <text x="1160" y="36" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="15" fill="#475569">zata.cc</text>
+
+  <text x="60" y="72" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="30" font-weight="600" fill="#F8FAFC">AllowedIPs：同一份配置，两个职责</text>
+  <rect x="60" y="90" width="112" height="6" rx="3" fill="url(#accent)"/>
+
+  <!-- row 1 -->
+  <text x="60" y="146" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="17" font-weight="600" fill="#5B87BF">① 出站：它是一张路由表</text>
+
+  <rect x="60" y="162" width="230" height="86" rx="10" fill="#152140" stroke="#2f3f5c"/>
+  <text x="175" y="192" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="15" fill="#e2e8f0">应用发出包</text>
+  <text x="175" y="218" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="13" fill="#94a3b8">dst 10.99.0.2:3306</text>
+
+  <line x1="296" y1="205" x2="334" y2="205" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="340" y="162" width="260" height="86" rx="10" fill="#132437" stroke="#22D3EE" stroke-width="1.4"/>
+  <text x="470" y="190" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="15" fill="#22D3EE">查每个 peer 的 AllowedIPs</text>
+  <text x="470" y="216" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="13" fill="#94a3b8">10.0.0.0/8 → peer A</text>
+  <text x="470" y="236" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="13" fill="#94a3b8">10.99.0.0/24 → peer B</text>
+
+  <line x1="606" y1="205" x2="644" y2="205" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="650" y="162" width="260" height="86" rx="10" fill="#152140" stroke="#2f3f5c"/>
+  <text x="780" y="192" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="15" fill="#e2e8f0">选中 peer B，用它的公钥加密</text>
+  <text x="780" y="218" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="13" fill="#94a3b8">加 WG 头 + 认证标签</text>
+
+  <line x1="916" y1="205" x2="954" y2="205" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="960" y="162" width="180" height="86" rx="10" fill="#152140" stroke="#2f3f5c"/>
+  <text x="1050" y="192" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="15" fill="#e2e8f0">eth0 发出</text>
+  <text x="1050" y="218" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="13" fill="#94a3b8">UDP 51820</text>
+
+  <!-- divider -->
+  <line x1="60" y1="290" x2="1140" y2="290" stroke="#1e293b" stroke-width="1"/>
+
+  <!-- row 2 -->
+  <text x="60" y="346" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="17" font-weight="600" fill="#F472B6">② 入站：它是一条防火墙规则</text>
+
+  <rect x="60" y="362" width="230" height="86" rx="10" fill="#152140" stroke="#2f3f5c"/>
+  <text x="175" y="392" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="15" fill="#e2e8f0">wg0 解出包</text>
+  <text x="175" y="418" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="13" fill="#94a3b8">src 10.99.0.3</text>
+
+  <line x1="296" y1="405" x2="334" y2="405" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="340" y="362" width="260" height="86" rx="10" fill="#1b1a2e" stroke="#8B5CF6" stroke-width="1.4"/>
+  <text x="470" y="390" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="15" fill="#a78bfa">该 peer 的 AllowedIPs</text>
+  <text x="470" y="416" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="13" fill="#94a3b8">只写了 10.99.0.2/32</text>
+
+  <line x1="606" y1="405" x2="644" y2="405" stroke="#f87171" stroke-width="2" marker-end="url(#arrRed)"/>
+
+  <rect x="650" y="362" width="260" height="86" rx="10" fill="#2a1220" stroke="#f87171" stroke-width="1.6"/>
+  <text x="780" y="392" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="16" fill="#f87171">不匹配 → 静默丢弃</text>
+  <text x="780" y="418" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="13" fill="#94a3b8">没有日志，没有计数</text>
+
+  <rect x="960" y="362" width="180" height="86" rx="10" fill="#152140" stroke="#2f3f5c"/>
+  <text x="1050" y="392" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="14" fill="#e2e8f0">现象</text>
+  <text x="1050" y="414" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#94a3b8">握手正常</text>
+  <text x="1050" y="432" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#94a3b8">但 ping 不通</text>
+
+  <rect x="60" y="500" width="1080" height="76" rx="12" fill="#0f1a2e" stroke="#334155"/>
+  <text x="600" y="532" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="14" fill="#cbd5e1">因为路由和 ACL 耦合在同一个字段上，改一个网段会同时改变「包发去哪」和「谁的包能进来」。</text>
+  <text x="600" y="558" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="14" fill="#94a3b8">配置看不出错、握手也正常，但流量单向消失 —— 这是 WireGuard 最常见的故障形态。</text>
+</svg>

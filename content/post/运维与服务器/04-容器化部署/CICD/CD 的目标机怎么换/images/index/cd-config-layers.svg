@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" role="img" aria-label="配置从 GitHub 到容器的六层：环境变量与密钥、job 环境变量、ssh 位置参数、服务器上的栈模板 JSON、服务定义、容器进程与配置中心；每一层都会丢掉上一层的配置">
+  <defs>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5B87BF"/><stop offset="100%" stop-color="#22D3EE"/>
+    </linearGradient>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.3" fill="#26324a"/>
+    </pattern>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#64748b"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="700" fill="#0B1220"/>
+  <rect width="1200" height="700" fill="url(#dots)" opacity="0.45"/>
+  <text x="1160" y="34" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="13" fill="#475569">zata.cc</text>
+
+  <text x="60" y="64" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="26" font-weight="600" fill="#F8FAFC">配置要穿过六层才到进程</text>
+  <rect x="60" y="80" width="112" height="6" rx="3" fill="url(#accent)"/>
+  <text x="60" y="112" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="13" fill="#64748b">每一层都可能“吃掉”上一层的配置——这就是“我改了但没生效”的常见来源。</text>
+
+  <rect x="60" y="136" width="800" height="66" rx="10" fill="#152140" stroke="#31456b"/>
+  <text x="80" y="164" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="15" font-weight="600" fill="#93c5fd">① GitHub Variables / Secrets</text>
+  <text x="80" y="188" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#8fa6c4">按环境隔离；变量明文可见，密钥不可读回</text>
+  <text x="880" y="172" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#64748b">GitHub 侧</text>
+
+  <line x1="100" y1="204" x2="100" y2="224" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="60" y="228" width="800" height="66" rx="10" fill="#152140" stroke="#31456b"/>
+  <text x="80" y="256" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="15" font-weight="600" fill="#93c5fd">② Job 环境变量</text>
+  <text x="80" y="280" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#f87171">只有 workflow 的 env: 显式引用的才进来，其余设了也是死的</text>
+
+  <line x1="100" y1="296" x2="100" y2="316" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="60" y="320" width="800" height="66" rx="10" fill="#152140" stroke="#31456b"/>
+  <text x="80" y="348" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="15" font-weight="600" fill="#93c5fd">③ ssh 位置参数</text>
+  <text x="80" y="372" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#f87171">bash -s -- a b c：只有被显式传过去的才到达远端</text>
+
+  <line x1="100" y1="388" x2="100" y2="408" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="60" y="412" width="800" height="76" rx="10" fill="#1f1a10" stroke="#8a6520" stroke-width="1.5"/>
+  <text x="80" y="440" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="15" font-weight="600" fill="#fbbf24">④ 服务器上的栈模板 JSON　← 事实源</text>
+  <text x="80" y="464" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#e8d5a8">脚本直接解析 JSON，不做变量替换：换网络名、换调度约束要改这个文件</text>
+  <text x="80" y="482" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="11" fill="#a8905e">仓库里的 compose 模板只在 docker compose config 渲染时才有变量语义</text>
+
+  <line x1="100" y1="490" x2="100" y2="510" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="60" y="514" width="800" height="66" rx="10" fill="#0f1a20" stroke="#1f4d52" stroke-width="1.4"/>
+  <text x="80" y="542" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="15" font-weight="600" fill="#5eead4">⑤ 服务定义</text>
+  <text x="80" y="566" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#7f9ea6">容器 env、网络、placement 约束、bind 挂载、健康检查</text>
+
+  <line x1="100" y1="582" x2="100" y2="602" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="60" y="606" width="800" height="66" rx="10" fill="#141821" stroke="#39404f"/>
+  <text x="80" y="634" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="15" font-weight="600" fill="#cbd5e1">⑥ 容器进程 + 配置中心</text>
+  <text x="80" y="658" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#94a3b8">远程配置在启动时拉取，同名环境变量可能覆盖它</text>
+
+  <line x1="900" y1="136" x2="900" y2="672" stroke="#2f3f5c" stroke-width="1" stroke-dasharray="4 6"/>
+  <text x="930" y="300" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#64748b">排查顺序建议</text>
+  <text x="930" y="326" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#8fa6c4">先看模板里到底是什么值，</text>
+  <text x="930" y="346" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#8fa6c4">再看服务的 live spec，</text>
+  <text x="930" y="366" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#8fa6c4">最后进容器看环境变量。</text>
+  <text x="930" y="392" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#64748b">三层值不一致时，</text>
+  <text x="930" y="412" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#64748b">以容器里看到的为准。</text>
+</svg>

@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-label="两类换机的成本对比：换计算节点只需改标签并发布一次；换入口节点要动 DNS、主机密钥、证书、隧道、安全组与静态路由，还要做 manager 转移">
+  <defs>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5B87BF"/><stop offset="100%" stop-color="#22D3EE"/>
+    </linearGradient>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.3" fill="#26324a"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="560" fill="#0B1220"/>
+  <rect width="1200" height="560" fill="url(#dots)" opacity="0.45"/>
+  <text x="1160" y="34" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="13" fill="#475569">zata.cc</text>
+
+  <text x="60" y="64" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="26" font-weight="600" fill="#F8FAFC">换“计算”和换“入口”，成本差一个量级</text>
+  <rect x="60" y="80" width="112" height="6" rx="3" fill="url(#accent)"/>
+  <text x="60" y="112" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="13" fill="#64748b">同样是换一台机器，右边要搬的是“身份”：地址、证书、密钥、路由，缺一项就断。</text>
+
+  <rect x="60" y="140" width="520" height="340" rx="14" fill="#0f1a20" stroke="#1f4d52" stroke-width="1.5"/>
+  <rect x="60" y="140" width="6" height="340" rx="3" fill="#34D399"/>
+  <text x="88" y="176" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="17" font-weight="600" fill="#5eead4">换计算节点</text>
+  <text x="88" y="200" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#7f9ea6">只影响“任务跑在哪”</text>
+
+  <text x="88" y="240" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="13" fill="#cbd5e1">节点的调度标签</text>
+  <text x="544" y="240" text-anchor="end" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="14" fill="#34D399">需要</text>
+
+  <text x="88" y="272" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="13" fill="#cbd5e1">一次发布 / --force</text>
+  <text x="544" y="272" text-anchor="end" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="14" fill="#34D399">需要</text>
+
+  <text x="88" y="304" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="13" fill="#8fa6c4">DNS / 域名</text>
+  <text x="544" y="304" text-anchor="end" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="13" fill="#64748b">不动</text>
+
+  <text x="88" y="336" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="13" fill="#8fa6c4">GitHub 变量与密钥</text>
+  <text x="544" y="336" text-anchor="end" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="13" fill="#64748b">不动</text>
+
+  <text x="88" y="368" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="13" fill="#8fa6c4">证书与 ACME 卷</text>
+  <text x="544" y="368" text-anchor="end" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="13" fill="#64748b">不动</text>
+
+  <text x="88" y="400" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="13" fill="#8fa6c4">安全组与路由</text>
+  <text x="544" y="400" text-anchor="end" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="13" fill="#64748b">不动</text>
+
+  <text x="88" y="446" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#7f9ea6">成本：低。四步命令，CI 一个字不用改。</text>
+
+  <rect x="620" y="140" width="520" height="340" rx="14" fill="#1f1a10" stroke="#8a6520" stroke-width="1.5"/>
+  <rect x="620" y="140" width="6" height="340" rx="3" fill="#fbbf24"/>
+  <text x="648" y="176" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="17" font-weight="600" fill="#fbbf24">换入口节点</text>
+  <text x="648" y="200" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#a8905e">搬的是“身份与出口”</text>
+
+  <text x="648" y="234" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12.5" fill="#e8d5a8">DNS A 记录（先降 TTL）</text>
+  <text x="648" y="260" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12.5" fill="#e8d5a8">known_hosts / 主机密钥</text>
+  <text x="648" y="286" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12.5" fill="#e8d5a8">证书与 ACME 卷</text>
+  <text x="648" y="312" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12.5" fill="#e8d5a8">隧道密钥与 NAT 规则</text>
+  <text x="648" y="338" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12.5" fill="#e8d5a8">安全组与对端放行</text>
+  <text x="648" y="364" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12.5" fill="#e8d5a8">到计算节点的静态路由</text>
+  <text x="648" y="390" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12.5" fill="#e8d5a8">Swarm manager 转移</text>
+
+  <text x="648" y="446" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#a8905e">成本：高。任何一项漏掉，症状都不同。</text>
+
+  <text x="60" y="516" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#64748b">想压掉右列的“GitHub 变量与主机密钥”两项：入口地址用固定域名，并给主机密钥上 SSH CA（known_hosts 只留一行 @cert-authority）。</text>
+</svg>

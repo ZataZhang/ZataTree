@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="img" aria-label="目标拓扑：公网用户经入口节点的 Traefik 走 overlay 到计算节点上的四个服务；容器出向经 wg0 隧道回到入口节点做 NAT 后出公网">
+  <defs>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5B87BF"/><stop offset="100%" stop-color="#22D3EE"/>
+    </linearGradient>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.3" fill="#26324a"/>
+    </pattern>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5B87BF"/>
+    </marker>
+    <marker id="arrTeal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#22D3EE"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="600" fill="#0B1220"/>
+  <rect width="1200" height="600" fill="url(#dots)" opacity="0.45"/>
+  <text x="1160" y="34" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="13" fill="#475569">zata.cc</text>
+
+  <text x="60" y="64" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="26" font-weight="600" fill="#F8FAFC">目标拓扑：算力、入口、出口三者分开</text>
+  <rect x="60" y="80" width="112" height="6" rx="3" fill="url(#accent)"/>
+
+  <rect x="470" y="104" width="260" height="56" rx="12" fill="#152140" stroke="#2f3f5c"/>
+  <text x="600" y="138" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="16" fill="#e2e8f0">公网用户</text>
+
+  <line x1="600" y1="164" x2="600" y2="196" stroke="#5B87BF" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="612" y="184" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="#7dd3fc">HTTPS 443</text>
+
+  <rect x="60" y="200" width="1080" height="112" rx="14" fill="#101a2e" stroke="#2f3f5c" stroke-width="1.4"/>
+  <text x="78" y="232" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="15" font-weight="600" fill="#93c5fd">入口节点</text>
+
+  <rect x="78" y="244" width="320" height="56" rx="10" fill="#152140" stroke="#31456b"/>
+  <text x="94" y="268" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="14" fill="#e2e8f0">Traefik + 证书</text>
+  <text x="94" y="289" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#8fa6c4">唯一公网入口，证书在这里签发</text>
+
+  <rect x="438" y="244" width="320" height="56" rx="10" fill="#152140" stroke="#31456b"/>
+  <text x="454" y="268" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="14" fill="#e2e8f0">公网 IP</text>
+  <text x="454" y="289" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#8fa6c4">用户和依赖方白名单看到的就是它</text>
+
+  <rect x="798" y="244" width="320" height="56" rx="10" fill="#152140" stroke="#31456b"/>
+  <text x="814" y="268" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="14" fill="#e2e8f0">NAT 出口</text>
+  <text x="814" y="289" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#8fa6c4">MASQUERADE 后统一从本机出</text>
+
+  <line x1="600" y1="316" x2="600" y2="364" stroke="#5B87BF" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="586" y="344" text-anchor="end" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#7dd3fc">overlay 转发（应用端口不发布到宿主）</text>
+
+  <line x1="1020" y1="368" x2="1020" y2="318" stroke="#22D3EE" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#arrTeal)"/>
+  <text x="1008" y="346" text-anchor="end" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#67e8f9">容器出向 → wg0 隧道（只标记该应用）</text>
+
+  <rect x="60" y="368" width="1080" height="150" rx="14" fill="#0f1a20" stroke="#1f4d52" stroke-width="1.4"/>
+  <text x="78" y="400" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="15" font-weight="600" fill="#5eead4">计算节点</text>
+
+  <rect x="78" y="414" width="240" height="64" rx="10" fill="#10252b" stroke="#25636b"/>
+  <text x="198" y="441" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="13" fill="#a5f3fc">backend</text>
+  <text x="198" y="462" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="11" fill="#6b8f96">API，1 副本</text>
+
+  <rect x="340" y="414" width="240" height="64" rx="10" fill="#10252b" stroke="#25636b"/>
+  <text x="460" y="441" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="13" fill="#a5f3fc">frontend</text>
+  <text x="460" y="462" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="11" fill="#6b8f96">静态前端</text>
+
+  <rect x="602" y="414" width="240" height="64" rx="10" fill="#10252b" stroke="#25636b"/>
+  <text x="722" y="441" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="13" fill="#a5f3fc">celery-worker</text>
+  <text x="722" y="462" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="11" fill="#6b8f96">消费队列，可多副本</text>
+
+  <rect x="864" y="414" width="254" height="64" rx="10" fill="#10252b" stroke="#25636b"/>
+  <text x="991" y="441" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="13" fill="#a5f3fc">celery-beat</text>
+  <text x="991" y="462" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="11" fill="#6b8f96">定时任务，只能 1 副本</text>
+
+  <text x="78" y="548" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#64748b">整机默认路由不动：同机其它业务的出口仍是本机，只有被 fwmark 标记的容器流量走进隧道。</text>
+</svg>

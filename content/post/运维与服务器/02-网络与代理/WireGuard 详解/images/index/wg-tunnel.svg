@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="img" aria-label="WireGuard 数据面：应用包从 wg0 加密后经 eth0 发出，对端解封后校验来源">
+  <defs>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5B87BF"/>
+      <stop offset="100%" stop-color="#22D3EE"/>
+    </linearGradient>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.3" fill="#26324a"/>
+    </pattern>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="600" fill="#0B1220"/>
+  <rect width="1200" height="600" fill="url(#dots)" opacity="0.5"/>
+  <text x="1160" y="36" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="15" fill="#475569">zata.cc</text>
+
+  <text x="60" y="72" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="30" font-weight="600" fill="#F8FAFC">数据面：包从 wg0 进，从 eth0 出</text>
+  <rect x="60" y="90" width="112" height="6" rx="3" fill="url(#accent)"/>
+
+  <!-- host A -->
+  <rect x="48" y="140" width="340" height="380" rx="16" fill="#0e1730" stroke="#3b4a68" stroke-width="2"/>
+  <text x="72" y="178" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="19" font-weight="600" fill="#5B87BF">机器 A</text>
+  <text x="72" y="200" font-family="ui-monospace,Menlo,monospace" font-size="13" fill="#64748b">网关 / 服务端</text>
+
+  <rect x="72" y="216" width="292" height="60" rx="10" fill="#152140" stroke="#2f3f5c"/>
+  <text x="218" y="243" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="16" fill="#e2e8f0">应用 / 容器</text>
+  <text x="218" y="263" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="#94a3b8">dst 10.99.0.2</text>
+
+  <line x1="218" y1="276" x2="218" y2="308" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="72" y="312" width="292" height="72" rx="10" fill="#132437" stroke="#22D3EE" stroke-width="1.6"/>
+  <text x="218" y="340" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="16" fill="#22D3EE">wg0  10.99.0.1/24</text>
+  <text x="218" y="364" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="13" fill="#94a3b8">加密 / 解封</text>
+
+  <line x1="218" y1="384" x2="218" y2="416" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="72" y="420" width="292" height="66" rx="10" fill="#152140" stroke="#2f3f5c"/>
+  <text x="218" y="447" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="15" fill="#e2e8f0">eth0  203.0.113.10</text>
+  <text x="218" y="469" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#94a3b8">真实网卡</text>
+
+  <!-- host B -->
+  <rect x="812" y="140" width="340" height="380" rx="16" fill="#0e1730" stroke="#3b4a68" stroke-width="2"/>
+  <text x="828" y="178" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="19" font-weight="600" fill="#8B5CF6">机器 B</text>
+  <text x="828" y="200" font-family="ui-monospace,Menlo,monospace" font-size="13" fill="#64748b">客户端 / 出口走 A</text>
+
+  <rect x="836" y="216" width="292" height="60" rx="10" fill="#152140" stroke="#2f3f5c"/>
+  <text x="982" y="243" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="16" fill="#e2e8f0">应用 / 容器</text>
+  <text x="982" y="263" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="#94a3b8">dst 10.99.0.1</text>
+
+  <line x1="982" y1="276" x2="982" y2="308" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="836" y="312" width="292" height="72" rx="10" fill="#132437" stroke="#22D3EE" stroke-width="1.6"/>
+  <text x="982" y="340" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="16" fill="#22D3EE">wg0  10.99.0.2/24</text>
+  <text x="982" y="364" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="13" fill="#94a3b8">加密 / 解封</text>
+
+  <line x1="982" y1="384" x2="982" y2="416" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="836" y="420" width="292" height="66" rx="10" fill="#152140" stroke="#2f3f5c"/>
+  <text x="982" y="447" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="15" fill="#e2e8f0">eth0  198.51.100.20</text>
+  <text x="982" y="469" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#94a3b8">真实网卡</text>
+
+  <!-- tunnel -->
+  <rect x="392" y="318" width="416" height="66" rx="18" fill="#12203a" stroke="#5B87BF" stroke-width="1.6" stroke-dasharray="8 6"/>
+  <text x="600" y="345" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="15" fill="#cbd5e1">加密隧道 · UDP 51820</text>
+  <text x="600" y="368" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="#64748b">ChaCha20-Poly1305 · 每包 +60 字节</text>
+  <line x1="400" y1="352" x2="440" y2="352" stroke="#5B87BF" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="760" y1="352" x2="800" y2="352" stroke="#5B87BF" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- physical link -->
+  <line x1="364" y1="452" x2="836" y2="452" stroke="#334155" stroke-width="2" stroke-dasharray="6 6"/>
+  <text x="600" y="440" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="12" fill="#64748b">真实链路（VPC 私网 / 公网）</text>
+
+  <text x="600" y="552" text-anchor="middle" font-family="'PingFang SC','Noto Sans SC',sans-serif" font-size="13" fill="#94a3b8">出站：命中 AllowedIPs → 用对端公钥加密　　入站：源 IP 不在 AllowedIPs → 静默丢弃</text>
+</svg>
