@@ -2,7 +2,7 @@
 title: Herdr 详解：给 AI Agent 用的终端运行时
 description: "Herdr 是面向 AI Agent 的终端运行时。本文保留基于本机 0.9.0 的实测教程，并核对补充至 0.9.5：涵盖 server/client、Agent 状态与控制 API、会话恢复、插件、远程机器、输入法和版本迁移。"
 date: 2026-09-15T10:30:00+08:00
-lastmod: 2026-10-18
+lastmod: 2026-11-12
 slug: herdr-ai-agent-terminal-runtime
 image: images/index/index.svg
 categories:
@@ -24,7 +24,7 @@ Herdr 就是冲这些事来的。它的官方定位是"The runtime your coding a
 
 ## 版本进度：实测基线是 0.9.0，稳定版已到 0.9.5
 
-截至 2026 年 10 月 18 日，Herdr 最新稳定版是 **v0.9.5**，于 10 月 14 日发布。同日还有一个 `preview` 预览构建；它属于预发布通道，本文以 stable 为准。0.9.0 之后的变化里，最影响旧教程的是远程机器 CLI 转发、插件更新命令、会话恢复可靠性，以及 Codex 和前缀键集成的修正。
+截至 2026 年 11 月 12 日，Herdr 最新稳定版仍是 **v0.9.5**，于 10 月 14 日发布。同日还有一个 `preview` 预览构建；它属于预发布通道，本文以 stable 为准。0.9.0 之后的变化里，最影响旧教程的是远程机器 CLI 转发、插件更新命令、会话恢复可靠性，以及 Codex 和前缀键集成的修正。
 
 - **[0.9.1（9 月 16 日）](https://github.com/herdrdev/herdr/releases/tag/v0.9.1)：** 新增 `herdr --machine <label-or-id>`，可从 CLI 控制已保存 SSH 机器上的 Agent、窗格和 worktree，也支持连接 Windows SSH 主机。远程 CLI 转发要求本地 Herdr 和远端安装都更新；命令失败不会悄悄落到本机执行。
 - **[0.9.2（9 月 29 日）](https://github.com/herdrdev/herdr/releases/tag/v0.9.2)：** Agent 可以上报自己的恢复命令，`prefix` 可配置多个按键，远程机器增加状态检查和重连命令。旧的 `pane.graphics.*` 私有 API 已移除，使用它的桥接工具需要迁移到终端标准 Kitty Graphics 协议。
@@ -33,6 +33,14 @@ Herdr 就是冲这些事来的。它的官方定位是"The runtime your coding a
 - **[0.9.5（10 月 14 日）](https://github.com/herdrdev/herdr/releases/tag/v0.9.5)：** 修复 macOS 上 Tern、中文/日文/韩文输入法，以及 Ghostty `text:` 键位下的前缀快捷键问题；Codex 集成不再安装 turn hooks，状态改由屏幕检测；Claude Code 在命名会话里的提问现在能显示为 `blocked`。Codex 用户可运行 `herdr integration install codex` 更新集成。
 
 这些版本说明和 [10 月 14 日的 preview 构建](https://github.com/herdrdev/herdr/releases/tag/preview-2026-10-14-fbd2ae23927f)可以帮助区分稳定版与预览版。需要复现正文中的命令输出时，仍以对应章节标注的 0.9.0 实测环境为准。
+
+**0.9.5 之后还没发布的修复（截至 10 月 29 日的 master）：** 这段时间官方没有发布新的稳定版或预览版，master 上只合入了修复，没有新功能。下面这些会出现在下一个版本里：
+
+- **远程机器：** 默认 shell 是 PowerShell 或 WSL bash 的 Windows OpenSSH 主机能被正确识别，脚本不再被提前展开；远端登录 shell 是 tcsh 时也能连上；Windows 远程窗格的输出不再拖慢打字。
+- **稳定性：** 光标移动把链接带到满页时 server 不再崩溃；拖动窗口出现零尺寸网格时 client 不再退出；连接较慢的 server 不会被误判为失效；主机关机时窗格先退出也不会丢掉保存的布局；macOS 上关闭启动 server 的终端不再顺带停掉 server。
+- **剪贴板与外观：** Wayland 下 `wl-copy` / `wl-paste` 卡住不会再冻结 Herdr；窗格的明暗外观变化会等对应背景色生效后再通知。
+- **集成与检测：** OpenCode 和 Kilo 的集成改为装在 `XDG_CONFIG_HOME` 下；新版安装器启动的 Hermes 能被识别。
+- **更新通道：** 如果稳定版比最新预览构建的基础版本更新，预览通道也会装这个稳定版，通道设置仍保持为预览。
 
 ---
 
