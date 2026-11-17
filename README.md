@@ -610,7 +610,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [内网文件传输工具LocalSend](content/post/软件试用/05-桌面效率工具/内网文件传输工具LocalSend/)
 - [实用软件工具｜好用软件推荐](content/post/软件试用/05-桌面效率工具/实用软件工具/)
 
-## 运维与服务器 (36)
+## 运维与服务器 (38)
 
 ### 01-服务器与系统
 
@@ -651,6 +651,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
     - [把生产应用迁到另一台机器：Swarm 调度与发布链路的六个坑](content/post/运维与服务器/04-容器化部署/CICD/把生产应用迁到另一台机器/)
 - [Coolify](content/post/运维与服务器/04-容器化部署/Coolify/)
 - [Dokploy](content/post/运维与服务器/04-容器化部署/Dokploy/)
+- [跨地域 Swarm 部署：私网通了，网站为什么还不通](content/post/运维与服务器/04-容器化部署/跨地域%20Swarm%20部署：轻量服务器、VPC%20与私网中转/)
 
 ### 05-存储与数据库
 
@@ -664,6 +665,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 
 ### 邮件服务
 
+- [域名邮箱怎么选：转发、托管邮箱与自建方案](content/post/运维与服务器/邮件服务/域名邮箱怎么选：转发、托管邮箱与自建方案/)
 - [阿里云 DirectMail SMTP 配置实战：域名、发信地址与显示名称](content/post/运维与服务器/邮件服务/阿里云%20DirectMail%20SMTP%20配置实战/)
 
 ## 通识与生活 (17)
