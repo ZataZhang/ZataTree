@@ -1,8 +1,8 @@
 ---
 title: "Clash 使用教程：系统代理、TUN 虚拟网卡与分流规则"
-description: "解释系统代理和 TUN 虚拟网卡的工作方式、适用场景与开启步骤，并说明它们和 Rule、Global、Direct 分流模式的关系。"
+description: "解释系统代理、TUN 虚拟网卡与规则分流，并介绍 Clash Verge Rev 全局扩展脚本，以及让 GitHub 走新加坡节点的配置示例。"
 date: 2025-03-06T10:51:58+08:00
-lastmod: 2026-10-26
+lastmod: 2026-11-17
 image: images/index/index.png
 # image: images/index/index.png
 categories:
@@ -207,14 +207,51 @@ Mihomo 的 TUN 由自动路由、排除网段等配置决定实际覆盖范围�
 
 
 
-### 修改clash中的规则信息
+### 修改 Clash 中的规则信息
 
-<span style="color:red"> 改过配置之后不要刷新订阅，不然就没了，不过不更新又不会加载规则，可以通过切换订阅文件的方式加载规则</span>
+远程订阅通常会为每条订阅生成独立配置。切换到新订阅时，Clash 会读取新配置里的规则；旧订阅中手动添加的规则不会自动跟过来。直接编辑远程订阅的 YAML，也可能在更新配置时被订阅源的新内容覆盖。
 
-<span style="color:red"> 配置是按照顺序来的，如果说你都用了域名过滤，写在前面的会优先级更高，此外还有DOMAIN-SUFFIX 和DOMAIN的区别，看下面单独的讲解</span>
+#### 用全局扩展脚本让规则跨订阅生效
 
+如果使用 Clash Verge Rev，并希望自定义规则对新增和切换后的订阅都生效，可以在「订阅」页面打开「全局扩展脚本」。脚本会修改当前配置对象，再交给 Mihomo 加载；规则数组可以通过合并的方式插到订阅规则前面。Clash Verge Rev 将早期的 Script 配置称为「扩展脚本」，全局扩展会应用到各订阅配置。[Clash Verge Rev 脚本说明](https://github.com/clash-verge-rev/clash-verge-rev.github.io/blob/main/docs/guide/script.md) · [扩展配置与脚本说明](https://github.com/clash-verge-rev/clash-verge-rev.github.io/blob/main/docs/guide/extend.md)
 
-可以复制一个你原有的规则，然后修改里面的内容，然后保存。通过加载本地文件的方式加载
+下面的例子会创建一个名为 `GitHub-SG` 的手动选择组，从节点名称中筛出新加坡节点，并将 GitHub 常用域名的流量放到这个组。Mihomo 的 `include-all` 与 `filter` 可用于从配置中的节点筛选代理组成员。[Mihomo 代理组文档](https://wiki.metacubex.one/config/proxy-groups/)；规则使用 `DOMAIN-SUFFIX,域名,策略组` 的格式。[Mihomo 路由规则文档](https://wiki.metacubex.one/config/rules/)
+
+```js
+const githubRules = [
+  "DOMAIN-SUFFIX,github.com,GitHub-SG",
+  "DOMAIN-SUFFIX,githubusercontent.com,GitHub-SG",
+  "DOMAIN-SUFFIX,githubassets.com,GitHub-SG",
+  "DOMAIN-SUFFIX,github.io,GitHub-SG",
+  "DOMAIN-SUFFIX,github.community,GitHub-SG",
+];
+
+function main(config) {
+  config["proxy-groups"] = config["proxy-groups"] || [];
+
+  if (!config["proxy-groups"].some(group => group.name === "GitHub-SG")) {
+    config["proxy-groups"].push({
+      name: "GitHub-SG",
+      type: "select",
+      "include-all": true,
+      filter: "(?i)(新加坡|singapore|🇸🇬|(^|[^A-Za-z])sg([^A-Za-z]|$))",
+    });
+  }
+
+  config.rules = [...githubRules, ...(config.rules || [])];
+  return config;
+}
+```
+
+保存脚本后，在「代理」页面找到 `GitHub-SG`，手动选择一个新加坡节点。`select` 组不会自动挑选节点；如果组里没有节点，说明当前订阅的节点名称不符合筛选词，可以按节点实际名称调整 `filter`。自定义规则要生效，运行模式应为「规则（Rule）」。
+
+这里用脚本把自定义规则放到订阅规则前面，因此命中 GitHub 的连接会优先走 `GitHub-SG`。不要在全局扩展 YAML 里直接写 `rules:` 期待它自动追加：扩展配置对列表按整体替换处理；需要保留订阅规则并插入自定义规则时，应使用脚本合并数组。[扩展配置合并规则](https://github.com/clash-verge-rev/clash-verge-rev.github.io/blob/main/docs/guide/extend.md)
+
+如果只想修改一条订阅，可以右键该订阅选择「编辑规则」，把自定义规则加入前置规则。这个入口适合订阅更新后仍保留该订阅自己的规则；要让同一规则应用到多条订阅，则使用全局扩展脚本。[Clash Verge Rev 自定义规则说明](https://github.com/clash-verge-rev/clash-verge-rev.github.io/blob/main/docs/guide/rules.md)
+
+#### 手动维护本地配置文件
+
+如果使用自建的本地 YAML 配置，可以复制已有规则并修改，然后加载本地配置。这个方式适合自己维护完整配置；使用远程订阅时，优先通过客户端提供的规则编辑或扩展功能添加个人规则。
 
 ![新建内容](images/index/index.png)
 
