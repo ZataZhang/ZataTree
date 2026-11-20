@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+  <title id="title">Profile 配置组合顺序</title>
+  <desc id="desc">profile 按顺序加载 bundles，随后应用 profile、home 和命令行 patch，最终交给 Cordis Loader 生成插件树。</desc>
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#0B1220"/><stop offset="1" stop-color="#15233A"/></linearGradient><pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#7890B2" opacity=".22"/></pattern></defs>
+  <rect width="1200" height="560" rx="28" fill="url(#bg)"/><rect width="1200" height="560" rx="28" fill="url(#grid)"/>
+  <text x="60" y="64" fill="#F8FAFC" font-family="sans-serif" font-size="28" font-weight="700">从 Profile 到运行时插件树</text>
+  <text x="60" y="96" fill="#9FB3D1" font-family="sans-serif" font-size="16">有序组合决定一个进程实际启动哪些能力，以及哪层配置覆盖哪层</text>
+  <g font-family="sans-serif">
+    <rect x="60" y="145" width="184" height="118" rx="16" fill="#172A40" stroke="#5B87BF" stroke-width="2"/><text x="84" y="184" fill="#7DD3FC" font-size="15">应用模板</text><text x="84" y="217" fill="#F8FAFC" font-size="23" font-weight="700">Profile</text><text x="84" y="244" fill="#9FB3D1" font-size="14">web / headless / sdk</text>
+    <path d="M245 204h36" stroke="#82A9D8" stroke-width="3"/><path d="m273 196 12 8-12 8" fill="none" stroke="#82A9D8" stroke-width="3"/>
+    <rect x="290" y="145" width="184" height="118" rx="16" fill="#172A40" stroke="#22D3EE" stroke-width="2"/><text x="314" y="184" fill="#67E8F9" font-size="15">第一层</text><text x="314" y="217" fill="#F8FAFC" font-size="23" font-weight="700">Bundles</text><text x="314" y="244" fill="#9FB3D1" font-size="14">dsh-base / web-app</text>
+    <path d="M475 204h36" stroke="#82A9D8" stroke-width="3"/><path d="m503 196 12 8-12 8" fill="none" stroke="#82A9D8" stroke-width="3"/>
+    <rect x="520" y="145" width="184" height="118" rx="16" fill="#172A40" stroke="#A78BFA" stroke-width="2"/><text x="544" y="184" fill="#C4B5FD" font-size="15">应用层</text><text x="544" y="217" fill="#F8FAFC" font-size="23" font-weight="700">Profile Patch</text><text x="544" y="244" fill="#9FB3D1" font-size="14">profile/cordis.patch.yml</text>
+    <path d="M705 204h36" stroke="#82A9D8" stroke-width="3"/><path d="m733 196 12 8-12 8" fill="none" stroke="#82A9D8" stroke-width="3"/>
+    <rect x="750" y="145" width="160" height="118" rx="16" fill="#172A40" stroke="#FBBF24" stroke-width="2"/><text x="774" y="184" fill="#FDE68A" font-size="15">用户层</text><text x="774" y="217" fill="#F8FAFC" font-size="23" font-weight="700">Home Patch</text><text x="774" y="244" fill="#9FB3D1" font-size="14">个人覆盖配置</text>
+    <path d="M911 204h36" stroke="#82A9D8" stroke-width="3"/><path d="m939 196 12 8-12 8" fill="none" stroke="#82A9D8" stroke-width="3"/>
+    <rect x="956" y="145" width="184" height="118" rx="16" fill="#172A40" stroke="#F472B6" stroke-width="2"/><text x="980" y="184" fill="#F9A8D4" font-size="15">启动覆盖</text><text x="980" y="217" fill="#F8FAFC" font-size="23" font-weight="700">--patch</text><text x="980" y="244" fill="#9FB3D1" font-size="14">临时或部署覆盖</text>
+  </g>
+  <path d="M600 270v58" stroke="#82A9D8" stroke-width="3"/><path d="m592 322 8 12 8-12" fill="none" stroke="#82A9D8" stroke-width="3"/>
+  <rect x="250" y="346" width="700" height="104" rx="18" fill="#101B2B" stroke="#5B87BF" stroke-width="2"/>
+  <text x="285" y="386" fill="#F8FAFC" font-family="sans-serif" font-size="23" font-weight="700">Cordis Loader · 最终插件树</text>
+  <text x="285" y="420" fill="#A7BCD7" font-family="sans-serif" font-size="16">插件行 → 解析配置与依赖 → 挂载插件 → Context 服务、事件与 effects</text>
+  <text x="60" y="503" fill="#A7BCD7" font-family="sans-serif" font-size="15">修改 profile 配置通常影响该 profile 的所有会话；Agent preset 是更窄的会话级组合边界。</text>
+</svg>

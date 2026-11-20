@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="570" viewBox="0 0 1200 570" role="img" aria-labelledby="title desc">
+  <title id="title">新工作负载如何安全加入 OpenBao</title>
+  <desc id="desc">机器从云或平台身份、部署平台 Provider、或一次性 AppRole 引导材料建立身份，随后 Agent 获取受限 token 并只读取授权路径。</desc>
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#547FAF"/></marker>
+    <style>
+      .bg{fill:#F5F8FC}.box{fill:#fff;stroke:#C9D7E8;stroke-width:2}.main{fill:#10233D;stroke:#5B87BF;stroke-width:3}.h{font:700 21px sans-serif;fill:#17304E}.t{font:17px sans-serif;fill:#40566F}.w{fill:#F8FAFC;font:700 24px sans-serif}.s{font:15px sans-serif;fill:#60758C}.a{stroke:#547FAF;stroke-width:3;fill:none;marker-end:url(#arr)}.d{stroke:#94A9C1;stroke-width:2;stroke-dasharray:7 7;fill:none}
+    </style>
+  </defs>
+  <rect class="bg" width="1200" height="570" rx="20"/>
+  <text x="56" y="58" class="h" style="font-size:27px">新实例先证明身份，再获得最小权限</text>
+  <rect class="box" x="55" y="115" width="295" height="115" rx="15"/>
+  <text class="h" x="82" y="154">云 / 编排平台身份</text>
+  <text class="t" x="82" y="188">平台签发可验证的身份凭据</text>
+  <rect class="box" x="55" y="258" width="295" height="115" rx="15"/>
+  <text class="h" x="82" y="297">统一部署平台</text>
+  <text class="t" x="82" y="331">用 provider 身份代应用取值</text>
+  <rect class="box" x="55" y="401" width="295" height="115" rx="15"/>
+  <text class="h" x="82" y="440">异构 VPS / 临时机器</text>
+  <text class="t" x="82" y="474">受信任系统发一次性 SecretID</text>
+  <rect class="main" x="445" y="205" width="300" height="185" rx="20"/>
+  <text x="495" y="255" class="w">OpenBao</text>
+  <text x="495" y="295" class="w" style="font:17px sans-serif">验证身份和绑定条件</text>
+  <text x="495" y="328" class="w" style="font:17px sans-serif">签发仅含目标 policy 的 token</text>
+  <text x="495" y="361" class="w" style="font:15px sans-serif;opacity:.8">例如 freshai-prod-read</text>
+  <rect class="box" x="840" y="230" width="305" height="145" rx="17"/>
+  <text class="h" x="870" y="272">应用 Agent / Provider</text>
+  <text class="t" x="870" y="307">取回获准的 secret 路径</text>
+  <text class="s" x="870" y="340">不继承其他应用的读取权限</text>
+  <path class="a" d="M350 172C390 172 392 237 445 237"/>
+  <path class="a" d="M350 315L445 300"/>
+  <path class="a" d="M350 458C390 458 392 359 445 359"/>
+  <path class="a" d="M745 297L840 297"/>
+  <text class="s" x="358" y="144">平台身份</text>
+  <text class="s" x="370" y="293">平台授权</text>
+  <text class="s" x="356" y="437">短时引导材料</text>
+  <text x="55" y="548" class="s">关键控制点：谁可以创建实例、签发身份、绑定应用和环境，以及如何撤销失效实例。</text>
+</svg>

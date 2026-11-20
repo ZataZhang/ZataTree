@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+  <title id="title">可替换能力的三个角色</title>
+  <desc id="desc">能力定义连接提供者和消费者，不同提供者可以实现同一接口，下游消费者通过契约使用。</desc>
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#0B1220"/><stop offset="1" stop-color="#15233A"/></linearGradient><pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#7890B2" opacity=".22"/></pattern></defs>
+  <rect width="1200" height="560" rx="28" fill="url(#bg)"/><rect width="1200" height="560" rx="28" fill="url(#grid)"/>
+  <text x="60" y="64" fill="#F8FAFC" font-family="sans-serif" font-size="28" font-weight="700">Capability seam：定义、提供者、消费者</text>
+  <text x="60" y="96" fill="#9FB3D1" font-family="sans-serif" font-size="16">替换实现时保持契约不变，让下游能力沿同一执行边界迁移</text>
+  <rect x="60" y="177" width="270" height="164" rx="18" fill="#172A40" stroke="#5B87BF" stroke-width="2"/>
+  <text x="90" y="220" fill="#7DD3FC" font-family="sans-serif" font-size="16">1 · Service Definition</text><text x="90" y="260" fill="#F8FAFC" font-family="sans-serif" font-size="24" font-weight="700">ctx.subprocess</text><text x="90" y="294" fill="#A7BCD7" font-family="sans-serif" font-size="15">约定启动、取消、输出</text><text x="90" y="320" fill="#A7BCD7" font-family="sans-serif" font-size="15">和错误如何表达</text>
+  <path d="M332 259h76" stroke="#82A9D8" stroke-width="3"/><path d="m400 251 12 8-12 8" fill="none" stroke="#82A9D8" stroke-width="3"/>
+  <rect x="420" y="150" width="340" height="91" rx="16" fill="#172A40" stroke="#22D3EE" stroke-width="2"/>
+  <text x="450" y="187" fill="#67E8F9" font-family="sans-serif" font-size="16">2 · Provider A</text><text x="450" y="220" fill="#F8FAFC" font-family="sans-serif" font-size="21" font-weight="700">本地子进程实现</text>
+  <rect x="420" y="278" width="340" height="91" rx="16" fill="#172A40" stroke="#A78BFA" stroke-width="2"/>
+  <text x="450" y="315" fill="#C4B5FD" font-family="sans-serif" font-size="16">2 · Provider B</text><text x="450" y="348" fill="#F8FAFC" font-family="sans-serif" font-size="21" font-weight="700">远程沙箱实现</text>
+  <path d="M762 195h50v64h47M762 323h50v-64h47" fill="none" stroke="#82A9D8" stroke-width="3"/><path d="m851 251 12 8-12 8" fill="none" stroke="#82A9D8" stroke-width="3"/>
+  <rect x="875" y="177" width="265" height="164" rx="18" fill="#172A40" stroke="#FBBF24" stroke-width="2"/>
+  <text x="905" y="220" fill="#FDE68A" font-family="sans-serif" font-size="16">3 · Consumers</text><text x="905" y="260" fill="#F8FAFC" font-family="sans-serif" font-size="21" font-weight="700">Bash · PTY · LSP</text><text x="905" y="294" fill="#A7BCD7" font-family="sans-serif" font-size="15">共同依赖执行契约</text><text x="905" y="320" fill="#A7BCD7" font-family="sans-serif" font-size="15">切换提供者即可迁移后端</text>
+  <rect x="235" y="421" width="730" height="54" rx="16" fill="#101B2B" stroke="#385071"/>
+  <text x="274" y="455" fill="#F8FAFC" font-family="sans-serif" font-size="17">更换 Provider：调用者不直接依赖本地实现或远程实现</text>
+  <text x="60" y="516" fill="#A7BCD7" font-family="sans-serif" font-size="15">这是 DSH 文档描述的扩展原则；每种能力仍需要自己的接口与生命周期设计。</text>
+</svg>

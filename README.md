@@ -148,7 +148,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 按 `content/post/` 的实际目录结构生成，括号内为该分类的文章数。**本段由 `python3 tools/readme_index.py` 自动生成，请勿手工编辑** —— 增删文章后重新运行该脚本即可。
 
 <!-- BEGIN:CONTENT-INDEX -->
-## Agent 工程 (51)
+## Agent 工程 (53)
 
 ### 01-入门与全景
 
@@ -164,6 +164,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [AI Agent Loop 工程：原理、模式与实现](content/post/Agent%20工程/02-框架与运行时/AI%20Agent%20Loop%20工程：原理、模式与实现/)
 - [Agent 用户记忆与 Skill 沉淀：开源项目参考与架构设计](content/post/Agent%20工程/02-框架与运行时/Agent%20用户记忆与%20Skill%20沉淀：开源项目参考与架构设计/)
 - [Agent 自进化开源盘点：什么能跑，什么在腐烂，什么被门控救回来](content/post/Agent%20工程/02-框架与运行时/Agent%20自进化开源盘点：什么能跑什么在腐烂/)
+- [DeepSeek Harness 的插件架构：把 Agent 运行时拆成可替换的能力](content/post/Agent%20工程/02-框架与运行时/DeepSeek%20Harness%20的插件架构：把%20Agent%20运行时拆成可替换的能力/)
 - [Gliding Horse Agent OS 介绍：Rust 构建的工业级 AI Agent 操作系统](content/post/Agent%20工程/02-框架与运行时/Gliding%20Horse%20Agent%20OS%20介绍/)
 - [JitRL：不训参数也能边用边学，前提是有人告诉它这局成没成](content/post/Agent%20工程/02-框架与运行时/JitRL：不训一个参数，把策略改进搬到推理那一刻/)
 - [MASS：多智能体系统的提示词与拓扑如何协同优化](content/post/Agent%20工程/02-框架与运行时/MASS：多智能体系统的提示词与拓扑如何协同优化/)
@@ -218,6 +219,10 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [n8n](content/post/Agent%20工程/06-应用与集成/n8n/)
 - [nl2sql](content/post/Agent%20工程/06-应用与集成/nl2sql/)
 - [openclaw](content/post/Agent%20工程/06-应用与集成/openclaw/)
+
+### Agent 工程实战
+
+- [CLI 随包的 Agent Skill 写多长：规范、经验与实用模板](content/post/Agent%20工程/Agent%20工程实战/CLI%20随包的%20Agent%20Skill%20写多长：规范、经验与实用模板/)
 
 ## RAG 与 LangChain (18)
 
@@ -297,7 +302,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [flutter_tutorial](content/post/Web%20开发/04-前端与跨端/flutter_tutorial/)
 - [Refine: 当 API 即界面，CRUD 不再是体力活](content/post/Web%20开发/04-前端与跨端/refine-meta-framework/)
 
-## 工程实践 (20)
+## 工程实践 (21)
 
 ### 01-可观测性
 
@@ -321,6 +326,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [Keycloak 接入手机号和邮箱验证码登录的三个坑：看不见、搜不到、发不出](content/post/工程实践/03-DevOps%20与平台/Keycloak%20接入手机号和邮箱验证码登录的三个坑/)
 - [Woodpecker CI 使用教程](content/post/工程实践/03-DevOps%20与平台/Woodpecker-CI使用教程/)
 - [企业AI工具平台架构设计：拥抱快速变化的AI生态](content/post/工程实践/03-DevOps%20与平台/ai-platform-architecture/)
+- [应用和机器都不固定，如何用 OpenBao 管理密钥](content/post/工程实践/03-DevOps%20与平台/应用和机器都不固定，如何用%20OpenBao%20管理密钥/)
 - [开发问题与解法笔记](content/post/工程实践/03-DevOps%20与平台/开发问题与解法笔记/)
 - [示例应用接入 Keycloak：共享身份，不共享应用会话](content/post/工程实践/03-DevOps%20与平台/示例应用接入%20Keycloak%20单点登录实战/)
 - [给应用管理后台接入 Keycloak：只认身份，先在测试 Realm 试](content/post/工程实践/03-DevOps%20与平台/给应用管理后台接入%20Keycloak：只认身份，先在测试%20Realm%20试/)
@@ -422,7 +428,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [sklearn使用教程](content/post/数据科学/03-建模与部署/sklearn使用教程/)
 - [torch使用教程-zata——v0.0.0](content/post/数据科学/03-建模与部署/torch使用教程_Zata_v0.0.0/)
 
-## 构建与打包 (10)
+## 构建与打包 (11)
 
 ### 01-依赖与环境管理
 
@@ -439,6 +445,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [Pyinstaller-打包gradio项目](content/post/构建与打包/02-打包发布/Pyinstaller-打包gradio项目/)
 - [python程序打包exe使用教程](content/post/构建与打包/02-打包发布/PythonGUI-打包成exe/)
 - [setuptools-打包python项目为egg / 安装库函数](content/post/构建与打包/02-打包发布/setuptools-打包python项目为egg/)
+- [给 KedaCode 申请免费的 Windows 代码签名](content/post/构建与打包/02-打包发布/给%20KedaCode%20申请免费的%20Windows%20代码签名/)
 
 ## 深度学习 (24)
 

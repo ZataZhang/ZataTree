@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-label="通过触发、执行和结果评估 Skill 的迭代过程">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0B1220"/><stop offset="1" stop-color="#111C32"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5B87BF"/><stop offset="1" stop-color="#8B5CF6"/></linearGradient>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" fill="#26324A"/></pattern>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#6D8FC1"/></marker>
+  </defs>
+  <rect width="1200" height="520" rx="26" fill="url(#bg)"/>
+  <rect width="1200" height="520" rx="26" fill="url(#dots)" opacity=".42"/>
+  <rect x="0" y="0" width="8" height="520" rx="4" fill="url(#accent)"/>
+  <text x="58" y="64" fill="#F8FAFC" font-family="sans-serif" font-size="31" font-weight="700">评估长度：删一段，重跑同一组任务</text>
+  <text x="60" y="98" fill="#9FB3D1" font-family="sans-serif" font-size="17">每轮同时检查是否触发、命令是否正确、结果是否可验证</text>
+  <rect x="54" y="150" width="320" height="235" rx="18" fill="#111C32" stroke="#5B87BF" stroke-width="2"/>
+  <rect x="54" y="150" width="320" height="7" rx="3.5" fill="#5B87BF"/>
+  <text x="82" y="194" fill="#82B7F4" font-family="sans-serif" font-size="14" font-weight="700" letter-spacing="1.2">01 · ROUTING</text>
+  <text x="82" y="237" fill="#F8FAFC" font-family="sans-serif" font-size="24" font-weight="700">Skill 选对了吗？</text>
+  <text x="82" y="280" fill="#9FB3D1" font-family="sans-serif" font-size="16">常见请求能触发</text>
+  <text x="82" y="310" fill="#9FB3D1" font-family="sans-serif" font-size="16">相邻但不相关的请求不触发</text>
+  <text x="82" y="354" fill="#647A9B" font-family="sans-serif" font-size="14">正向样例 + 负向控制</text>
+  <line x1="384" y1="268" x2="425" y2="268" stroke="#6D8FC1" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="440" y="150" width="320" height="235" rx="18" fill="#111C32" stroke="#8B5CF6" stroke-width="2"/>
+  <rect x="440" y="150" width="320" height="7" rx="3.5" fill="#8B5CF6"/>
+  <text x="468" y="194" fill="#C4B5FD" font-family="sans-serif" font-size="14" font-weight="700" letter-spacing="1.2">02 · EXECUTION</text>
+  <text x="468" y="237" fill="#F8FAFC" font-family="sans-serif" font-size="24" font-weight="700">命令走对了吗？</text>
+  <text x="468" y="280" fill="#9FB3D1" font-family="sans-serif" font-size="16">版本、鉴权、参数和分支</text>
+  <text x="468" y="310" fill="#9FB3D1" font-family="sans-serif" font-size="16">失败后采取正确恢复动作</text>
+  <text x="468" y="354" fill="#647A9B" font-family="sans-serif" font-size="14">真实 CLI + 可控测试环境</text>
+  <line x1="770" y1="268" x2="811" y2="268" stroke="#6D8FC1" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="825" y="150" width="320" height="235" rx="18" fill="#111C32" stroke="#22D3EE" stroke-width="2"/>
+  <rect x="825" y="150" width="320" height="7" rx="3.5" fill="#22D3EE"/>
+  <text x="853" y="194" fill="#6EE7F3" font-family="sans-serif" font-size="14" font-weight="700" letter-spacing="1.2">03 · OUTCOME</text>
+  <text x="853" y="237" fill="#F8FAFC" font-family="sans-serif" font-size="24" font-weight="700">结果核实了吗？</text>
+  <text x="853" y="280" fill="#9FB3D1" font-family="sans-serif" font-size="16">读取成功字段和最终状态</text>
+  <text x="853" y="310" fill="#9FB3D1" font-family="sans-serif" font-size="16">不重复制造远端副作用</text>
+  <text x="853" y="354" fill="#647A9B" font-family="sans-serif" font-size="14">记录任务成功和 tokens</text>
+  <path d="M985 405 C985 435 215 435 215 405" fill="none" stroke="#6D8FC1" stroke-width="2.5" stroke-dasharray="7 7" marker-end="url(#arrow)"/>
+  <text x="420" y="468" fill="#CBD5E1" font-family="sans-serif" font-size="16">删减或拆分后，使用同一组用例再次比较</text>
+</svg>

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-label="CLI Skill、帮助、引用文档和脚本的职责分工">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0B1220"/><stop offset="1" stop-color="#111C32"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5B87BF"/><stop offset="1" stop-color="#22D3EE"/></linearGradient>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" fill="#26324A"/></pattern>
+  </defs>
+  <rect width="1200" height="520" rx="26" fill="url(#bg)"/>
+  <rect width="1200" height="520" rx="26" fill="url(#dots)" opacity=".42"/>
+  <rect x="0" y="0" width="8" height="520" rx="4" fill="url(#accent)"/>
+  <text x="58" y="64" fill="#F8FAFC" font-family="sans-serif" font-size="31" font-weight="700">同一个 CLI，四类材料，四种职责</text>
+  <text x="60" y="98" fill="#9FB3D1" font-family="sans-serif" font-size="17">把流程放在入口，把细节交给最合适的载体</text>
+  <rect x="54" y="140" width="260" height="256" rx="18" fill="#111C32" stroke="#5B87BF" stroke-width="2"/>
+  <rect x="54" y="140" width="260" height="7" rx="3.5" fill="#5B87BF"/>
+  <text x="78" y="184" fill="#82B7F4" font-family="sans-serif" font-size="14" font-weight="700" letter-spacing="1.2">WORKFLOW</text>
+  <text x="78" y="222" fill="#F8FAFC" font-family="sans-serif" font-size="23" font-weight="700">SKILL.md</text>
+  <text x="78" y="260" fill="#D9E4F3" font-family="sans-serif" font-size="17">何时调用、怎么做</text>
+  <text x="78" y="304" fill="#9FB3D1" font-family="sans-serif" font-size="15">· 识别目标</text>
+  <text x="78" y="332" fill="#9FB3D1" font-family="sans-serif" font-size="15">· 选择流程</text>
+  <text x="78" y="360" fill="#9FB3D1" font-family="sans-serif" font-size="15">· 检查结果</text>
+  <rect x="333" y="140" width="260" height="256" rx="18" fill="#111C32" stroke="#8B5CF6" stroke-width="2"/>
+  <rect x="333" y="140" width="260" height="7" rx="3.5" fill="#8B5CF6"/>
+  <text x="357" y="184" fill="#C4B5FD" font-family="sans-serif" font-size="14" font-weight="700" letter-spacing="1.2">CURRENT CONTRACT</text>
+  <text x="357" y="222" fill="#F8FAFC" font-family="sans-serif" font-size="23" font-weight="700">CLI --help</text>
+  <text x="357" y="260" fill="#D9E4F3" font-family="sans-serif" font-size="17">当前版本怎么调用</text>
+  <text x="357" y="304" fill="#9FB3D1" font-family="sans-serif" font-size="15">· 子命令和参数</text>
+  <text x="357" y="332" fill="#9FB3D1" font-family="sans-serif" font-size="15">· 默认值和选项</text>
+  <text x="357" y="360" fill="#9FB3D1" font-family="sans-serif" font-size="15">· 简短命令示例</text>
+  <rect x="612" y="140" width="260" height="256" rx="18" fill="#111C32" stroke="#22D3EE" stroke-width="2"/>
+  <rect x="612" y="140" width="260" height="7" rx="3.5" fill="#22D3EE"/>
+  <text x="636" y="184" fill="#6EE7F3" font-family="sans-serif" font-size="14" font-weight="700" letter-spacing="1.2">ON-DEMAND DETAIL</text>
+  <text x="636" y="222" fill="#F8FAFC" font-family="sans-serif" font-size="23" font-weight="700">references/</text>
+  <text x="636" y="260" fill="#D9E4F3" font-family="sans-serif" font-size="17">少见分支的长资料</text>
+  <text x="636" y="304" fill="#9FB3D1" font-family="sans-serif" font-size="15">· API schema</text>
+  <text x="636" y="332" fill="#9FB3D1" font-family="sans-serif" font-size="15">· 错误码和平台差异</text>
+  <text x="636" y="360" fill="#9FB3D1" font-family="sans-serif" font-size="15">· 不常用的子命令</text>
+  <rect x="891" y="140" width="254" height="256" rx="18" fill="#111C32" stroke="#34D399" stroke-width="2"/>
+  <rect x="891" y="140" width="254" height="7" rx="3.5" fill="#34D399"/>
+  <text x="915" y="184" fill="#6EE7B7" font-family="sans-serif" font-size="14" font-weight="700" letter-spacing="1.2">DETERMINISTIC</text>
+  <text x="915" y="222" fill="#F8FAFC" font-family="sans-serif" font-size="23" font-weight="700">scripts/</text>
+  <text x="915" y="260" fill="#D9E4F3" font-family="sans-serif" font-size="17">交给程序稳定完成</text>
+  <text x="915" y="304" fill="#9FB3D1" font-family="sans-serif" font-size="15">· 校验</text>
+  <text x="915" y="332" fill="#9FB3D1" font-family="sans-serif" font-size="15">· 转换</text>
+  <text x="915" y="360" fill="#9FB3D1" font-family="sans-serif" font-size="15">· 重复计算</text>
+  <rect x="54" y="432" width="1091" height="1" fill="#273650"/>
+  <text x="60" y="472" fill="#CBD5E1" font-family="sans-serif" font-size="18">避免把 --help、API 手册和所有特殊场景整本复制进 SKILL.md。</text>
+</svg>

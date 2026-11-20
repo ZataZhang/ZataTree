@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="570" viewBox="0 0 1200 570" role="img" aria-labelledby="title desc">
+  <title id="title">人工读取和应用密钥轮换分开管理</title>
+  <desc id="desc">人工通过 OIDC 和临时只读策略查看 secret，访问写审计；应用通过独立身份读取；轮换流程从上游签发新值开始，经 OpenBao 更新、应用刷新、验证后撤销旧值。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#547FAF"/></marker>
+    <style>
+      .bg{fill:#F5F8FC}.box{fill:#fff;stroke:#C9D7E8;stroke-width:2}.dark{fill:#10233D;stroke:#5B87BF;stroke-width:3}.h{font:700 21px sans-serif;fill:#17304E}.t{font:17px sans-serif;fill:#40566F}.w{fill:#F8FAFC;font:700 23px sans-serif}.s{font:15px sans-serif;fill:#60758C}.a{stroke:#547FAF;stroke-width:3;fill:none;marker-end:url(#arrow)}.green{stroke:#4C9B7A;stroke-width:3;fill:none;marker-end:url(#arrow)}.dash{stroke:#91A6BE;stroke-width:2;stroke-dasharray:7 7;fill:none}
+    </style>
+  </defs>
+  <rect class="bg" width="1200" height="570" rx="20"/>
+  <text x="55" y="57" class="h" style="font-size:27px">人能按权读取，应用按身份取值，轮换要走完整闭环</text>
+  <rect class="box" x="55" y="118" width="270" height="120" rx="16"/>
+  <text class="h" x="84" y="160">人工值班人员</text>
+  <text class="t" x="84" y="195">OIDC + 临时只读 policy</text>
+  <rect class="box" x="55" y="310" width="270" height="120" rx="16"/>
+  <text class="h" x="84" y="352">应用工作负载</text>
+  <text class="t" x="84" y="387">独立机器身份 + app policy</text>
+  <rect class="dark" x="450" y="180" width="290" height="185" rx="20"/>
+  <text x="500" y="230" class="w">OpenBao</text>
+  <text x="500" y="272" class="w" style="font:17px sans-serif">策略控制读取范围</text>
+  <text x="500" y="305" class="w" style="font:17px sans-serif">审计访问，保存新版本</text>
+  <text x="500" y="338" class="w" style="font:15px sans-serif;opacity:.8">并不自动刷新消费者</text>
+  <rect class="box" x="850" y="105" width="285" height="100" rx="15"/>
+  <text class="h" x="878" y="145">上游服务签发新 key</text>
+  <text class="s" x="878" y="177">旧值暂时保持有效</text>
+  <rect class="box" x="850" y="250" width="285" height="100" rx="15"/>
+  <text class="h" x="878" y="290">应用取新值并验证</text>
+  <text class="s" x="878" y="322">部署重拉或 Agent 刷新</text>
+  <rect class="box" x="850" y="395" width="285" height="100" rx="15"/>
+  <text class="h" x="878" y="435">确认后撤销旧 key</text>
+  <text class="s" x="878" y="467">记录时间、范围和结果</text>
+  <path class="a" d="M325 178C378 178 392 220 450 220"/>
+  <path class="a" d="M325 370C382 370 390 325 450 325"/>
+  <path class="green" d="M740 218C796 218 800 155 850 155"/>
+  <path class="green" d="M992 205L992 250"/>
+  <path class="green" d="M992 350L992 395"/>
+  <text class="s" x="354" y="155">读取并留审计</text>
+  <text class="s" x="350" y="399">只读自己的路径</text>
+  <text class="s" x="55" y="540">静态 KV 更新只是轮换流程的中点；上游签发和消费者刷新同样不可省略。</text>
+</svg>

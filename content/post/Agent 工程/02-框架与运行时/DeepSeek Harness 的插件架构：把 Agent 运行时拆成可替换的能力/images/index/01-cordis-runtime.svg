@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+  <title id="title">Cordis 插件运行时</title>
+  <desc id="desc">多个插件挂载到共享 Context，通过服务和事件协作，插件注册的 effect 随卸载撤销。</desc>
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#0B1220"/><stop offset="1" stop-color="#15233A"/></linearGradient><pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#7890B2" opacity=".22"/></pattern></defs>
+  <rect width="1200" height="560" rx="28" fill="url(#bg)"/><rect width="1200" height="560" rx="28" fill="url(#grid)"/>
+  <text x="60" y="64" fill="#F8FAFC" font-family="sans-serif" font-size="28" font-weight="700">Cordis：用共享 Context 连接运行时插件</text>
+  <text x="60" y="96" fill="#9FB3D1" font-family="sans-serif" font-size="16">插件提供服务、监听事件，并把注册行为绑定到自己的生命周期</text>
+  <rect x="60" y="140" width="1080" height="300" rx="20" fill="#101B2B" stroke="#385071" stroke-width="2"/>
+  <text x="88" y="178" fill="#7DD3FC" font-family="sans-serif" font-size="18" font-weight="700">共享 Context · ctx</text>
+  <rect x="100" y="214" width="290" height="136" rx="16" fill="#172A40" stroke="#5B87BF" stroke-width="2"/>
+  <text x="128" y="250" fill="#F8FAFC" font-family="sans-serif" font-size="20" font-weight="700">模型插件</text>
+  <text x="128" y="282" fill="#C7D6E8" font-family="sans-serif" font-size="16">ctx.llm · Provider</text>
+  <text x="128" y="312" fill="#9FB3D1" font-family="sans-serif" font-size="14">声明依赖 · 提供模型适配</text>
+  <rect x="455" y="214" width="290" height="136" rx="16" fill="#172A40" stroke="#22D3EE" stroke-width="2"/>
+  <text x="483" y="250" fill="#F8FAFC" font-family="sans-serif" font-size="20" font-weight="700">Agent 与工具插件</text>
+  <text x="483" y="282" fill="#C7D6E8" font-family="sans-serif" font-size="16">ctx.agents · ctx.tools</text>
+  <text x="483" y="312" fill="#9FB3D1" font-family="sans-serif" font-size="14">发布事件 · 注册可见能力</text>
+  <rect x="810" y="214" width="290" height="136" rx="16" fill="#172A40" stroke="#A78BFA" stroke-width="2"/>
+  <text x="838" y="250" fill="#F8FAFC" font-family="sans-serif" font-size="20" font-weight="700">会话与 UI 插件</text>
+  <text x="838" y="282" fill="#C7D6E8" font-family="sans-serif" font-size="16">ctx.sessions · Client slots</text>
+  <text x="838" y="312" fill="#9FB3D1" font-family="sans-serif" font-size="14">持久化事实 · 浏览器界面</text>
+  <path d="M390 278h65M745 278h65" stroke="#82A9D8" stroke-width="3"/><path d="m446 270 12 8-12 8M801 270l12 8-12 8" fill="none" stroke="#82A9D8" stroke-width="3"/>
+  <rect x="88" y="376" width="1024" height="44" rx="12" fill="#0B1220" stroke="#3B506D"/>
+  <text x="112" y="404" fill="#F8FAFC" font-family="sans-serif" font-size="16">Lifecycle effect：mount 注册 → 正常运行 → unload 撤销 Context 管理的监听、工具和服务</text>
+  <text x="60" y="496" fill="#A7BCD7" font-family="sans-serif" font-size="15">插件通过接口协作；具体实现可以替换，注册行为跟随插件生命周期。</text>
+</svg>

@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-label="Agent Skill 的渐进式披露：元数据、主流程、按需资料">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0B1220"/><stop offset="1" stop-color="#111C32"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5B87BF"/><stop offset="1" stop-color="#8B5CF6"/></linearGradient>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" fill="#26324A"/></pattern>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#6D8FC1"/></marker>
+  </defs>
+  <rect width="1200" height="520" rx="26" fill="url(#bg)"/>
+  <rect width="1200" height="520" rx="26" fill="url(#dots)" opacity=".42"/>
+  <rect x="0" y="0" width="8" height="520" rx="4" fill="url(#accent)"/>
+  <text x="58" y="64" fill="#F8FAFC" font-family="sans-serif" font-size="32" font-weight="700">一个 Skill，三层加载</text>
+  <text x="60" y="98" fill="#9FB3D1" font-family="sans-serif" font-size="17">上下文从发现信息开始，只在需要时扩展到流程和资料</text>
+  <rect x="54" y="145" width="300" height="252" rx="18" fill="#111C32" stroke="#38506F" stroke-width="2"/>
+  <rect x="54" y="145" width="300" height="7" rx="3.5" fill="#5B87BF"/>
+  <text x="80" y="190" fill="#82B7F4" font-family="sans-serif" font-size="14" font-weight="700" letter-spacing="1.4">01 · DISCOVERY</text>
+  <text x="80" y="232" fill="#F8FAFC" font-family="sans-serif" font-size="25" font-weight="700">发现层</text>
+  <text x="80" y="270" fill="#D9E4F3" font-family="sans-serif" font-size="18">name + description</text>
+  <text x="80" y="312" fill="#9FB3D1" font-family="sans-serif" font-size="16">Agent 知道 Skill 存在，</text>
+  <text x="80" y="338" fill="#9FB3D1" font-family="sans-serif" font-size="16">并判断请求是否匹配。</text>
+  <text x="80" y="374" fill="#647A9B" font-family="sans-serif" font-size="14">通常随已安装 Skill 一起发现</text>
+  <line x1="369" y1="270" x2="421" y2="270" stroke="#6D8FC1" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="435" y="145" width="330" height="252" rx="18" fill="#111C32" stroke="#4C6F9B" stroke-width="2"/>
+  <rect x="435" y="145" width="330" height="7" rx="3.5" fill="#7C9CF5"/>
+  <text x="461" y="190" fill="#A9B9FF" font-family="sans-serif" font-size="14" font-weight="700" letter-spacing="1.4">02 · INSTRUCTIONS</text>
+  <text x="461" y="232" fill="#F8FAFC" font-family="sans-serif" font-size="25" font-weight="700">流程层</text>
+  <text x="461" y="270" fill="#D9E4F3" font-family="sans-serif" font-size="18">SKILL.md 正文</text>
+  <text x="461" y="312" fill="#9FB3D1" font-family="sans-serif" font-size="16">命中后加载主流程、</text>
+  <text x="461" y="338" fill="#9FB3D1" font-family="sans-serif" font-size="16">分支和安全边界。</text>
+  <text x="461" y="374" fill="#647A9B" font-family="sans-serif" font-size="14">整个正文进入当前任务上下文</text>
+  <line x1="779" y1="270" x2="821" y2="270" stroke="#6D8FC1" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="835" y="145" width="310" height="252" rx="18" fill="#111C32" stroke="#4C6F9B" stroke-width="2"/>
+  <rect x="835" y="145" width="310" height="7" rx="3.5" fill="#22D3EE"/>
+  <text x="861" y="190" fill="#6EE7F3" font-family="sans-serif" font-size="14" font-weight="700" letter-spacing="1.4">03 · RESOURCES</text>
+  <text x="861" y="232" fill="#F8FAFC" font-family="sans-serif" font-size="25" font-weight="700">资料层</text>
+  <text x="861" y="270" fill="#D9E4F3" font-family="sans-serif" font-size="18">references/ · scripts/</text>
+  <text x="861" y="312" fill="#9FB3D1" font-family="sans-serif" font-size="16">更细的说明按需读取；</text>
+  <text x="861" y="338" fill="#9FB3D1" font-family="sans-serif" font-size="16">确定性操作交给脚本。</text>
+  <text x="861" y="374" fill="#647A9B" font-family="sans-serif" font-size="14">不需要的文件不占本次上下文</text>
+  <rect x="54" y="432" width="1091" height="1" fill="#273650"/>
+  <text x="60" y="472" fill="#CBD5E1" font-family="sans-serif" font-size="18">渐进式披露的目标：只把当前任务需要的指导加载进来。</text>
+</svg>
