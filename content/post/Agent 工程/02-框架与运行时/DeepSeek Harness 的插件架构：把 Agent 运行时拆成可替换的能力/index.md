@@ -2,6 +2,7 @@
 title: "DeepSeek Harness 的插件架构：把 Agent 运行时拆成可替换的能力"
 description: "从 Cordis、服务与事件、配置组合、工具调用到 Host/Client 插件，拆解 DeepSeek Harness 的 Everything is a Plugin，并分析它的边界、成本与安全模型。"
 date: 2026-11-20T10:00:00+08:00
+weight: 111
 slug: "deepseek-harness-plugin-architecture"
 image: images/index/index.svg
 categories:

@@ -179,6 +179,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [Agent 内容输出规范：本地给路径，远程给协议](content/post/Agent%20工程/03-工程化实践/Agent%20内容输出规范：本地给路径，远程给协议/)
 - [Agent 工具没调用，先查模型到底能看见什么](content/post/Agent%20工程/03-工程化实践/Agent%20工具没调用：一次真实链路验收的三层误判/)
 - [Agent 流程中断了怎么办：先分清谁断的，再问做完没有](content/post/Agent%20工程/03-工程化实践/Agent%20流程中断了怎么办：先分清谁断的，再问做完没有/)
+- [CLI 随包的 Agent Skill 写多长：规范、经验与实用模板](content/post/Agent%20工程/03-工程化实践/CLI%20随包的%20Agent%20Skill%20写多长：规范、经验与实用模板/)
 - [Coding Agent 评测体系：公开基准怎么读，自己那套怎么搭](content/post/Agent%20工程/03-工程化实践/Coding%20Agent%20评测体系：公开基准怎么读，自己那套怎么搭/)
 - [MCP 与 CLI 区别：Agent 工具接入怎么选](content/post/Agent%20工程/03-工程化实践/MCP%20与%20CLI%20区别：Agent%20工具接入怎么选/)
 - [${VAR} 是谁的环境变量：一条只写不读的凭据带走平台密钥](content/post/Agent%20工程/03-工程化实践/MCP%20环境变量展开：一条只写不读的凭据带走平台密钥/)
@@ -220,10 +221,6 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [n8n](content/post/Agent%20工程/06-应用与集成/n8n/)
 - [nl2sql](content/post/Agent%20工程/06-应用与集成/nl2sql/)
 - [openclaw](content/post/Agent%20工程/06-应用与集成/openclaw/)
-
-### Agent 工程实战
-
-- [CLI 随包的 Agent Skill 写多长：规范、经验与实用模板](content/post/Agent%20工程/Agent%20工程实战/CLI%20随包的%20Agent%20Skill%20写多长：规范、经验与实用模板/)
 
 ## RAG 与 LangChain (18)
 

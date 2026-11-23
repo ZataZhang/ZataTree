@@ -2,6 +2,7 @@
 title: 'CLI 随包的 Agent Skill 写多长：规范、经验与实用模板'
 description: 'Agent Skills 规范没有规定 SKILL.md 正文的统一字数。本文对照 Anthropic、OpenAI、GitHub Copilot 的官方指南和公开研究，拆分硬约束、平台建议与经验预算，并给出 CLI 随包 Skill 的内容结构和验证方法。'
 date: 2026-11-20T15:00:00+08:00
+weight: 111
 slug: cli-bundled-agent-skill-length
 image: images/index/index.svg
 categories:
