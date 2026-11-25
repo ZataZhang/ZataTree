@@ -9,7 +9,7 @@ categories:
 tags:
     - 前端与跨端
     - React
-draft: true
+draft: false
 ---
 
 在 FreshAI 的聊天输入框里粘贴截图，最初只会出现一个叫 `image.png` 的附件条。它能确认文件进了列表。连续截两次图，就很难判断哪张才是要发的。Excel 也有类似的问题，尤其是同一份文件里同时有「历史询价」和「运价快照」两张表时。
