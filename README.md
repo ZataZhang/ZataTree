@@ -269,7 +269,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [下拉框里显示 _all：Base UI 与 Radix Select 的一个行为差异](content/post/Vibe%20Coding/02-实战与调试/Base%20UI%20Select%20显示%20_all%20的坑/)
 - [用 AI 打造惊艳前端：从 Vibe Coding 到实战的艺术指南](content/post/Vibe%20Coding/02-实战与调试/art-of-ai-frontend-design/)
 
-## Web 开发 (17)
+## Web 开发 (18)
 
 ### 01-FastAPI
 
@@ -299,6 +299,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [React框架使用教程](content/post/Web%20开发/04-前端与跨端/React框架使用教程/)
 - [flutter_tutorial](content/post/Web%20开发/04-前端与跨端/flutter_tutorial/)
 - [Refine: 当 API 即界面，CRUD 不再是体力活](content/post/Web%20开发/04-前端与跨端/refine-meta-framework/)
+- [聊天附件的发送前预览](content/post/Web%20开发/04-前端与跨端/聊天附件的发送前预览/)
 
 ## 工程实践 (21)
 
