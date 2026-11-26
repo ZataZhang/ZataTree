@@ -301,7 +301,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [Refine: 当 API 即界面，CRUD 不再是体力活](content/post/Web%20开发/04-前端与跨端/refine-meta-framework/)
 - [聊天附件的发送前预览](content/post/Web%20开发/04-前端与跨端/聊天附件的发送前预览/)
 
-## 工程实践 (21)
+## 工程实践 (22)
 
 ### 01-可观测性
 
@@ -323,6 +323,7 @@ pyinstaller --onefile --console --name=zata --clean zata.py
 - [给 Keycloak 加了验证码登录之后：未验证邮箱、自带注册页和联系方式绑定](content/post/工程实践/03-DevOps%20与平台/Keycloak%20加验证码登录后要补的账号安全/)
 - [Keycloak 多应用权限怎么设计：账号、角色和管理员边界](content/post/工程实践/03-DevOps%20与平台/Keycloak%20多应用权限怎么设计：账号、角色和管理员边界/)
 - [Keycloak 接入手机号和邮箱验证码登录的三个坑：看不见、搜不到、发不出](content/post/工程实践/03-DevOps%20与平台/Keycloak%20接入手机号和邮箱验证码登录的三个坑/)
+- [Nacos 与 OpenBao 结合使用：配置和密钥怎么分、怎么连、怎么轮换](content/post/工程实践/03-DevOps%20与平台/Nacos%20与%20OpenBao%20结合使用：配置和密钥怎么分、怎么连、怎么轮换/)
 - [Woodpecker CI 使用教程](content/post/工程实践/03-DevOps%20与平台/Woodpecker-CI使用教程/)
 - [企业AI工具平台架构设计：拥抱快速变化的AI生态](content/post/工程实践/03-DevOps%20与平台/ai-platform-architecture/)
 - [应用和机器都不固定，如何用 OpenBao 管理密钥](content/post/工程实践/03-DevOps%20与平台/应用和机器都不固定，如何用%20OpenBao%20管理密钥/)

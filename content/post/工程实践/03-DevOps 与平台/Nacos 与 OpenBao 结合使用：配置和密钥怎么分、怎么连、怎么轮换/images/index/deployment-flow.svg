@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-labelledby="title description">
+  <title id="title">部署时取密钥，启动时读配置</title>
+  <desc id="description">OpenBao 的密钥交给 Dokploy Provider，发布平台生成受限环境文件并经 Compose 创建应用容器；应用使用专用只读账号取得 Nacos 普通配置。这是架构示意，不是运行证据。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10" fill="#9FB3D1"/></marker>
+  </defs>
+  <rect width="1200" height="560" rx="20" fill="#0B1220"/>
+  <g font-family="sans-serif">
+    <text x="46" y="61" fill="#F8FAFC" font-size="32" font-weight="700">部署时取密钥，启动时读配置</text>
+    <text x="46" y="96" fill="#9FB3D1" font-size="19">Dokploy Provider / Compose 模式 · 架构示意</text>
+    <rect x="40" y="160" width="290" height="130" rx="16" fill="#15243A" stroke="#719CD5" stroke-width="2"/>
+    <text x="62" y="198" fill="#A6C9FC" font-size="27" font-weight="700">OpenBao</text>
+    <text x="62" y="233" fill="#E2E8F0" font-size="20">业务密钥</text>
+    <text x="62" y="265" fill="#E2E8F0" font-size="20">Nacos 读取密码</text>
+    <path d="M334 225H431" stroke="#9FB3D1" stroke-width="3" marker-end="url(#arrow)"/>
+    <text x="380" y="145" fill="#9FB3D1" font-size="17" text-anchor="middle">精确路径只读</text>
+    <rect x="445" y="160" width="310" height="130" rx="16" fill="#25213D" stroke="#A899DE" stroke-width="2"/>
+    <text x="467" y="198" fill="#D4C7FC" font-size="27" font-weight="700">Dokploy Provider</text>
+    <text x="467" y="233" fill="#E2E8F0" font-size="20">专用发布身份</text>
+    <text x="467" y="265" fill="#E2E8F0" font-size="20">登记 Token 有效期</text>
+    <path d="M759 225H856" stroke="#9FB3D1" stroke-width="3" marker-end="url(#arrow)"/>
+    <text x="810" y="145" fill="#9FB3D1" font-size="17" text-anchor="middle">编码与转义</text>
+    <rect x="870" y="160" width="290" height="130" rx="16" fill="#25213D" stroke="#A899DE" stroke-width="2"/>
+    <text x="892" y="198" fill="#D4C7FC" font-size="27" font-weight="700">受限环境文件</text>
+    <text x="892" y="233" fill="#E2E8F0" font-size="20">按实际消费者限制权限</text>
+    <text x="892" y="265" fill="#E2E8F0" font-size="20">保留原始值与空值语义</text>
+    <path d="M1015 294V365" stroke="#9FB3D1" stroke-width="3" marker-end="url(#arrow)"/>
+    <text x="993" y="335" fill="#9FB3D1" font-size="17" text-anchor="end">Compose 创建容器</text>
+    <rect x="445" y="380" width="310" height="115" rx="16" fill="#10332F" stroke="#5EC4B1" stroke-width="2"/>
+    <text x="467" y="419" fill="#96E5D7" font-size="27" font-weight="700">Nacos</text>
+    <text x="467" y="455" fill="#E2E8F0" font-size="20">普通配置 · 专用只读账号</text>
+    <path d="M759 437H856" stroke="#9FB3D1" stroke-width="3" marker-end="url(#arrow)"/>
+    <text x="808" y="406" fill="#9FB3D1" font-size="17" text-anchor="middle">启动时读取</text>
+    <rect x="870" y="380" width="290" height="115" rx="16" fill="#15243A" stroke="#719CD5" stroke-width="2"/>
+    <text x="892" y="419" fill="#A6C9FC" font-size="27" font-weight="700">应用容器</text>
+    <text x="892" y="455" fill="#E2E8F0" font-size="20">装配有效配置并接收请求</text>
+    <text x="40" y="535" fill="#9FB3D1" font-size="18">OpenBao 中的值更新后，需要下一次发布重新取得；已有容器继续使用已注入的值。</text>
+  </g>
+</svg>
